@@ -1,47 +1,24 @@
-<script type="text/javascript">
-    <!--
-    var xmlHttp;
-    function srvTime() {
-        try {
-            //FF, Opera, Safari, Chrome
-            xmlHttp = new XMLHttpRequest();
-        }
-        catch (err1) {
-            //IE
-            try {
-                xmlHttp = new ActiveXObject('Msxml2.XMLHTTP');
-            }
-            catch (err2) {
-                try {
-                    xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
-                }
-                catch (eerr3) {
-                    //AJAX not supported, use CPU time.
-                    alert("AJAX not supported");
-                }
-            }
-        }
-        xmlHttp.open('HEAD', window.location.href.toString(), false);
-        xmlHttp.setRequestHeader("Content-Type", "text/html");
-        xmlHttp.send('');
-        return xmlHttp.getResponseHeader("Date");
-    }
-
-    var st = srvTime();
-    var date = new Date(st);
-    //-->
-</script>
-
+<!DOCTYPE HTML>
 <html>
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Server date/time</title>
-    <script language="javascript" src="serverDate.js"></script>
+    <meta charset="UTF-8">
+    <title>구이앤금우통신</title>
+
+    <%- include ('./part/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
 </head>
-<script language="javascript">
-    var localTime = new Date();
-    document.write("Local machine time is: " + localTime + "<br>");
-    document.write("Server time is: " + date);
-</script>
+
+<header>
+    <%- include ('./part/header.ejs') %>
+</header>
+
 <body>
+메인
 </body>
+
+</html>
+
+<script>
+
+</script>
