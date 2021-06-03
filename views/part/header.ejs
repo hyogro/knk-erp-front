@@ -1,2 +1,8 @@
-<meta charset="utf-8">
-<title>ejs example</title>
+<script>
+    const api = 'https://api.leescode.com/';
+
+    //로그인이 안되어있으면 로그인으로
+    if( $.cookie('token') == 'null') {
+        location.href = '/login';
+    }
+</script>
