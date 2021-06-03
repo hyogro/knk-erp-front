@@ -9,10 +9,6 @@
     <link rel="stylesheet" type="text/css" href="/css/login.css">
 </head>
 
-<header>
-    <%- include ('./part/header.ejs') %>
-</header>
-
 <body>
 <div class="login-card">
     <h1>구이앤금우통신</h1>
@@ -30,9 +26,12 @@
 </html>
 
 <script>
-    //이미 로그인된 상태
-    if( $.cookie('token') != 'null') {
-        location.href = '/';
+
+    const token = $.cookie("token");
+
+    // 이미 로그인된 상태
+    if(token !== undefined && token != "null") {
+        location.href = "/";
     }
 
     //로그인버튼
@@ -45,12 +44,12 @@
         // ajax 통신
         $.ajax({
             type: "POST",
-            url: api + 'account/login',
+            url: 'https://api.leescode.com/account/login',
             contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify(loginData),
             success: function (res) {
-                $.cookie('token', res.accessToken, {expires: 1, path: '/login'});
+                $.cookie('token', res.accessToken, { expires: 1, path: '/' });
                 $.cookie('id', loginData.memberId);
 
                 location.href = '/';
