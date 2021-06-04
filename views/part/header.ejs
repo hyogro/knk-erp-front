@@ -1,9 +1,22 @@
+<div style="background: lightgray;height: 4rem;">
+    <img src="/images/logo3.png" style="width: 4rem">
+    구이앤금우통신
+</div>
+
 <script>
-    const api = "https://api.leescode.com/";
     const token = $.cookie('token');
 
     // 로그인이 안되어있으면 로그인으로
     if (token === undefined || token == "null") {
         location.href = "/login";
     }
+
+
+    $('.child').hide();
+    $('.parent').children().click(function () {
+        event.preventDefault();
+        $(this).children('.child').slideToggle('slow');
+        $(this).find('span').toggle();
+    });
+
 </script>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>구이앤금우통신</title>
+    <title><%= title %></title>
 
     <%- include ('./part/head.ejs') %>
     <link rel="stylesheet" type="text/css" href="/css/login.css">
@@ -11,10 +11,10 @@
 
 <body>
 <div class="login-card">
-    <h1>구이앤금우통신</h1>
+    <img class="logo" src="/images/logo2.png">
 
-    <input type="text" id="memberId" placeholder="아이디">
-    <input type="password" id="password" placeholder="비밀번호">
+    <input type="text" id="id" placeholder="아이디" onkeyup="enterKey();">
+    <input type="password" id="password" placeholder="비밀번호" onkeyup="enterKey();">
     <button type="submit" id="login" class="login login-submit">로그인</button>
 
     <div class="login-help">
@@ -30,26 +30,43 @@
     const token = $.cookie("token");
 
     // 이미 로그인된 상태
-    if(token !== undefined && token != "null") {
-        location.href = "/";
+    // if (token !== undefined && token != "null") {
+    //     location.href = "/";
+    // }
+
+    function enterKey() {
+        if (window.event.keyCode == 13) {
+            login($("#id").val(), $("#password").val());
+        }
     }
 
     //로그인버튼
     $("#login").click(function () {
+        login($("#id").val(), $("#password").val());
+    });
+
+    function login(id, password) {
+        if (emptyValue(id) == false) {
+            alert('아이디를 입력해주세요.');
+            return false;
+        } else if (emptyValue(password) == false) {
+            alert('비밀번호를 입력해주세요.');
+            return false;
+        }
 
         let loginData = new Object();
-        loginData.memberId = $("#memberId").val();
-        loginData.password = $("#password").val();
+        loginData.memberId = id;
+        loginData.password = password;
 
         // ajax 통신
         $.ajax({
             type: "POST",
-            url: 'https://api.leescode.com/account/login',
+            url: '<%= api %>' + 'account/login',
             contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify(loginData),
             success: function (res) {
-                $.cookie('token', res.accessToken, { expires: 1, path: '/' });
+                $.cookie('token', res.accessToken, {expires: 1, path: '/'});
                 $.cookie('id', loginData.memberId);
 
                 location.href = '/';
@@ -60,5 +77,11 @@
                 alert('등록되지 않은 아이디이거나, 잘못된 비밀번호입니다.');
             }
         });
-    });
+    }
+
+    function emptyValue(val) {
+        if (val == null || val == '') {
+            return false;
+        }
+    }
 </script>

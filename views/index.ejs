@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>구이앤금우통신</title>
+    <title><%= title %></title>
 
     <%- include ('./part/head.ejs') %>
 </head>
@@ -13,11 +13,46 @@
 </header>
 
 <body>
-메인
+<div style="float: left;width: 20rem;height: 100%;background: whitesmoke">
+    <div id="nav">
+        <ul class="menu">
+            <li><a href="#">근태관리</a>
+                <ul class="sub">
+                    <li><a href="#">출/퇴근 등록/이력</a></li>
+                    <li><a href="#">정정요청 등록</a></li>
+                    <li><a href="#">정정요청 이력</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#">캘린더</a>
+                <ul class="sub">
+                    <li><a href="#">캘린더</a></li>
+                    <li><a href="#">일정생성</a></li>
+                    <li><a href="#">일정관리</a></li>
+                    <li><a href="#">휴가관리</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#">게시판</a>
+                <ul class="sub">
+                    <li><a href="#">자유게시판</a></li>
+                    <li><a href="#">익명게시판</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
 </body>
 
 </html>
 
 <script>
-
+    $(document).ready(function(){
+        $("#nav ul.sub").hide();
+        $("#nav ul.menu li").click(function(){
+            $("ul",this).slideToggle("fast");
+        });
+    });
 </script>
