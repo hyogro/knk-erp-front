@@ -30,9 +30,9 @@
     const token = $.cookie("token");
 
     // 이미 로그인된 상태
-    // if (token !== undefined && token != "null") {
-    //     location.href = "/";
-    // }
+    if (token !== undefined && token != "null") {
+        location.href = "/";
+    }
 
     function enterKey() {
         if (window.event.keyCode == 13) {
@@ -66,11 +66,12 @@
             dataType: 'json',
             data: JSON.stringify(loginData),
             success: function (res) {
-                $.cookie('token', res.accessToken, {expires: 1, path: '/'});
+                $.cookie('token', res.tokenDto.accessToken, {expires: 1, path: '/'});
                 $.cookie('id', loginData.memberId);
 
                 location.href = '/';
-                console.log(res);
+                //토큰 규격: 헤더
+                console.log("Bearar " + res.tokenDto.accessToken);
             },
             error: function (err) {
                 console.log(err.status);
