@@ -13,53 +13,11 @@
 </header>
 
 <body>
-<div class="side-bar">
-    <div id="nav">
-        <ul class="menu">
-            <li><a href="#">홈</a>
-            </li>
-            <li><a href="#">일정</a>
-                <ul class="sub">
-                    <li><a href="#">근무일정 생성</a></li>
-                    <li><a href="#">휴가일정 생성 요청</a></li>
-                </ul>
-            </li>
-
-            <li><a href="#">출퇴근</a>
-                <ul class="sub">
-                    <li><a href="#">출퇴근기록</a></li>
-                    <li><a href="#">정정요청</a></li>
-                    <li><a href="#">정정요청 내역</a></li>
-                </ul>
-            </li>
-
-            <li><a href="#">요청</a>
-                <ul class="sub">
-                    <li><a href="#">휴가일정 생성요청</a></li>
-                    <li><a href="#">출퇴근기록 정정요청</a></li>
-                </ul>
-            </li>
-
-            <li><a href="#">관리</a>
-                <ul class="sub">
-                    <li><a href="#">직원관리</a></li>
-                    <li><a href="#">부서관리</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</div>
-
-
+<%- include ('./part/menu.ejs') %>
 </body>
 
 </html>
 
 <script>
-    $(document).ready(function () {
-        $("#nav ul.sub").hide();
-        $("#nav ul.menu li").click(function () {
-            $("ul", this).slideToggle();
-        });
-    });
+
 </script>
