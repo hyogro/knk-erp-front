@@ -2,11 +2,24 @@ body {
     display: block;
 }
 
-header .logo {
-    height: 6rem;
+header {
+    box-shadow: 0px 0px 10px #dddddd;
+}
+
+header .title-bar {
+    position: relative;
+    vertical-align: middle !important;
+}
+
+header .title-bar img {
     padding: 0.5rem;
-    box-shadow: 0px 0px 10px #e6e6e6;
     cursor: pointer;
+}
+
+header .title-bar .btn {
+    position: absolute;
+    top: 25%;
+    right: 1rem;
 }
 
 .side-bar {

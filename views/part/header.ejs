@@ -1,6 +1,8 @@
-<div class="logo" onclick="location.href='/'">
+<div class="title-bar" onclick="location.href='/'">
     <img src="/images/logo4.png">
+    <button type="button" class="btn btn-primary" id="logout">로그아웃</button>
 </div>
+
 
 <script>
     const token = $.cookie('token');
@@ -11,11 +13,22 @@
     }
 
 
+    //메뉴바 접기펼치기
     $('.child').hide();
     $('.parent').children().click(function () {
         event.preventDefault();
         $(this).children('.child').slideToggle('slow');
         $(this).find('span').toggle();
+    });
+
+
+    //로그아웃
+    $("#logout").click(function () {
+        $.cookie('token',null,{path:'/login'});
+        var cookies = $.cookie();
+        for(var cookie in cookies) {
+            $.removeCookie(cookie);
+        }
     });
 
 </script>
