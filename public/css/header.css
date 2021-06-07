@@ -12,12 +12,9 @@ header .logo {
     float: left;
     width: 20rem;
     height: 100%;
-    background: #233e8b;
+    background: #0a336e;
     color: white;
-}
-
-#nav {
-    font-size: 1.5rem;
+    padding: 2rem 0;
 }
 
 #nav ul {
@@ -37,15 +34,17 @@ header .logo {
     display: block;
     width: 100%;
     height: 100%;
-    line-height: 40px;
-    text-indent: 30px;
-    /*font-weight: bold;*/
+    line-height: 4rem;
+    text-indent: 2rem;
     text-decoration: none;
-    color: white;
+    color: #b6c2d4;
+    font-size: 1.5rem;
 }
 
-#nav ul.menu li a:hover {
-    background: #eee;
+#nav ul.menu li a:hover,
+#nav ul.menu li a:focus{
+    background: #054499;
+    color: white;
 }
 
 #nav ul.menu li .sub a {
@@ -53,10 +52,12 @@ header .logo {
     float: left;
     display: block;
     width: 100%;
-    z-index: 999;
-    background: #ccc;
+    background: #0b3777;
+    line-height: 3.5rem;
+    text-indent: 4rem;
+    font-size: 1.4rem;
 }
 
 #nav ul.menu li .sub a:hover {
-    background: #444;
+    color: white;
 }
