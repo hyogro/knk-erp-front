@@ -14,7 +14,48 @@
 
 <body>
 <%- include ('./part/menu.ejs') %>
-
+<div class="container">
+    <div class="row" >
+        <div class="col" style="background: skyblue">
+            회사명 - 부서명
+        </div>
+        <div class="col" style="background: gray">
+            팀, 직원 총 수
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col" style="background: darkmagenta">
+            주간 일정
+        </div>
+        <div class="col" style="background: lightpink">
+            공지사항
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col" style="background: red">
+            팀장, 부장 = 출근
+        </div>
+        <div class="col" style="background: orange">
+            팀장, 부장 = 미출근
+        </div>
+        <div class="col" style="background: purple">
+            팀장, 부장 = 지각
+        </div>
+        <div class="col" style="background: blue">
+            팀장, 부장 = 휴가
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" style="background: yellow">
+            팀장, 부장 = 주간 출근, 미출근, 지각, 휴가 통계
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" style="background: green">
+            팀원 = 주간 근무시간 통계
+        </div>
+    </div>
+</div>
 </body>
 
 </html>
