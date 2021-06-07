@@ -11,7 +11,7 @@ router.get('/create-schedule', function (req, res, next) {
     res.render('schedule/create-schedule', {api: api, title: '구이앤금우통신:일정생성'});
 });
 router.get('/create-vacation', function (req, res, next) {
-    res.render('schedule/vacation', {api: api, title: '구이앤금우통신:휴가일정생성 요청'});
+    res.render('schedule/create-vacation', {api: api, title: '구이앤금우통신:휴가일정생성 요청'});
 });
 
 
