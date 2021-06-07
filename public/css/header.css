@@ -66,7 +66,7 @@ header .title-bar .btn {
 }
 
 #nav ul.menu li a:hover,
-#nav ul.menu li a:focus{
+#nav ul.menu li a:focus {
     background: #054499;
     color: white;
     border-left: #666666 5px solid;

@@ -58,14 +58,9 @@
 
 <script>
     $(document).ready(function () {
-        $("#nav ul.sub").hide();
-        $("#nav ul.menu li").hover(function () {
-            $("ul", this).stop().slideToggle();
-        });
-
-        let menu = $(location).attr('pathname');
-        menu = menu.split('/')[1];
-        $("#" + menu + "Menu ul").show();
-
+        $("#nav ul.sub").show();
+        // $("#nav ul.menu li").hover(function () {
+        //     $("ul", this).stop().slideToggle();
+        // });
     });
 </script>
