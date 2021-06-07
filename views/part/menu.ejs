@@ -1,14 +1,14 @@
 <div class="side-bar">
     <div id="nav">
         <ul class="menu">
-            <li><a href="/">
+            <li id="homeMenu"><a href="/">
                     <span>
                         <i class="ri-home-4-fill"></i>
                     </span>
                     홈
                 </a>
             </li>
-            <li><a href="/schedule">
+            <li id="scheduleMenu"><a href="/schedule">
                     <span>
                         <i class="ri-calendar-fill"></i>
                     </span>
@@ -60,7 +60,11 @@
     $(document).ready(function () {
         $("#nav ul.sub").hide();
         $("#nav ul.menu li").hover(function () {
-            $("ul", this).slideToggle();
+            $("ul", this).stop().slideToggle();
         });
+
+        let menu = $(location).attr('pathname');
+        menu = menu.split('/')[1];
+        $("#" + menu + "Menu ul").show();
     });
 </script>
