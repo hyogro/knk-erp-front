@@ -6,6 +6,7 @@ header .logo {
     height: 6rem;
     padding: 0.5rem;
     box-shadow: 0px 0px 10px #e6e6e6;
+    cursor: pointer;
 }
 
 .side-bar {
@@ -21,6 +22,12 @@ header .logo {
     width: 100%;
     margin: 0;
     padding: 0;
+}
+
+#nav ul.menu span {
+    margin-right: 0.6rem;
+    font-size: 1.6rem;
+    vertical-align: middle !important;
 }
 
 #nav ul.menu li {
@@ -45,6 +52,7 @@ header .logo {
 #nav ul.menu li a:focus{
     background: #054499;
     color: white;
+    border-left: #666666 5px solid;
 }
 
 #nav ul.menu li .sub a {
@@ -60,4 +68,5 @@ header .logo {
 
 #nav ul.menu li .sub a:hover {
     color: white;
+    border: none;
 }
