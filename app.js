@@ -8,6 +8,7 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 const indexRouter = require('./routes/index');
+const scheduleRouter = require('./routes/schedule');
 
 server.listen(port, hostname, () => {
     console.log('server start');
@@ -23,5 +24,6 @@ app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist')
 
 app.use(express.static('public'));
 app.use('/', indexRouter);
+app.use('/schedule', scheduleRouter);
 
 module.exports = app;
