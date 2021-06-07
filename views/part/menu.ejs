@@ -12,7 +12,6 @@
                     <span>
                         <i class="ri-calendar-fill"></i>
                     </span>
-
                     일정</a>
                 <ul class="sub">
                     <li><a href="/schedule/create-schedule">근무일정 생성</a></li>
@@ -60,7 +59,7 @@
 <script>
     $(document).ready(function () {
         $("#nav ul.sub").hide();
-        $("#nav ul.menu li").click(function () {
+        $("#nav ul.menu li").hover(function () {
             $("ul", this).slideToggle();
         });
     });

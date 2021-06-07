@@ -19,7 +19,11 @@ header .title-bar img {
 header .title-bar .btn {
     position: absolute;
     top: 25%;
-    right: 1rem;
+    right: 1.5rem;
+    background: #054499;
+    color: white;
+    border: none;
+    font-size: 1.4rem !important;
 }
 
 .side-bar {
