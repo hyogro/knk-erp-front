@@ -8,6 +8,18 @@
     <%- include ('./part/head.ejs') %>
 
     <style>
+        .schedule-board tr {
+            text-align: left;
+        }
+
+        .schedule-board th {
+            width: 20%;
+        }
+
+        .schedule-board td {
+            width: 80%;
+        }
+
         .commute-board {
             text-align: center;
             font-size: 2rem;
@@ -16,6 +28,21 @@
         .commute-board .count {
             font-size: 4rem;
             font-weight: bold;
+        }
+
+        .notice-board thead {
+            font-weight: bolder;
+            color: #343434;
+            background: #eeeeee;
+        }
+
+        .notice-board .notice-title {
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .notice-board .notice-title:hover {
+            color: dimgray;
         }
     </style>
 </head>
@@ -40,28 +67,64 @@
     </div>
 
     <div class="row">
-        <div class="col-md content-box">
+        <div class="col-xl content-box">
             <div class="title">주간일정</div>
+            <div>
+                <table class="schedule-board table table-sm table-hover">
+                    <tbody>
+                    <tr>
+                        <th>6월 7일</th>
+                        <td>타이틀바, 메뉴바 css 작업</td>
+                    </tr>
+                    <tr>
+                        <th>6월 8일</th>
+                        <td>메인화면 출퇴근 업데이트</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="col-md content-box" style="">
+        <div class="col-xl content-box" style="">
             <div class="title">공지사항</div>
+            <table class="notice-board table">
+                <thead>
+                <tr>
+                    <td style="width: 5%">No</td>
+                    <td style="width: 45%">제목</td>
+                    <td style="width: 20%">작성자</td>
+                    <td style="width: 30%">등록일</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td class="notice-title">첫공지입니당</td>
+                    <td>임현주</td>
+                    <td>2021.06.07</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <div class="row commute-board">
-        <div class="col-md content-box" style="border-top: 5px solid blue;color: #1354d9">
+        <div class="col-md content-box"
+             style="border-top: 5px solid blue;color: #1354d9">
             출근
             <div class="count">1</div>
         </div>
-        <div class="col-md content-box" style="border-top: 5px solid orange; color: #e07c00">
+        <div class="col-md content-box"
+             style="border-top: 5px solid orange; color: #e07c00">
             미출근
             <div class="count">1</div>
         </div>
-        <div class="col-md content-box" style="border-top: 5px solid red;color: #bf0920">
+        <div class="col-md content-box"
+             style="border-top: 5px solid red;color: #bf0920">
             지각
             <div class="count">1</div>
         </div>
-        <div class="col-md content-box" style="border-top: 5px solid green;color: #01853d">
+        <div class="col-md content-box"
+             style="border-top: 5px solid green;color: #01853d">
             휴가
             <div class="count">0</div>
         </div>
