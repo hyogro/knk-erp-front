@@ -12,16 +12,6 @@
         location.href = "/login";
     }
 
-
-    //메뉴바 접기펼치기
-    $('.child').hide();
-    $('.parent').children().click(function () {
-        event.preventDefault();
-        $(this).children('.child').slideToggle('slow');
-        $(this).find('span').toggle();
-    });
-
-
     //로그아웃
     $("#logout").click(function () {
         $.cookie('token',null,{path:'/login'});
