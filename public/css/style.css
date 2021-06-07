@@ -1,5 +1,5 @@
 /*나눔고딕*/
-@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:300,400,500,600,700,800');
 
 html, body {
     margin: 0;
@@ -27,8 +27,42 @@ body {
     font-size: 1.5rem !important;
 }
 
-.main {
-    padding: 4rem;
+#main {
+    padding: 4rem 7rem;
     float: left;
     width: calc(100% - 20rem);
+}
+
+#main .col, #main .row,
+#main .col-md, #main .col-lg {
+    padding: 0;
+    margin: 0;
+}
+
+.table {
+    text-align: center;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.table th, .table td {
+    width: calc(100% / 7);
+    max-width: calc(100% / 7);
+    min-width: calc(100% / 7);
+}
+
+.content-box {
+    border: 1px solid #CCCCCC;
+    padding: 1.5rem !important;
+    margin: 1.5rem 0 !important;
+}
+
+.content-box:not(:last-child) {
+    margin-right: 1.5rem !important;
+}
+
+.content-box .title {
+    font-size: 1.8rem;
+    padding: 0;
+    margin-bottom: 1rem;
 }

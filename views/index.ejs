@@ -6,6 +6,18 @@
     <title><%= title %></title>
 
     <%- include ('./part/head.ejs') %>
+
+    <style>
+        .commute-board {
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .commute-board .count {
+            font-size: 4rem;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <header>
@@ -14,44 +26,55 @@
 
 <body>
 <%- include ('./part/menu.ejs') %>
-<div class="main">
-    <div class="row">
-        <div class="col" style="background: skyblue">
-            회사명 - 부서명
+<div id="main">
+    <div class="row" style="font-size: 2.5rem;font-weight: 600">
+        2021 6월 7일 (월)
+    </div>
+    <div class="row" style="font-size: 2rem">
+        <div class="col-lg" style="text-align: left">
+            구이앤금우통신 - <span>MOTLAB</span>, <span>웹개발팀</span>
         </div>
-        <div class="col" style="background: gray">
-            팀, 직원 총 수
+        <div class="col-lg" style="text-align: right">
+            총 직원 수: 3명
         </div>
     </div>
+
     <div class="row">
-        <div class="col" style="background: darkmagenta">
-            주간 일정
+        <div class="col-md content-box">
+            <div class="title">주간일정</div>
         </div>
-        <div class="col" style="background: lightpink">
-            공지사항
+        <div class="col-md content-box" style="">
+            <div class="title">공지사항</div>
         </div>
     </div>
-    <div class="row">
-        <div class="col" style="background: red">
-            팀장, 부장 = 출근
+
+    <div class="row commute-board">
+        <div class="col-md content-box" style="border-top: 5px solid blue;color: #1354d9">
+            출근
+            <div class="count">1</div>
         </div>
-        <div class="col" style="background: orange">
-            팀장, 부장 = 미출근
+        <div class="col-md content-box" style="border-top: 5px solid orange; color: #e07c00">
+            미출근
+            <div class="count">1</div>
         </div>
-        <div class="col" style="background: purple">
-            팀장, 부장 = 지각
+        <div class="col-md content-box" style="border-top: 5px solid red;color: #bf0920">
+            지각
+            <div class="count">1</div>
         </div>
-        <div class="col" style="background: blue">
-            팀장, 부장 = 휴가
+        <div class="col-md content-box" style="border-top: 5px solid green;color: #01853d">
+            휴가
+            <div class="count">0</div>
         </div>
     </div>
+
     <div class="row">
-        <div class="col" style="background: yellow">
+        <div class="col content-box">
             팀장, 부장 = 주간 출근, 미출근, 지각, 휴가 통계
         </div>
     </div>
+
     <div class="row">
-        <div class="col" style="background: green">
+        <div class="col content-box">
             팀원 = 주간 근무시간 통계
         </div>
     </div>
