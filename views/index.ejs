@@ -181,4 +181,40 @@
         options: {}
     });
 
+    departmentInfoRequest();
+
+
+    function testRequest(data) {
+        // ajax 통신
+        $.ajax({
+            type: "POST",
+            url: '<%= api %>' + 'urlHere',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            success: function (res) {
+                $.cookie('token', res.tokenDto.accessToken, {expires: 1, path: '/'});
+                $.cookie('id', data.memberId);
+                location.href = '/';
+            },
+            error: function () {
+                alert('등록되지 않은 아이디이거나, 잘못된 비밀번호입니다.');
+            }
+        });
+    }
+    function departmentInfoRequest() {
+        // ajax 통신
+        $.ajax({
+            type: "POST",
+            headers: {'token': $.cookie('token')},
+            url: '<%= api %>' + 'department/readDepartmentNameAndMemberCount',
+            success: function (res) {
+                console.log(res);
+            },
+            error: function () {
+                console.log("request failed");
+            }
+        });
+    }
+
 </script>
