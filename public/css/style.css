@@ -44,6 +44,10 @@ body {
     font-size: 1.5rem !important;
 }
 
+#main .btn {
+    padding: 0.5rem 1.5rem;
+}
+
 .content-box {
     border: 1px solid #CCCCCC;
     padding: 1.5rem !important;
@@ -89,7 +93,7 @@ table thead, table th {
     font-weight: 600;
 }
 
-input {
+input, select {
     border: 1px solid #DCDCDC;
     outline: none;
 }
