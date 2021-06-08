@@ -65,7 +65,7 @@
         <table class="member-table">
             <tr>
                 <th>아이디</th>
-                <td id="memberId">아이디</td>
+                <td id="memberId"></td>
             </tr>
             <tr>
                 <th>비밀번호</th>
@@ -84,7 +84,7 @@
             </tr>
             <tr>
                 <th>이름</th>
-                <td id="memberName">이름</td>
+                <td id="memberName"></td>
             </tr>
             <tr>
                 <th>연락처</th>
@@ -111,17 +111,17 @@
         <table class="member-table">
             <tr>
                 <th>부서</th>
-                <td id="memberName">이름</td>
+                <td id="departmentName"></td>
             </tr>
             <tr>
                 <th>연차 일수</th>
-                <td id="vacation">이름</td>
+                <td><span id="vacation"></span>일</td>
             </tr>
         </table>
     </div>
 
     <div class="row">
-        <button type="button" class="btn btn-primary" style="float: right">변경사항 저장</button>
+        <button type="button" class="btn btn-primary" style="float: right" onclick="updateMyInfo()">변경사항 저장</button>
     </div>
 </div>
 </body>
@@ -130,19 +130,29 @@
 
 <script>
 
+    <%- include ('common/check-data.js') %>
+
     setMemberInfo();
 
     //초기 정보 셋팅
     function setMemberInfo() {
-        // ajax 통신
         $.ajax({
             type: "POST",
-            url: '<%= api %>' + 'my/mypage',
+            url: '<%= api %>' + 'my/myPage',
             headers: {'token': $.cookie('token')},
             contentType: 'application/json',
             dataType: 'json',
             success: function (res) {
-                console.log(res)
+                console.log(res);
+                let data = res.readMemberDTO;
+                $("#memberId").text(data.memberId);
+                $("#memberName").text(data.memberName);
+                $("#departmentName").text(data.departmentName);
+                $("#vacation").text(data.vacation);
+                let phone = (data.phone).split("-");
+                $("#phone1").val(phone[0]);
+                $("#phone2").val(phone[1]);
+                $("#phone3").val(phone[2]);
             },
             error: function () {
             }
@@ -163,7 +173,7 @@
             $("#chkPassword").text("비밀번호는 공백 없이 입력해주세요.");
             return false;
         } else if ((num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0)) {
-            $("#chkPassword").text("영문, 숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.");
+            $("#chkPassword").text("영문, 숫자, 특수문자 중 2가지 이상을 조합하여 입력해주세요.");
             return false;
         } else {
             $("#chkPassword").empty();
@@ -182,6 +192,40 @@
         } else {
             $("#matchPassword").empty();
             return true;
+        }
+    }
+
+    //변경 사항 저장
+    function updateMyInfo() {
+        let phone1 = $("#phone1").val();
+        let phone2 = $("#phone2").val();
+        let phone3 = $("#phone3").val();
+
+        if (!chkPW() || !matchPW()) {
+            alert("비밀번호를 확인해주세요.");
+        } else if (isEmpty(phone2) || phone2.length < 4) {
+            $("#phone2").focus();
+            alert("올바른 연락처를 입력해주세요.");
+        } else if (isEmpty(phone3) || phone3.length < 4) {
+            $("#phone3").focus();
+            alert("올바른 연락처를 입력해주세요.");
+        } else {
+            let saveData = {};
+            saveData.password = $("#password1").val();
+            saveData.phone = phone1 + '-' + phone2 + '-' + phone3;
+
+            $.ajax({
+                type: "POST",
+                url: '<%= api %>' + 'my/updateSelf',
+                headers: {'token': $.cookie('token')},
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function (res) {
+                    console.log(res);
+                },
+                error: function () {
+                }
+            });
         }
     }
 

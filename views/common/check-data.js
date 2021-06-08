@@ -7,3 +7,7 @@ function getWeekCountOfMonth() {
 
     return month + "월 " + weekCnt.toString() + "주차"
 }
+
+function isEmpty(val) {
+    return val == null || val === '';
+}
