@@ -138,7 +138,7 @@
     <div class="row">
         <div class="col content-box">
             <div class="content-box-title">🔹 주간근무시간</div>
-<!--            팀원 = 주간 근무시간 통계-->
+            <!--            팀원 = 주간 근무시간 통계-->
         </div>
     </div>
 </div>
@@ -181,40 +181,42 @@
         options: {}
     });
 
-    departmentInfoRequest();
+    request('attendance/readAttendanceSummary', testFunc);
+    request('department/readDepartmentNameAndMemberCount', testFunc);
 
-
-    function testRequest(data) {
+    function requestWithData(url, data, processFunc) {
         // ajax 통신
         $.ajax({
             type: "POST",
-            url: '<%= api %>' + 'urlHere',
+            url: '<%= api %>' + url,
             contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify(data),
             success: function (res) {
-                $.cookie('token', res.tokenDto.accessToken, {expires: 1, path: '/'});
-                $.cookie('id', data.memberId);
-                location.href = '/';
+                processFunc(res);
             },
-            error: function () {
-                alert('등록되지 않은 아이디이거나, 잘못된 비밀번호입니다.');
+            error: function (err) {
+                processFunc(err);
             }
         });
     }
-    function departmentInfoRequest() {
-        // ajax 통신
+
+    function request(url, processFunc) {
         $.ajax({
             type: "POST",
             headers: {'token': $.cookie('token')},
-            url: '<%= api %>' + 'department/readDepartmentNameAndMemberCount',
+            url: '<%= api %>' + url,
             success: function (res) {
-                console.log(res);
+                processFunc(res);
             },
-            error: function () {
-                console.log("request failed");
+            error: function (err) {
+                processFunc(err);
             }
         });
+    }
+
+    function testFunc(res) {
+        console.log(res);
     }
 
 </script>
