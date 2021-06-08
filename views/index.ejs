@@ -17,6 +17,7 @@
         }
 
         .commute-board {
+            display: none;
             text-align: center;
             font-size: 2rem;
         }
@@ -207,6 +208,7 @@
             return;
         }
         if (res.code === 'RSS001') {
+            $(".commute-board").css('display', 'flex');
             $("#onWork").text(res.data.onWork);
             $("#yetWork").text(res.data.yetWork);
             $("#lateWork").text(res.data.lateWork);
