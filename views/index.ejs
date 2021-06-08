@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title><%= title %></title>
 
-    <%- include ('./part/head.ejs') %>
+    <%- include ('part/head.ejs') %>
 
     <style>
         .date {
@@ -49,11 +49,11 @@
 </head>
 
 <header>
-    <%- include ('./part/header.ejs') %>
+    <%- include ('part/header.ejs') %>
 </header>
 
 <body>
-<%- include ('./part/menu.ejs') %>
+<%- include ('part/menu.ejs') %>
 <div id="main">
     <div class="row date">
         2021 6월 7일 (월)
@@ -133,13 +133,17 @@
 
     <div class="row">
         <div class="col content-box">
-            팀장, 부장 = 주간 출근, 미출근, 지각, 휴가 통계
+            <div class="content-box-title">🔹 주간통계</div>
+            <!--            팀장, 부장 = 주간 출근, 미출근, 지각, 휴가 통계-->
+            <!--            오늘기준 7일전-->
+            <canvas id="commuteChart" height="50"></canvas>
         </div>
     </div>
 
     <div class="row">
         <div class="col content-box">
-            팀원 = 주간 근무시간 통계
+            <div class="content-box-title">🔹 주간근무시간</div>
+<!--            팀원 = 주간 근무시간 통계-->
         </div>
     </div>
 </div>
@@ -148,5 +152,38 @@
 </html>
 
 <script>
+    <%- include ('common/check_data.js') %>
+
+    var ctx = document.getElementById('commuteChart').getContext('2d');
+    var commuteChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['21.06.08', '21.06.09', '21.06.10', '21.06.11', '21.06.12', '21.06.13'],
+            datasets: [{
+                label: '출근',
+                data: [50, 45, 49, 50, 45, 47],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)'
+                ],
+                borderWidth: 1
+            },
+                {
+                    label: '퇴근',
+                    data: [45, 50, 44, 49, 45, 50],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {}
+    });
 
 </script>
