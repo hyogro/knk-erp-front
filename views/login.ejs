@@ -70,7 +70,7 @@
             dataType: 'json',
             data: JSON.stringify(data),
             success: function (res) {
-                $.cookie('token', res.tokenDto.accessToken, {expires: 1, path: '/'});
+                $.cookie('token', 'Bearer ' + res.tokenDto.accessToken, {expires: 1, path: '/'});
                 $.cookie('id', data.memberId);
                 location.href = '/';
             },

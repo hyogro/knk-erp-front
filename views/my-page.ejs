@@ -46,11 +46,11 @@
         <table class="member-table">
             <tr>
                 <th>아이디</th>
-                <td>아이디</td>
+                <td id="memberId">아이디</td>
             </tr>
             <tr>
                 <th>비밀번호</th>
-                <td><input type="password"></td>
+                <td><input type="password" id="password"></td>
             </tr>
             <tr>
                 <th>비밀번호 확인</th>
@@ -58,11 +58,11 @@
             </tr>
             <tr>
                 <th>이름</th>
-                <td>이름</td>
+                <td id="memberName">이름</td>
             </tr>
             <tr>
                 <th>연락처</th>
-                <td><input type="password"></td>
+                <td><input type="text" id="phone"></td>
             </tr>
         </table>
     </div>
@@ -72,13 +72,17 @@
         <table class="member-table">
             <tr>
                 <th>부서</th>
-                <td>이름</td>
+                <td id="memberName">이름</td>
             </tr>
             <tr>
                 <th>연차 일수</th>
-                <td>이름</td>
+                <td id="vacation">이름</td>
             </tr>
         </table>
+    </div>
+
+    <div class="row">
+        <button type="button" class="btn btn-primary">정보 수정</button>
     </div>
 </div>
 </body>
@@ -86,5 +90,42 @@
 </html>
 
 <script>
+
+    setMemberInfo();
+
+    function setMemberInfo() {
+        // ajax 통신
+        $.ajax({
+            type: "POST",
+            url: '<%= api %>' + 'my/mypage',
+            headers: {'token': $.cookie('token')},
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (res) {
+               console.log(res)
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function loginRequest(url, data) {
+        // ajax 통신
+        $.ajax({
+            type: "POST",
+            url: '<%= api %>' + url,
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            success: function (res) {
+                $.cookie('token', res.tokenDto.accessToken, {expires: 1, path: '/'});
+                $.cookie('id', data.memberId);
+                location.href = '/';
+            },
+            error: function () {
+                alert('등록되지 않은 아이디이거나, 잘못된 비밀번호입니다.');
+            }
+        });
+    }
 
 </script>
