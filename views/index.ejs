@@ -8,16 +8,12 @@
     <%- include ('./part/head.ejs') %>
 
     <style>
-        .schedule-board tr {
+        .schedule-board {
             text-align: left;
         }
 
         .schedule-board th {
-            width: 20%;
-        }
-
-        .schedule-board td {
-            width: 80%;
+            background: #f3f3f3;
         }
 
         .commute-board {
@@ -30,19 +26,19 @@
             font-weight: bold;
         }
 
-        .notice-board thead {
-            font-weight: bolder;
-            color: #343434;
-            background: #eeeeee;
-        }
-
         .notice-board .notice-title {
             cursor: pointer;
             text-align: left;
         }
 
+        .notice-board .notice-title span {
+            color: #2940d3;
+            font-size: 1.4rem;
+        }
+
+        .schedule-board td:hover,
         .notice-board .notice-title:hover {
-            color: dimgray;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -70,11 +66,11 @@
         <div class="col-xl content-box">
             <div class="title">주간일정</div>
             <div>
-                <table class="schedule-board table table-sm table-hover">
+                <table class="schedule-board">
                     <tbody>
                     <tr>
-                        <th>6월 7일</th>
-                        <td>타이틀바, 메뉴바 css 작업</td>
+                        <th width="20%">6월 7일</th>
+                        <td width="80%">타이틀바, 메뉴바 css 작업</td>
                     </tr>
                     <tr>
                         <th>6월 8일</th>
@@ -84,21 +80,21 @@
                 </table>
             </div>
         </div>
-        <div class="col-xl content-box" style="">
+        <div class="col-xl content-box">
             <div class="title">공지사항</div>
-            <table class="notice-board table">
+            <table class="notice-board">
                 <thead>
                 <tr>
-                    <td style="width: 5%">No</td>
-                    <td style="width: 45%">제목</td>
-                    <td style="width: 20%">작성자</td>
-                    <td style="width: 30%">등록일</td>
+                    <th width="10%">No</th>
+                    <th width="50%">제목</th>
+                    <th width="20%">작성자</th>
+                    <th width="20%">등록일</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td>1</td>
-                    <td class="notice-title">첫공지입니당</td>
+                    <td class="notice-title">첫공지입니당 <span>(10)</span></td>
                     <td>임현주</td>
                     <td>2021.06.07</td>
                 </tr>

@@ -48,13 +48,6 @@ body {
     width: 100%;
 }
 
-.table th, .table td {
-    width: calc(100% / 7);
-    max-width: calc(100% / 7);
-    min-width: calc(100% / 7);
-    vertical-align: middle !important;
-}
-
 .table > :not(:last-child) > :last-child > * {
     border-bottom: #DCDCDC;
 }
@@ -73,4 +66,27 @@ body {
     font-size: 1.8rem;
     padding: 0;
     margin-bottom: 1rem;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid #2940d3;
+}
+
+table th {
+    font-weight: 600;
+}
+
+table th, table td {
+    padding: 0.5rem 1rem;
+}
+
+table tr {
+    border-bottom: 1px solid #DCDCDC;
+}
+
+table thead {
+    color: #343434;
+    background: #f3f3f3;
 }
