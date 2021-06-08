@@ -57,23 +57,6 @@ header {
     overflow-y: auto;
 }
 
-/* 스크롤바 설정*/
-.side-bar::-webkit-scrollbar {
-    width: 6px;
-}
-
-/* 스크롤바 막대 설정*/
-.side-bar::-webkit-scrollbar-thumb {
-    height: 17%;
-    background-color: #5a759d;
-    border-radius: 10px;
-}
-
-/* 스크롤바 뒷 배경 설정*/
-.side-bar::-webkit-scrollbar-track {
-    background-color: rgba(255, 255, 255, 0.25);
-}
-
 #nav ul {
     width: 100%;
     margin: 0;

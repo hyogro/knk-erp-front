@@ -4,7 +4,7 @@
     </div>
     <div class="title-bar-right">
         <button type="button" class="btn btn-outline-primary" id="myPage">내 정보</button>
-        <button type="button" class="btn btn-primary" id="logout">로그아웃</button>
+        <button type="button" class="btn btn-primary" onclick="logout()">로그아웃</button>
     </div>
 </div>
 
@@ -17,17 +17,51 @@
     }
 
     //로그아웃
-    $("#logout").click(function () {
+    function logout() {
         $.cookie('token', null, {path: '/login'});
-        var cookies = $.cookie();
-        for (var cookie in cookies) {
+        let cookies = $.cookie();
+        for (let cookie in cookies) {
             $.removeCookie(cookie);
         }
-    });
+        location.href = "/login";
+    }
 
-    //로그아웃
+    //내 정보
     $("#myPage").click(function () {
         location.href = "/my-page";
         return false;
     });
+
+    //api 요청
+    function request(url, processFunc) {
+        $.ajax({
+            type: "POST",
+            headers: {'token': $.cookie('token')},
+            url: '<%= api %>' + url,
+            success: function (res) {
+                processFunc(res);
+            },
+            error: function (err) {
+                processFunc(err);
+            }
+        });
+    }
+
+    //api 요청 (data 포함)
+    function requestWithData(url, data, processFunc) {
+        $.ajax({
+            type: "POST",
+            url: '<%= api %>' + url,
+            headers: {'token': $.cookie('token')},
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            success: function (res) {
+                processFunc(res);
+            },
+            error: function (err) {
+                processFunc(err);
+            }
+        });
+    }
 </script>

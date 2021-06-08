@@ -55,17 +55,17 @@
     </div>
     <div class="row company-info">
         <div class="col-lg" style="text-align: left">
-            구이앤금우통신 - <span>MOTLAB</span>, <span>웹개발팀</span>
+            구이앤금우통신 - <span id="departmentName"></span>
         </div>
         <div class="col-lg" style="text-align: right">
-            총 직원 수: 3명
+            총 직원 수: <span id="memberCount"></span>명
         </div>
     </div>
 
     <div class="row">
         <div class="col-xl content-box">
             <div class="content-box-title">🔹 주간일정</div>
-            <div>
+            <div class="scroll" style="max-height: 30rem;overflow-y: auto">
                 <table class="schedule-board">
                     <tbody>
                     <tr>
@@ -107,22 +107,22 @@
         <div class="col-md content-box"
              style="border-top: 5px solid blue;color: #1354d9">
             출근
-            <div class="count">1</div>
+            <div class="count" id="onWork"></div>
         </div>
         <div class="col-md content-box"
              style="border-top: 5px solid orange; color: #e07c00">
             미출근
-            <div class="count">1</div>
+            <div class="count" id="yetWork"></div>
         </div>
         <div class="col-md content-box"
              style="border-top: 5px solid red;color: #bf0920">
             지각
-            <div class="count">1</div>
+            <div class="count" id="lateWork"></div>
         </div>
         <div class="col-md content-box"
              style="border-top: 5px solid green;color: #01853d">
             휴가
-            <div class="count">0</div>
+            <div class="count"></div>
         </div>
     </div>
 
@@ -181,42 +181,41 @@
         options: {}
     });
 
-    request('attendance/readAttendanceSummary', testFunc);
-    request('department/readDepartmentNameAndMemberCount', testFunc);
+    //부서정보 조회
+    request('department/readDepartmentNameAndMemberCount', setDepartmentInfo);
+    //일정요약(출퇴근) 조회
+    request('attendance/readAttendanceSummary', setAttendanceSummary);
 
-    function requestWithData(url, data, processFunc) {
-        // ajax 통신
-        $.ajax({
-            type: "POST",
-            url: '<%= api %>' + url,
-            contentType: 'application/json',
-            dataType: 'json',
-            data: JSON.stringify(data),
-            success: function (res) {
-                processFunc(res);
-            },
-            error: function (err) {
-                processFunc(err);
-            }
-        });
+    //부서정보 조회
+    function setDepartmentInfo(res) {
+        if (res.code === null) {
+            return;
+        }
+        if (res.code === 'RDAM001') {
+            $("#departmentName").text(res.data.departmentName);
+            $("#memberCount").text(res.data.memberCount);
+        } else if (res.code === 'RDAM002') {
+            alert("부서정보 조회 실패");
+        } else if (res.code === 'RDAM003') {
+            alert("부서정보 조회 실패\n소속된 부서가 존재하지 않습니다.");
+        }
     }
 
-    function request(url, processFunc) {
-        $.ajax({
-            type: "POST",
-            headers: {'token': $.cookie('token')},
-            url: '<%= api %>' + url,
-            success: function (res) {
-                processFunc(res);
-            },
-            error: function (err) {
-                processFunc(err);
-            }
-        });
-    }
-
-    function testFunc(res) {
-        console.log(res);
+    //일정요약(출퇴근) 조회
+    function setAttendanceSummary(res) {
+        if (res.code === null) {
+            return;
+        }
+        if (res.code === 'RSS001') {
+            $("#onWork").text(res.data.onWork);
+            $("#yetWork").text(res.data.yetWork);
+            $("#lateWork").text(res.data.lateWork);
+        } else if (res.code === 'RSS002') {
+            alert("일정요약 조회 실패");
+        } else if (res.code === 'RSS003') {
+            $(".commute-board").hide();
+            console.log("일정요약 조회 실패\n권한이 없습니다.");
+        }
     }
 
 </script>
