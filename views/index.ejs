@@ -8,12 +8,17 @@
     <%- include ('./part/head.ejs') %>
 
     <style>
-        .schedule-board {
-            text-align: left;
+        .date {
+            font-size: 2.5rem;
+            font-weight: 600;
         }
 
-        .schedule-board th {
-            background: #f3f3f3;
+        .company-info {
+            font-size: 2rem;
+        }
+
+        .schedule-board {
+            text-align: left;
         }
 
         .commute-board {
@@ -50,10 +55,10 @@
 <body>
 <%- include ('./part/menu.ejs') %>
 <div id="main">
-    <div class="row" style="font-size: 2.5rem;font-weight: 600">
+    <div class="row date">
         2021 6월 7일 (월)
     </div>
-    <div class="row" style="font-size: 2rem">
+    <div class="row company-info">
         <div class="col-lg" style="text-align: left">
             구이앤금우통신 - <span>MOTLAB</span>, <span>웹개발팀</span>
         </div>
@@ -64,7 +69,7 @@
 
     <div class="row">
         <div class="col-xl content-box">
-            <div class="title">주간일정</div>
+            <div class="content-box-title">🔹 주간일정</div>
             <div>
                 <table class="schedule-board">
                     <tbody>
@@ -81,7 +86,7 @@
             </div>
         </div>
         <div class="col-xl content-box">
-            <div class="title">공지사항</div>
+            <div class="content-box-title">🔹 공지사항</div>
             <table class="notice-board">
                 <thead>
                 <tr>
