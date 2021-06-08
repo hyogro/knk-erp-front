@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('part/head.ejs') %>
+
+    <style>
+        .row:not(:first-child) {
+            margin: 2rem 0 !important;
+            width: 80rem;
+        }
+
+        .member-table {
+            text-align: left;
+        }
+
+        .member-table th {
+            width: 20rem;
+        }
+
+        .member-table th, .member-table td {
+            padding: 1rem 2rem;
+        }
+
+        .member-table input {
+            width: 30rem
+        }
+    </style>
+</head>
+
+<header>
+    <%- include ('part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('part/menu.ejs') %>
+<div id="main">
+    <div class="row main-title">
+        내 정보
+    </div>
+
+    <div class="row">
+        <table class="member-table">
+            <tr>
+                <th>아이디</th>
+                <td>아이디</td>
+            </tr>
+            <tr>
+                <th>비밀번호</th>
+                <td><input type="password"></td>
+            </tr>
+            <tr>
+                <th>비밀번호 확인</th>
+                <td><input type="password"></td>
+            </tr>
+            <tr>
+                <th>이름</th>
+                <td>이름</td>
+            </tr>
+            <tr>
+                <th>연락처</th>
+                <td><input type="password"></td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="row">
+        <table class="member-table">
+            <tr>
+                <th>부서</th>
+                <td>이름</td>
+            </tr>
+            <tr>
+                <th>연차 일수</th>
+                <td>이름</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script>
+
+</script>

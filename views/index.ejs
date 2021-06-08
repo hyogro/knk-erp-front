@@ -8,11 +8,6 @@
     <%- include ('part/head.ejs') %>
 
     <style>
-        .date {
-            font-size: 2.5rem;
-            font-weight: 600;
-        }
-
         .company-info {
             font-size: 2rem;
         }
@@ -55,7 +50,7 @@
 <body>
 <%- include ('part/menu.ejs') %>
 <div id="main">
-    <div class="row date">
+    <div class="row main-title">
         2021 6월 7일 (월)
     </div>
     <div class="row company-info">
@@ -152,7 +147,7 @@
 </html>
 
 <script>
-    <%- include ('common/check_data.js') %>
+    <%- include ('common/check-data.js') %>
 
     var ctx = document.getElementById('commuteChart').getContext('2d');
     var commuteChart = new Chart(ctx, {

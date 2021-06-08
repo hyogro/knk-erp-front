@@ -1,12 +1,16 @@
 <div class="title-bar" onclick="location.href='/'">
-    <img src="/images/logo4.png">
-    <button type="button" class="btn btn-primary" id="logout">로그아웃</button>
+    <div class="title-bar-left">
+        <img src="/images/logo4.png">
+    </div>
+    <div class="title-bar-right">
+        <button type="button" class="btn btn-outline-primary" id="myPage">내 정보</button>
+        <button type="button" class="btn btn-primary" id="logout">로그아웃</button>
+    </div>
 </div>
 
 
 <script>
     const token = $.cookie('token');
-
     // 로그인이 안되어있으면 로그인으로
     if (token === undefined || token == "null") {
         location.href = "/login";
@@ -14,11 +18,16 @@
 
     //로그아웃
     $("#logout").click(function () {
-        $.cookie('token',null,{path:'/login'});
+        $.cookie('token', null, {path: '/login'});
         var cookies = $.cookie();
-        for(var cookie in cookies) {
+        for (var cookie in cookies) {
             $.removeCookie(cookie);
         }
     });
 
+    //로그아웃
+    $("#myPage").click(function () {
+        location.href = "/my-page";
+        return false;
+    });
 </script>

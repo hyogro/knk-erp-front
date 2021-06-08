@@ -2,26 +2,51 @@ header {
     box-shadow: 0px 0px 10px #dddddd;
 }
 
-header .title-bar {
-    position: relative;
+
+/*타이틀바 헤더*/
+.title-bar {
+    width: 100%;
+    height: 6rem;
     vertical-align: middle !important;
+    display: inline-block;
 }
 
-header .title-bar img {
+.title-bar .title-bar-left {
     padding: 0.5rem;
     cursor: pointer;
+    float: left;
 }
 
-header .title-bar .btn {
-    position: absolute;
-    top: 25%;
-    right: 1.5rem;
-    background: #054499;
-    color: white;
-    border: none;
+.title-bar .title-bar-right {
+    float: right;
+    height: 100%;
+    line-height: 6rem;
+    margin-right: 2rem;
+}
+
+.title-bar .btn {
     font-size: 1.4rem !important;
 }
 
+.title-bar .btn-primary {
+    background: #054499;
+    border: 1px solid #054499;
+    color: white;
+}
+
+.title-bar .btn-outline-primary {
+    border: 1px solid #054499;
+    color: #054499;
+}
+
+.title-bar .btn-outline-primary:hover {
+    border: 1px solid #054499;
+    background: #054499;
+    color: white;
+}
+
+
+/*사이드바 메뉴*/
 .side-bar {
     float: left;
     width: 20rem;
@@ -33,19 +58,19 @@ header .title-bar .btn {
 }
 
 /* 스크롤바 설정*/
-.side-bar::-webkit-scrollbar{
+.side-bar::-webkit-scrollbar {
     width: 6px;
 }
 
 /* 스크롤바 막대 설정*/
-.side-bar::-webkit-scrollbar-thumb{
+.side-bar::-webkit-scrollbar-thumb {
     height: 17%;
     background-color: #5a759d;
     border-radius: 10px;
 }
 
 /* 스크롤바 뒷 배경 설정*/
-.side-bar::-webkit-scrollbar-track{
+.side-bar::-webkit-scrollbar-track {
     background-color: rgba(255, 255, 255, 0.25);
 }
 

@@ -63,6 +63,7 @@ table {
     width: 100%;
     text-align: center;
     border-top: 1px solid #2940d3;
+    font-size: 1.5rem;
 }
 
 table th {
@@ -80,4 +81,14 @@ table tr {
 table thead, table th {
     color: #343434;
     background: #f3f3f3;
+}
+
+.main-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+input {
+    border: 1px solid #DCDCDC;
+    outline: none;
 }
