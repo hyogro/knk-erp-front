@@ -166,7 +166,9 @@
         let eng = pw.search(/[a-z]/ig);
         let spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 
-        if (pw.length < 8 || pw.length > 16) {
+        if (pw == "") {
+            return true;
+        } else if (pw.length < 8 || pw.length > 16) {
             $("#chkPassword").text("8자리 ~ 16자리 이내로 입력해주세요.");
             return false;
         } else if (pw.search(/\s/) != -1) {
@@ -197,31 +199,47 @@
 
     //변경 사항 저장
     function updateMyInfo() {
+        let password = $("#password1").val();
+        if (password.length == 0) {
+            password = null;
+        }
+
         let phone1 = $("#phone1").val();
         let phone2 = $("#phone2").val();
         let phone3 = $("#phone3").val();
 
         if (!chkPW() || !matchPW()) {
             alert("비밀번호를 확인해주세요.");
+            return false;
         } else if (isEmpty(phone2) || phone2.length < 4) {
             $("#phone2").focus();
             alert("올바른 연락처를 입력해주세요.");
+            return false;
         } else if (isEmpty(phone3) || phone3.length < 4) {
             $("#phone3").focus();
             alert("올바른 연락처를 입력해주세요.");
+            return false;
         } else {
             let saveData = {};
-            saveData.password = $("#password1").val();
+            saveData.password = password;
             saveData.phone = phone1 + '-' + phone2 + '-' + phone3;
+
+            console.log(saveData);
 
             $.ajax({
                 type: "POST",
                 url: '<%= api %>' + 'my/updateSelf',
                 headers: {'token': $.cookie('token')},
                 contentType: 'application/json',
+                data: JSON.stringify(saveData),
                 dataType: 'json',
                 success: function (res) {
                     console.log(res);
+                    if (res.code == 'USM001') {
+                        alert("저장되었습니다.");
+                    } else {
+                        alert("저장실패하셨습니다.")
+                    }
                 },
                 error: function () {
                 }
