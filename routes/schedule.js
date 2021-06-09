@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 //const api = 'https://api.leescode.com/';
-const api = 'http://127.0.0.1:8000/';
+const api = 'http://localhost:8000/';
 
 
 router.get('/', function (req, res, next) {
