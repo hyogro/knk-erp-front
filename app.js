@@ -21,6 +21,7 @@ app.set('public', path.join(__dirname, 'public'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/jsCookie', express.static(__dirname + '/node_modules/jquery.cookie'));
 app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
+app.use('/fullcalendar', express.static(__dirname + '/node_modules/fullcalendar'));
 
 app.use(express.static('public'));
 app.use('/', indexRouter);

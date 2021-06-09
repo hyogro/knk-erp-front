@@ -74,39 +74,45 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-xl content-box">
-            <div class="content-box-title">🔹 주간일정</div>
-            <div class="scroll" style="max-height: 30rem;overflow-y: auto">
-                <table class="schedule-board">
-                    <tbody id="scheduleBoard">
-                    </tbody>
-                </table>
-            </div>
+    <div class="row content-box">
+        <div class="content-box-title">🔹 주간일정</div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <div id="scheduleTitle"></div>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div id="calendar" style="max-height: 40rem"></div>
+
+        <div class="scroll" style="max-height: 30rem;overflow-y: auto">
+            <table class="schedule-board">
+                <tbody id="scheduleBoard">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div id="scheduleTitle"></div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="scheduleMeme" style="padding: 1rem 0"></div>
+                        <hr>
+                        <div style="font-size: 1.4rem">
+                            <div>시작일 : <span id="scheduleStartDate"></span></div>
+                            <div>완료일 : <span id="scheduleEndDate"></span></div>
                         </div>
-                        <div class="modal-body">
-                            <div id="scheduleMeme" style="padding: 1rem 0"></div>
-                            <hr>
-                            <div style="font-size: 1.4rem">
-                                <div>시작일 : <span id="scheduleStartDate"></span></div>
-                                <div>완료일 : <span id="scheduleEndDate"></span></div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl content-box">
+            <div class="content-box-title">🔹 출퇴근기록</div>
         </div>
         <div class="col-xl content-box">
             <div class="content-box-title">🔹 공지사항</div>
@@ -212,7 +218,7 @@
     setBoardData();
 
     //전체 정보 조회
-    function setBoardData(){
+    function setBoardData() {
         //부서정보 조회
         request('department/readDepartmentNameAndMemberCount', setDepartmentInfo);
         //일정요약(출퇴근) 조회
@@ -305,5 +311,38 @@
         let end = endDate.split("T");
         $("#scheduleEndDate").text(" 📅 " + end[0].replaceAll("-", ".") + " 🕒 " + end[1]);
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'listWeek',
+            locale:'ko',
+            events: [
+                {
+                    title: 'Meeting',
+                    start: '2021-06-09T14:30:00'
+                },
+                {
+                    title: 'Birthday Party',
+                    start: '2021-06-11T14:30:00'
+                }
+            ],
+            eventDidMount: function(info) {
+                if (info.event.extendedProps.status === 'done') {
+
+                    // Change background color of row
+                    info.el.style.backgroundColor = 'red';
+
+                    // Change color of dot marker
+                    var dotEl = info.el.getElementsByClassName('fc-event-dot')[0];
+                    if (dotEl) {
+                        dotEl.style.backgroundColor = 'white';
+                    }
+                }
+            }
+
+        });
+        calendar.render();
+    });
 
 </script>

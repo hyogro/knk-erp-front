@@ -123,3 +123,8 @@ input, select {
 .modal .modal-body {
     padding: 1rem 2rem !important;
 }
+
+/*fullcalendar 패키지*/
+.fc .fc-toolbar-title {
+    font-size: 2rem !important;
+}
