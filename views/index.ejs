@@ -12,17 +12,45 @@
             font-size: 2rem;
         }
 
-        .schedule-board {
-            text-align: left;
+        .commute-self .btn {
+            font-size: 1.8rem !important;
+            padding: 1rem 0 !important;
+            border-radius: 10%;
         }
 
-        .schedule-board th {
-            width: 30%;
+        .commute-self {
         }
 
-        .schedule-board td {
-            width: 70%;
-            cursor: pointer;
+        .commute-self img {
+            width: 48px;
+            height: 48px;
+        }
+
+        .commute-self  {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .commute-self .btn {
+            width: 10rem;
+            min-width: 10rem;
+            height: 10rem;
+            min-height: 10rem;
+        }
+
+        .commute-self table td {
+            font-size: 2rem;
+            padding: 2rem;
+        }
+
+        .commute-self table {
+            border: 1px solid #DCDCDC;
+        }
+
+        .commute-self table th:not(:last-child),
+        .commute-self table td:not(:last-child) {
+            border-right: 1px solid #DCDCDC;
         }
 
         .commute-board {
@@ -81,7 +109,36 @@
     <div class="row">
         <div class="col-xl content-box">
             <div class="content-box-title">🔹 출퇴근기록</div>
+            <div class="row commute-self">
+                <div style="width: fit-content;margin: 1rem">
+                    <button type="button" class="btn btn-primary" onclick="request('attendance/onWork', onWork)">
+                        <img src="/images/icon-on-work.png">
+                        <div>출근</div>
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="request('attendance/offWork', offWork)">
+                        <img src="/images/icon-off-work.png">
+                        <div>퇴근</div>
+                    </button>
+                </div>
+                <div style="width: 45rem">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>출근</th>
+                            <th>퇴근</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>09:00:00</td>
+                            <td>09:00:00</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+
         <div class="col-xl content-box">
             <div class="content-box-title">🔹 공지사항</div>
             <table class="notice-board">
@@ -107,42 +164,27 @@
 
     <div class="row commute-board">
         <div class="col-md content-box"
-             style="border-top: 5px solid blue;color: #1354d9">
+             style="border-top: 5px solid #576cfa;color: #1354d9">
             출근
             <div class="count" id="onWork"></div>
         </div>
         <div class="col-md content-box"
-             style="border-top: 5px solid orange; color: #e07c00">
+             style="border-top: 5px solid #ffb43d; color: #e07c00">
             미출근
             <div class="count" id="yetWork"></div>
         </div>
         <div class="col-md content-box"
-             style="border-top: 5px solid red;color: #bf0920">
+             style="border-top: 5px solid #ff4848;color: #ff2d47">
             지각
             <div class="count" id="lateWork"></div>
         </div>
         <div class="col-md content-box"
-             style="border-top: 5px solid green;color: #01853d">
+             style="border-top: 5px solid #00bd00;color: #01853d">
             휴가
             <div class="count"></div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col content-box">
-            <div class="content-box-title">🔹 주간통계</div>
-            <!--            팀장, 부장 = 주간 출근, 미출근, 지각, 휴가 통계-->
-            <!--            오늘기준 7일전-->
-            <canvas id="commuteChart" height="50"></canvas>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col content-box">
-            <div class="content-box-title">🔹 주간근무시간</div>
-            <!--            팀원 = 주간 근무시간 통계-->
-        </div>
-    </div>
 </div>
 </body>
 
@@ -150,38 +192,6 @@
 
 <script>
     <%- include ('common/check-data.js') %>
-
-    var ctx = document.getElementById('commuteChart').getContext('2d');
-    var commuteChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['21.06.08', '21.06.09', '21.06.10', '21.06.11', '21.06.12', '21.06.13'],
-            datasets: [{
-                label: '출근',
-                data: [50, 45, 49, 50, 45, 47],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)'
-                ],
-                borderWidth: 1
-            },
-                {
-                    label: '퇴근',
-                    data: [45, 50, 44, 49, 45, 50],
-                    backgroundColor: [
-                        'rgba(54, 162, 235, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(54, 162, 235, 1)'
-                    ],
-                    borderWidth: 1
-                }
-            ]
-        },
-        options: {}
-    });
 
     setBoardData();
 
@@ -239,7 +249,6 @@
 
     //주간일정 조회
     function setScheduleList(res) {
-        console.log(res);
         if (res.code === null) {
             return;
         }
@@ -262,23 +271,64 @@
         }
     }
 
-    //fullcalendar-셋팅
-    function makeCalendar(data){
+    //fullcalendar - 셋팅
+    function makeCalendar(data) {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'listWeek',
-            locale:'ko',
+            locale: 'ko',
             events: data,
             eventTimeFormat: {
                 hour: '2-digit',
                 minute: '2-digit',
-                hour12:false
+                hour12: false
             }
         });
         calendar.render();
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    //출근 기록
+    function onWork(res) {
+        if (res.code === null) {
+            return;
+        }
+        if (res.code === 'ON001') {
+            alert("출근이 기록되었습니다.");
+        } else if (res.code === 'ON002') {
+            alert("출근 기록 실패");
+        } else if (res.code === 'ON003') {
+            alert("이미 출근 기록이 존재합니다.");
+        } else if (res.code === 'ON004') {
+            alert("권한이 없습니다.");
+        }
+    }
+
+    //퇴근 기록
+    function offWork(res) {
+        if (res.code === null) {
+            return;
+        }
+        if (res.code === 'OFF001') {
+            alert("퇴근이 기록되었습니다.");
+        } else if (res.code === 'OFF002') {
+            alert("퇴근 기록 실패");
+        } else if (res.code === 'OFF003') {
+            alert("이미 퇴근 기록이 존재합니다.");
+        } else if (res.code === 'OFF004') {
+            alert("권한이 없습니다.");
+        } else if (res.code === 'OFF005') {
+            alert("출근 기록이 존재하지 않습니다.");
+        }
+    }
+
+    function testFunc(res) {
+        console.log(res);
+        console.log(res);
+        console.log(res);
+        console.log(res);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
         makeCalendar();
     });
 
