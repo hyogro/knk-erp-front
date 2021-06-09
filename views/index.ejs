@@ -187,6 +187,14 @@
     //일정요약(출퇴근) 조회
     request('attendance/readAttendanceSummary', setAttendanceSummary);
 
+    var testData = {};
+    testData.viewOption = 'all dep own';
+    testData.page = 0;
+    testData.size = 100;
+    //주간일정 조회
+    requestWithData('schedule/readScheduleList', testData, testFunc);
+
+
     //부서정보 조회
     function setDepartmentInfo(res) {
         if (res.code === null) {
@@ -218,6 +226,10 @@
             $(".commute-board").hide();
             console.log("일정요약 조회 실패\n권한이 없습니다.");
         }
+    }
+
+    function testFunc(data){
+        console.log(data);
     }
 
 </script>
