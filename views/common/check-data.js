@@ -14,8 +14,6 @@ function isEmpty(val) {
 
 //날짜 년, 월, 일 배열
 function getTodayArr(date) {
-    date = new Date(date);
-
     let dateArr = [];
 
     dateArr[0] = date.getFullYear();
@@ -24,6 +22,9 @@ function getTodayArr(date) {
     dateArr[3] = date.getHours();
     dateArr[4] = date.getMinutes();
     dateArr[5] = date.getSeconds();
+
+    let week = new Array('일', '월', '화', '수', '목', '금', '토');
+    dateArr[6] = week[date.getDay()];
 
     return dateArr;
 }
