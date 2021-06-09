@@ -66,7 +66,7 @@
         $.ajax({
             type: "POST",
             url: '<%= api %>' + url,
-            contentType: 'application/json',
+            contentType: 'application/json; charset=UTF-8',
             dataType: 'json',
             data: JSON.stringify(data),
             success: function (res) {

@@ -53,7 +53,7 @@
             type: "POST",
             url: '<%= api %>' + url,
             headers: {'token': $.cookie('token')},
-            contentType: 'application/json',
+            contentType: 'application/json; charset=UTF-8',
             dataType: 'json',
             data: JSON.stringify(data),
             success: function (res) {
