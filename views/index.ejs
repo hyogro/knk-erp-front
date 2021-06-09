@@ -16,6 +16,15 @@
             text-align: left;
         }
 
+        .schedule-board th {
+            width: 30%;
+        }
+
+        .schedule-board td {
+            width: 70%;
+            cursor: pointer;
+        }
+
         .commute-board {
             display: none;
             text-align: center;
@@ -38,6 +47,8 @@
         }
 
         .schedule-board td:hover,
+        .schedule-board td:focus,
+        .schedule-board td:active,
         .notice-board .notice-title:hover {
             text-decoration: underline;
         }
@@ -68,17 +79,33 @@
             <div class="content-box-title">🔹 주간일정</div>
             <div class="scroll" style="max-height: 30rem;overflow-y: auto">
                 <table class="schedule-board">
-                    <tbody>
-                    <tr>
-                        <th width="20%">6월 7일</th>
-                        <td width="80%">타이틀바, 메뉴바 css 작업</td>
-                    </tr>
-                    <tr>
-                        <th>6월 8일</th>
-                        <td>메인화면 출퇴근 업데이트</td>
-                    </tr>
+                    <tbody id="scheduleBoard">
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div id="scheduleTitle"></div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="scheduleMeme" style="padding: 1rem 0"></div>
+                            <hr>
+                            <div style="font-size: 1.4rem">
+                                <div>시작일 : <span id="scheduleStartDate"></span></div>
+                                <div>완료일 : <span id="scheduleEndDate"></span></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-xl content-box">
@@ -182,18 +209,26 @@
         options: {}
     });
 
-    //부서정보 조회
-    request('department/readDepartmentNameAndMemberCount', setDepartmentInfo);
-    //일정요약(출퇴근) 조회
-    request('attendance/readAttendanceSummary', setAttendanceSummary);
+    setBoardData();
 
-    var testData = {};
-    testData.viewOption = 'all dep own';
-    testData.page = 0;
-    testData.size = 100;
-    //주간일정 조회
-    requestWithData('schedule/readScheduleList', testData, testFunc);
+    //전체 정보 조회
+    function setBoardData(){
+        //부서정보 조회
+        request('department/readDepartmentNameAndMemberCount', setDepartmentInfo);
+        //일정요약(출퇴근) 조회
+        request('attendance/readAttendanceSummary', setAttendanceSummary);
 
+        let scheduleSendData = {};
+        scheduleSendData.viewOption = 'all dep own';
+        scheduleSendData.page = 0;
+        scheduleSendData.size = 100;
+        let today = new Date();
+        scheduleSendData.startDate = getToday(today);
+        scheduleSendData.endDate = getToday(new Date(today.setDate(today.getDate() + 7)));
+
+        //주간일정 조회
+        requestWithData('schedule/readScheduleList', scheduleSendData, setScheduleList);
+    }
 
     //부서정보 조회
     function setDepartmentInfo(res) {
@@ -228,8 +263,47 @@
         }
     }
 
-    function testFunc(data){
-        console.log(data);
+    function setScheduleList(res) {
+        console.log(res);
+        if (res.code === null) {
+            return;
+        }
+        if (res.code === 'RSL001') {
+            $("#scheduleBoard").empty();
+            for (let i = 0; i < res.data.length; i++) {
+                let date = '';
+                let dateArr1 = getTodayArr(res.data[i].startDate);
+                let dateArr2 = getTodayArr(res.data[i].endDate);
+                if (dateArr1.toString() === dateArr2.toString()) {
+                    date = dateArr1[1] + '월' + dateArr1[2] + '일';
+                } else {
+                    date = dateArr1[1] + '월' + dateArr1[2] + '일 ~ ' + dateArr2[1] + '월' + dateArr2[2] + '일';
+                }
+
+                let html = '<tr>' +
+                    '<th>' + date + '</th>' +
+                    '<td data-bs-toggle="modal" data-bs-target="#scheduleModal"' +
+                    ' onclick="detailSchedule(\'' + res.data[i].title + '\', \'' + res.data[i].memo + '\', ' +
+                    '\'' + res.data[i].startDate + '\', \'' + res.data[i].endDate + '\')">'
+                    + res.data[i].title + '</td>' +
+                    '</tr>';
+
+                $("#scheduleBoard").append(html);
+            }
+        } else if (res.code === 'RSL002') {
+            alert("일정목록 조회 실패");
+        }
+    }
+
+    //일정 자세히보기
+    function detailSchedule(title, memo, startDate, endDate) {
+        $("#scheduleTitle").text(title);
+        $("#scheduleMeme").text(memo);
+
+        let start = startDate.split("T");
+        $("#scheduleStartDate").text(" 📅 " + start[0].replaceAll("-", ".") + " 🕒 " + start[1]);
+        let end = endDate.split("T");
+        $("#scheduleEndDate").text(" 📅 " + end[0].replaceAll("-", ".") + " 🕒 " + end[1]);
     }
 
 </script>
