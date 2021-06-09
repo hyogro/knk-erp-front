@@ -76,39 +76,7 @@
 
     <div class="row content-box">
         <div class="content-box-title">🔹 주간일정</div>
-
-        <div id="calendar" style="max-height: 40rem"></div>
-
-        <div class="scroll" style="max-height: 30rem;overflow-y: auto">
-            <table class="schedule-board">
-                <tbody id="scheduleBoard">
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div id="scheduleTitle"></div>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="scheduleMeme" style="padding: 1rem 0"></div>
-                        <hr>
-                        <div style="font-size: 1.4rem">
-                            <div>시작일 : <span id="scheduleStartDate"></span></div>
-                            <div>완료일 : <span id="scheduleEndDate"></span></div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div id="calendar" style="max-height: 30rem"></div>
     </div>
     <div class="row">
         <div class="col-xl content-box">
@@ -269,6 +237,7 @@
         }
     }
 
+    //주간일정 조회
     function setScheduleList(res) {
         console.log(res);
         if (res.code === null) {
@@ -276,73 +245,41 @@
         }
         if (res.code === 'RSL001') {
             $("#scheduleBoard").empty();
+            let scheduleArr = new Array();
             for (let i = 0; i < res.data.length; i++) {
-                let date = '';
-                let dateArr1 = getTodayArr(res.data[i].startDate);
-                let dateArr2 = getTodayArr(res.data[i].endDate);
-                if (dateArr1.toString() === dateArr2.toString()) {
-                    date = dateArr1[1] + '월' + dateArr1[2] + '일';
-                } else {
-                    date = dateArr1[1] + '월' + dateArr1[2] + '일 ~ ' + dateArr2[1] + '월' + dateArr2[2] + '일';
-                }
+                var schedule = new Object();
 
-                let html = '<tr>' +
-                    '<th>' + date + '</th>' +
-                    '<td data-bs-toggle="modal" data-bs-target="#scheduleModal"' +
-                    ' onclick="detailSchedule(\'' + res.data[i].title + '\', \'' + res.data[i].memo + '\', ' +
-                    '\'' + res.data[i].startDate + '\', \'' + res.data[i].endDate + '\')">'
-                    + res.data[i].title + '</td>' +
-                    '</tr>';
+                schedule.title = res.data[i].title + "　　" + res.data[i].memo;
+                schedule.start = res.data[i].startDate;
+                schedule.end = res.data[i].endDate;
 
-                $("#scheduleBoard").append(html);
+                scheduleArr.push(schedule);
             }
+            makeCalendar(scheduleArr);
+
         } else if (res.code === 'RSL002') {
             alert("일정목록 조회 실패");
         }
     }
 
-    //일정 자세히보기
-    function detailSchedule(title, memo, startDate, endDate) {
-        $("#scheduleTitle").text(title);
-        $("#scheduleMeme").text(memo);
-
-        let start = startDate.split("T");
-        $("#scheduleStartDate").text(" 📅 " + start[0].replaceAll("-", ".") + " 🕒 " + start[1]);
-        let end = endDate.split("T");
-        $("#scheduleEndDate").text(" 📅 " + end[0].replaceAll("-", ".") + " 🕒 " + end[1]);
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
+    //fullcalendar-셋팅
+    function makeCalendar(data){
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'listWeek',
             locale:'ko',
-            events: [
-                {
-                    title: 'Meeting',
-                    start: '2021-06-09T14:30:00'
-                },
-                {
-                    title: 'Birthday Party',
-                    start: '2021-06-11T14:30:00'
-                }
-            ],
-            eventDidMount: function(info) {
-                if (info.event.extendedProps.status === 'done') {
-
-                    // Change background color of row
-                    info.el.style.backgroundColor = 'red';
-
-                    // Change color of dot marker
-                    var dotEl = info.el.getElementsByClassName('fc-event-dot')[0];
-                    if (dotEl) {
-                        dotEl.style.backgroundColor = 'white';
-                    }
-                }
+            events: data,
+            eventTimeFormat: {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12:false
             }
-
         });
         calendar.render();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        makeCalendar();
     });
 
 </script>

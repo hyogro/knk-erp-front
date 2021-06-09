@@ -99,19 +99,22 @@ input, select {
 }
 
 /* 스크롤바 설정*/
-.scroll::-webkit-scrollbar {
+.scroll::-webkit-scrollbar,
+.fc-scroller::-webkit-scrollbar {
     width: 6px;
 }
 
 /* 스크롤바 막대 설정*/
-.scroll::-webkit-scrollbar-thumb {
+.scroll::-webkit-scrollbar-thumb,
+.fc-scroller::-webkit-scrollbar-thumb {
     height: 17%;
     background-color: #5a759d;
     border-radius: 10px;
 }
 
 /* 스크롤바 뒷 배경 설정*/
-.scroll::-webkit-scrollbar-track {
+.scroll::-webkit-scrollbar-track,
+.fc-scroller::-webkit-scrollbar-track {
     background-color: rgba(255, 255, 255, 0.25);
 }
 
@@ -124,7 +127,65 @@ input, select {
     padding: 1rem 2rem !important;
 }
 
-/*fullcalendar 패키지*/
+/*fullcalendar*/
 .fc .fc-toolbar-title {
     font-size: 2rem !important;
+    font-weight: 600;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 1rem !important;
+}
+
+.fc .fc-button {
+    font-size: 1.4rem !important;
+    padding: 0.5rem 1rem;
+}
+
+.fc .fc-prev-button,
+.fc .fc-next-button {
+    padding: 0.5rem !important;
+}
+
+.fc .fc-list-day-side-text {
+    /*float: left !important;*/
+    /*color: black !important;*/
+}
+
+.fc .fc-list-day-text {
+    margin-left: 0.7rem;
+    float: right !important;
+    /*color: black !important;*/
+}
+
+.fc .fc-day-sun a {
+    color: #ef0202 !important;
+}
+
+.fc .fc-day-sat a {
+    color: #1354d9 !important;
+}
+
+.fc a{
+    text-decoration: none;
+    color: black ;
+}
+
+.fc a:hover {
+    color: black;
+}
+
+.fc-theme-standard .fc-list-day-cushion {
+    background: none !important;
+    width: fit-content !important;
+}
+
+.fc-list-table th {
+    background: #f3f3f3 !important;
+}
+
+.fc-list-event-title {
+    text-align: left !important;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
 }
