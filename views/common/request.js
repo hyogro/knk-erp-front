@@ -7,6 +7,12 @@ function request(url, processFunc) {
         success: function (res) {
             processFunc(res);
         },
+        beforeSend: function() { //로딩이미지 보여주기
+            $("#loading").show();
+        },
+        complete: function() { //로딩이미지 숨기기
+            $("#loading").hide();
+        },
         error: function (err) {
             processFunc(err);
         }
@@ -24,6 +30,12 @@ function requestWithData(url, data, processFunc) {
         data: JSON.stringify(data),
         success: function (res) {
             processFunc(res);
+        },
+        beforeSend: function() { //로딩이미지 보여주기
+            $("#loading").show();
+        },
+        complete: function() { //로딩이미지 숨기기
+            $("#loading").hide();
         },
         error: function (err) {
             processFunc(err);

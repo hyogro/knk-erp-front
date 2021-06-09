@@ -109,3 +109,14 @@ header {
     color: white;
     border: none;
 }
+
+#loading {
+    z-index: 10000;
+}
+
+#loading img {
+    border: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
