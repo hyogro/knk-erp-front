@@ -96,6 +96,11 @@ input, select {
 }
 
 /* 스크롤바 설정*/
+
+.scroll {
+    overflow: auto;
+}
+
 .scroll::-webkit-scrollbar,
 .fc-scroller::-webkit-scrollbar {
     width: 6px;

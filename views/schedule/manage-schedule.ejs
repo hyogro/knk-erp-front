@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('../part/head.ejs') %>
+
+    <style>
+        .content-box-title {
+            font-weight: bold;
+        }
+
+        .col {
+            margin: 0.5rem !important;
+        }
+
+        .content-box .btn {
+            margin: 2px;
+            float: right;
+        }
+
+        table {
+            text-align: left;
+        }
+
+        #myScheduleList td {
+            cursor: pointer;
+        }
+
+        #myScheduleList td:hover,
+        #myScheduleList td:focus,
+        #myScheduleList td:active {
+            text-decoration: underline;
+            background: #eef1fd;
+        }
+
+        .search-date {
+            float: right;
+            width: fit-content !important;
+            margin-bottom: 4px !important;
+        }
+
+        select:not(:last-child) {
+            margin-right: 4px;
+        }
+    </style>
+</head>
+
+<header>
+    <%- include ('../part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('../part/menu.ejs') %>
+<div id="main">
+    <div class="row">
+        <div class="col content-box">
+            <div class="row content-box-title">내 근무 일정</div>
+            <div class="row search-date">
+                <select id="year" style="width: 9rem" onchange="searchScheduleList()">
+                </select>
+                <select id="month" style="width: 8rem" onchange="searchScheduleList()">
+                </select>
+            </div>
+            <div class="row">
+                <table>
+                    <tbody id="myScheduleList">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col content-box">
+            <div class="row">
+                <div class="title" id="scheduleTitle">일정을 선택해주세요</div>
+                <div class="time" id="scheduleTime"></div>
+            </div>
+            <hr>
+            <div class="row" id="scheduleMemo">
+                내용
+            </div>
+            <div class="row" style="display: block">
+                <button type="button" class="btn btn-secondary">수정</button>
+                <button type="button" class="btn btn-danger">삭제</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script>
+
+    <%- include ('../common/check-data.js') %>
+
+    let scheduleArr = [];
+
+    setBoardData();
+
+    function setBoardData() {
+        let scheduleSendData = {};
+        scheduleSendData.viewOption = 'dep own';
+        scheduleSendData.page = 0;
+        scheduleSendData.size = 100;
+
+        //주간일정 조회
+        requestWithData('schedule/readScheduleList', scheduleSendData, setScheduleList);
+    }
+
+    //초기 셋팅
+    function setScheduleList(res) {
+        if (res.code === null) {
+            return;
+        }
+        if (res.code === 'RSL001') {
+            scheduleArr = res.data;
+            setDateSelector();
+        } else if (res.code === 'RSL002') {
+            alert("일정목록 조회 실패");
+        }
+    }
+
+    // 초기 날짜 셋팅
+    function setDateSelector() {
+        let dateSet = new Set();
+        for (let i = 0; i < scheduleArr.length; i++) {
+            dateSet.add((scheduleArr[i].startDate).toString().substring(0, 7));
+            dateSet.add((scheduleArr[i].endDate).toString().substring(0, 7));
+        }
+        let dateArr = Array.from(dateSet);
+        for (let i = 0; i < dateArr.length; i++) {
+            let date = dateArr[i].split("-");
+            $("#year").append("<option>" + date[0] + "</option>");
+            $("#month").append("<option>" + date[1] + "</option>");
+        }
+
+        searchScheduleList();
+    }
+
+    //내 일정 검색
+    function searchScheduleList() {
+        $("#myScheduleList").empty();
+        let date = $("#year").val() + "-" + $("#month").val();
+        for (let i = 0; i < scheduleArr.length; i++) {
+            if ((scheduleArr[i].startDate).substring(0, 7) === date ||
+                (scheduleArr[i].endDate).substring(0, 7) === date) {
+                let startDate = (scheduleArr[i].startDate).split("T")[0].replaceAll("-", ".");
+                let endDate = (scheduleArr[i].endDate).split("T")[0].replaceAll("-", ".");
+
+                let html = '';
+                if (startDate === endDate) {
+                    html += '<tr><th width="30%">' + startDate + '</th>';
+                } else {
+                    html += '<tr><th width="30%">' + startDate + "~" + endDate + '</th>';
+                }
+                html += '<td width="70%" id=\'' + scheduleArr[i].id + '\' onclick="detailSchedule(id)">' +
+                    scheduleArr[i].title + '</td></tr>';
+
+                $("#myScheduleList").append(html);
+            }
+        }
+    }
+
+    function detailSchedule(id) {
+        let scheduleSendData = {};
+        scheduleSendData.id = id;
+        requestWithData('schedule/readScheduleDetail', scheduleSendData, setDetailSchedule);
+    }
+
+    function setDetailSchedule(res) {
+        console.log(res)
+        $("#scheduleTitle").text(res.data.title);
+        let start = res.data.startDate.split("T");
+        let end = res.data.endDate.split("T");
+        $("#scheduleTime").html(start[0] + "🕒" + start[1] + '<br>' + end[0] + "🕒" + end[1]);
+        $("#scheduleMemo").text(res.data.memo);
+    }
+
+    function consolLog(res) {
+        console.log(res);
+    }
+
+</script>

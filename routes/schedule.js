@@ -7,11 +7,11 @@ const api = 'https://api.leescode.com/';
 router.get('/', function (req, res, next) {
     res.render('schedule/schedule', {api: api, title: '구이앤금우통신:일정'});
 });
-router.get('/create-schedule', function (req, res, next) {
-    res.render('schedule/create-schedule', {api: api, title: '구이앤금우통신:일정생성'});
+router.get('/manage-schedule', function (req, res, next) {
+    res.render('schedule/manage-schedule', {api: api, title: '구이앤금우통신:일정생성'});
 });
-router.get('/create-vacation', function (req, res, next) {
-    res.render('schedule/create-vacation', {api: api, title: '구이앤금우통신:휴가일정생성 요청'});
+router.get('/manage-vacation', function (req, res, next) {
+    res.render('schedule/manage-vacation', {api: api, title: '구이앤금우통신:휴가일정생성 요청'});
 });
 
 

@@ -23,7 +23,7 @@
 
     //로그아웃
     function logout() {
-        $.cookie('token', null, {path: '/login'});
+        $.cookie('token', null, {path: '/'});
         let cookies = $.cookie();
         for (let cookie in cookies) {
             $.removeCookie(cookie);

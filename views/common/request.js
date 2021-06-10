@@ -17,7 +17,7 @@ function request(url, processFunc) {
             $("#loading").hide();
         },
         error: function (err) {
-            processFunc(err);
+            console.log(err);
         }
     });
 }
@@ -41,7 +41,7 @@ function requestWithData(url, data, processFunc) {
             $("#loading").hide();
         },
         error: function (err) {
-            processFunc(err);
+            console.log(err);
         }
     });
 }
