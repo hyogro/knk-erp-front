@@ -1,3 +1,6 @@
+//api 통신 전 로딩 숨기기
+$("#loading").hide();
+
 //api 요청
 function request(url, processFunc) {
     $.ajax({
