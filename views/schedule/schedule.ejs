@@ -14,11 +14,86 @@
 
 <body>
 <%- include ('../part/menu.ejs') %>
-일정 메인
+<div id="main">
+    <div class="row">
+        <div class="col-9">
+            <div id="calendar" style=""></div>
+        </div>
+       <div class="col-3" style="background: red">
+           일정나와
+       </div>
+    </div>
+
+</div>
 </body>
 
 </html>
 
 <script>
+    <%- include ('../common/check-data.js') %>
+
+    setBoardData();
+
+    //전체 정보 조회
+    function setBoardData() {
+        let scheduleSendData = {};
+        scheduleSendData.viewOption = 'all dep own';
+        scheduleSendData.page = 0;
+        scheduleSendData.size = 100;
+        let today = new Date();
+        scheduleSendData.startDate = getToday(today);
+        scheduleSendData.endDate = getToday(new Date(today.setDate(today.getDate() + 7)));
+
+        //주간일정 조회
+        requestWithData('schedule/readScheduleList', scheduleSendData, setScheduleList);
+    }
+
+    //달력 일정 셋팅
+    function setScheduleList(res) {
+        if (res.code === null) {
+            return;
+        }
+        if (res.code === 'RSL001') {
+            let scheduleArr = new Array();
+            for (let i = 0; i < res.data.length; i++) {
+                var schedule = new Object();
+
+                schedule.title = res.data[i].title;
+                schedule.memo = res.data[i].memo;
+                schedule.start = res.data[i].startDate;
+                schedule.end = res.data[i].endDate;
+
+                scheduleArr.push(schedule);
+            }
+            setCalendar(scheduleArr);
+
+        } else if (res.code === 'RSL002') {
+            alert("일정목록 조회 실패");
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        setCalendar();
+    });
+
+    //fullcalendar - 셋팅
+    function setCalendar(data) {
+        let calendarEl = document.getElementById('calendar');
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: 'ko',
+            events: data,
+            eventTimeFormat: {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            },
+            eventClick: function(info) {
+                alert('Event: ' + info.event.title + "\nstart: " + info.event.memo);
+            }
+
+        });
+        calendar.render();
+    }
 
 </script>

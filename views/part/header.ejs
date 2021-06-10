@@ -17,6 +17,7 @@
     const token = $.cookie('token');
     // 로그인이 안되어있으면 로그인으로
     if (token === undefined || token == "null") {
+        $(".title-bar").hide();
         location.href = "/login";
     }
 
