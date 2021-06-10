@@ -14,28 +14,10 @@
 
 <body>
 <%- include ('../part/menu.ejs') %>
-<div id="main">
-    <div class="row">
-        <div class="col-9">
-            <div id="calendar" style=""></div>
-        </div>
-        <div class="col-3" style="background: red">
-            일정나와
-        </div>
-    </div>
-</div>
 
 </body>
 
 </html>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-
-        let calendarEl = document.getElementById('calendar');
-        let calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth'
-        });
-        calendar.render();
-    });
 </script>

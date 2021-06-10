@@ -55,10 +55,6 @@ body {
     margin: 1.5rem 0 !important;
 }
 
-.content-box:not(:last-child) {
-    margin-right: 1.5rem !important;
-}
-
 .content-box .content-box-title {
     font-size: 1.8rem;
     padding: 0;
