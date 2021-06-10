@@ -75,8 +75,6 @@
         }
 
         .schedule-board td:hover,
-        .schedule-board td:focus,
-        .schedule-board td:active,
         .notice-board .notice-title:hover {
             text-decoration: underline;
         }
@@ -180,7 +178,7 @@
         <div class="col-md content-box"
              style="border-top: 5px solid #00bd00;color: #01853d">
             휴가
-            <div class="count"></div>
+            <div class="count" id="vacation"></div>
         </div>
     </div>
 
@@ -203,6 +201,8 @@
         request('department/readDepartmentNameAndMemberCount', setDepartmentInfo);
         //일정요약(출퇴근) 조회
         request('attendance/readAttendanceSummary', setAttendanceSummary);
+        //휴가요약(출퇴근) 조회
+        request('vacation/readVacationSummary', setVacationSummary);
         //출퇴근기록 조회
         request('attendance/readAttendanceToday', setWorkBoard);
 
@@ -248,6 +248,21 @@
         } else if (res.code === 'RSS003') {
             $(".commute-board").hide();
             console.log("일정요약 조회 실패\n권한이 없습니다.");
+        }
+    }
+    //일정요약(출퇴근) 조회
+    function setVacationSummary(res) {
+        console.log(res);
+        if (res.code === null) {
+            return;
+        }
+        if (res.code === 'RVS001') {
+            $("#vacation").text(res.data.vacation);
+        } else if (res.code === 'RVS002') {
+            alert("휴가요약 조회 실패");
+        } else if (res.code === 'RVS003') {
+            $(".commute-board").hide();
+            console.log("휴가요약 조회 실패\n권한이 없습니다.");
         }
     }
 
