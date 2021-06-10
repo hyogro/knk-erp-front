@@ -6,6 +6,24 @@
     <title><%= title %></title>
 
     <%- include ('../part/head.ejs') %>
+
+    <style>
+        .schedule-board {
+            min-height: 35rem;
+            margin-top: 4rem !important;
+        }
+
+        .schedule-board .title {
+            font-size: 1.8rem;
+            padding: 0;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+
+        .schedule-board .time {
+            font-size: 1.4rem
+        }
+    </style>
 </head>
 
 <header>
@@ -19,11 +37,17 @@
         <div class="col-9">
             <div id="calendar" style=""></div>
         </div>
-       <div class="col-3" style="background: red">
-           일정나와
-       </div>
+        <div class="col-3">
+            <div class="content-box schedule-board">
+                <span class="title" id="scheduleTitle">일정제목</span>
+                <span class="time" id="scheduleTime"> 🕒09:00~18:00</span>
+                <hr>
+                <div id="scheduleMemo">
+                    일정내용
+                </div>
+            </div>
+        </div>
     </div>
-
 </div>
 </body>
 
@@ -32,10 +56,7 @@
 <script>
     <%- include ('../common/check-data.js') %>
 
-    setBoardData();
-
-    //전체 정보 조회
-    function setBoardData() {
+    document.addEventListener('DOMContentLoaded', function () {
         let scheduleSendData = {};
         scheduleSendData.viewOption = 'all dep own';
         scheduleSendData.page = 0;
@@ -46,7 +67,7 @@
 
         //주간일정 조회
         requestWithData('schedule/readScheduleList', scheduleSendData, setScheduleList);
-    }
+    });
 
     //달력 일정 셋팅
     function setScheduleList(res) {
@@ -56,7 +77,7 @@
         if (res.code === 'RSL001') {
             let scheduleArr = new Array();
             for (let i = 0; i < res.data.length; i++) {
-                var schedule = new Object();
+                let schedule = new Object();
 
                 schedule.title = res.data[i].title;
                 schedule.memo = res.data[i].memo;
@@ -66,15 +87,11 @@
                 scheduleArr.push(schedule);
             }
             setCalendar(scheduleArr);
-
+            console.log(res)
         } else if (res.code === 'RSL002') {
             alert("일정목록 조회 실패");
         }
     }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        setCalendar();
-    });
 
     //fullcalendar - 셋팅
     function setCalendar(data) {
@@ -88,8 +105,13 @@
                 minute: '2-digit',
                 hour12: false
             },
-            eventClick: function(info) {
-                alert('Event: ' + info.event.title + "\nstart: " + info.event.memo);
+            eventClick: function (info) {
+                $("#scheduleTitle").text(info.event.title);
+                let start = getTodayArr(info.event.start);
+                let startTime = ("0" + start[3]).slice(-2) + ":" + ("0" + start[4]).slice(-2);
+                let end = getTodayArr(info.event.end);
+                let endTime = ("0" + end[3]).slice(-2) + ":" + ("0" + end[4]).slice(-2);
+                $("#scheduleTime").text("🕒" + startTime + "~" + endTime);
             }
 
         });
