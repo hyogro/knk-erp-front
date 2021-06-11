@@ -1,0 +1,24 @@
+<div class="col-lg content-box schedule-board">
+    <div class="row title">
+        내 근무 일정
+    </div>
+    <div class="row" style="display: inline-block">
+        <div style="float: left;width: fit-content">
+            <select id="year" style="width: 9rem" onchange="searchScheduleList()">
+            </select>
+            <select id="month" style="width: 8rem" onchange="searchScheduleList()">
+            </select>
+        </div>
+        <div style="float: right;width: fit-content">
+            <button type="button" class="btn btn-primary" onclick="typeSchedule('create')"
+                    data-bs-toggle="modal" data-bs-target="#saveScheduleModal">일정 추가
+            </button>
+        </div>
+    </div>
+    <div class="row scroll" style="overflow-y: auto;max-height: 60rem;height: 60rem">
+        <table style="height: fit-content">
+            <tbody id="myScheduleList">
+            </tbody>
+        </table>
+    </div>
+</div>
