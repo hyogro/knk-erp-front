@@ -16,11 +16,6 @@
             margin: 0.5rem !important;
         }
 
-        .content-box .btn {
-            margin: 2px;
-            float: right;
-        }
-
         table {
             text-align: left;
         }
@@ -44,6 +39,22 @@
 
         select:not(:last-child) {
             margin-right: 4px;
+        }
+
+        .schedule-board .title {
+            font-size: 2rem;
+            padding: 0;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+
+        .schedule-board .time {
+            font-size: 1.4rem;
+            padding: 0;
+        }
+
+        .schedule-board .memo {
+            padding: 0.5rem 1rem !important;
         }
     </style>
 </head>
@@ -71,18 +82,21 @@
                 </table>
             </div>
         </div>
-        <div class="col content-box">
+        <div class="col content-box schedule-board">
             <div class="row">
-                <div class="title" id="scheduleTitle">일정을 선택해주세요</div>
-                <div class="time" id="scheduleTime"></div>
+                <div class="title" id="scheduleTitle">
+                </div>
+                <span class="time" id="scheduleTime"></span>
             </div>
             <hr>
-            <div class="row" id="scheduleMemo">
-                내용
+            <div class="row memo" id="scheduleMemo">
             </div>
-            <div class="row" style="display: block">
-                <button type="button" class="btn btn-secondary">수정</button>
-                <button type="button" class="btn btn-danger">삭제</button>
+            <hr>
+            <div class="row" style="display: block;">
+                <div style="float: right;width: fit-content">
+                    <button type="button" class="btn btn-secondary">수정</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteAlertSchedule()">삭제</button>
+                </div>
             </div>
         </div>
     </div>
@@ -172,10 +186,37 @@
     function setDetailSchedule(res) {
         console.log(res)
         $("#scheduleTitle").text(res.data.title);
+        $("#scheduleTitle").attr("data-id", res.data.id);
         let start = res.data.startDate.split("T");
         let end = res.data.endDate.split("T");
-        $("#scheduleTime").html(start[0] + "🕒" + start[1] + '<br>' + end[0] + "🕒" + end[1]);
+        $("#scheduleTime").html("시작: " + start[0] + " 🕒" + start[1] +
+            " / 종료: " + end[0] + " 🕒" + end[1]);
         $("#scheduleMemo").text(res.data.memo);
+    }
+
+    function deleteAlertSchedule() {
+        if (confirm("일정을 삭제하시겠습니까??") == true) {
+            let scheduleSendData = {};
+            scheduleSendData.id = $("#scheduleTitle").data("id");
+            console.log(scheduleSendData);
+            requestWithData('schedule/deleteSchedule', scheduleSendData, deleteSchedule);
+        } else {
+            return false;
+        }
+    }
+
+    function deleteSchedule(res) {
+        if (res.code === null) {
+            return;
+        }
+        if (res.code === 'DS001') {
+            alert("일정이 삭제되었습니다.");
+            location.reload();
+        } else if (res.code === 'DS002') {
+            alert("일정삭제 실패");
+        } else if (res.code === 'DS003') {
+            alert("일정삭제 실패\n권한이 없습니다.");
+        }
     }
 
     function consolLog(res) {
