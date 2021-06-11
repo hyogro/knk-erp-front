@@ -90,7 +90,7 @@ table thead, table th {
     font-weight: 600;
 }
 
-input, select {
+input, select, textarea {
     border: 1px solid #DCDCDC;
     outline: none;
 }

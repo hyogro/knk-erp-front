@@ -8,16 +8,20 @@
     <%- include ('../part/head.ejs') %>
 
     <style>
-        .content-box-title {
-            font-weight: bold;
+        .col-lg {
+            margin: 0.5rem !important;
         }
 
-        .col {
-            margin: 0.5rem !important;
+        .row {
+            --bs-gutter-x: 0;
         }
 
         table {
             text-align: left;
+        }
+
+        table th {
+            vertical-align: top;
         }
 
         #myScheduleList td {
@@ -31,21 +35,10 @@
             background: #eef1fd;
         }
 
-        .search-date {
-            float: right;
-            width: fit-content !important;
-            margin-bottom: 4px !important;
-        }
-
-        select:not(:last-child) {
-            margin-right: 4px;
-        }
-
         .schedule-board .title {
-            font-size: 2rem;
+            font-size: 2.5rem;
             padding: 0;
             font-weight: bold;
-            margin-bottom: 3px;
         }
 
         .schedule-board .time {
@@ -56,6 +49,32 @@
         .schedule-board .memo {
             padding: 0.5rem 1rem !important;
         }
+
+        #createTitle, #createMemo {
+            width: 100%;
+        }
+
+        .schedule-write input[type=text],
+        .schedule-write textarea {
+            width: 100%;
+        }
+
+        .schedule-write textarea {
+            min-height: 20rem;
+            height: 20rem;
+            max-height: 20rem;
+            overflow-y: auto;
+        }
+
+        .schedule-write select {
+            width: 10rem;
+        }
+
+        .schedule-write input[type=date],
+        .schedule-write input[type=time] {
+            width: 13rem;
+        }
+
     </style>
 </head>
 
@@ -67,35 +86,105 @@
 <%- include ('../part/menu.ejs') %>
 <div id="main">
     <div class="row">
-        <div class="col content-box">
-            <div class="row content-box-title">내 근무 일정</div>
-            <div class="row search-date">
-                <select id="year" style="width: 9rem" onchange="searchScheduleList()">
-                </select>
-                <select id="month" style="width: 8rem" onchange="searchScheduleList()">
-                </select>
+        <div class="col-lg content-box schedule-board">
+            <div class="row title">
+                내 근무 일정
             </div>
-            <div class="row">
+            <div class="row" style="width: 100%;display: inline-block">
+                <div style="float: left;width: fit-content">
+                    <select id="year" style="width: 9rem" onchange="searchScheduleList()">
+                    </select>
+                    <select id="month" style="width: 8rem" onchange="searchScheduleList()">
+                    </select>
+                </div>
+                <div style="float: right;width: fit-content">
+                    <button type="button" class="btn btn-primary" onclick="typeSchedule('create')"
+                            data-bs-toggle="modal" data-bs-target="#saveScheduleModal">일정 추가
+                    </button>
+                </div>
+            </div>
+            <div class="row scroll" style="overflow-y: auto;max-height: 60rem;height: 60rem">
                 <table>
                     <tbody id="myScheduleList">
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="col content-box schedule-board">
+        <div class="col-lg content-box schedule-board" id="detailSchedule" style="visibility: hidden">
             <div class="row">
                 <div class="title" id="scheduleTitle">
                 </div>
                 <span class="time" id="scheduleTime"></span>
             </div>
             <hr>
-            <div class="row memo" id="scheduleMemo">
+            <div class="row memo scroll" id="scheduleMemo" style="overflow-y: auto;max-height: 55rem;height: 55rem">
             </div>
             <hr>
             <div class="row" style="display: block;">
                 <div style="float: right;width: fit-content">
-                    <button type="button" class="btn btn-secondary">수정</button>
+                    <button type="button" class="btn btn-secondary" onclick="typeSchedule('update')"
+                            data-bs-toggle="modal" data-bs-target="#saveScheduleModal">수정
+                    </button>
                     <button type="button" class="btn btn-danger" onclick="deleteAlertSchedule()">삭제</button>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="saveScheduleModal" tabindex="-1"
+             aria-labelledby="saveScheduleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="min-width: 60rem !important;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div>일정추가</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body schedule-write">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <th width="20%">제목</th>
+                                <td>
+                                    <input type="text" id="createTitle">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>공개범위</th>
+                                <td>
+                                    <select id="createViewOption">
+                                        <option value="own">개인</option>
+                                        <option value="dep">부서</option>
+                                        <option value="all">전체</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>시작</th>
+                                <td>
+                                    <input type="date" id="createStartDate">
+                                    <input type="time" id="createStartTime">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>종료</th>
+                                <td>
+                                    <input type="date" id="createEndDate">
+                                    <input type="time" id="createEndTime">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>내용</th>
+                                <td>
+                                    <textarea class="scroll" id="createMemo"></textarea>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-primary" id="saveBtn">저장</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -115,7 +204,7 @@
 
     function setBoardData() {
         let scheduleSendData = {};
-        scheduleSendData.viewOption = 'dep own';
+        scheduleSendData.viewOption = '';
         scheduleSendData.page = 0;
         scheduleSendData.size = 100;
 
@@ -177,23 +266,148 @@
         }
     }
 
+    //일정 상세보기
     function detailSchedule(id) {
         let scheduleSendData = {};
         scheduleSendData.id = id;
         requestWithData('schedule/readScheduleDetail', scheduleSendData, setDetailSchedule);
     }
 
+    //일정 상세보기
     function setDetailSchedule(res) {
-        console.log(res)
-        $("#scheduleTitle").text(res.data.title);
-        $("#scheduleTitle").attr("data-id", res.data.id);
-        let start = res.data.startDate.split("T");
-        let end = res.data.endDate.split("T");
-        $("#scheduleTime").html("시작: " + start[0] + " 🕒" + start[1] +
-            " / 종료: " + end[0] + " 🕒" + end[1]);
-        $("#scheduleMemo").text(res.data.memo);
+        if (res.code === null) {
+            return;
+        }
+        if (res.code === 'RSD001') {
+            $("#detailSchedule").css("visibility", "visible");
+            $("#scheduleTitle").text(res.data.title);
+            $("#scheduleTitle").attr("data-id", res.data.id);
+            let start = res.data.startDate.split("T");
+            let end = res.data.endDate.split("T");
+            $("#scheduleTime").html("시작: " + start[0] + " 🕒" + start[1] +
+                " | 종료: " + end[0] + " 🕒" + end[1]);
+            $("#scheduleMemo").text(res.data.memo);
+        } else if (res.code === 'RSD002') {
+            console.log("일정상세 조회 실패");
+        }
     }
 
+    function chkDate() {
+        let start1 = $("#createStartDate").val();
+        let start2 = $("#createStartTime").val() + ":00";
+        let startDate = new Date(start1 + "T" + start2);
+        let end1 = $("#createEndDate").val();
+        let end2 = $("#createEndTime").val() + ":00";
+        let endDate = new Date(end1 + "T" + end2);
+
+        console.log(startDate, endDate)
+
+        if (startDate > endDate) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function typeSchedule(type) {
+        $("#saveBtn").attr("onclick", "saveSchedule('" + type + "')");
+
+        if(type == 'update') {
+            let scheduleSendData = {};
+            scheduleSendData.id = $("#scheduleTitle").data("id");
+            requestWithData('schedule/readScheduleDetail', scheduleSendData, updateDetailSchedule);
+        }
+    }
+
+    function updateDetailSchedule(res) {
+        if (res.code === null) {
+            return;
+        }
+        if (res.code === 'RSD001') {
+           $("#createTitle").val(res.data.title);
+           $("#createMemo").val(res.data.memo);
+           $("#createViewOption").val(res.data.viewOption);
+
+           let start = res.data.startDate.split("T");
+           $("#createStartDate").val(start[0]);
+           $("#createStartTime").val(start[1]);
+
+           let end = res.data.endDate.split("T");
+           $("#createEndDate").val(end[0]);
+           $("#createEndTime").val(end[1]);
+        } else if (res.code === 'RSD002') {
+            console.log("일정상세 조회 실패");
+        }
+    }
+
+    function saveSchedule(type) {
+        let scheduleSendData = {};
+        scheduleSendData.title = $("#createTitle").val();
+        scheduleSendData.memo = $("#createMemo").val();
+        scheduleSendData.viewOption = $("#createViewOption").val();
+        let start1 = $("#createStartDate").val();
+        let start2 = $("#createStartTime").val();
+        scheduleSendData.startDate = start1 + "T" + start2;
+        let end1 = $("#createEndDate").val();
+        let end2 = $("#createEndTime").val();
+        scheduleSendData.endDate = end1 + "T" + end2;
+
+        console.log(scheduleSendData);
+
+        if (isEmpty(scheduleSendData.title)) {
+            alert("제목을 입력해주세요.");
+        } else if (isEmpty(scheduleSendData.memo)) {
+            alert("내용을 입력해주세요.");
+        } else if (isEmpty(start1)) {
+            alert("시작일을 선택해주세요.");
+        } else if (isEmpty(start2)) {
+            alert("시작시간을 선택해주세요.");
+        } else if (isEmpty(end1)) {
+            alert("종료일을 선택해주세요.");
+        } else if (isEmpty(end2)) {
+            alert("종료시간을 선택해주세요.");
+        } else if (!(chkDate())) {
+            alert("종료일/시간이 시작일/시간보다 빠를 수 없습니다.\n다시 선택해주세요.");
+        } else {
+            if (type === 'create') {
+                requestWithData('schedule/createSchedule', scheduleSendData, createAlertSchedule);
+            } else if (type === 'update') {
+                scheduleSendData.id = $("#scheduleTitle").data("id");
+                requestWithData('schedule/updateSchedule', scheduleSendData, updateAlertSchedule);
+            }
+        }
+    }
+
+    //일정 수정 결과 알림창
+    function updateAlertSchedule(res) {
+        console.log(res);
+        if (res.code === null) {
+            return;
+        }
+        if (res.code === 'US001') {
+            alert("일정이 수정되었습니다.");
+            location.reload();
+        } else if (res.code === 'US002') {
+            alert("일정수정 실패");
+        } else if (res.code === 'US002') {
+            alert("일정수정 실패\n권한이 없습니다.");
+        }
+    }
+
+    //일정 추가 결과 알림창
+    function createAlertSchedule(res) {
+        if (res.code === null) {
+            return;
+        }
+        if (res.code === 'CS001') {
+            alert("일정이 추가되었습니다.");
+            location.reload();
+        } else if (res.code === 'CS002') {
+            alert("일정추가 실패");
+        }
+    }
+
+    //일정 삭제
     function deleteAlertSchedule() {
         if (confirm("일정을 삭제하시겠습니까??") == true) {
             let scheduleSendData = {};
@@ -205,6 +419,7 @@
         }
     }
 
+    //일정 삭제
     function deleteSchedule(res) {
         if (res.code === null) {
             return;
