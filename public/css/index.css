@@ -1,0 +1,78 @@
+.content-box:not(:last-child) {
+    margin-right: 1.5rem !important;
+}
+
+.company-info {
+    font-size: 2rem;
+}
+
+.commute-self .btn {
+    font-size: 1.8rem !important;
+    padding: 1rem 0 !important;
+    border-radius: 10%;
+}
+
+.commute-self {
+}
+
+.commute-self img {
+    width: 48px;
+    height: 48px;
+}
+
+.commute-self {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.commute-self .btn {
+    width: 10rem;
+    min-width: 10rem;
+    height: 10rem;
+    min-height: 10rem;
+}
+
+.commute-self table td {
+    font-size: 2rem;
+    padding: 2rem;
+}
+
+.commute-self table {
+    border: 1px solid #DCDCDC;
+}
+
+.commute-self table th:not(:last-child),
+.commute-self table td:not(:last-child) {
+    border-right: 1px solid #DCDCDC;
+}
+
+.commute-board {
+    display: none;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.commute-board .count {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.notice-board .notice-title {
+    cursor: pointer;
+    text-align: left;
+}
+
+.notice-board .notice-title span {
+    color: #2940d3;
+    font-size: 1.4rem;
+}
+
+.schedule-board td:hover,
+.notice-board .notice-title:hover {
+    text-decoration: underline;
+}
+
+#calendar {
+    max-height: 30rem
+}

@@ -1,0 +1,38 @@
+#main .row {
+    width: 80rem;
+    display: block;
+}
+
+.row:not(:first-child) {
+    margin: 2rem 0 !important;
+}
+
+.member-table {
+    text-align: left;
+}
+
+.member-table th {
+    width: 20rem;
+}
+
+.member-table th, .member-table td {
+    padding: 1rem 2rem;
+}
+
+.member-table input {
+    max-width: 30rem
+}
+
+.member-table .phone input {
+    width: 5rem;
+}
+
+.member-table .password span {
+    font-size: 1.1rem;
+}
+
+.member-table .password #chkPassword,
+.member-table .password #matchPassword {
+    font-size: 1.1rem;
+    color: red;
+}

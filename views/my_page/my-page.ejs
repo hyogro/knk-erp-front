@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('../part/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/my-page.css?version=1.2">
+</head>
+
+<header>
+    <%- include ('../part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('../part/menu.ejs') %>
+<div id="main">
+    <div class="row main-title">
+        내 정보
+    </div>
+
+    <div class="row">
+        <table class="member-table">
+            <tr>
+                <th>아이디</th>
+                <td id="memberId"></td>
+            </tr>
+            <tr>
+                <th>비밀번호</th>
+                <td class="password">
+                    <input type="password" id="password1" onkeyup="chkPW()">
+                    <span>(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)</span>
+                    <div id="chkPassword"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>비밀번호 확인</th>
+                <td class="password">
+                    <input type="password" id="password2" onkeyup="matchPW()">
+                    <span id="matchPassword"></span>
+                </td>
+            </tr>
+            <tr>
+                <th>이름</th>
+                <td id="memberName"></td>
+            </tr>
+            <tr>
+                <th>연락처</th>
+                <td class="phone">
+                    <select id="phone1">
+                        <option value="010" selected>010</option>
+                        <option value="011">011</option>
+                        <option value="016">016</option>
+                        <option value="017">017</option>
+                        <option value="018">018</option>
+                        <option value="019">019</option>
+                    </select>
+                    -
+                    <input type="text" id="phone2" maxlength="4" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+                    -
+                    <input type="text" id="phone3" maxlength="4" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="row">
+        <table class="member-table">
+            <tr>
+                <th>부서</th>
+                <td id="departmentName"></td>
+            </tr>
+            <tr>
+                <th>연차 일수</th>
+                <td><span id="vacation"></span>일</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="row">
+        <button type="button" class="btn btn-primary" style="float: right" onclick="chkUpdateMyInfo()">변경사항 저장</button>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script>
+
+    <%- include ('../common/check-data.js') %>
+    <%- include ('my-page.js') %>
+
+</script>

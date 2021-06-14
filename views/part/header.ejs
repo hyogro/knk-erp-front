@@ -14,28 +14,6 @@
 
 
 <script>
-    const token = $.cookie('token');
-    // 로그인이 안되어있으면 로그인으로
-    if (token === undefined || token == "null") {
-        $(".title-bar").hide();
-        location.href = "/login";
-    }
-
-    //로그아웃
-    function logout() {
-        $.cookie('token', null, {path: '/'});
-        let cookies = $.cookie();
-        for (let cookie in cookies) {
-            $.removeCookie(cookie);
-        }
-        location.href = "/login";
-    }
-
-    //내 정보
-    $("#myPage").click(function () {
-        location.href = "/my-page";
-        return false;
-    });
-
     <%- include ('../common/request.js') %>
+    <%- include ('header.js') %>
 </script>

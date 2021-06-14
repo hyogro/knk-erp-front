@@ -34,9 +34,9 @@ function getToday(date) {
     let year = date.getFullYear();
     let month = ("0" + (1 + date.getMonth())).slice(-2);
     let day = ("0" + date.getDate()).slice(-2);
-    let hours = date.getHours(); // 시
-    let minutes = date.getMinutes();  // 분
-    let seconds = date.getSeconds();  // 초
+    let hours = ("0" + date.getHours()).slice(-2); // 시
+    let minutes = ("0" + date.getMinutes()).slice(-2);  // 분
+    let seconds = ("0" + date.getSeconds()).slice(-2);  // 초
 
     return year + "-" + month + "-" + day + "T" + hours + ":" + minutes + ":" + seconds;
 }
