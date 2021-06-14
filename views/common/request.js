@@ -2,9 +2,9 @@
 $("#loading").hide();
 
 //api 요청
-function request(url, processFunc) {
+function request(method, url, processFunc) {
     $.ajax({
-        type: "POST",
+        type: method,
         headers: {'token': $.cookie('token')},
         url: '<%= api %>' + url,
         success: function (res) {
@@ -23,9 +23,9 @@ function request(url, processFunc) {
 }
 
 //api 요청 (data 포함)
-function requestWithData(url, data, processFunc) {
+function requestWithData(method, url, data, processFunc) {
     $.ajax({
-        type: "POST",
+        type: method,
         url: '<%= api %>' + url,
         headers: {'token': $.cookie('token')},
         contentType: 'application/json; charset=UTF-8',

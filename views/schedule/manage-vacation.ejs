@@ -6,22 +6,86 @@
     <title><%= title %></title>
 
     <%- include ('../part/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/manage-vacation.css?version=1.2">
 </head>
 
 <header>
     <%- include ('../part/header.ejs') %>
-
 </header>
 
 <body>
 <%- include ('../part/menu.ejs') %>
-<div id="main">
+<div id="main" class="schedule-board">
+    <div class="row" style="margin-bottom: 10rem !important;">
+        <div class="row title">
+            휴가신청내역
+        </div>
+        <div class="row" style="display: inline-block">
+            <div style="float: left;width: fit-content">
+                <select id="year" style="width: 9rem" onchange="searchScheduleList()">
+                </select>
+            </div>
+            <div style="float: right;width: fit-content">
+                <button type="button" class="btn btn-success"
+                        data-bs-toggle="modal" data-bs-target="#saveScheduleModal">휴가신청
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <table>
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>신청일</th>
+                    <th>휴가구분</th>
+                    <th>시작일</th>
+                    <th>종료일</th>
+                    <th>승인여부</th>
+                    <th>사유</th>
+                </tr>
+                </thead>
+                <tbody id="myVacationList">
+                </tbody>
+            </table>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="row title">
+            승인대기중
+        </div>
+        <div class="row">
+            <table>
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>신청일</th>
+                    <th>휴가구분</th>
+                    <th>시작일</th>
+                    <th>종료일</th>
+                    <th>승인여부</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>No</td>
+                    <td>신청일</td>
+                    <td>휴가구분</td>
+                    <td>시작일</td>
+                    <td>종료일</td>
+                    <td>승인여부</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 
 </html>
 
 <script>
-
+    <%- include ('../common/request.js') %>
+    <%- include ('../common/check-data.js') %>
+    <%- include ('manage-vacation.js') %>
 </script>

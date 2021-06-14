@@ -8,16 +8,23 @@ let calendar = new FullCalendar.Calendar(calendarEl, {
         hour12: false
     },
     eventClick: function (info) {
-        $("#scheduleTitle").text(info.event.title);
-        let start = getToday(info.event.start).split("T");
-        let end = getToday(info.event.end).split("T");
-        $("#scheduleTime").html("시작: " + start[0] + " 🕒" + start[1] +
-            "<br> 종료: " + end[0] + " 🕒" + end[1]);
-        $("#scheduleMemo").text(info.event.extendedProps.memo);
+        getScheduleDetail(info.event.id)
     }
 });
 calendar.render();
 drawCalendar('all dep own');
+
+function getScheduleDetail(id){
+    request('GET', getURL('schedule', id), drawDetail);
+}
+function drawDetail(res){
+    $("#scheduleTitle").text(res.data.title);
+    let start = res.data.startDate.split("T");
+    let end = res.data.endDate.split("T");
+    $("#scheduleTime").html("시작: " + start[0] + " 🕒" + start[1] +
+        "<br> 종료: " + end[0] + " 🕒" + end[1]);
+    $("#scheduleMemo").text(res.data.memo);
+}
 
 function checkViewOption() {
     let viewOptionArr = [];
@@ -42,13 +49,14 @@ function drawCalendar(viewOption) {
     scheduleSendData.page = 0;
     scheduleSendData.size = 100;
 
-    //주간일정 조회
+    //전체일정 조회
     if (!(isEmpty(viewOption))) {
-        requestWithData('schedule/readScheduleList', scheduleSendData, setScheduleList);
+        request('GET', getURL('schedule', scheduleSendData), setScheduleList);
     }
+
     //휴가일정 조회
     if ($("#checkViewOptionVac").is(":checked")) {
-        request('vacation/readVacationList', setVacationList);
+        request('POST', 'vacation/readVacationList', setVacationList);
     }
 }
 
@@ -80,7 +88,7 @@ function setVacationList(res) {
 function addEvent(data) {
     for (let i = 0; i < data.length; i++) {
         let schedule = {};
-
+        schedule.id = data[i].id;
         schedule.title = data[i].title;
         schedule.memo = data[i].memo;
         schedule.start = data[i].startDate;

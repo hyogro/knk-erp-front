@@ -8,8 +8,8 @@ function setBoardData() {
     scheduleSendData.page = 0;
     scheduleSendData.size = 100;
 
-    //주간일정 조회
-    requestWithData('schedule/readScheduleList', scheduleSendData, setScheduleList);
+    //전체일정 조회
+    request('GET',getURL('schedule', scheduleSendData), setScheduleList);
 }
 
 //초기 셋팅
@@ -68,9 +68,7 @@ function searchScheduleList() {
 
 //일정 상세보기
 function detailSchedule(id) {
-    let scheduleSendData = {};
-    scheduleSendData.id = id;
-    requestWithData('schedule/readScheduleDetail', scheduleSendData, setDetailSchedule);
+    request('GET', getURL('schedule', id), setDetailSchedule);
 }
 
 //일정 상세보기
@@ -100,8 +98,6 @@ function chkDate() {
     let end2 = $("#createEndTime").val() + ":00";
     let endDate = new Date(end1 + "T" + end2);
 
-    console.log(startDate, endDate)
-
     if (startDate > endDate) {
         return false;
     } else {
@@ -112,10 +108,13 @@ function chkDate() {
 function typeSchedule(type) {
     $("#saveBtn").attr("onclick", "saveSchedule('" + type + "')");
 
-    if(type == 'update') {
+    if(type === 'create') {
+        $(".modal-header div").text("일정추가");
+    } else if(type === 'update') {
         let scheduleSendData = {};
-        scheduleSendData.id = $("#scheduleTitle").data("id");
-        requestWithData('schedule/readScheduleDetail', scheduleSendData, updateDetailSchedule);
+        let id = $("#scheduleTitle").data("id");
+        $(".modal-header div").text("일정수정");
+        request('GET', getURL('schedule', id), updateDetailSchedule);
     }
 }
 
@@ -168,17 +167,16 @@ function saveSchedule(type) {
         alert("종료일/시간이 시작일/시간보다 빠를 수 없습니다.\n다시 선택해주세요.");
     } else {
         if (type === 'create') {
-            requestWithData('schedule/createSchedule', scheduleSendData, createAlertSchedule);
+            requestWithData('POST', 'schedule', scheduleSendData, createAlertSchedule);
         } else if (type === 'update') {
-            scheduleSendData.id = $("#scheduleTitle").data("id");
-            requestWithData('schedule/updateSchedule', scheduleSendData, updateAlertSchedule);
+            let id = $("#scheduleTitle").data("id");
+            requestWithData('PUT', getURL('schedule',id), scheduleSendData, updateAlertSchedule);
         }
     }
 }
 
 //일정 수정 결과 알림창
 function updateAlertSchedule(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }
@@ -209,9 +207,8 @@ function createAlertSchedule(res) {
 function deleteAlertSchedule() {
     if (confirm("일정을 삭제하시겠습니까??") == true) {
         let scheduleSendData = {};
-        scheduleSendData.id = $("#scheduleTitle").data("id");
-        console.log(scheduleSendData);
-        requestWithData('schedule/deleteSchedule', scheduleSendData, deleteSchedule);
+        let id = $("#scheduleTitle").data("id");
+        requestWithData('DELETE', getURL('schedule', id), scheduleSendData, deleteSchedule);
     } else {
         return false;
     }

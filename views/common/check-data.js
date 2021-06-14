@@ -1,12 +1,3 @@
-//월별 주차 계산
-function getWeekCountOfMonth() {
-    let date = new Date();
-    let weekCnt = Math.ceil((date.getDate() + 1) / 7);
-    let month = new String(date.getMonth() + 1);
-
-    return month + "월 " + weekCnt.toString() + "주차"
-}
-
 //빈값 체크
 function isEmpty(val) {
     return val == null || val === '';
@@ -31,12 +22,24 @@ function getTodayArr(date) {
 
 //날짜
 function getToday(date) {
-    let year = date.getFullYear();
-    let month = ("0" + (1 + date.getMonth())).slice(-2);
-    let day = ("0" + date.getDate()).slice(-2);
-    let hours = ("0" + date.getHours()).slice(-2); // 시
-    let minutes = ("0" + date.getMinutes()).slice(-2);  // 분
-    let seconds = ("0" + date.getSeconds()).slice(-2);  // 초
+    return date.split("T")[0].replaceAll("-", ".");
+}
 
-    return year + "-" + month + "-" + day + "T" + hours + ":" + minutes + ":" + seconds;
+
+//Object -> FormData
+function getURL(url, data) {
+    if(typeof data === 'object'){
+        let urlParams = [];
+        Object.keys(data).forEach(key => urlParams.push(key+'='+data[key]));
+        if(urlParams.length > 0) url = url+"?"+urlParams.join("&");
+    }
+    else if(typeof data === 'string'){
+        url = url + '/' + data;
+    }
+    else if(typeof data === 'number'){
+        url = url + '/' + data;
+    }
+    else alert(typeof data);
+
+    return url;
 }

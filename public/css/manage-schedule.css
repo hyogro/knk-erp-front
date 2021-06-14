@@ -1,7 +1,3 @@
-.col-lg {
-    margin: 0.5rem !important;
-}
-
 .row {
     --bs-gutter-x: 0;
 }
@@ -18,7 +14,7 @@ table {
 #myScheduleList td:focus,
 #myScheduleList td:active {
     text-decoration: underline;
-    background: #eef1fd;
+    background: #f8f9ff;
 }
 
 .schedule-board .title {

@@ -36,11 +36,11 @@
             <div class="content-box-title">🔹 출퇴근기록</div>
             <div class="row commute-self">
                 <div style="width: fit-content;margin: 1rem">
-                    <button type="button" class="btn btn-primary" onclick="request('attendance/onWork', onWork)">
+                    <button type="button" class="btn btn-primary" onclick="request('POST','attendance/onWork', onWork)">
                         <img src="/images/icon-on-work.png">
                         <div>출근</div>
                     </button>
-                    <button type="button" class="btn btn-danger" onclick="request('attendance/offWork', offWork)">
+                    <button type="button" class="btn btn-danger" onclick="request('POST','attendance/offWork', offWork)">
                         <img src="/images/icon-off-work.png">
                         <div>퇴근</div>
                     </button>

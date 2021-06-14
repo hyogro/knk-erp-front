@@ -6,13 +6,13 @@ function setBoardData() {
     $("#today").text(todayArr[0] + "년 " + todayArr[1] + "월 " + todayArr[2] + "일 (" + todayArr[6] + ")");
 
     //부서정보 조회
-    request('department/readDepartmentNameAndMemberCount', setDepartmentInfo);
+    request('POST','department/readDepartmentNameAndMemberCount', setDepartmentInfo);
     //일정요약(출퇴근) 조회
-    request('attendance/readAttendanceSummary', setAttendanceSummary);
+    request('GET','attendance/summary', setAttendanceSummary);
     //휴가요약(출퇴근) 조회
-    request('vacation/readVacationSummary', setVacationSummary);
+    request('GET','vacation/summary', setVacationSummary);
     //출퇴근기록 조회
-    request('attendance/readAttendanceToday', setWorkBoard);
+    request('GET','attendance/today', setWorkBoard);
 
     let scheduleSendData = {};
     scheduleSendData.viewOption = 'all dep own';
@@ -21,7 +21,7 @@ function setBoardData() {
 
     //주간일정 조회
     setCalendar();
-    requestWithData('schedule/readScheduleList', scheduleSendData, setScheduleList);
+    request('GET',getURL('schedule', scheduleSendData), setScheduleList);
 }
 
 //부서정보 조회

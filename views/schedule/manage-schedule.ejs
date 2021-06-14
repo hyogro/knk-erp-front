@@ -20,10 +20,13 @@
 
 <div id="main">
     <div class="row" style="width: 120rem">
+        <div class="col-lg content-box schedule-board" style="margin-right: 5px !important;">
+            <%- include ('manage-schedule-list.ejs') %>
+        </div>
 
-        <%- include ('manage-schedule-list.ejs') %>
-
-        <%- include ('manage-schedule-detail.ejs') %>
+        <div class="col-lg content-box schedule-board" id="detailSchedule" style="visibility: hidden">
+            <%- include ('manage-schedule-detail.ejs') %>
+        </div>
 
         <%- include ('manage-schedule-modal.ejs') %>
     </div>

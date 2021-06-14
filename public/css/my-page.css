@@ -3,7 +3,7 @@
     display: block;
 }
 
-.row:not(:first-child) {
+#main .row:not(:first-child) {
     margin: 2rem 0 !important;
 }
 

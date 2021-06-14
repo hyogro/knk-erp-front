@@ -29,7 +29,7 @@ function login(id, password) {
     loginData.memberId = id;
     loginData.password = password;
 
-    requestWithData('account/login', loginData, loginRequest);
+    requestWithData('POST','account/login', loginData, loginRequest);
 }
 
 function loginRequest(res) {
