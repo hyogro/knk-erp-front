@@ -11,3 +11,23 @@
 .schedule-board .time {
     font-size: 1.4rem
 }
+
+.all:checked {
+    background-color: #3788d8;
+    border-color: #3788d8;
+}
+
+.dep:checked {
+    background-color: #e09222;
+    border-color: #e09222;
+}
+
+.own:checked {
+    background-color: #d46d8c;
+    border-color: #d46d8c;
+}
+
+.vac:checked {
+    background-color: #198754;
+    border-color: #198754;
+}
