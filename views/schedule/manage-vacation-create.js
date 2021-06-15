@@ -7,7 +7,7 @@ $('input[type="checkbox"][name="vacation"]').click(function () {
 
 function createVacation() {
     let saveData = new Object();
-    saveData.title = $("input:checkbox[name='vacation']:checked").val();
+    saveData.type = $("input:checkbox[name='vacation']:checked").val();
     saveData.memo = $("#memo").val();
 
     let startTime = "09:00:00";
@@ -21,7 +21,7 @@ function createVacation() {
     saveData.startDate = $("#startDate").val() + "T" + startTime;
     saveData.endDate = $("#endDate").val() + "T" + endTime;
 
-    if (isEmpty(saveData.title)) {
+    if (isEmpty(saveData.type)) {
         alert("휴가 유형을 선택해주세요.");
     } else if (isEmpty(saveData.memo)) {
         alert("사유를 작성해주세요.");
@@ -31,7 +31,7 @@ function createVacation() {
         alert("올바른 휴가기간을 선택해주세요.")
     }
 
-    requestWithData("POST", "vacation",saveData , alertCreateVacation)
+    requestWithData("POST", "vacation", saveData, alertCreateVacation)
 }
 
 function alertCreateVacation(res) {
@@ -39,7 +39,8 @@ function alertCreateVacation(res) {
         return;
     }
     if (res.code === 'CV001') {
-        alert("제출되었습니다.")
+        alert("제출되었습니다.");
+        location.href = '/schedule/manage-vacation';
     } else if (res.code === 'CV002') {
         alert("휴가신청 실패");
     }

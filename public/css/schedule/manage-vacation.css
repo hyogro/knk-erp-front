@@ -51,8 +51,24 @@
     vertical-align: top;
 }
 
+.vacation-apply-table #reject {
+    height: 10rem;
+    min-height: 10rem;
+    max-height: 20rem;
+    text-align: left;
+    vertical-align: top;
+}
+
 .vacation-apply .bottom {
     float: right;
     width: fit-content;
     margin: 2rem 0;
+}
+
+#approver1, approver2 {
+    text-align: center;
+}
+
+.form-check-input[disabled] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label {
+    opacity: 1;
 }

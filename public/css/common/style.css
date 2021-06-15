@@ -86,7 +86,7 @@ table thead, table th {
 }
 
 .table-bordered {
-    border-color: #DCDCDC;
+    border-color: #DCDCDC !important;
 }
 
 .main-title {

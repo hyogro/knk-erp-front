@@ -200,7 +200,7 @@ function createAlertSchedule(res) {
 
 //일정 삭제
 function deleteAlertSchedule() {
-    if (confirm("일정을 삭제하시겠습니까??") === true) {
+    if (confirm("일정을 삭제하시겠습니까?") === true) {
         let scheduleSendData = {};
         let id = $("#scheduleTitle").data("id");
         requestWithData('DELETE', getURL('schedule', id), scheduleSendData, deleteSchedule);

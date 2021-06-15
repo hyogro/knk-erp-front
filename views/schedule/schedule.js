@@ -72,7 +72,6 @@ function setScheduleList(res) {
         return;
     }
     if (res.code === 'RSL001') {
-        console.log(res);
         for (let i = 0; i < res.data.length; i++) {
             let color = '#3788d8';
             if (res.data[i].viewOption === "dep") {
@@ -94,8 +93,7 @@ function setVacationList(res) {
     }
     if (res.code === 'RVL001') {
         for (let i = 0; i < res.data.length; i++) {
-            if (!(res.data[i].reject) || (res.data[i].approval1) && (res.data[i].approval2)) {
-
+            if (res.data.reject || (res.data.approval1 && res.data.approval2)) {
                 addEvent(res.data[i], 'vacation', '#198754');
             }
         }
