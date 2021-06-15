@@ -87,7 +87,8 @@ table thead, table th {
 
 .main-title {
     font-size: 2.5rem;
-    font-weight: 600;
+    font-weight: bold;
+    margin-bottom: 1rem !important;
 }
 
 input, select, textarea {

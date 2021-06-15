@@ -15,9 +15,9 @@
 
 <body>
 <%- include ('../part/menu.ejs') %>
-<div id="main" class="schedule-board">
+<div id="main" class="vacation">
     <div class="row" style="margin-bottom: 10rem !important;">
-        <div class="row title">
+        <div class="row main-title">
             휴가신청내역
         </div>
         <div class="row" style="display: inline-block">
@@ -26,8 +26,8 @@
                 </select>
             </div>
             <div style="float: right;width: fit-content">
-                <button type="button" class="btn btn-success"
-                        data-bs-toggle="modal" data-bs-target="#saveScheduleModal">휴가신청
+                <button type="button" class="btn btn-success" onclick="location.href='/schedule/manage-vacation/apply'">
+                    휴가신청
                 </button>
             </div>
         </div>
@@ -35,7 +35,7 @@
             <table>
                 <thead>
                 <tr>
-                    <th>No</th>
+<!--                    <th>No</th>-->
                     <th>신청일</th>
                     <th>휴가구분</th>
                     <th>시작일</th>
@@ -44,37 +44,30 @@
                     <th>사유</th>
                 </tr>
                 </thead>
-                <tbody id="myVacationList">
+                <tbody id="confirmVacationList">
                 </tbody>
             </table>
         </div>
     </div>
 
     <div class="row">
-        <div class="row title">
+        <div class="row main-title">
             승인대기중
         </div>
         <div class="row">
             <table>
                 <thead>
                 <tr>
-                    <th>No</th>
+<!--                    <th>No</th>-->
                     <th>신청일</th>
                     <th>휴가구분</th>
                     <th>시작일</th>
                     <th>종료일</th>
                     <th>승인여부</th>
+                    <th>사유</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>No</td>
-                    <td>신청일</td>
-                    <td>휴가구분</td>
-                    <td>시작일</td>
-                    <td>종료일</td>
-                    <td>승인여부</td>
-                </tr>
+                <tbody id="beforeVacationList">
                 </tbody>
             </table>
         </div>

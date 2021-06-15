@@ -1,6 +1,6 @@
 //빈값 체크
 function isEmpty(val) {
-    return val == null || val === '';
+    return val == null || val === '' || val === undefined;
 }
 
 //날짜 년, 월, 일 배열

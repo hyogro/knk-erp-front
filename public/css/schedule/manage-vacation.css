@@ -1,18 +1,47 @@
 #main .row {
     --bs-gutter-x: 0;
-    width: 120rem;
     display: block;
 }
 
-.schedule-board .title {
-    font-size: 2.5rem;
-    font-weight: bold;
+.vacation .row {
+    width: 120rem !important;
 }
 
-#myVacationList tr {
+.vacation-apply > .row {
+    width: 80rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.main-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem !important;
+}
+
+#confirmVacationList tr,
+#beforeVacationList tr{
     cursor: pointer;
 }
 
-#myVacationList tr:hover {
+#confirmVacationList tr:hover,
+#beforeVacationList tr:hover{
     background: #f8f9ff;
+}
+
+.vacation-apply-table th,
+.vacation-apply-table td {
+    padding: 1rem;
+}
+
+.vacation-apply-table th {
+    width: 20rem;
+}
+
+.vacation-apply-table td {
+    text-align: left;
+}
+
+textarea {
+    width: 100%;
+    height: 20rem;
 }

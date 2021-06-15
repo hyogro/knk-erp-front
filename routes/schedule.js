@@ -13,6 +13,9 @@ router.get('/manage-schedule', function (req, res, next) {
 router.get('/manage-vacation', function (req, res, next) {
     res.render('schedule/manage-vacation', {api: api, title: '구이앤금우통신:휴가일정생성 요청'});
 });
+router.get('/manage-vacation/apply', function (req, res, next) {
+    res.render('schedule/manage-vacation-create', {api: api, title: '구이앤금우통신:휴가일정생성 요청'});
+});
 
 
 module.exports = router;

@@ -70,7 +70,6 @@ function drawCalendar(viewOption) {
 
 //달력 일정 셋팅
 function setScheduleList(res) {
-    console.log(res.data);
     if (res.code === null) {
         return;
     }
@@ -96,7 +95,8 @@ function setVacationList(res) {
     }
     if (res.code === 'RVL001') {
         for (let i = 0; i < res.data.length; i++) {
-            if (!(res.data[i].reject) && (res.data[i].approval1) && (res.data[i].approval2)) {
+            if (!(res.data[i].reject) || (res.data[i].approval1) && (res.data[i].approval2)) {
+
                 addEvent(res.data[i], 'vacation', '#198754');
             }
         }

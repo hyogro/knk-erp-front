@@ -37,15 +37,15 @@ function setDateSelector() {
 
 //내 휴가 검색(연도별)
 function searchVacationList() {
-    console.log(vacationArr);
-    $("#myVacationList").empty();
+    $("#confirmVacationList").empty();
+    $("#beforeVacationList").empty();
     let year = $("#year").val();
     for (let i = 0; i < vacationArr.length; i++) {
         if ((vacationArr[i].startDate).substring(0, 4) === year ||
             (vacationArr[i].endDate).substring(0, 4) === year) {
             let html = '';
             html += '<tr id=\'' + vacationArr[i].id + '\'>' +
-                '<td>' + (i + 1) + '</td>' +
+                // '<td>' + (i + 1) + '</td>' +
                 '<td>' + getToday(vacationArr[i].requestDate) + '</td>' +
                 '<td>' + vacationArr[i].title.split("-")[1] + '</td>' +
                 '<td>' + getToday(vacationArr[i].startDate) + '</td>' +
@@ -53,7 +53,13 @@ function searchVacationList() {
                 '<td>' + (vacationArr[i].reject ? '거절' : '승인') + '</td>' +
                 '<td>' + vacationArr[i].memo + '</td>' +
                 '</tr>';
-            $("#myVacationList").append(html);
+
+            if(vacationArr[i].reject || (vacationArr[i].approval1 && vacationArr[i].approval2)){
+                $("#confirmVacationList").append(html);
+            }
+            else{
+                $("#beforeVacationList").append(html);
+            }
         }
     }
 }

@@ -85,9 +85,6 @@ function chkUpdateMyInfo() {
         let saveData = {};
         saveData.password = password;
         saveData.phone = phone1 + '-' + phone2 + '-' + phone3;
-
-        console.log(saveData);
-
         requestWithData('PUT', 'my', saveData, updateMyInfo);
     }
 }
