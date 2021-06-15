@@ -16,8 +16,6 @@ function setBoardData() {
 
     let scheduleSendData = {};
     scheduleSendData.viewOption = 'all dep own';
-    scheduleSendData.page = 0;
-    scheduleSendData.size = 100;
 
     //주간일정 조회
     setCalendar();
@@ -81,7 +79,7 @@ function setScheduleList(res) {
         for (let i = 0; i < res.data.length; i++) {
             var schedule = new Object();
 
-            schedule.title = res.data[i].title + "　　" + res.data[i].memo;
+            schedule.title = res.data[i].title;
             schedule.start = res.data[i].startDate;
             schedule.end = res.data[i].endDate;
 

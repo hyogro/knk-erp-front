@@ -25,6 +25,10 @@ function getToday(date) {
     return date.split("T")[0].replaceAll("-", ".");
 }
 
+function enterToBr(text) {
+    return text.replaceAll("\n", "<br>");
+}
+
 //Object -> FormData
 function getURL(url, data) {
     if(typeof data === 'object'){

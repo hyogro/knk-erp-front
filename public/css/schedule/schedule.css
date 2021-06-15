@@ -8,8 +8,17 @@
     font-weight: bold;
 }
 
-.schedule-board .time {
+.schedule-board .memo {
+    height: 30rem;
+}
+
+.schedule-board .time,
+.schedule-board .name{
     font-size: 1.4rem
+}
+
+.schedule-board .name{
+    font-weight: bold;
 }
 
 .all:checked {

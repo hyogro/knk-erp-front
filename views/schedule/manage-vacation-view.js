@@ -13,18 +13,16 @@ function setDetailVacation(res) {
         } else if (res.data.type === "오후반차") {
             $('input:checkbox[id="halfPM"]').attr("checked", true);
         }
-        $('input:checkbox[id=' + res.data.type + ']').attr("checked", true);
         $("#memo").text(res.data.memo);
         $("#startDate").text(res.data.startDate.split("T")[0]);
         $("#endDate").text(res.data.endDate.split("T")[0]);
+        $("#approver1").text(res.data.approver1);
+        $("#approver2").text(res.data.approver2);
         if (res.data.reject || (res.data.approval1 && res.data.approval2)) {
             $("#deleteBtn").css("display", "none");
         } else {
             $("#deleteBtn").css("display", "inline-block");
         }
-        $("#approver1").text(res.data.approver1);
-        $("#approver2").text(res.data.approver2);
-
         if (res.data.reject) {
             $("#rejectRow").show();
             $("#reject").text(res.data.rejectMemo);

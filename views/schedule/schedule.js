@@ -7,6 +7,12 @@ let calendar = new FullCalendar.Calendar(calendarEl, {
         minute: '2-digit',
         hour12: false
     },
+    dayMaxEventRows: true,
+    views: {
+        timeGrid: {
+            dayMaxEventRows: 6
+        }
+    },
     eventClick: function (info) {
         if (info.event.extendedProps.type === 'schedule') {
             request('GET', getURL('schedule', info.event.id), drawDetail);
@@ -28,7 +34,8 @@ function drawDetail(res) {
         let end = res.data.endDate.split("T");
         $("#scheduleTime").html("시작: " + start[0] + " 🕒" + start[1] +
             "<br> 종료: " + end[0] + " 🕒" + end[1]);
-        $("#scheduleMemo").text(res.data.memo);
+        $("#scheduleMemo").html(enterToBr(res.data.memo));
+        $("#scheduleName").text('작성자: '+res.data.memberName);
     } else if (res.code === 'RSD001' || res.code === 'RV002') {
         console.log("일정 상세 조회 실패");
     }

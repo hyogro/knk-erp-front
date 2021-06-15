@@ -9,7 +9,7 @@ function setBoardData() {
     scheduleSendData.size = 100;
 
     //전체일정 조회
-    request('GET',getURL('schedule', scheduleSendData), setScheduleList);
+    request('GET', getURL('schedule', scheduleSendData), setScheduleList);
 }
 
 //초기 셋팅
@@ -47,8 +47,7 @@ function searchScheduleList() {
     $("#myScheduleList").empty();
     let date = $("#year").val() + "-" + $("#month").val();
     for (let i = 0; i < scheduleArr.length; i++) {
-        if ((scheduleArr[i].startDate).substring(0, 7) === date ||
-            (scheduleArr[i].endDate).substring(0, 7) === date) {
+        if ((scheduleArr[i].startDate).substring(0, 7) === date || (scheduleArr[i].endDate).substring(0, 7) === date) {
             let startDate = (scheduleArr[i].startDate).split("T")[0].replaceAll("-", ".");
             let endDate = (scheduleArr[i].endDate).split("T")[0].replaceAll("-", ".");
 
@@ -58,7 +57,16 @@ function searchScheduleList() {
             } else {
                 html += '<tr><th width="30%">' + startDate + "~" + endDate + '</th>';
             }
-            html += '<td width="70%" id=\'' + scheduleArr[i].id + '\' onclick="request(\'GET\', getURL(\'schedule\', id), detailSchedule)">' +
+            
+            if (scheduleArr[i].viewOption === "all") {
+                html += '<td width="20%"><span style="color: #3788d8">■ 전체일정</span></td>'
+            } else if (scheduleArr[i].viewOption === "dep") {
+                html += '<td width="20%"><span style="color: #e09222">■ 팀일정</span></td>'
+            } else if (scheduleArr[i].viewOption === "own") {
+                html += '<td width="20%"><span style="color: #d46d8c">■ 개인일정</span></td>'
+            }
+            html += '<td width="60%" class="schedule-title" id=\'' + scheduleArr[i].id + '\' ' +
+                'onclick="request(\'GET\', getURL(\'schedule\', id), detailSchedule)">' +
                 scheduleArr[i].title + '</td></tr>';
 
             $("#myScheduleList").append(html);
@@ -79,7 +87,7 @@ function detailSchedule(res) {
         let end = res.data.endDate.split("T");
         $("#scheduleTime").html("시작: " + start[0] + " 🕒" + start[1] +
             "<br>종료: " + end[0] + " 🕒" + end[1]);
-        $("#scheduleMemo").text(res.data.memo);
+        $("#scheduleMemo").html(enterToBr(res.data.memo));
     } else if (res.code === 'RSD002') {
         console.log("일정상세 조회 실패");
     }
@@ -103,12 +111,14 @@ function chkDate() {
 function typeSchedule(type) {
     $("#saveBtn").attr("onclick", "saveSchedule('" + type + "')");
 
-    if(type === 'create') {
+    $('.schedule-write').find('input').val('');
+    $('textarea').val('');
+
+    if (type === 'create') {
         $(".modal-header div").text("일정추가");
-    } else if(type === 'update') {
-        let scheduleSendData = {};
-        let id = $("#scheduleTitle").data("id");
+    } else if (type === 'update') {
         $(".modal-header div").text("일정수정");
+        let id = $("#scheduleTitle").data("id");
         request('GET', getURL('schedule', id), updateDetailSchedule);
     }
 }
@@ -165,7 +175,7 @@ function saveSchedule(type) {
             requestWithData('POST', 'schedule', scheduleSendData, createAlertSchedule);
         } else if (type === 'update') {
             let id = $("#scheduleTitle").data("id");
-            requestWithData('PUT', getURL('schedule',id), scheduleSendData, updateAlertSchedule);
+            requestWithData('PUT', getURL('schedule', id), scheduleSendData, updateAlertSchedule);
         }
     }
 }

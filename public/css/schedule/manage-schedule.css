@@ -6,15 +6,14 @@ table {
     text-align: left;
 }
 
-#myScheduleList td {
+#myScheduleList .schedule-title {
     cursor: pointer;
 }
 
-#myScheduleList td:hover,
-#myScheduleList td:focus,
-#myScheduleList td:active {
+#myScheduleList .schedule-title:hover,
+#myScheduleList .schedule-title:focus,
+#myScheduleList .schedule-title:active {
     text-decoration: underline;
-    background: #f8f9ff;
 }
 
 .schedule-board .title {
