@@ -1,5 +1,5 @@
 //내 정보 셋팅
-request('POST', 'my/myPage', setMemberInfo);
+request('GET', 'my', setMemberInfo);
 
 //내 정보 셋팅
 function setMemberInfo(res) {
@@ -88,7 +88,7 @@ function chkUpdateMyInfo() {
 
         console.log(saveData);
 
-        requestWithData('POST', 'my/updateSelf', saveData, updateMyInfo);
+        requestWithData('PUT', 'my', saveData, updateMyInfo);
     }
 }
 

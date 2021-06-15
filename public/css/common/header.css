@@ -110,13 +110,10 @@ header {
     border: none;
 }
 
-#loading {
-    z-index: 100000;
-}
-
 #loading img {
     border: 0;
     position: absolute;
     left: 50%;
     top: 50%;
+    z-index: 100000;
 }

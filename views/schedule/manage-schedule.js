@@ -58,7 +58,7 @@ function searchScheduleList() {
             } else {
                 html += '<tr><th width="30%">' + startDate + "~" + endDate + '</th>';
             }
-            html += '<td width="70%" id=\'' + scheduleArr[i].id + '\' onclick="detailSchedule(id)">' +
+            html += '<td width="70%" id=\'' + scheduleArr[i].id + '\' onclick="request(\'GET\', getURL(\'schedule\', id), detailSchedule)">' +
                 scheduleArr[i].title + '</td></tr>';
 
             $("#myScheduleList").append(html);
@@ -67,12 +67,7 @@ function searchScheduleList() {
 }
 
 //일정 상세보기
-function detailSchedule(id) {
-    request('GET', getURL('schedule', id), setDetailSchedule);
-}
-
-//일정 상세보기
-function setDetailSchedule(res) {
+function detailSchedule(res) {
     if (res.code === null) {
         return;
     }
@@ -83,7 +78,7 @@ function setDetailSchedule(res) {
         let start = res.data.startDate.split("T");
         let end = res.data.endDate.split("T");
         $("#scheduleTime").html("시작: " + start[0] + " 🕒" + start[1] +
-            " | 종료: " + end[0] + " 🕒" + end[1]);
+            "<br>종료: " + end[0] + " 🕒" + end[1]);
         $("#scheduleMemo").text(res.data.memo);
     } else if (res.code === 'RSD002') {
         console.log("일정상세 조회 실패");
@@ -205,7 +200,7 @@ function createAlertSchedule(res) {
 
 //일정 삭제
 function deleteAlertSchedule() {
-    if (confirm("일정을 삭제하시겠습니까??") == true) {
+    if (confirm("일정을 삭제하시겠습니까??") === true) {
         let scheduleSendData = {};
         let id = $("#scheduleTitle").data("id");
         requestWithData('DELETE', getURL('schedule', id), scheduleSendData, deleteSchedule);

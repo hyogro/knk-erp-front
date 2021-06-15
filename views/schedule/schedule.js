@@ -70,12 +70,19 @@ function drawCalendar(viewOption) {
 
 //달력 일정 셋팅
 function setScheduleList(res) {
+    console.log(res.data);
     if (res.code === null) {
         return;
     }
     if (res.code === 'RSL001') {
         for (let i = 0; i < res.data.length; i++) {
-            addEvent(res.data[i], 'schedule');
+            let color = '#3788d8';
+            if (res.data[i].viewOption === "dep") {
+                color = '#e09222';
+            } else if (res.data[i].viewOption === "own") {
+                color = '#d46d8c';
+            }
+            addEvent(res.data[i], 'schedule', color);
         }
     } else if (res.code === 'RSL002') {
         alert("일정목록 조회 실패");
@@ -90,7 +97,7 @@ function setVacationList(res) {
     if (res.code === 'RVL001') {
         for (let i = 0; i < res.data.length; i++) {
             if (!(res.data[i].reject) && (res.data[i].approval1) && (res.data[i].approval2)) {
-                addEvent(res.data[i], 'vacation');
+                addEvent(res.data[i], 'vacation', '#198754');
             }
         }
     } else if (res.code === 'RVL002') {
@@ -99,7 +106,7 @@ function setVacationList(res) {
 }
 
 //달력 이벤트 추가
-function addEvent(data, type) {
+function addEvent(data, type, color) {
     let schedule = {};
     schedule.id = data.id;
     schedule.title = data.title;
@@ -107,6 +114,8 @@ function addEvent(data, type) {
     schedule.start = data.startDate;
     schedule.end = data.endDate;
     schedule.type = type;
+    schedule.color = color;
+    schedule.rendering = "background";
 
     calendar.addEvent(schedule);
 }

@@ -160,17 +160,19 @@ input, select, textarea {
     /*color: black !important;*/
 }
 
-.fc .fc-day-sun a {
+.fc .fc-day-sun .fc-daygrid-day-number,
+.fc .fc-day-sun .fc-col-header-cell-cushion {
     color: #ef0202 !important;
 }
 
-.fc .fc-day-sat a {
+.fc .fc-day-sat .fc-daygrid-day-number,
+.fc .fc-day-sat .fc-col-header-cell-cushion {
     color: #1354d9 !important;
 }
 
-.fc a{
+.fc a {
     text-decoration: none;
-    color: black ;
+    color: black;
 }
 
 .fc a:hover {
@@ -184,6 +186,15 @@ input, select, textarea {
 
 .fc-list-table th {
     background: #f3f3f3 !important;
+}
+
+.fc-daygrid-event {
+    cursor: pointer;
+}
+
+.fc-daygrid-event:hover,
+.fc-event-main .fc-event-title:hover {
+    text-decoration: underline !important;
 }
 
 .fc-list-event-title {
@@ -201,6 +212,6 @@ input, select, textarea {
 }
 
 .fc-h-event .fc-event-title-container,
-.fc-daygrid-dot-event .fc-event-title{
+.fc-daygrid-dot-event .fc-event-title {
     flex-grow: 0 !important;
 }
