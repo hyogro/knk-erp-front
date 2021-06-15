@@ -12,10 +12,11 @@ function setVacationList(res) {
         return;
     }
     if (res.code === 'RVL001') {
+        console.log(res.data);
         vacationArr = res.data;
         setDateSelector();
     } else if (res.code === 'RVL002') {
-        alert("휴가목록 조회 실패");
+        console.log("휴가목록 조회 실패");
     }
 }
 
@@ -44,20 +45,20 @@ function searchVacationList() {
         if ((vacationArr[i].startDate).substring(0, 4) === year ||
             (vacationArr[i].endDate).substring(0, 4) === year) {
             let html = '';
-            html += '<tr id=\'' + vacationArr[i].id + '\'>' +
+            html += '<tr id=\'' + vacationArr[i].id + '\' ' +
+                'onclick="location.href = \'/schedule/manage-vacation/view?id=\' + id">' +
                 // '<td>' + (i + 1) + '</td>' +
                 '<td>' + getToday(vacationArr[i].requestDate) + '</td>' +
-                '<td>' + vacationArr[i].title.split("-")[1] + '</td>' +
+                '<td>' + vacationArr[i].type + '</td>' +
                 '<td>' + getToday(vacationArr[i].startDate) + '</td>' +
                 '<td>' + getToday(vacationArr[i].endDate) + '</td>' +
                 '<td>' + (vacationArr[i].reject ? '거절' : '승인') + '</td>' +
-                '<td>' + vacationArr[i].memo + '</td>' +
+                // '<td>' + vacationArr[i].memo + '</td>' +
                 '</tr>';
 
-            if(vacationArr[i].reject || (vacationArr[i].approval1 && vacationArr[i].approval2)){
+            if (vacationArr[i].reject || (vacationArr[i].approval1 && vacationArr[i].approval2)) {
                 $("#confirmVacationList").append(html);
-            }
-            else{
+            } else {
                 $("#beforeVacationList").append(html);
             }
         }

@@ -25,7 +25,6 @@ function getToday(date) {
     return date.split("T")[0].replaceAll("-", ".");
 }
 
-
 //Object -> FormData
 function getURL(url, data) {
     if(typeof data === 'object'){
@@ -42,4 +41,15 @@ function getURL(url, data) {
     else alert(typeof data);
 
     return url;
+}
+
+//get 파라미터 가져오기
+function getQuery(){
+    var url = document.location.search;
+    var qs = url.substring(url.indexOf('?') + 1).split('&');
+    for(var i = 0, result = {}; i < qs.length; i++){
+        qs[i] = qs[i].split('=');
+        result[qs[i][0]] = decodeURIComponent(qs[i][1]);
+    }
+    return result;
 }

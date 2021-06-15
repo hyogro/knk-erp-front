@@ -85,6 +85,10 @@ table thead, table th {
     background: #f3f3f3;
 }
 
+.table-bordered {
+    border-color: #DCDCDC;
+}
+
 .main-title {
     font-size: 2.5rem;
     font-weight: bold;

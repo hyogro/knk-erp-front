@@ -30,7 +30,7 @@ function drawDetail(res) {
             "<br> 종료: " + end[0] + " 🕒" + end[1]);
         $("#scheduleMemo").text(res.data.memo);
     } else if (res.code === 'RSD001' || res.code === 'RV002') {
-        alert("조회 실패");
+        console.log("일정 상세 조회 실패");
     }
 }
 
@@ -54,8 +54,6 @@ function drawCalendar(viewOption) {
 
     let scheduleSendData = {};
     scheduleSendData.viewOption = viewOption;
-    scheduleSendData.page = 0;
-    scheduleSendData.size = 100;
 
     //전체일정 조회
     if (!(isEmpty(viewOption))) {
@@ -74,6 +72,7 @@ function setScheduleList(res) {
         return;
     }
     if (res.code === 'RSL001') {
+        console.log(res);
         for (let i = 0; i < res.data.length; i++) {
             let color = '#3788d8';
             if (res.data[i].viewOption === "dep") {
@@ -84,7 +83,7 @@ function setScheduleList(res) {
             addEvent(res.data[i], 'schedule', color);
         }
     } else if (res.code === 'RSL002') {
-        alert("일정목록 조회 실패");
+        console.log("일정목록 조회 실패");
     }
 }
 
@@ -101,7 +100,7 @@ function setVacationList(res) {
             }
         }
     } else if (res.code === 'RVL002') {
-        alert("휴가조회 실패");
+        console.log("휴가조회 실패");
     }
 }
 

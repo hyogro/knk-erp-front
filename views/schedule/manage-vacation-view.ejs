@@ -17,8 +17,25 @@
 <%- include ('../part/menu.ejs') %>
 <div id="main" class="vacation-apply">
     <div class="row main-title">
-        휴가신청
+        휴가신청서
     </div>
+
+    <div class="row" style="display: inline-block">
+        <table class="vacation-apply-table table-bordered" style="width: 40%;float: right">
+            <tbody>
+            <tr>
+                <th rowspan="2">결재</th>
+                <th>파트장</th>
+                <th>부장</th>
+            </tr>
+            <tr>
+                <td>　</td>
+                <td>　</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
     <div class="row">
         <table class="vacation-apply-table">
             <tbody>
@@ -26,38 +43,49 @@
                 <th>휴가유형</th>
                 <td>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="full" name="vacation" value="연차">
+                        <input class="form-check-input" type="checkbox" id="full" name="vacation" value="연차" disabled>
                         <label class="form-check-label" for="full">연차</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="halfAM" name="vacation" value="오전반차">
+                        <input class="form-check-input" type="checkbox" id="halfAM" name="vacation" value="오전반차" disabled>
                         <label class="form-check-label" for="halfAM">오전 반차</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="halfPM" name="vacation" value="오후반차">
+                        <input class="form-check-input" type="checkbox" id="halfPM" name="vacation" value="오후반차" disabled>
                         <label class="form-check-label" for="halfPM">오후 반차</label>
                     </div>
                 </td>
             </tr>
             <tr>
                 <th>휴가사유</th>
-                <td>
-                    <textarea id="memo" class="scroll"></textarea>
+                <td id="memo" class="scroll">
                 </td>
             </tr>
             <tr>
                 <th>휴가기간</th>
                 <td>
-                    <input type="date" id="startDate"> ~ <input type="date" id="endDate">
+                    <span id="startDate"></span> ~ <span id="endDate"></span>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
+
+    <div class="row" id="rejectRow" style="display: none;">
+        <table class="vacation-apply-table">
+            <tbody>
+            <tr>
+                <th>거절사유</th>
+                <td>거절사유</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
     <div class="row">
         <div class="bottom">
             <button type="button" class="btn btn-secondary" onclick="location.href='/schedule/manage-vacation'">목록으로</button>
-            <button type="button" class="btn btn-primary" onclick="createVacation()">제출하기</button>
+            <button type="button" class="btn btn-danger" id="deleteBtn" onclick="deleteAlertVacation()" style="display: none;">삭제</button>
         </div>
     </div>
 </div>
@@ -68,5 +96,5 @@
 <script>
     <%- include ('../common/request.js') %>
     <%- include ('../common/check-data.js') %>
-    <%- include ('manage-vacation-create.js') %>
+    <%- include ('manage-vacation-view.js') %>
 </script>

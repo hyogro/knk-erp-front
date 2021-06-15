@@ -3,11 +3,9 @@
     display: block;
 }
 
-.vacation .row {
-    width: 120rem !important;
-}
-
-.vacation-apply > .row {
+.vacation .row,
+.vacation-apply .row,
+.vacation-view .row {
     width: 80rem !important;
     margin-bottom: 1rem !important;
 }
@@ -19,12 +17,12 @@
 }
 
 #confirmVacationList tr,
-#beforeVacationList tr{
+#beforeVacationList tr {
     cursor: pointer;
 }
 
 #confirmVacationList tr:hover,
-#beforeVacationList tr:hover{
+#beforeVacationList tr:hover {
     background: #f8f9ff;
 }
 
@@ -41,7 +39,20 @@
     text-align: left;
 }
 
-textarea {
+.vacation-apply-table textarea {
     width: 100%;
+}
+
+.vacation-apply-table #memo {
     height: 20rem;
+    min-height: 20rem;
+    max-height: 40rem;
+    text-align: left;
+    vertical-align: top;
+}
+
+.vacation-apply .bottom {
+    float: right;
+    width: fit-content;
+    margin: 2rem 0;
 }
