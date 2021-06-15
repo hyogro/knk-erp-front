@@ -6,7 +6,7 @@ function setBoardData() {
     $("#today").text(todayArr[0] + "년 " + todayArr[1] + "월 " + todayArr[2] + "일 (" + todayArr[6] + ")");
 
     //부서정보 조회
-    request('POST','department/readDepartmentNameAndMemberCount', setDepartmentInfo);
+    request('GET','department/readDepartmentNameAndMemberCount', setDepartmentInfo);
     //일정요약(출퇴근) 조회
     request('GET','attendance/summary', setAttendanceSummary);
     //휴가요약(출퇴근) 조회
@@ -58,7 +58,6 @@ function setAttendanceSummary(res) {
 }
 //일정요약(출퇴근) 조회
 function setVacationSummary(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }
@@ -149,7 +148,6 @@ function offWork(res) {
 
 //출퇴근기록
 function setWorkBoard(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }

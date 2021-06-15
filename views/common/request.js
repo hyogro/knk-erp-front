@@ -17,7 +17,7 @@ function request(method, url, processFunc) {
             $("#loading").hide();
         },
         error: function (err) {
-            console.log(err);
+            alert("잘못된 접근입니다.");
         }
     });
 }
@@ -41,7 +41,7 @@ function requestWithData(method, url, data, processFunc) {
             $("#loading").hide();
         },
         error: function (err) {
-            console.log(err);
+            alert("잘못된 접근입니다.");
         }
     });
 }

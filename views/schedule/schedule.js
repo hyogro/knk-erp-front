@@ -19,8 +19,6 @@ calendar.render();
 drawCalendar('all dep own');
 
 function drawDetail(res) {
-    console.log(res);
-
     if (res.code === null) {
         return;
     }
