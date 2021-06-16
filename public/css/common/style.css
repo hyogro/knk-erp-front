@@ -193,10 +193,6 @@ input, select, textarea {
     background: #f3f3f3 !important;
 }
 
-.fc-daygrid-event {
-    cursor: pointer;
-}
-
 .fc-daygrid-event:hover,
 .fc-event-main .fc-event-title:hover {
     text-decoration: underline !important;

@@ -6,20 +6,35 @@ function setBoardData() {
     $("#today").text(todayArr[0] + "년 " + todayArr[1] + "월 " + todayArr[2] + "일 (" + todayArr[6] + ")");
 
     //부서정보 조회
-    request('GET','department/readDepartmentNameAndMemberCount', setDepartmentInfo);
+    request('GET', 'department/readDepartmentNameAndMemberCount', setDepartmentInfo);
     //일정요약(출퇴근) 조회
-    request('GET','attendance/summary', setAttendanceSummary);
+
+    request('GET', 'attendance/summary', setAttendanceSummary);
     //휴가요약(출퇴근) 조회
-    request('GET','vacation/summary', setVacationSummary);
+    request('GET', 'vacation/summary', setVacationSummary);
     //출퇴근기록 조회
-    request('GET','attendance/today', setWorkBoard);
+    request('GET', 'attendance/today', setWorkBoard);
 
     let scheduleSendData = {};
     scheduleSendData.viewOption = 'all dep own';
 
     //주간일정 조회
     setCalendar();
-    request('GET',getURL('schedule', scheduleSendData), setScheduleList);
+    getAttendanceList();
+}
+
+function getAttendanceList() {
+    let sendData = new Object();
+
+    sendData.viewOption = 'all dep own';
+    let start = getTodayArr(new Date(new Date().setDate(new Date().getDate() - 7)));
+    sendData.startDate = start[0] + "-" + start[1] + "-" + start[2]+"T00:00:00";
+    let end = getTodayArr(new Date(new Date().setDate(new Date().getDate() + 7)));
+    sendData.endDate = end[0] + "-" + end[1] + "-" + end[2]+"T11:59:59";
+
+    console.log(sendData)
+
+    request('GET', getURL('schedule', sendData), setScheduleList);
 }
 
 //부서정보 조회
@@ -54,6 +69,7 @@ function setAttendanceSummary(res) {
         console.log("일정요약 조회 실패\n권한이 없습니다.");
     }
 }
+
 //일정요약(출퇴근) 조회
 function setVacationSummary(res) {
     if (res.code === null) {

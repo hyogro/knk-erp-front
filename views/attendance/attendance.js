@@ -15,24 +15,39 @@ let calendar = new FullCalendar.Calendar(calendarEl, {
     },
     fixedWeekCount: false,
     height: 700,
-    eventClick: function (info) {
-        // if (info.event.extendedProps.type === 'schedule') {
-        //     request('GET', getURL('schedule', info.event.id), drawDetail);
-        // } else if (info.event.extendedProps.type === 'vacation') {
-        //     request('GET', getURL('vacation', info.event.id), drawDetail);
-        // }
+    dateClick: function (info) {
+        console.log('Clicked on: ' + info.dateStr);
+        console.log('이벤트: ' + info.jsEvent);
     }
 });
 calendar.render();
 
-request('GET', 'attendance', setAttendanceList);
+getAttendanceList();
+
+//이전달
+$(".fc-prev-button").click(function () {
+    getAttendanceList();
+});
+//다음달
+$(".fc-next-button").click(function () {
+    getAttendanceList();
+});
+
+function getAttendanceList() {
+    let sendData = new Object();
+
+    sendData.startDate = $(".fc-scrollgrid-sync-table tr:first-child .fc-daygrid-day:first-child").data("date");
+    sendData.endDate = $(".fc-scrollgrid-sync-table tr:last-child .fc-daygrid-day:last-child").data("date");
+
+    request('GET', getURL('attendance', sendData), setAttendanceList);
+}
 
 function setAttendanceList(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }
     if (res.code === 'RAL001') {
+        calendar.removeAllEvents();
         for (let i = 0; i < res.data.length; i++) {
             if (!isEmpty(res.data[i].onWork)) {
                 addEvent(res.data[i], "출근", res.data[i].onWork, "#3788d8");

@@ -8,8 +8,8 @@ function getTodayArr(date) {
     let dateArr = [];
 
     dateArr[0] = date.getFullYear();
-    dateArr[1] = (1 + date.getMonth());
-    dateArr[2] = date.getDate();
+    dateArr[1] = ("0" + (1 + date.getMonth())).slice(-2);
+    dateArr[2] = ("0" + date.getDate()).slice(-2);
     dateArr[3] = date.getHours();
     dateArr[4] = date.getMinutes();
     dateArr[5] = date.getSeconds();
@@ -18,6 +18,17 @@ function getTodayArr(date) {
     dateArr[6] = week[date.getDay()];
 
     return dateArr;
+}
+
+//yyyy-mm-dd 형식
+function getYYYYMMDD(date) {
+    let dateArr = [];
+
+    dateArr[0] = date.getFullYear();
+    dateArr[1] = ("0" + (1 + date.getMonth())).slice(-2);
+    dateArr[2] = ("0" + date.getDate()).slice(-2);
+
+    return dateArr[0] + "-" + dateArr[1] + "-" + dateArr[2];
 }
 
 //날짜
@@ -31,7 +42,7 @@ function enterToBr(text) {
 }
 
 //글자수 세기
-function countTextLength(id, text ,length) {
+function countTextLength(id, text, length) {
     $('#' + id).html("(" + $(text).val().length + " / " + length + ")");
 
     if ($(text).val().length > length) {

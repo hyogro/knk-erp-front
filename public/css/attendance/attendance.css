@@ -1,3 +1,11 @@
+.fc-daygrid-day-frame {
+    cursor: pointer;
+}
+
+.fc-daygrid-day-frame:hover {
+    background: #f8fcff;
+}
+
 #applyTable tr{
     cursor: pointer;
 }

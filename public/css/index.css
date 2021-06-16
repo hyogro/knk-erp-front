@@ -76,3 +76,7 @@
 #calendar {
     max-height: 30rem
 }
+
+.fc-toolbar-chunk:last-child {
+    display: none;
+}

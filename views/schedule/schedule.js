@@ -26,47 +26,38 @@ let calendar = new FullCalendar.Calendar(calendarEl, {
 calendar.render();
 drawCalendar('all dep own');
 
-function drawDetail(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RSD001' || res.code === 'RV001') {
-        $("#scheduleTitle").text(res.data.title);
-        let start = res.data.startDate.split("T");
-        let end = res.data.endDate.split("T");
-        $("#scheduleTime").html("시작: " + start[0] + " 🕒" + start[1] +
-            "<br> 종료: " + end[0] + " 🕒" + end[1]);
-        $("#scheduleMemo").html(enterToBr(res.data.memo));
-        $("#scheduleName").text('작성자: '+res.data.memberName);
-    } else if (res.code === 'RSD001' || res.code === 'RV002') {
-        console.log("일정 상세 조회 실패");
-    }
-}
+//이전달
+$(".fc-prev-button").click(function () {
+    chkViewOption();
+});
+//다음달
+$(".fc-next-button").click(function () {
+    chkViewOption();
+});
 
-function checkViewOption() {
+//체크값 전달
+function chkViewOption() {
     let viewOptionArr = [];
-    if ($("#checkViewOptionAll").is(":checked")) {
-        viewOptionArr.push("all");
-    }
-    if ($("#checkViewOptionDep").is(":checked")) {
-        viewOptionArr.push("dep");
-    }
-    if ($("#checkViewOptionOwn").is(":checked")) {
-        viewOptionArr.push("own");
-    }
+    $('input:checkbox[name="viewOption"]').each(function () {
+        viewOptionArr.push(this.value);
+    });
     let viewOption = viewOptionArr.join(" ");
+
     drawCalendar(viewOption);
 }
 
+//달력에 한달 일정 셋팅
 function drawCalendar(viewOption) {
     calendar.removeAllEvents();
 
-    let scheduleSendData = {};
-    scheduleSendData.viewOption = viewOption;
-
     //전체일정 조회
     if (!(isEmpty(viewOption))) {
-        request('GET', getURL('schedule', scheduleSendData), setScheduleList);
+        let sendData = new Object();
+        sendData.viewOption = viewOption;
+        sendData.startDate = $(".fc-scrollgrid-sync-table tr:first-child .fc-daygrid-day:first-child").data("date") + "T00:00:00";
+        sendData.endDate = $(".fc-scrollgrid-sync-table tr:last-child .fc-daygrid-day:last-child").data("date") + "T11:59:59";
+
+        request('GET', getURL('schedule', sendData), setScheduleList);
     }
 
     //휴가일정 조회
@@ -124,4 +115,22 @@ function addEvent(data, type, color) {
     schedule.rendering = "background";
 
     calendar.addEvent(schedule);
+}
+
+//일정 상세보기
+function drawDetail(res) {
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'RSD001' || res.code === 'RV001') {
+        $("#scheduleTitle").text(res.data.title);
+        let start = res.data.startDate.split("T");
+        let end = res.data.endDate.split("T");
+        $("#scheduleTime").html("시작: " + start[0] + " 🕒" + start[1] +
+            "<br> 종료: " + end[0] + " 🕒" + end[1]);
+        $("#scheduleMemo").html(enterToBr(res.data.memo));
+        $("#scheduleName").text('작성자: ' + res.data.memberName);
+    } else if (res.code === 'RSD001' || res.code === 'RV002') {
+        console.log("일정 상세 조회 실패");
+    }
 }

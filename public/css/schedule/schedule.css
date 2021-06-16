@@ -40,3 +40,7 @@
     background-color: #198754;
     border-color: #198754;
 }
+
+.fc-daygrid-event {
+    cursor: pointer;
+}

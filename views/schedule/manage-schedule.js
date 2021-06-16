@@ -3,13 +3,15 @@ let scheduleArr = [];
 setBoardData();
 
 function setBoardData() {
-    let scheduleSendData = {};
-    scheduleSendData.viewOption = '';
-    scheduleSendData.page = 0;
-    scheduleSendData.size = 100;
+    let sendData = {};
+    sendData.viewOption = '';
+    let startMonth = getTodayArr(new Date());
+    sendData.startDate = startMonth[0] + "-" + startMonth[1] + "-01T00:00:00";
+    let endMonth = getTodayArr(new Date(new Date().setMonth(new Date().getMonth() + 1)));
+    sendData.endDate = endMonth[0] + "-" + endMonth[1] + "-01T00:00:00";
 
     //전체일정 조회
-    request('GET', getURL('schedule', scheduleSendData), setScheduleList);
+    request('GET', getURL('schedule', sendData), setScheduleList);
 }
 
 //초기 셋팅
@@ -135,7 +137,7 @@ function updateDetailSchedule(res) {
     if (res.code === 'RSD001') {
         $("#createTitle").val(res.data.title);
         $("#createMemo").val(res.data.memo);
-        $("#textCnt").text("(" + $("#createMemo").val().length +" / 255)");
+        $("#textCnt").text("(" + $("#createMemo").val().length + " / 255)");
         $("#createViewOption").val(res.data.viewOption);
 
         let start = res.data.startDate.split("T");
