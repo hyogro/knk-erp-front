@@ -21,7 +21,7 @@ function setScheduleList(res) {
         scheduleArr = res.data;
         setDateSelector();
     } else if (res.code === 'RSL002') {
-        alert("일정목록 조회 실패");
+        console.log("일정목록 조회 실패");
     }
 }
 
@@ -57,7 +57,7 @@ function searchScheduleList() {
             } else {
                 html += '<tr><th width="30%">' + startDate + "~" + endDate + '</th>';
             }
-            
+
             if (scheduleArr[i].viewOption === "all") {
                 html += '<td width="20%"><span style="color: #3788d8">■ 전체일정</span></td>'
             } else if (scheduleArr[i].viewOption === "dep") {
@@ -82,7 +82,7 @@ function detailSchedule(res) {
     if (res.code === 'RSD001') {
         $("#detailSchedule").css("visibility", "visible");
         $("#scheduleTitle").text(res.data.title);
-        $("#scheduleTitle").attr("data-id", res.data.id);
+        $("#scheduleTitle").data("id", res.data.id);
         let start = res.data.startDate.split("T");
         let end = res.data.endDate.split("T");
         $("#scheduleTime").html("시작: " + start[0] + " 🕒" + start[1] +
@@ -111,25 +111,31 @@ function chkDate() {
 function typeSchedule(type) {
     $("#saveBtn").attr("onclick", "saveSchedule('" + type + "')");
 
+    //입력값 초기화
     $('.schedule-write').find('input').val('');
     $('textarea').val('');
+    $('#textCnt').text('(0 / 255)');
 
     if (type === 'create') {
         $(".modal-header div").text("일정추가");
     } else if (type === 'update') {
         $(".modal-header div").text("일정수정");
         let id = $("#scheduleTitle").data("id");
+        console.log($("#scheduleTitle").data("id"))
+
         request('GET', getURL('schedule', id), updateDetailSchedule);
     }
 }
 
 function updateDetailSchedule(res) {
+    console.log(res)
     if (res.code === null) {
         return;
     }
     if (res.code === 'RSD001') {
         $("#createTitle").val(res.data.title);
         $("#createMemo").val(res.data.memo);
+        $("#textCnt").text("(" + $("#createMemo").val().length +" / 255)");
         $("#createViewOption").val(res.data.viewOption);
 
         let start = res.data.startDate.split("T");

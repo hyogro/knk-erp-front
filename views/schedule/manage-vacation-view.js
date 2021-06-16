@@ -5,7 +5,7 @@ function setDetailVacation(res) {
     if (res.code === null) {
         return;
     }
-    if (res.code === 'RV001') {
+    if (res.code === 'RVD001') {
         if (res.data.type === "연차") {
             $('input:checkbox[id="full"]').attr("checked", true);
         } else if (res.data.type === "오전반차") {
@@ -27,10 +27,10 @@ function setDetailVacation(res) {
             $("#rejectRow").show();
             $("#reject").text(res.data.rejectMemo);
         }
-    } else if (res.code === 'RV002') {
+    } else if (res.code === 'RVD002') {
         console.log("휴가상세 조회 실패");
-    } else if (res.code === 'RV003') {
-        alert("휴가상세 조회 실패\n권한이 없습니다.");
+    } else if (res.code === 'RVD003') {
+        console.log("휴가상세 조회 실패\n권한이 없습니다.");
     }
 }
 

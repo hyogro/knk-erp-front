@@ -13,6 +13,8 @@ let calendar = new FullCalendar.Calendar(calendarEl, {
             dayMaxEventRows: 6
         }
     },
+    fixedWeekCount: false,
+    height: 800,
     eventClick: function (info) {
         if (info.event.extendedProps.type === 'schedule') {
             request('GET', getURL('schedule', info.event.id), drawDetail);

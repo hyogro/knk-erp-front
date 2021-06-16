@@ -6,54 +6,54 @@
     font-size: 2rem;
 }
 
-.commute-self .btn {
+.attendance-self .btn {
     font-size: 1.8rem !important;
     padding: 1rem 0 !important;
     border-radius: 10%;
 }
 
-.commute-self {
+.attendance-self {
 }
 
-.commute-self img {
+.attendance-self img {
     width: 48px;
     height: 48px;
 }
 
-.commute-self {
+.attendance-self {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.commute-self .btn {
+.attendance-self .btn {
     width: 10rem;
     min-width: 10rem;
     height: 10rem;
     min-height: 10rem;
 }
 
-.commute-self table td {
+.attendance-self table td {
     font-size: 2rem;
     padding: 2rem;
 }
 
-.commute-self table {
+.attendance-self table {
     border: 1px solid #DCDCDC;
 }
 
-.commute-self table th:not(:last-child),
-.commute-self table td:not(:last-child) {
+.attendance-self table th:not(:last-child),
+.attendance-self table td:not(:last-child) {
     border-right: 1px solid #DCDCDC;
 }
 
-.commute-board {
+.attendance-board {
     display: none;
     text-align: center;
     font-size: 2rem;
 }
 
-.commute-board .count {
+.attendance-board .count {
     font-size: 4rem;
     font-weight: bold;
 }

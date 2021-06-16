@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('../part/head.ejs') %>
+
+    <link rel="stylesheet" type="text/css" href="/css/attendance/attendance.css?version=1.2">
+</head>
+
+<header>
+    <%- include ('../part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('../part/menu.ejs') %>
+<div id="main">
+    <div class="row">
+        <div class="col-9">
+            <div id="calendar"></div>
+        </div>
+        <div class="col-3">
+            <div class="row">
+                <div class="content-box">
+                    <div class="main-title" id="attendanceTitle">
+                        2021.06.16
+                    </div>
+                    <hr>
+                    <div class="scroll" id="attendanceMemo">
+                        출근 🕒 09:00:00
+                        <br>
+                        퇴근 🕒 18:00:00
+                    </div>
+                    <hr>
+                    <button type="button" class="btn btn-primary" style="float: right"
+                            data-bs-toggle="modal" data-bs-target="#attendanceModal">정정요청</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="main-title">승인대기중</div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>정정희망날짜</th>
+                        <th>신청일</th>
+                    </tr>
+                    </thead>
+                    <tbody id="applyTable">
+                    <tr>
+                        <td>1</td>
+                        <td>2021.06.10</td>
+                        <td>2021.06.15</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <%- include ('attendance-modal.ejs') %>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script>
+
+    <%- include ('../common/check-data.js') %>
+    <%- include ('attendance.js') %>
+
+</script>

@@ -9,6 +9,7 @@ const port = 3000;
 
 const indexRouter = require('./routes/index');
 const scheduleRouter = require('./routes/schedule');
+const attendanceRouter = require('./routes/attendance');
 
 server.listen(port, hostname, () => {
     console.log('server start');
@@ -16,7 +17,7 @@ server.listen(port, hostname, () => {
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.set('public', path.join(__dirname, 'public'));
+// app.set('public', path.join(__dirname, 'public'));
 
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/jsCookie', express.static(__dirname + '/node_modules/jquery.cookie'));
@@ -26,5 +27,6 @@ app.use('/fullcalendar', express.static(__dirname + '/node_modules/fullcalendar'
 app.use(express.static('public'));
 app.use('/', indexRouter);
 app.use('/schedule', scheduleRouter);
+app.use('/attendance', attendanceRouter);
 
 module.exports = app;

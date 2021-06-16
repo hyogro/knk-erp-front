@@ -35,6 +35,7 @@ function createVacation() {
 }
 
 function alertCreateVacation(res) {
+    console.log(res)
     if (res.code === null) {
         return;
     }

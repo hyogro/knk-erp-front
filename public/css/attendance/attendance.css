@@ -1,0 +1,28 @@
+#applyTable tr{
+    cursor: pointer;
+}
+
+#applyTable tr:hover{
+    background: #f8fcff;
+}
+
+.modal table{
+    text-align: left;
+}
+
+.write input[type=text],
+.write textarea {
+    width: 100%;
+}
+
+.write textarea {
+    min-height: 20rem;
+    height: 20rem;
+    max-height: 20rem;
+    overflow-y: auto;
+}
+
+.write input[type=date],
+.write input[type=time] {
+    width: 13rem;
+}

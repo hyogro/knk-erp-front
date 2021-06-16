@@ -31,7 +31,7 @@ function setDepartmentInfo(res) {
         $("#departmentName").text(res.data.departmentName);
         $("#memberCount").text(res.data.memberCount);
     } else if (res.code === 'RDAM002') {
-        alert("부서정보 조회 실패");
+        console.log("부서정보 조회 실패");
     } else if (res.code === 'RDAM003') {
         alert("부서정보 조회 실패\n소속된 부서가 존재하지 않습니다.");
     }
@@ -42,15 +42,15 @@ function setAttendanceSummary(res) {
     if (res.code === null) {
         return;
     }
-    if (res.code === 'RSS001') {
-        $(".commute-board").css('display', 'flex');
+    if (res.code === 'RAS001') {
+        $(".attendance-board").css('display', 'flex');
         $("#onWork").text(res.data.onWork);
         $("#yetWork").text(res.data.yetWork);
         $("#lateWork").text(res.data.lateWork);
-    } else if (res.code === 'RSS002') {
-        alert("일정요약 조회 실패");
-    } else if (res.code === 'RSS003') {
-        $(".commute-board").hide();
+    } else if (res.code === 'RAS002') {
+        console.log("일정요약 조회 실패");
+    } else if (res.code === 'RAS003') {
+        $(".attendance-board").hide();
         console.log("일정요약 조회 실패\n권한이 없습니다.");
     }
 }
@@ -62,9 +62,9 @@ function setVacationSummary(res) {
     if (res.code === 'RVS001') {
         $("#vacation").text(res.data.vacation);
     } else if (res.code === 'RVS002') {
-        alert("휴가요약 조회 실패");
+        console.log("휴가요약 조회 실패");
     } else if (res.code === 'RVS003') {
-        $(".commute-board").hide();
+        $(".attendance-board").hide();
         console.log("휴가요약 조회 실패\n권한이 없습니다.");
     }
 }
@@ -88,7 +88,7 @@ function setScheduleList(res) {
         setCalendar(scheduleArr);
 
     } else if (res.code === 'RSL002') {
-        alert("일정목록 조회 실패");
+        console.log("일정목록 조회 실패");
     }
 }
 
@@ -155,6 +155,6 @@ function setWorkBoard(res) {
     } else if (res.code === 'RA002') {
         console.log("출근기록 조회 실패");
     } else if (res.code === 'RA003') {
-        console.log("출근기록 조회 실패(출근정보 존재하지 않음)");
+        console.log("출근기록 조회 실패\n출근정보 존재하지 않음");
     }
 }
