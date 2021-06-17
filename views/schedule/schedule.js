@@ -348,7 +348,7 @@ function createAlertSchedule(res) {
         alert("일정이 추가되었습니다.");
         location.reload();
     } else if (res.code === 'CS002') {
-        alert("일정추가 실패");
+        console.log("일정추가 실패");
     }
 }
 
@@ -361,7 +361,7 @@ function updateAlertSchedule(res) {
         alert("일정이 수정되었습니다.");
         location.reload();
     } else if (res.code === 'US002') {
-        alert("일정수정 실패");
+        console.log("일정수정 실패");
     } else if (res.code === 'US002') {
         alert("일정수정 실패\n권한이 없습니다.");
     }

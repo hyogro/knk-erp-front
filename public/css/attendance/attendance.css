@@ -14,7 +14,11 @@
     background: #f8fcff;
 }
 
-.modal table{
+.modal table th {
+    width: 25%;
+}
+
+.modal table td{
     text-align: left;
 }
 
@@ -32,5 +36,5 @@
 
 .write input[type=date],
 .write input[type=time] {
-    width: 13rem;
+    width: 15rem;
 }

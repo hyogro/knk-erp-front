@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-centered" style="min-width: 60rem !important;">
         <div class="modal-content">
             <div class="modal-header">
-                <div>일정추가</div>
+                <div>출퇴근 정정요청</div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
@@ -11,40 +11,29 @@
                 <table>
                     <tbody>
                     <tr>
-                        <th width="20%">제목</th>
+                        <th>정정희망일</th>
                         <td>
-                            <input type="text" id="createTitle">
+                            <input type="date" id="applyAttendanceDate">
                         </td>
                     </tr>
                     <tr>
-                        <th>공개범위</th>
+                        <th>출근시간</th>
                         <td>
-                            <select id="createViewOption">
-                                <option value="own">개인</option>
-                                <option value="dep">부서</option>
-                                <option value="all">전체</option>
-                            </select>
+                            <input type="time" id="applyOnWork">
                         </td>
                     </tr>
                     <tr>
-                        <th>시작</th>
+                        <th>퇴근시간</th>
                         <td>
-                            <input type="date" id="createStartDate">
-                            <input type="time" id="createStartTime">
+                            <input type="time" id="applyOffWork">
                         </td>
                     </tr>
                     <tr>
-                        <th>종료</th>
+                        <th>사유</th>
                         <td>
-                            <input type="date" id="createEndDate">
-                            <input type="time" id="createEndTime">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>내용</th>
-                        <td>
-                            <textarea class="scroll" id="createMemo" onkeyup="countTextLength('textCnt', this, 255)"></textarea>
-                            <div id="textCnt">(0 / 255)</div>
+                            <textarea id="applyMemo">
+
+                            </textarea>
                         </td>
                     </tr>
                     </tbody>
@@ -52,7 +41,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-primary" id="saveBtn">저장</button>
+                <button type="button" class="btn btn-primary" id="saveBtn">요청하기</button>
             </div>
         </div>
     </div>

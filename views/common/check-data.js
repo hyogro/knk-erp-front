@@ -70,7 +70,7 @@ function getURL(url, data) {
     } else if (typeof data === 'number') {
         url = url + '/' + data;
     } else {
-        alert(typeof data);
+        console.log(typeof data);
     }
 
     return url;
