@@ -21,6 +21,7 @@
     font-weight: bold;
 }
 
+/*달력*/
 .all:checked {
     background-color: #3788d8;
     border-color: #3788d8;
@@ -43,4 +44,39 @@
 
 .fc-daygrid-event {
     cursor: pointer;
+}
+
+/*modal*/
+.schedule-write table td {
+    text-align: left;
+}
+
+.schedule-write input[type=text],
+.schedule-write textarea {
+    width: 100%;
+}
+
+.schedule-write textarea {
+    min-height: 20rem;
+    height: 20rem;
+    max-height: 20rem;
+    overflow-y: auto;
+}
+
+.schedule-write select {
+    width: 10rem;
+}
+
+.schedule-write input[type=date],
+.schedule-write input[type=time] {
+    width: 13rem;
+}
+
+.schedule-write #scheduleMemoTextCnt {
+    float: right;
+}
+
+.schedule-write #vacationMemo {
+    height: 10rem;
+    vertical-align: top;
 }

@@ -17,9 +17,11 @@ let calendar = new FullCalendar.Calendar(calendarEl, {
     height: 800,
     eventClick: function (info) {
         if (info.event.extendedProps.type === 'schedule') {
-            request('GET', getURL('schedule', info.event.id), drawDetail);
+            new bootstrap.Modal(document.getElementById('scheduleModal')).show();
+            request('GET', getURL('schedule', info.event.id), detailScheduleView);
         } else if (info.event.extendedProps.type === 'vacation') {
-            request('GET', getURL('vacation', info.event.id), drawDetail);
+            new bootstrap.Modal(document.getElementById('vacationModal')).show();
+            request('GET', getURL('vacation', info.event.id), detailVacationView);
         }
     }
 });
@@ -66,7 +68,7 @@ function drawCalendar(viewOption) {
     }
 }
 
-//달력 일정 셋팅
+//달력 일정 셋팅 - 근무일정
 function setScheduleList(res) {
     if (res.code === null) {
         return;
@@ -86,14 +88,15 @@ function setScheduleList(res) {
     }
 }
 
-//달력 일정 셋팅
+//달력 일정 셋팅 - 휴가
 function setVacationList(res) {
+    console.log(res)
     if (res.code === null) {
         return;
     }
     if (res.code === 'RVL001') {
         for (let i = 0; i < res.data.length; i++) {
-            if (res.data.reject || (res.data.approval1 && res.data.approval2)) {
+            if (res.data[i].reject || (res.data[i].approval1 && res.data[i].approval2)) {
                 addEvent(res.data[i], 'vacation', '#198754');
             }
         }
@@ -106,7 +109,7 @@ function setVacationList(res) {
 function addEvent(data, type, color) {
     let schedule = {};
     schedule.id = data.id;
-    schedule.title = data.title;
+    schedule.title = (type === 'vacation') ? data.type : data.title;
     schedule.memo = data.memo;
     schedule.start = data.startDate;
     schedule.end = data.endDate;
@@ -118,19 +121,45 @@ function addEvent(data, type, color) {
 }
 
 //일정 상세보기
-function drawDetail(res) {
+function detailScheduleView(res) {
     if (res.code === null) {
         return;
     }
-    if (res.code === 'RSD001' || res.code === 'RV001') {
-        $("#scheduleTitle").text(res.data.title);
+    if (res.code === 'RSD001') {
+        console.log(res);
+        //읽기전용
+        $('input').prop('readonly', true);
+        $('textarea').prop('readonly', true);
+        $('option').attr('disabled', true);
+
+        $("#scheduleTitle").val(res.data.title);
+        $("#scheduleMember").val(res.data.memberName);
+        $("#scheduleViewOption").val(res.data.viewOption);
         let start = res.data.startDate.split("T");
+        $("#scheduleStartDate").val(start[0]);
+        $("#scheduleStartTime").val(start[1]);
         let end = res.data.endDate.split("T");
-        $("#scheduleTime").html("시작: " + start[0] + " 🕒" + start[1] +
-            "<br> 종료: " + end[0] + " 🕒" + end[1]);
-        $("#scheduleMemo").html(enterToBr(res.data.memo));
-        $("#scheduleName").text('작성자: ' + res.data.memberName);
-    } else if (res.code === 'RSD001' || res.code === 'RV002') {
+        $("#scheduleEndDate").val(end[0]);
+        $("#scheduleEndTime").val(end[1]);
+        $("#scheduleMemo").val(res.data.memo);
+        $("#scheduleMemoTextCnt").text("(" + $("#scheduleMemo").val().length + " / 255)");
+    } else if (res.code === 'RSD001') {
         console.log("일정 상세 조회 실패");
+    }
+}
+
+function detailVacationView(res) {
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'RVD001') {
+        $("#vacationType").text(res.data.type);
+        let start = res.data.startDate.split("T");
+        $("#vacationStart").text(start[0]);
+        let end = res.data.endDate.split("T");
+        $("#vacationEnd").text(end[0]);
+        $("#vacationMemo").text(res.data.memo);
+    } else if (res.code === 'RVD002') {
+        console.log("휴가 상세 조회 실패");
     }
 }

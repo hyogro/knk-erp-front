@@ -22,59 +22,51 @@
             <div id="calendar"></div>
         </div>
         <div class="col-3 scroll">
-            <div>
-                <button type="button" class="btn btn-primary" onclick="location.href='/schedule/manage-schedule'">
-                    근무일정관리
-                </button>
-                <button type="button" class="btn btn-success" onclick="location.href='/schedule/manage-vacation'">
-                    휴가일정관리
+            <div class="row">
+                <button type="button" class="btn btn-primary"
+                        onclick="location.href='/schedule/manage-schedule'">
+                    일정등록
                 </button>
             </div>
 
-            <div class="content-box" style="display: flex;margin-top: 1.1rem !important;">
-                <div style="width: 50%">
-                    <div class="form-check">
-                        <input class="form-check-input all" type="checkbox" id="checkViewOptionAll" checked
-                               name="viewOption" value="all" onchange="chkViewOption()">
-                        <label class="form-check-label" for="checkViewOptionAll">
-                            회사 일정
-                        </label>
+            <div class="row">
+                <div class="content-box" style="display: flex;margin-top: 1.1rem !important;">
+                    <div style="width: 50%">
+                        <div class="form-check">
+                            <input class="form-check-input all" type="checkbox" id="checkViewOptionAll" checked
+                                   name="viewOption" value="all" onchange="chkViewOption()">
+                            <label class="form-check-label" for="checkViewOptionAll">
+                                회사 일정
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input dep" type="checkbox" id="checkViewOptionDep" checked
+                                   name="viewOption" value="dep" onchange="chkViewOption()">
+                            <label class="form-check-label" for="checkViewOptionDep">
+                                팀 일정
+                            </label>
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input dep" type="checkbox" id="checkViewOptionDep" checked
-                               name="viewOption" value="dep" onchange="chkViewOption()">
-                        <label class="form-check-label" for="checkViewOptionDep">
-                            팀 일정
-                        </label>
+                    <div style="width: 50%">
+                        <div class="form-check">
+                            <input class="form-check-input own" type="checkbox" id="checkViewOptionOwn" checked
+                                   name="viewOption" value="own" onchange="chkViewOption()">
+                            <label class="form-check-label" for="checkViewOptionOwn">
+                                내 일정
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input vac" type="checkbox" id="checkViewOptionVac" checked
+                                   onchange="chkViewOption()">
+                            <label class="form-check-label" for="checkViewOptionVac">
+                                휴가 일정
+                            </label>
+                        </div>
                     </div>
                 </div>
-                <div style="width: 50%">
-                    <div class="form-check">
-                        <input class="form-check-input own" type="checkbox" id="checkViewOptionOwn" checked
-                               name="viewOption" value="own" onchange="chkViewOption()">
-                        <label class="form-check-label" for="checkViewOptionOwn">
-                            내 일정
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input vac" type="checkbox" id="checkViewOptionVac" checked
-                               onchange="chkViewOption()">
-                        <label class="form-check-label" for="checkViewOptionVac">
-                            휴가 일정
-                        </label>
-                    </div>
-                </div>
+            </div>
 
-            </div>
-            <div class="content-box schedule-board">
-                <div class="title" id="scheduleTitle">일정을 선택해주세요</div>
-                <div class="time" id="scheduleTime"></div>
-                <hr>
-                <div class="memo scroll" id="scheduleMemo">
-                </div>
-                <hr>
-                <div class="name" id="scheduleName"></div>
-            </div>
+            <%- include ('schedule-modal.ejs') %>
         </div>
     </div>
 </div>

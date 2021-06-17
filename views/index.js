@@ -32,8 +32,6 @@ function getAttendanceList() {
     let end = getTodayArr(new Date(new Date().setDate(new Date().getDate() + 7)));
     sendData.endDate = end[0] + "-" + end[1] + "-" + end[2]+"T11:59:59";
 
-    console.log(sendData)
-
     request('GET', getURL('schedule', sendData), setScheduleList);
 }
 
