@@ -42,9 +42,14 @@
     border-color: #198754;
 }
 
-.fc-daygrid-event {
+.fc-daygrid-event, .fc-daygrid-day {
     cursor: pointer;
 }
+
+/*.fc-daygrid-day:hover {*/
+/*    background: #f8f9ff;*/
+/*}*/
+
 
 /*modal*/
 .schedule-write table td {
@@ -79,4 +84,13 @@
 .schedule-write #vacationMemo {
     height: 10rem;
     vertical-align: top;
+}
+
+#myScheduleList {
+    text-align: left;
+    cursor: pointer;
+}
+
+#myScheduleList tr:hover {
+    background: #f8f9ff;
 }

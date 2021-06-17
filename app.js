@@ -9,6 +9,7 @@ const port = 3000;
 
 const indexRouter = require('./routes/index');
 const scheduleRouter = require('./routes/schedule');
+const vacationRouter = require('./routes/vacation');
 const attendanceRouter = require('./routes/attendance');
 
 server.listen(port, hostname, () => {
@@ -27,6 +28,7 @@ app.use('/fullcalendar', express.static(__dirname + '/node_modules/fullcalendar'
 app.use(express.static('public'));
 app.use('/', indexRouter);
 app.use('/schedule', scheduleRouter);
+app.use('/vacation', vacationRouter);
 app.use('/attendance', attendanceRouter);
 
 module.exports = app;

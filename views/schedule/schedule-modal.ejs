@@ -1,20 +1,6 @@
-<!--<div class="row">-->
-<!--    <div class="content-box schedule-board">-->
-<!--        <div class="title" id="scheduleTitle">일정을 선택해주세요</div>-->
-<!--        <div class="time" id="scheduleTime"></div>-->
-<!--        <hr>-->
-<!--        <div class="memo scroll" id="scheduleMemo">-->
-<!--        </div>-->
-<!--        <hr>-->
-<!--        <div class="name" id="scheduleName"></div>-->
-<!--    </div>-->
-<!--</div>-->
-
-
-<!--TODO: 일정 자세히 보기 모달로-->
 <div class="modal fade" id="scheduleModal" tabindex="-1"
      aria-labelledby="scheduleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="min-width: 60rem !important;">
+    <div class="modal-dialog" style="min-width: 60rem !important;">
         <div class="modal-content">
             <div class="modal-header">
                 <div>일정</div>
@@ -32,9 +18,7 @@
                     </tr>
                     <tr>
                         <th width="25%">작성자</th>
-                        <td>
-                            <input type="text" id="scheduleMember">
-                        </td>
+                        <td id="scheduleMember"></td>
                     </tr>
                     <tr>
                         <th>공개범위</th>
@@ -63,16 +47,15 @@
                     <tr>
                         <th>내용</th>
                         <td>
-                            <textarea class="scroll" id="scheduleMemo" onkeyup="countTextLength('textCnt', this, 255)"></textarea>
+                            <textarea class="scroll" id="scheduleMemo"
+                                      onkeyup="countTextLength('scheduleMemoTextCnt', this, 255)"></textarea>
                             <div id="scheduleMemoTextCnt">(0 / 255)</div>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-primary" id="saveBtn">저장</button>
+            <div class="modal-footer" id="scheduleFooter">
             </div>
         </div>
     </div>
@@ -80,7 +63,7 @@
 
 <div class="modal fade" id="vacationModal" tabindex="-1"
      aria-labelledby="vacationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="min-width: 60rem !important;">
+    <div class="modal-dialog" style="min-width: 60rem !important;">
         <div class="modal-content">
             <div class="modal-header">
                 <div>휴가</div>

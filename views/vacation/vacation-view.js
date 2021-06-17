@@ -48,7 +48,7 @@ function deleteSchedule(res) {
     }
     if (res.code === 'DV001') {
         alert("삭제되었습니다.");
-        location.href = '/schedule/manage-vacation';
+        location.href = '/vacation';
     } else if (res.code === 'DV002') {
         console.log("휴가삭제 실패");
     } else if (res.code === 'DV003') {

@@ -66,6 +66,7 @@ table {
     text-align: center;
     border-top: 1px solid #2940d3;
     font-size: 1.5rem;
+    height: fit-content;
 }
 
 table th {

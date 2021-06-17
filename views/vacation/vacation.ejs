@@ -6,7 +6,7 @@
     <title><%= title %></title>
 
     <%- include ('../part/head.ejs') %>
-    <link rel="stylesheet" type="text/css" href="/css/schedule/manage-vacation.css?version=1.2">
+    <link rel="stylesheet" type="text/css" href="/css/vacation/vacation.css?version=1.2">
 </head>
 
 <header>
@@ -26,7 +26,7 @@
                 </select>
             </div>
             <div style="float: right;width: fit-content">
-                <button type="button" class="btn btn-success" onclick="location.href='/schedule/manage-vacation/apply'">
+                <button type="button" class="btn btn-success" onclick="location.href='/vacation/apply'">
                     휴가신청
                 </button>
             </div>
@@ -75,5 +75,5 @@
 <script>
     <%- include ('../common/request.js') %>
     <%- include ('../common/check-data.js') %>
-    <%- include ('manage-vacation.js') %>
+    <%- include ('vacation.js') %>
 </script>

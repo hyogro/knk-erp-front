@@ -6,7 +6,7 @@
     <title><%= title %></title>
 
     <%- include ('../part/head.ejs') %>
-    <link rel="stylesheet" type="text/css" href="/css/schedule/manage-vacation.css?version=1.2">
+    <link rel="stylesheet" type="text/css" href="/css/vacation/vacation.css?version=1.2">
 </head>
 
 <header>
@@ -84,7 +84,7 @@
 
     <div class="row">
         <div class="bottom">
-            <button type="button" class="btn btn-secondary" onclick="location.href='/schedule/manage-vacation'">목록으로</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='/vacation'">목록으로</button>
             <button type="button" class="btn btn-danger" id="deleteBtn" onclick="deleteAlertVacation()" style="display: none;">삭제</button>
         </div>
     </div>
@@ -96,5 +96,5 @@
 <script>
     <%- include ('../common/request.js') %>
     <%- include ('../common/check-data.js') %>
-    <%- include ('manage-vacation-view.js') %>
+    <%- include ('vacation-view.js') %>
 </script>

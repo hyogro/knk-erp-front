@@ -15,6 +15,7 @@ let calendar = new FullCalendar.Calendar(calendarEl, {
     },
     fixedWeekCount: false,
     height: 800,
+    selectable: true,
     eventClick: function (info) {
         if (info.event.extendedProps.type === 'schedule') {
             new bootstrap.Modal(document.getElementById('scheduleModal')).show();
@@ -23,10 +24,13 @@ let calendar = new FullCalendar.Calendar(calendarEl, {
             new bootstrap.Modal(document.getElementById('vacationModal')).show();
             request('GET', getURL('vacation', info.event.id), detailVacationView);
         }
+    },
+    select: function (info) {
+        new bootstrap.Modal(document.getElementById('scheduleModal')).show();
+        setCreateSchedule(getYYYYMMDD(info.start), getYYYYMMDD(new Date(info.end.setDate(info.end.getDate() - 1))));
     }
 });
 calendar.render();
-drawCalendar('all dep own');
 
 //이전달
 $(".fc-prev-button").click(function () {
@@ -37,6 +41,8 @@ $(".fc-next-button").click(function () {
     chkViewOption();
 });
 
+setScheduleCalendar('all dep own');
+
 //체크값 전달
 function chkViewOption() {
     let viewOptionArr = [];
@@ -45,21 +51,25 @@ function chkViewOption() {
     });
     let viewOption = viewOptionArr.join(" ");
 
-    drawCalendar(viewOption);
+    setScheduleCalendar(viewOption);
 }
 
 //달력에 한달 일정 셋팅
-function drawCalendar(viewOption) {
+function setScheduleCalendar(viewOption) {
     calendar.removeAllEvents();
 
-    //전체일정 조회
     if (!(isEmpty(viewOption))) {
+        //전체일정 조회
         let sendData = new Object();
         sendData.viewOption = viewOption;
         sendData.startDate = $(".fc-scrollgrid-sync-table tr:first-child .fc-daygrid-day:first-child").data("date") + "T00:00:00";
         sendData.endDate = $(".fc-scrollgrid-sync-table tr:last-child .fc-daygrid-day:last-child").data("date") + "T11:59:59";
 
         request('GET', getURL('schedule', sendData), setScheduleList);
+
+        //내일정 조회
+        sendData.viewOption = '';
+        request('GET', getURL('schedule', sendData), saveMyScheduleList);
     }
 
     //휴가일정 조회
@@ -90,7 +100,6 @@ function setScheduleList(res) {
 
 //달력 일정 셋팅 - 휴가
 function setVacationList(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -102,6 +111,53 @@ function setVacationList(res) {
         }
     } else if (res.code === 'RVL002') {
         console.log("휴가조회 실패");
+    }
+}
+
+let myScheduleArr = [];
+
+//내 일정 저장
+function saveMyScheduleList(res) {
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'RSL001') {
+        $("#myScheduleList").empty();
+        for (let i = 0; i < res.data.length; i++) {
+            let html = '';
+            html += '<tr data-bs-toggle="modal" data-bs-target="#scheduleModal"' +
+                'onclick=" request(\'GET\', getURL(\'schedule\', \'' + res.data[i].id + '\'), detailScheduleView);">';
+
+            let start = getYYYYMMDD(new Date(res.data[i].startDate));
+            let end = getYYYYMMDD(new Date(res.data[i].endDate));
+            if (start === end) {
+                html += '<th>' +
+                    start.replaceAll("-", ".").substring(5, 10) +
+                    '</th>';
+            } else {
+                html += '<th>' +
+                    start.replaceAll("-", ".").substring(5, 10) + '~' +
+                    end.replaceAll("-", ".").substring(5, 10) +
+                    '</th>';
+            }
+
+            if (res.data[i].viewOption === "all") {
+                html += '<td style="color: #3788d8">■ 전체</td>'
+            } else if (res.data[i].viewOption === "dep") {
+                html += '<td style="color: #e09222">■ 팀</td>'
+            } else if (res.data[i].viewOption === "own") {
+                html += '<td style="color: #d46d8c">■ 개인</td>'
+            }
+
+            html += '<td>' + res.data[i].title + '</td>';
+            html += '</tr>';
+
+            $("#myScheduleList").append(html);
+        }
+
+        myScheduleArr = res.data;
+    } else if (res.code === 'RSL002') {
+        console.log("일정목록 조회 실패");
     }
 }
 
@@ -120,20 +176,48 @@ function addEvent(data, type, color) {
     calendar.addEvent(schedule);
 }
 
+//입력값 초기화
+function resetScheduleData(set, type) {
+    if (type === "create") {
+        $("#scheduleMember").text('');
+    }
+
+    if (type !== "update") {
+        $('.schedule-write').find('input').val('');
+        $('textarea').val('');
+        $('#scheduleMemoTextCnt').text('(0 / 255)');
+    }
+
+    $('input').prop('readonly', set);
+    $('textarea').prop('readonly', set);
+    $('option').attr('disabled', set);
+}
+
+//일정등록 모달 초기화
+function setCreateSchedule(start, end) {
+    resetScheduleData(false, "create");
+
+    if (!isEmpty(start) && !isEmpty(end)) {
+        $("#scheduleStartDate").val(start);
+        $("#scheduleEndDate").val(end);
+    }
+
+    let html = '';
+    html += '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>';
+    html += '<button type="button" class="btn btn-primary" onclick="saveSchedule(\'create\')">저장</button>';
+    $("#scheduleFooter").html(html);
+}
+
 //일정 상세보기
 function detailScheduleView(res) {
     if (res.code === null) {
         return;
     }
     if (res.code === 'RSD001') {
-        console.log(res);
-        //읽기전용
-        $('input').prop('readonly', true);
-        $('textarea').prop('readonly', true);
-        $('option').attr('disabled', true);
+        resetScheduleData(true, "read");
 
         $("#scheduleTitle").val(res.data.title);
-        $("#scheduleMember").val(res.data.memberName);
+        $("#scheduleMember").text(res.data.memberName);
         $("#scheduleViewOption").val(res.data.viewOption);
         let start = res.data.startDate.split("T");
         $("#scheduleStartDate").val(start[0]);
@@ -143,11 +227,32 @@ function detailScheduleView(res) {
         $("#scheduleEndTime").val(end[1]);
         $("#scheduleMemo").val(res.data.memo);
         $("#scheduleMemoTextCnt").text("(" + $("#scheduleMemo").val().length + " / 255)");
+
+        //내 일정인지 체크
+        chkMySchedule(res.data.id);
     } else if (res.code === 'RSD001') {
         console.log("일정 상세 조회 실패");
     }
 }
 
+//내 일정인지 체크
+function chkMySchedule(id) {
+    for (let i = 0; i < myScheduleArr.length; i++) {
+        let html = '';
+        if (id === myScheduleArr[i].id) {
+            html += '<button type="button" class="btn btn-danger" onclick="deleteAlertSchedule(\'' + id + '\')">삭제</button>';
+            html += '<button type="button" class="btn btn-primary" onclick="setUpdateSchedule(\'' + id + '\')">수정</button>';
+            html += '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>';
+            $("#scheduleFooter").html(html);
+            return false;
+        } else {
+            html += '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>';
+            $("#scheduleFooter").html(html);
+        }
+    }
+}
+
+//휴가 상세보기
 function detailVacationView(res) {
     if (res.code === null) {
         return;
@@ -161,5 +266,103 @@ function detailVacationView(res) {
         $("#vacationMemo").text(res.data.memo);
     } else if (res.code === 'RVD002') {
         console.log("휴가 상세 조회 실패");
+    }
+}
+
+//일정 삭제
+function deleteAlertSchedule(id) {
+    if (confirm("일정을 삭제하시겠습니까?") === true) {
+        request('DELETE', getURL('schedule', id), deleteSchedule);
+    } else {
+        return false;
+    }
+}
+
+//일정 삭제
+function deleteSchedule(res) {
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'DS001') {
+        alert("일정이 삭제되었습니다.");
+        location.reload();
+    } else if (res.code === 'DS002') {
+        alert("일정삭제 실패");
+    } else if (res.code === 'DS003') {
+        alert("일정삭제 실패\n권한이 없습니다.");
+    }
+}
+
+//업데이트 입력창 활성화
+function setUpdateSchedule(id) {
+    resetScheduleData(false, "update");
+
+    let html = '';
+    html += '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>';
+    html += '<button type="button" class="btn btn-primary" onclick="saveSchedule(\'update\', \'' + id + '\')">저장</button>';
+    $("#scheduleFooter").html(html);
+}
+
+//스케줄 저장
+function saveSchedule(type, id) {
+    let saveData = {};
+    saveData.title = $("#scheduleTitle").val();
+    saveData.memo = $("#scheduleMemo").val();
+    saveData.viewOption = $("#scheduleViewOption").val();
+    let start1 = $("#scheduleStartDate").val();
+    let start2 = $("#scheduleStartTime").val();
+    saveData.startDate = start1 + "T" + start2;
+    let end1 = $("#scheduleEndDate").val();
+    let end2 = $("#scheduleEndTime").val();
+    saveData.endDate = end1 + "T" + end2;
+
+    if (isEmpty(saveData.title)) {
+        alert("제목을 입력해주세요.");
+    } else if (isEmpty(saveData.memo)) {
+        alert("내용을 입력해주세요.");
+    } else if (isEmpty(start1)) {
+        alert("시작일을 선택해주세요.");
+    } else if (isEmpty(start2)) {
+        alert("시작시간을 선택해주세요.");
+    } else if (isEmpty(end1)) {
+        alert("종료일을 선택해주세요.");
+    } else if (isEmpty(end2)) {
+        alert("종료시간을 선택해주세요.");
+    } else if (chkDate(saveData.startDate, saveData.endDate)) {
+        alert("종료일/시간이 시작일/시간보다 빠를 수 없습니다.\n다시 선택해주세요.");
+    } else {
+        if (type === 'create') {
+            requestWithData('POST', 'schedule', saveData, createAlertSchedule);
+        } else if (type === 'update') {
+            requestWithData('PUT', getURL('schedule', id), saveData, updateAlertSchedule);
+        }
+    }
+}
+
+//일정 추가 결과 알림창
+function createAlertSchedule(res) {
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'CS001') {
+        alert("일정이 추가되었습니다.");
+        location.reload();
+    } else if (res.code === 'CS002') {
+        alert("일정추가 실패");
+    }
+}
+
+//일정 수정 결과 알림창
+function updateAlertSchedule(res) {
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'US001') {
+        alert("일정이 수정되었습니다.");
+        location.reload();
+    } else if (res.code === 'US002') {
+        alert("일정수정 실패");
+    } else if (res.code === 'US002') {
+        alert("일정수정 실패\n권한이 없습니다.");
     }
 }

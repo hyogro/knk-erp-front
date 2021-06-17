@@ -45,7 +45,7 @@ function searchVacationList() {
             (vacationArr[i].endDate).substring(0, 4) === year) {
             let html = '';
             html += '<tr id=\'' + vacationArr[i].id + '\' ' +
-                'onclick="location.href = \'/schedule/manage-vacation/view?id=\' + id">' +
+                'onclick="location.href = \'/vacation/view?id=\' + id">' +
                 '<td>' + getToday(vacationArr[i].requestDate) + '</td>' +
                 '<td>' + vacationArr[i].type + '</td>' +
                 '<td>' + getToday(vacationArr[i].startDate) + '</td>' +

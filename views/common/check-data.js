@@ -36,6 +36,14 @@ function getToday(date) {
     return date.split("T")[0].replaceAll("-", ".");
 }
 
+//날짜 오차 체크
+function chkDate(start, end) {
+    let startDate = new Date(start);
+    let endDate = new Date(end);
+
+    return (startDate > endDate);
+}
+
 //엔터 br로 바꾸기
 function enterToBr(text) {
     return text.replaceAll("\n", "<br>");

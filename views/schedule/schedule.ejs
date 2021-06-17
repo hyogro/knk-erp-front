@@ -23,8 +23,8 @@
         </div>
         <div class="col-3 scroll">
             <div class="row">
-                <button type="button" class="btn btn-primary"
-                        onclick="location.href='/schedule/manage-schedule'">
+                <button type="button" class="btn btn-primary" onclick="setCreateSchedule()"
+                        data-bs-toggle="modal" data-bs-target="#scheduleModal">
                     일정등록
                 </button>
             </div>
@@ -62,6 +62,18 @@
                                 휴가 일정
                             </label>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="content-box">
+                    <div class="row main-title">내 일정 목록</div>
+                    <div class="row scroll" style="height: 40rem;max-height: 40rem">
+                        <table>
+                            <tbody id="myScheduleList">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

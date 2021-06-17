@@ -41,7 +41,7 @@ function alertCreateVacation(res) {
     }
     if (res.code === 'CV001') {
         alert("제출되었습니다.");
-        location.href = '/schedule/manage-vacation';
+        location.href = '/vacation';
     } else if (res.code === 'CV002') {
         alert("휴가신청 실패");
     }
