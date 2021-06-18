@@ -122,8 +122,16 @@ function emptyAttendanceData(date) {
     $("#attendanceMemo").html("출/퇴근 기록이 존재하지 않습니다.");
 }
 
+//입력창 스타일
+function setInputStyle(set) {
+    $('input').prop('readonly', set);
+    $('textarea').prop('readonly', set);
+}
+
 //정정희망일 클릭한 날짜로 셋팅
 $("#applyBtn").click(function () {
+    setInputStyle(false);
+
     $('.write').find('input').val('');
     $('textarea').val('');
 
@@ -209,7 +217,7 @@ function detailMyApply(res) {
         return;
     }
     if (res.code === 'RRA001') {
-
+        setInputStyle(true);
 
         $("#applyAttendanceDate").val(res.data.attendanceDate);
         $("#applyOnWork").val(res.data.onWork);
