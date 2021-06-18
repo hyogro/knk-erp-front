@@ -73,7 +73,6 @@ function setAttendanceList(res) {
     }
     if (res.code === 'RAL001') {
         calendar.removeAllEvents();
-        console.log(res.data);
         for (let i = 0; i < res.data.length; i++) {
             if (!isEmpty(res.data[i].onWork)) {
                 addAttendanceEvent(res.data[i], "출근", res.data[i].onWork, "#3788d8");
@@ -114,6 +113,8 @@ function setApplyForm() {
     $('#applyOnWork').val('');
     $('#applyOffWork').val('');
     $('#applyMemo').val('');
+    $('#approver1').text('　');
+    $('#approver2').text('　');
 }
 
 //출퇴근 날짜 검색으로 id 찾기
@@ -233,6 +234,8 @@ function detailMyApply(res) {
         $("#applyOnWork").val(res.data.onWork);
         $("#applyOffWork").val(res.data.offWork);
         $("#applyMemo").val(res.data.memo);
+        $("#approver1").text(res.data.approver1);
+        $("#approver2").text(res.data.approver2);
 
         let html = '';
         html += '<button type="button" class="btn btn-danger" onclick="deleteAlertMyApply(\'' + res.data.id + '\')">삭제</button>';

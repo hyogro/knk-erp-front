@@ -8,34 +8,52 @@
                         aria-label="Close"></button>
             </div>
             <div class="modal-body write">
-                <table>
-                    <tbody>
-                    <tr>
-                        <th>정정희망일</th>
-                        <td id="applyAttendanceDate"></td>
-                    </tr>
-                    <tr>
-                        <th>출근시간</th>
-                        <td>
-                            <input type="time" id="applyOnWork">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>퇴근시간</th>
-                        <td>
-                            <input type="time" id="applyOffWork">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>사유</th>
-                        <td>
+                <div class="row" id="approveForm">
+                    <table class="table-bordered">
+                        <tbody>
+                        <tr>
+                            <th rowspan="2">결재</th>
+                            <th>파트장</th>
+                            <th>부장</th>
+                        </tr>
+                        <tr>
+                            <td id="approver1">　</td>
+                            <td id="approver2">　</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th>정정희망일</th>
+                            <td id="applyAttendanceDate"></td>
+                        </tr>
+                        <tr>
+                            <th>출근시간</th>
+                            <td>
+                                <input type="time" id="applyOnWork">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>퇴근시간</th>
+                            <td>
+                                <input type="time" id="applyOffWork">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>사유</th>
+                            <td>
                             <textarea id="applyMemo">
 
                             </textarea>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="modal-footer" id="applyFooter">
             </div>

@@ -176,7 +176,6 @@ function setWorkBoard(res) {
 
 //공지 리스트
 function setNoticeList(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }

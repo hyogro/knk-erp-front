@@ -6,11 +6,11 @@
     background: #f8fcff;
 }
 
-#applyTable tr{
+#applyTable tr {
     cursor: pointer;
 }
 
-#applyTable tr:hover{
+#applyTable tr:hover {
     background: #f8fcff;
 }
 
@@ -18,7 +18,7 @@
     width: 25%;
 }
 
-.modal table td{
+.modal table td {
     text-align: left;
 }
 
@@ -45,4 +45,18 @@
 
 #myApplyList tr:hover {
     background: #f8f9ff;
+}
+
+#approveForm {
+    margin-bottom: 5px;
+    display: inline-block
+}
+
+#approveForm table {
+    width: 50%;
+    float: right;
+}
+
+#approveForm table td {
+    text-align: center;
 }

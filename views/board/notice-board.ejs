@@ -16,7 +16,46 @@
 <body>
 <%- include ('../part/menu.ejs') %>
 <div id="main">
+    <div class="row main-title">
+        공지게시판
+    </div>
 
+    <div class="row">
+        <table class="notice-board">
+            <thead>
+            <tr>
+                <th width="10%">No</th>
+                <th width="50%">제목</th>
+                <th width="20%">작성자</th>
+                <th width="20%">등록일</th>
+            </tr>
+            </thead>
+            <tbody id="noticeList">
+            <tr>
+                <td>10</td>
+                <td class="notice-title">임현주입니다</td>
+                <td>임현주</td>
+                <td>2021.05.12</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">다음</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>
 </body>
 
@@ -25,5 +64,6 @@
 <script>
 
     <%- include ('../common/check-data.js') %>
+    <%- include ('board.js') %>
 
 </script>
