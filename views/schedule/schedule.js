@@ -69,7 +69,7 @@ function setScheduleCalendar(viewOption) {
 
         //내일정 조회
         sendData.viewOption = '';
-        request('GET', getURL('schedule', sendData), saveMyScheduleList);
+        request('GET', getURL('schedule', sendData), setMyScheduleList);
     }
 
     //휴가일정 조회
@@ -116,13 +116,20 @@ function setVacationList(res) {
 
 let myScheduleArr = [];
 
-//내 일정 저장
-function saveMyScheduleList(res) {
+//내 일정 조회
+function setMyScheduleList(res) {
     if (res.code === null) {
         return;
     }
     if (res.code === 'RSL001') {
         $("#myScheduleList").empty();
+
+        if (res.data.length === 0) {
+            let html = '<tr style="cursor: default"><td>일정이 없습니다.</td></td>'
+            $("#myScheduleList").append(html);
+            return false;
+        }
+
         for (let i = 0; i < res.data.length; i++) {
             let html = '';
             html += '<tr data-bs-toggle="modal" data-bs-target="#scheduleModal"' +
@@ -131,9 +138,7 @@ function saveMyScheduleList(res) {
             let start = getYYYYMMDD(new Date(res.data[i].startDate));
             let end = getYYYYMMDD(new Date(res.data[i].endDate));
             if (start === end) {
-                html += '<th>' +
-                    start.replaceAll("-", ".").substring(5, 10) +
-                    '</th>';
+                html += '<th>' + start.replaceAll("-", ".").substring(5, 10) + '</th>';
             } else {
                 html += '<th>' +
                     start.replaceAll("-", ".").substring(5, 10) + '~' +

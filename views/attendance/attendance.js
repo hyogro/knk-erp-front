@@ -73,12 +73,13 @@ function setAttendanceList(res) {
     }
     if (res.code === 'RAL001') {
         calendar.removeAllEvents();
+        console.log(res.data);
         for (let i = 0; i < res.data.length; i++) {
             if (!isEmpty(res.data[i].onWork)) {
-                addEvent(res.data[i], "출근", res.data[i].onWork, "#3788d8");
+                addAttendanceEvent(res.data[i], "출근", res.data[i].onWork, "#3788d8");
             }
             if (!isEmpty(res.data[i].offWork)) {
-                addEvent(res.data[i], "퇴근", res.data[i].offWork, "#ec2323");
+                addAttendanceEvent(res.data[i], "퇴근", res.data[i].offWork, "#ec2323");
             }
         }
         AttendanceArr = res.data;
@@ -88,15 +89,16 @@ function setAttendanceList(res) {
 }
 
 //달력 이벤트 추가
-function addEvent(data, type, time, color) {
-    let schedule = {};
-    schedule.id = data.id;
-    schedule.title = type;
-    schedule.start = data.attendanceDate + "T" + time;
-    schedule.color = color;
-    schedule.rendering = "background";
+function addAttendanceEvent(data, type, time, color) {
+    let setData = {};
+    setData.id = data.id;
+    setData.title = type;
+    setData.start = data.attendanceDate + "T" + time;
+    setData.end = data.attendanceDate + "T" + "23:59:59";
+    setData.color = color;
+    setData.rendering = "background";
 
-    calendar.addEvent(schedule);
+    calendar.addEvent(setData);
 }
 
 //입력창 스타일
@@ -169,7 +171,6 @@ function applyAttendanceData(id, empty) {
     } else if (chkDate(start, end)) {
         alert("출근시간이 퇴근시간보다 빠를 수 없습니다.다시 선택해주세요.");
     } else {
-        console.log(saveData);
         if (!empty) {
             requestWithData('POST', getURL('attendance/rectify', id), saveData, applyAlertAttendance);
         } else {
@@ -198,6 +199,13 @@ function setMyApplyList(res) {
     }
     if (res.code === 'RRAL001') {
         $("#myApplyList").empty();
+
+        if(res.data.length === 0) {
+            let html = '<tr style="cursor: default"><td colspan="3">요청이 없습니다.</td></tr>';
+            $("#myApplyList").append(html);
+            return false;
+        }
+
         for (let i = 0; i < res.data.length; i++) {
             let html = '';
             html = ' <tr data-bs-toggle="modal" data-bs-target="#attendanceModal"' +
@@ -215,7 +223,6 @@ function setMyApplyList(res) {
 
 //정정요청 상세보기
 function detailMyApply(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }
