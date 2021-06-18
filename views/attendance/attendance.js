@@ -23,7 +23,7 @@ let calendar = new FullCalendar.Calendar(calendarEl, {
         let id = searchAttendanceDate(info.dateStr);
         if (!isEmpty(id)) {
             $("#applyBtn").attr('data-empty', false);
-            $("#saveBtn").attr('data-apply', id);
+            $("#saveBtn").attr('data-target', id);
             request('GET', getURL('attendance', id), detailAttendanceData);
         } else {
             $("#applyBtn").attr('data-empty', true);
@@ -46,8 +46,7 @@ $(".fc-next-button").click(function () {
 
 //한달 출석 정보 조회
 function getAttendanceList() {
-    let sendData = new Object();
-
+    let sendData = {};
     sendData.startDate = $(".fc-scrollgrid-sync-table tr:first-child .fc-daygrid-day:first-child").data("date");
     sendData.endDate = $(".fc-scrollgrid-sync-table tr:last-child .fc-daygrid-day:last-child").data("date");
 
@@ -77,7 +76,6 @@ function setAttendanceList(res) {
         console.log("출퇴근 목록 조회 실패");
     }
 }
-
 
 //달력 이벤트 추가
 function addEvent(data, type, time, color) {
@@ -133,9 +131,9 @@ $("#applyBtn").click(function () {
     $('#applyAttendanceDate').val(date);
 });
 
-//기존 날짜 출퇴근 정보 수정시 수정할 id 부여
+//기존 날짜 출퇴근 정보 수정시 수정할 타켓 id 부여
 $("#saveBtn").click(function () {
-    let id = $('#applyBtn').attr('data-apply');
+    let id = $('#saveBtn').attr('data-target');
     applyAttendanceData(id);
 });
 
@@ -158,11 +156,12 @@ function applyAttendanceData(id) {
         alert("퇴근시간을 선택해주세요.");
     } else if (isEmpty(saveData.memo)) {
         alert("사유를 작성해주세요.");
-    }else if (chkDate(start, end)) {
+    } else if (chkDate(start, end)) {
         alert("출근시간이 퇴근시간보다 빠를 수 없습니다.다시 선택해주세요.");
     } else {
-        if($("#applyBtn").attr('data-empty')){
-            requestWithData('POST',getURL('attendance/rectify', id), saveData, applyAlertAttendance);
+        console.log(id, saveData);
+        if ($("#applyBtn").attr('data-empty')) {
+            requestWithData('POST', getURL('attendance/rectify', id), saveData, applyAlertAttendance);
         } else {
             requestWithData('POST', 'attendance/rectify', saveData, applyAlertAttendance);
         }
@@ -184,7 +183,6 @@ function applyAlertAttendance(res) {
 
 //내 정정요청 목록 조회
 function setMyApplyList(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -192,14 +190,33 @@ function setMyApplyList(res) {
         $("#myApplyList").empty();
         for (let i = 0; i < res.data.length; i++) {
             let html = '';
-            html = ' <tr>' +
-                '<td>'+ (i+1) +'</td>' +
-                '<td>' + (res.data[i].attendanceDate).replaceAll("-", ".") +'</td>' +
-                '<td>' + (res.data[i].createDate).split("T")[0].replaceAll("-", ".") +'</td>' +
+            html = ' <tr data-bs-toggle="modal" data-bs-target="#attendanceModal"' +
+                'onclick="request(\'GET\', getURL(\'attendance/rectify\', \'' + res.data[i].id + '\'), detailMyApply);">' +
+                '<td>' + (i + 1) + '</td>' +
+                '<td>' + (res.data[i].attendanceDate).replaceAll("-", ".") + '</td>' +
+                '<td>' + (res.data[i].createDate).split("T")[0].replaceAll("-", ".") + '</td>' +
                 '</tr>';
             $("#myApplyList").append(html);
         }
     } else if (res.code === 'RRAL002') {
-        console.log("출퇴근 목록 조회 실패");
+        console.log("출퇴근 정정 목록 조회 실패");
+    }
+}
+
+function detailMyApply(res) {
+    console.log(res);
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'RRA001') {
+
+
+        $("#applyAttendanceDate").val(res.data.attendanceDate);
+        $("#applyOnWork").val(res.data.onWork);
+        $("#applyOffWork").val(res.data.offWork);
+        $("#applyMemo").val(res.data.memo);
+
+    } else if (res.code === 'RRA002') {
+        console.log("출퇴근 정정 상세 조회 실패");
     }
 }

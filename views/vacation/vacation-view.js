@@ -1,7 +1,7 @@
-request('GET', getURL('vacation', getQuery().id), setDetailVacation);
+request('GET', getURL('vacation', getQuery().id), detailVacation);
 
 //휴가 상세보기
-function setDetailVacation(res) {
+function detailVacation(res) {
     if (res.code === null) {
         return;
     }

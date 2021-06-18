@@ -38,3 +38,11 @@
 .write input[type=time] {
     width: 15rem;
 }
+
+#myApplyList tr {
+    cursor: pointer;
+}
+
+#myApplyList tr:hover {
+    background: #f8f9ff;
+}
