@@ -8,12 +8,13 @@ function setBoardData() {
     //부서정보 조회
     request('GET', 'department/readDepartmentNameAndMemberCount', setDepartmentInfo);
     //일정요약(출퇴근) 조회
-
     request('GET', 'attendance/summary', setAttendanceSummary);
     //휴가요약(출퇴근) 조회
     request('GET', 'vacation/summary', setVacationSummary);
     //출퇴근기록 조회
     request('GET', 'attendance/today', setWorkBoard);
+    //공지사항 최근 5개 조회
+    request('GET', 'board/noticeLatest', setNoticeList);
 
     let scheduleSendData = {};
     scheduleSendData.viewOption = 'all dep own';
@@ -28,9 +29,9 @@ function getAttendanceList() {
 
     sendData.viewOption = 'all dep own';
     let start = getTodayArr(new Date(new Date().setDate(new Date().getDate() - 7)));
-    sendData.startDate = start[0] + "-" + start[1] + "-" + start[2]+"T00:00:00";
+    sendData.startDate = start[0] + "-" + start[1] + "-" + start[2] + "T00:00:00";
     let end = getTodayArr(new Date(new Date().setDate(new Date().getDate() + 7)));
-    sendData.endDate = end[0] + "-" + end[1] + "-" + end[2]+"T11:59:59";
+    sendData.endDate = end[0] + "-" + end[1] + "-" + end[2] + "T11:59:59";
 
     request('GET', getURL('schedule', sendData), setScheduleList);
 }
@@ -170,5 +171,29 @@ function setWorkBoard(res) {
         console.log("출근기록 조회 실패");
     } else if (res.code === 'RA003') {
         console.log("출근기록 조회 실패\n출근정보 존재하지 않음");
+    }
+}
+
+//공지 리스트
+function setNoticeList(res) {
+    console.log(res);
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'NBL001') {
+        $("#noticeList").empty();
+        for (let i = 0; i < res.page.content.length; i++) {
+            let data = res.page.content[i];
+            let html = '';
+            html += '<tr>' +
+                '<td>' + data.board_idx +'</td>' +
+                '<td class="notice-title">' + data.title +'</td>' +
+                '<td>' + data.writerMemberName +'</td>' +
+                '<td>' + getToday(data.createDate.split("T")[0]) +'</td>' +
+                '</tr>';
+            $("#noticeList").append(html);
+        }
+    } else if (res.code === 'NBL002') {
+        console.log("공지사항 조회 실패");
     }
 }

@@ -24,6 +24,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: calc(100% - 7rem);
 }
 
 .attendance-self .btn {
@@ -33,14 +34,16 @@
     min-height: 10rem;
 }
 
-.attendance-self table td {
-    font-size: 2rem;
-    padding: 2rem;
-}
-
 .attendance-self table {
     border: 1px solid #DCDCDC;
 }
+
+.attendance-self table td {
+    font-size: 2rem;
+    padding: 2rem;
+    vertical-align: middle;
+}
+
 
 .attendance-self table th:not(:last-child),
 .attendance-self table td:not(:last-child) {
@@ -58,17 +61,23 @@
     font-weight: bold;
 }
 
+.notice-board {
+    table-layout: fixed;
+}
+
 .notice-board .notice-title {
+    width: 100%;
     cursor: pointer;
     text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.notice-board .notice-title span {
-    color: #2940d3;
-    font-size: 1.4rem;
+.notice-board #noticeList tr:hover {
+    background: #f8f9ff;
 }
 
-.schedule-board td:hover,
 .notice-board .notice-title:hover {
     text-decoration: underline;
 }

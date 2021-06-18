@@ -36,11 +36,13 @@
             <div class="content-box-title">🔹 출퇴근기록</div>
             <div class="row attendance-self">
                 <div style="width: fit-content;margin: 1rem">
-                    <button type="button" class="btn btn-primary" onclick="request('POST','attendance/onWork', onWork)">
+                    <button type="button" class="btn btn-primary"
+                            onclick="request('POST','attendance/onWork', onWork)">
                         <img src="/images/icon-on-work.png">
                         <div>출근</div>
                     </button>
-                    <button type="button" class="btn btn-danger" onclick="request('POST','attendance/offWork', offWork)">
+                    <button type="button" class="btn btn-danger"
+                            onclick="request('POST','attendance/offWork', offWork)">
                         <img src="/images/icon-off-work.png">
                         <div>퇴근</div>
                     </button>
@@ -75,13 +77,7 @@
                     <th width="20%">등록일</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td class="notice-title">첫공지입니당 <span>(10)</span></td>
-                    <td>임현주</td>
-                    <td>2021.06.07</td>
-                </tr>
+                <tbody id="noticeList">
                 </tbody>
             </table>
         </div>

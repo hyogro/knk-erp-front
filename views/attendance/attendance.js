@@ -45,13 +45,13 @@ $(".fc-next-button").click(function () {
 
 //우측 출퇴근 폼 셋팅
 function setAttendanceForm(date, id, empty) {
-    $("#attendanceForm").show();
     $('#applyAttendanceDate').text(date);
     let html = '';
     html += '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>';
     html += '<button type="button" class="btn btn-primary"' +
         'onclick="applyAttendanceData(' + id + ', ' + empty + ')" >요청하기</button>';
     $("#applyFooter").html(html);
+    $("#attendanceForm").show();
 }
 
 //한달 출석 정보 조회

@@ -24,8 +24,8 @@ function detailVacation(res) {
             $("#deleteBtn").css("display", "inline-block");
         }
         if (res.data.reject) {
-            $("#rejectRow").show();
             $("#reject").text(res.data.rejectMemo);
+            $("#rejectRow").show();
         }
     } else if (res.code === 'RVD002') {
         console.log("휴가상세 조회 실패");
