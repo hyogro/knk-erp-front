@@ -5,6 +5,25 @@ setBoardData();
 function setBoardData() {
     //전체휴가 조회
     request('GET', 'vacation', setVacationList);
+    request('GET', getURL('vacation/info', $.cookie("id")), setVacationInfo);
+}
+
+function setVacationInfo(res) {
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'RVI001') {
+        let hourMinutes = 480;
+        let residue = (res.data.totalVacation + res.data.addVacation) - res.data.usedVacation;
+        console.log(res.data.totalVacation);
+        console.log(res.data.addVacation);
+        console.log(res.data.usedVacation);
+        console.log(residue);
+
+        $("#residueVacation").text(makeDateForm(residue));
+    } else if (res.code === 'RVI002') {
+        console.log("휴가 정보 조회 실패");
+    }
 }
 
 function setVacationList(res) {

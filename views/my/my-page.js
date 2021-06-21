@@ -1,5 +1,6 @@
 //내 정보 셋팅
 request('GET', 'my', setMemberInfo);
+
 function setMemberInfo(res) {
     if (res.code === null) {
         return;
@@ -22,6 +23,7 @@ function setMemberInfo(res) {
 
 //내 휴가 정보
 request('GET', getURL('vacation/info', $.cookie("id")), setVacationInfo);
+
 function setVacationInfo(res) {
     console.log(res);
     if (res.code === null) {
@@ -29,9 +31,10 @@ function setVacationInfo(res) {
     }
     if (res.code === 'RVI001') {
         let hourMinutes = 480;
-        $("#totalVacation").text(res.data.totalVacation / hourMinutes + ' 일');
-        $("#addVacation").text(res.data.addVacation / hourMinutes + ' 일');
-        $("#usedVacation").text(res.data.usedVacation / hourMinutes + ' 일');
+        $("#totalVacation").text(res.data.totalVacation / hourMinutes + "일");
+        $("#addVacation").text(res.data.addVacation / hourMinutes + "일");
+        $("#usedVacation").text(makeDateForm(res.data.usedVacation));
+        $("#residueVacation").text(makeDateForm((res.data.totalVacation + res.data.addVacation) - res.data.usedVacation));
     } else if (res.code === 'RVI002') {
         console.log("휴가 정보 조회 실패");
     }
@@ -85,7 +88,6 @@ function chkEmail(email) {
     }
 }
 
-//TODO: 본인정보수정
 //변경 사항 value 체크
 function chkUpdateMyInfo() {
     let saveData = {};

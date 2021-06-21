@@ -2,10 +2,12 @@ request('GET', getURL('vacation', getQuery().id), detailAppliedVacation);
 
 //휴가 상세보기
 function detailAppliedVacation(res) {
+    console.log(res)
     if (res.code === null) {
         return;
     }
     if (res.code === 'RVD001') {
+        $("#member").text(res.data.memberName);
         let start = res.data.startDate.split("T");
         let end = res.data.endDate.split("T");
         $("#type").text(res.data.type);
@@ -17,12 +19,27 @@ function detailAppliedVacation(res) {
         $("#endDate").text(end[0]);
         $("#approver1").text(res.data.approver1);
         $("#approver2").text(res.data.approver2);
+        //내 휴가 정보
+        request('GET', getURL('vacation/info', res.data.memberId), setVacationInfo);
     } else if (res.code === 'RVD002') {
         console.log("휴가상세 조회 실패");
     } else if (res.code === 'RVD003') {
         alert("휴가상세 조회 실패\n권한이 없습니다.");
     }
 }
+
+//잔여휴가 정보
+function setVacationInfo(res) {
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'RVI001') {
+        $("#residueVacation").text(makeDateForm((res.data.totalVacation + res.data.addVacation) - res.data.usedVacation));
+    } else if (res.code === 'RVI002') {
+        console.log("휴가 정보 조회 실패");
+    }
+}
+
 
 //휴가 승인
 $("#approveBtn").click(function () {

@@ -44,3 +44,8 @@
 .form-check-input:disabled ~ .form-check-label {
     opacity: 1;
 }
+
+.btn-outline-success {
+    cursor: default !important;
+    pointer-events: none;
+}

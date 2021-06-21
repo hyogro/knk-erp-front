@@ -3,10 +3,6 @@
     display: block;
 }
 
-#main .row:not(:first-child) {
-    margin: 2rem 0 !important;
-}
-
 .member-table {
     text-align: left;
 }

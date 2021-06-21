@@ -44,6 +44,20 @@ function chkDate(start, end) {
     return (startDate > endDate);
 }
 
+
+function makeDateForm(min) {
+    var days = Math.floor(min / 60 / 8)
+    var hours = Math.floor((min - (days * 60 * 8)) / 60);
+    var mins = min - (days * 60 * 8) - (hours * 60);
+
+    var daysStr = days;
+    var hourStr = hours;
+    var minStr = (mins > 9) ? mins : '0' + mins
+
+    return daysStr + '일 ' + hourStr + '시간 ' + minStr + '분';
+}
+
+
 //엔터 br로 바꾸기
 function enterToBr(text) {
     return text.replaceAll("\n", "<br>");

@@ -77,29 +77,29 @@
         </table>
     </div>
 
+    <div class="row" style="margin: 1rem 0 3rem 0;display: inline-block">
+        <button type="button" class="btn btn-primary" style="float: right" onclick="chkUpdateMyInfo()">변경사항 저장</button>
+    </div>
+
     <div class="row">
         <table class="member-table">
             <tr>
                 <th>부서</th>
-                <td id="departmentName"></td>
+                <td colspan="3" id="departmentName"></td>
             </tr>
             <tr>
-                <th>법정 휴가</th>
-                <td><span id="totalVacation"></span></td>
+                <th>법정휴가</th>
+                <td id="totalVacation"></td>
+                <th>추가휴가</th>
+                <td id="addVacation"></td>
             </tr>
             <tr>
-                <th>추가 휴가<span style="font-size: 1.3rem">(포상, 경조사)</span></th>
-                <td><span id="addVacation"></span></td>
-            </tr>
-            <tr>
-                <th>사용 휴가</th>
-                <td><span id="usedVacation"></span></td>
+                <th>사용휴가</th>
+                <td id="usedVacation"></td>
+                <th>잔여휴가</th>
+                <td id="residueVacation"></td>
             </tr>
         </table>
-    </div>
-
-    <div class="row">
-        <button type="button" class="btn btn-primary" style="float: right" onclick="chkUpdateMyInfo()">변경사항 저장</button>
     </div>
 </div>
 </body>
