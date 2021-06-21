@@ -11,8 +11,7 @@ $(document).ready(function () {
 
     let subMenuId = location.pathname.split("/")[2];
     if (subMenuId !== undefined) {
-        console.log(subMenuId);
-        $("#" + subMenuId + "Menu > a").addClass("side-menu-active");
+        $("#" + subMenuId + "SubMenu > a").addClass("side-menu-active");
     }
 });
 

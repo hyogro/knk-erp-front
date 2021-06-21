@@ -238,3 +238,37 @@ input, select, textarea {
 .notice-board .notice-title:hover {
     text-decoration: underline;
 }
+
+
+.apply-table th,
+.apply-table td {
+    padding: 1rem;
+}
+
+.apply-table th {
+    width: 20rem;
+}
+
+.apply-table td {
+    text-align: left;
+}
+
+.apply-table textarea {
+    width: 100%;
+}
+
+.apply-table #memo {
+    height: 20rem;
+    min-height: 20rem;
+    max-height: 40rem;
+    text-align: left;
+    vertical-align: top;
+}
+
+.apply-table #reject {
+    height: 10rem;
+    min-height: 10rem;
+    max-height: 20rem;
+    text-align: left;
+    vertical-align: top;
+}

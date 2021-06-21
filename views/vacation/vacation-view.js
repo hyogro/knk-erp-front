@@ -6,16 +6,15 @@ function detailVacation(res) {
         return;
     }
     if (res.code === 'RVD001') {
-        if (res.data.type === "연차") {
-            $('input:checkbox[id="full"]').attr("checked", true);
-        } else if (res.data.type === "오전반차") {
-            $('input:checkbox[id="halfAM"]').attr("checked", true);
-        } else if (res.data.type === "오후반차") {
-            $('input:checkbox[id="halfPM"]').attr("checked", true);
+        let start = res.data.startDate.split("T");
+        let end = res.data.endDate.split("T");
+        $("#type").text(res.data.type);
+        if (res.data.type === "기타") {
+            $("#type").text("기타 (" + start[1] + " ~ " + end[1] + ")");
         }
         $("#memo").text(res.data.memo);
-        $("#startDate").text(res.data.startDate.split("T")[0]);
-        $("#endDate").text(res.data.endDate.split("T")[0]);
+        $("#startDate").text(start[0]);
+        $("#endDate").text(end[0]);
         $("#approver1").text(res.data.approver1);
         $("#approver2").text(res.data.approver2);
         if (res.data.reject || (res.data.approval1 && res.data.approval2)) {
@@ -34,6 +33,7 @@ function detailVacation(res) {
     }
 }
 
+//신청한 휴가 삭제
 function deleteAlertVacation() {
     if (confirm("신청한 휴가를 삭제하시겠습니까?") === true) {
         request('DELETE', getURL('vacation', getQuery().id), deleteSchedule);
@@ -42,6 +42,7 @@ function deleteAlertVacation() {
     }
 }
 
+//신청한 휴가 삭제
 function deleteSchedule(res) {
     if (res.code === null) {
         return;

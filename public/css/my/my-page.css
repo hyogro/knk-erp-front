@@ -36,3 +36,11 @@
     font-size: 1.1rem;
     color: red;
 }
+
+.member-table #email {
+    width: 80rem;
+}
+
+.member-table #address {
+    min-width: 100%;
+}

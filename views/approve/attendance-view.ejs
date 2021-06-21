@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('../part/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/approve/attendance.css?version=1.2">
+</head>
+
+<header>
+    <%- include ('../part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('../part/menu.ejs') %>
+<div id="main">
+    <div class="row">
+        <div class="row main-title">
+            출퇴근 정정요청
+        </div>
+
+        <div class="row" style="display: inline-block">
+            <table class="table-bordered apply-table" style="width: 40%;float: right;">
+                <tbody>
+                <tr>
+                    <th rowspan="2">결재</th>
+                    <th>파트장</th>
+                    <th>부장</th>
+                </tr>
+                <tr>
+                    <td id="approver1">　</td>
+                    <td id="approver2">　</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row">
+            <table class="apply-table">
+                <tbody>
+                <tr>
+                    <th>정정희망일</th>
+                    <td id="attendanceDate"></td>
+                </tr>
+                <tr>
+                    <th>출근시간</th>
+                    <td id="onWork"></td>
+                </tr>
+                <tr>
+                    <th>퇴근시간</th>
+                    <td id="offWork"></td>
+                </tr>
+                <tr>
+                    <th>사유</th>
+                    <td id="memo"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row">
+            <div class="bottom">
+                <button type="button" class="btn btn-secondary" onclick="location.href='/approve/attendance'">목록으로</button>
+                <button type="button" class="btn btn-success" id="approveBtn">정정요청승인</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script>
+    <%- include ('../common/request.js') %>
+    <%- include ('../common/check-data.js') %>
+    <%- include ('attendance-view.js') %>
+</script>

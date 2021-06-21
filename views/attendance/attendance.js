@@ -233,7 +233,7 @@ function detailMyApply(res) {
         $("#applyAttendanceDate").text(res.data.attendanceDate);
         $("#applyOnWork").val(res.data.onWork);
         $("#applyOffWork").val(res.data.offWork);
-        $("#applyMemo").val(res.data.memo);
+        $("#applyMemo").val(enterToBr(res.data.memo));
         $("#approver1").text(res.data.approver1);
         $("#approver2").text(res.data.approver2);
 

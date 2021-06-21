@@ -1,0 +1,23 @@
+#main .row {
+    width: 80rem;
+    margin-bottom: 2rem;
+    display: block;
+    --bs-gutter-x: 0;
+}
+
+#confirmVacationList tr {
+    cursor: pointer;
+}
+
+#confirmVacationList tr:hover {
+    background: #f8f9ff;
+}
+
+#approver1, #approver2 {
+    text-align: center;
+}
+
+.bottom {
+    float: right;
+    width: fit-content;
+}
