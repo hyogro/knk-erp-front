@@ -5,11 +5,13 @@
     --bs-gutter-x: 0;
 }
 
-#confirmVacationList tr {
+#vacationList tr,
+#attendanceList tr {
     cursor: pointer;
 }
 
-#confirmVacationList tr:hover {
+#vacationList tr:hover,
+#attendanceList tr:hover {
     background: #f8f9ff;
 }
 

@@ -9,19 +9,27 @@ $('input[type="checkbox"][name="vacation"]').click(function () {
         $('input[type="time"]').prop('readonly', false);
     } else {
         $('input[type="time"]').prop('readonly', true);
+        $('input[type="time"]').val("");
+    }
+
+    if ($('#full').is(":checked") === true) {
+        $('#endView').show();
+    } else {
+        $('#endView').hide();
+        $('#endDate').val("");
     }
 });
 
 //휴가 신청
 function createVacation() {
-    let saveData = new Object();
+    let saveData = {};
     saveData.type = $("input:checkbox[name='vacation']:checked").val();
     saveData.memo = $("#memo").val();
 
     let startTime = "09:00:00";
     let endTime = "18:00:00";
     if (saveData.type === "오전반차") {
-        endTime = "14:00:00";
+        endTime = "13:00:00";
     } else if (saveData.type === "오후반차") {
         startTime = "14:00:00";
     } else if (saveData.type === "기타") {
@@ -29,8 +37,14 @@ function createVacation() {
         endTime = $("#endTime").val();
     }
 
+    if (saveData.type !== "연차") {
+        $('#endDate').val($('#startDate').val());
+    }
+
     saveData.startDate = $("#startDate").val() + "T" + startTime;
     saveData.endDate = $("#endDate").val() + "T" + endTime;
+
+    console.log(saveData);
 
     if (isEmpty(saveData.type)) {
         alert("휴가 유형을 선택해주세요.");
