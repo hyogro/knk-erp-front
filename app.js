@@ -7,6 +7,20 @@ const server = http.createServer(app);
 const hostname = '127.0.0.1';
 const port = 3000;
 
+const cors = require('cors');
+
+const whitelist = ['61.42.17.186'];
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        let isWhitelisted = whitelist.indexOf(origin) !== -1;
+        callback(null, isWhitelisted);
+    },
+    credentials: true
+}
+
+app.use(cors(corsOptions));
+
 const indexRouter = require('./routes/index');
 const scheduleRouter = require('./routes/schedule');
 const vacationRouter = require('./routes/vacation');
