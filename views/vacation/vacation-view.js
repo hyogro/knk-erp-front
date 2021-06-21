@@ -23,7 +23,7 @@ function detailVacation(res) {
             $("#deleteBtn").css("display", "inline-block");
         }
         if (res.data.reject) {
-            $("#reject").text(res.data.rejectMemo);
+            $("#reject").text(enterToBr(res.data.rejectMemo));
             $("#rejectRow").show();
         }
     } else if (res.code === 'RVD002') {

@@ -125,8 +125,8 @@ function setMyScheduleList(res) {
         $("#myScheduleList").empty();
 
         if (res.data.length === 0) {
-            let html = '<tr style="cursor: default"><td>일정이 없습니다.</td></td>'
-            $("#myScheduleList").append(html);
+            let html = '<tr class="empty-tr"><td>일정이 없습니다.</td></td>'
+            $("#myScheduleList").html(html);
             return false;
         }
 

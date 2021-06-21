@@ -239,7 +239,7 @@ input, select, textarea {
     text-decoration: underline;
 }
 
-
+/*승인 테이블*/
 .apply-table th,
 .apply-table td {
     padding: 1rem;
@@ -271,4 +271,8 @@ input, select, textarea {
     max-height: 20rem;
     text-align: left;
     vertical-align: top;
+}
+
+.empty-tr {
+    cursor: default
 }

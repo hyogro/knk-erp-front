@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('../part/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/vacation/vacation.css?version=1.2">
+</head>
+
+<header>
+    <%- include ('../part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('../part/menu.ejs') %>
+<div id="main" class="vacation-apply">
+    <div class="row main-title">
+        휴가신청서
+    </div>
+
+    <div class="row" style="display: inline-block">
+        <table class="apply-table table-bordered" style="width: 40%;float: right">
+            <tbody>
+            <tr>
+                <th rowspan="2">결재</th>
+                <th>파트장</th>
+                <th>부장</th>
+            </tr>
+            <tr>
+                <td id="approver1">　</td>
+                <td id="approver2">　</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <table class="apply-table">
+            <tbody>
+            <tr>
+                <th>휴가유형</th>
+                <td id="type"></td>
+            </tr>
+            <tr>
+                <th>휴가사유</th>
+                <td id="memo" class="scroll">
+                </td>
+            </tr>
+            <tr>
+                <th>휴가기간</th>
+                <td>
+                    <span id="startDate"></span> ~ <span id="endDate"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row" id="rejectRow">
+        <table class="apply-table">
+            <tbody>
+            <tr>
+                <th>거절사유</th>
+                <td>
+                    <textarea type="text" id="reject"></textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <div class="bottom">
+            <button type="button" class="btn btn-secondary" onclick="location.href='/approve/vacation'">목록으로</button>
+            <button type="button" class="btn btn-danger" id="rejectBtn">거절</button>
+            <button type="button" class="btn btn-primary" id="approveBtn">승인</button>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script>
+    <%- include ('../common/request.js') %>
+    <%- include ('../common/check-data.js') %>
+    <%- include ('vacation-view.js') %>
+</script>

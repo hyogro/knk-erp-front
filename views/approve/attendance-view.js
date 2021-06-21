@@ -11,7 +11,7 @@ function detailAppliedAttendanceData(res) {
         $("#attendanceDate").text(getToday(res.data.attendanceDate));
         $("#onWork").text(res.data.onWork);
         $("#offWork").text(res.data.offWork);
-        $("#memo").text(res.data.memo);
+        $("#memo").text(enterToBr(res.data.memo));
     } else if (res.code === 'RRA002') {
         console.log("출퇴근 기록 상세 조회 실패");
     }

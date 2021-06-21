@@ -6,11 +6,12 @@ function setAppliedAttendanceList(res) {
         return;
     }
     if (res.code === 'RRAL001') {
-        $("#confirmVacationList").empty();
+        $("#attendanceList").empty();
 
         if (res.data.length === 0) {
-            let html = '<tr><td colspan="4">요청이 없습니다.</td></tr>'
-            $("#confirmVacationList").html(html);
+            let html = '<tr><td colspan="4" class="empty-tr">요청이 없습니다.</td></tr>'
+            $("#attendanceList").html(html);
+            return false;
         }
 
         for (let i = 0; i < res.data.length; i++) {
@@ -21,7 +22,7 @@ function setAppliedAttendanceList(res) {
                 '<td>' + res.data[i].memberName + '</td>' +
                 '<td>' + getToday(res.data[i].createDate) + '</td>' +
                 '</tr>';
-            $("#confirmVacationList").append(html);
+            $("#attendanceList").append(html);
         }
     } else if (res.code === 'RRAL002') {
         console.log("출퇴근 정정요청 목록 조회 실패");

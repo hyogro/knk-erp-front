@@ -202,8 +202,8 @@ function setMyApplyList(res) {
         $("#myApplyList").empty();
 
         if(res.data.length === 0) {
-            let html = '<tr style="cursor: default"><td colspan="3">요청이 없습니다.</td></tr>';
-            $("#myApplyList").append(html);
+            let html = '<tr class="empty-tr"><td colspan="3">요청이 없습니다.</td></tr>';
+            $("#myApplyList").html(html);
             return false;
         }
 
