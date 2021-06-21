@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('../part/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/vacation/vacation.css?version=1.2">
+</head>
+
+<header>
+    <%- include ('../part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('../part/menu.ejs') %>
+<div id="main" class="vacation">
+    <div class="row" style="margin-bottom: 10rem !important;">
+        <div class="row main-title">
+            출퇴근 정정요청 목록
+        </div>
+        <div class="row">
+            <table>
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>정정희망날짜</th>
+                    <th>1차승인</th>
+                    <th>2차승인</th>
+                    <th>요청일</th>
+                </tr>
+                </thead>
+                <tbody id="confirmVacationList">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script>
+    <%- include ('../common/request.js') %>
+    <%- include ('../common/check-data.js') %>
+</script>

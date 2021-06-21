@@ -189,7 +189,7 @@ function applyAlertAttendance(res) {
         alert("제출되었습니다");
         location.reload();
     } else if (res.code === 'CRA002' || res.code === 'URA002') {
-        console.log("출퇴근 정정 요청 실패");
+        console.log("출퇴근 정정요청 실패");
     }
 }
 
@@ -265,6 +265,6 @@ function deleteMyApply(res) {
         alert("삭제되었습니다.");
         location.reload();
     } else if (res.code === 'DRA002') {
-        alert("정정 요청 삭제 실패");
+        alert("정정요청 삭제 실패");
     }
 }

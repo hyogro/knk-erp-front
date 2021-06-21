@@ -12,6 +12,7 @@ const scheduleRouter = require('./routes/schedule');
 const vacationRouter = require('./routes/vacation');
 const attendanceRouter = require('./routes/attendance');
 const boardRouter = require('./routes/board');
+const approveRouter = require('./routes/approve');
 
 server.listen(port, hostname, () => {
     console.log('server start');
@@ -32,5 +33,6 @@ app.use('/schedule', scheduleRouter);
 app.use('/vacation', vacationRouter);
 app.use('/attendance', attendanceRouter);
 app.use('/board', boardRouter);
+app.use('/approve', approveRouter);
 
 module.exports = app;
