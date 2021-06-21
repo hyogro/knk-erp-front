@@ -39,6 +39,7 @@ function loginRequest(res) {
     if (res.code === 'LI001') {
         $.cookie('token', 'Bearer ' + res.tokenDto.accessToken, {expires: 1, path: '/'});
         $.cookie('id', $("#id").val());
+        $.cookie('authority', res.tokenDto.authority);
         location.href = '/';
     } else if (res.code === 'LI002') {
         alert('등록되지 않은 아이디이거나, 잘못된 비밀번호입니다.');

@@ -4,6 +4,16 @@ $(document).ready(function () {
     $("#nav ul.menu li").click(function () {
         $("ul", this).stop().slideToggle();
     });
+
+    let authority = $.cookie('authority');
+    if (authority === "LVL1" || authority === "LVL2") {
+        $("#approveMenu").hide();
+        $("#manageMenu").hide();
+    } else {
+        $("#approveMenu").show();
+        $("#manageMenu").show();
+    }
+
     //해당 메뉴 표시
     let menuId = location.pathname.split("/")[1];
     menuId = menuId === "" ? "home" : menuId;
