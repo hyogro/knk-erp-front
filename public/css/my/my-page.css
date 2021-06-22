@@ -23,7 +23,8 @@
     width: 5rem;
 }
 
-.member-table .password span {
+.member-table .password span,
+#chkID {
     font-size: 1.1rem;
 }
 

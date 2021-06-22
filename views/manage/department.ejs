@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('../part/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/manage/manage.css?version=1.2">
+</head>
+
+<header>
+    <%- include ('../part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('../part/menu.ejs') %>
+<div id="main">
+    <div class="row main-title">
+        부서관리
+    </div>
+
+    <div class="row" style="display: inline-block">
+        <button type="button" class="btn btn-secondary" style="float: right"
+                onclick="location.href='/manage/member/create'">부서생성
+        </button>
+    </div>
+
+    <div class="row">
+        <table>
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>이름</th>
+                <th>아이디</th>
+                <th>부서</th>
+                <th>연락처</th>
+                <th>입사일</th>
+            </tr>
+            </thead>
+            <tbody id="memberList">
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script>
+
+    <%- include ('../common/check-data.js') %>
+    <%- include ('../common/request.js') %>
+    <%- include ('department.js') %>
+
+</script>

@@ -29,7 +29,7 @@ function setMemberInfo(res) {
         console.log(res)
         let data = res.readDetailAccountDTO;
         $("#memberId").text(data.memberId);
-        $("#memberName").val(data.memberName);
+        $("#memberName").text(data.memberName);
         let phone = (data.phone).split("-");
         $("#phone1").val(phone[0]);
         $("#phone2").val(phone[1]);
@@ -73,6 +73,7 @@ function chkUpdateMemberInfo() {
     if (!isEmpty(pass1) && !isEmpty(pass2)) {
         if (!chkPW(pass1, 'chkPassword') || !matchPW(pass1, pass2, 'matchPassword')) {
             alert("비밀번호를 확인해주세요.");
+            return;
         } else {
             saveData.password = pass1;
         }
@@ -85,11 +86,11 @@ function chkUpdateMemberInfo() {
     if (!isEmpty(phone2) && phone2.length < 4) {
         $("#phone2").focus();
         alert("올바른 연락처를 입력해주세요.");
-        return false;
+        return;
     } else if (!isEmpty(phone3) && phone3.length < 4) {
         $("#phone3").focus();
         alert("올바른 연락처를 입력해주세요.");
-        return false;
+        return;
     } else {
         saveData.phone = phone1 + '-' + phone2 + '-' + phone3;
     }
@@ -99,6 +100,7 @@ function chkUpdateMemberInfo() {
     if (!chkEmail(email) && !isEmpty(email)) {
         $("#email").focus();
         alert("올바른 이메일 주소를 입력해주세요.");
+        return;
     } else {
         saveData.email = email;
     }
@@ -125,6 +127,7 @@ function chkUpdateMemberInfo() {
     let joiningDate = $("#joiningDate").val();
     if (isEmpty(joiningDate)) {
         alert("입사일을 선택해주세요.");
+        return;
     } else {
         saveData.joiningDate = joiningDate;
     }
@@ -158,7 +161,7 @@ function updateMemberInfo(res) {
 //TODO:계정생성 하고 나서 테스트해보기
 //멤버 삭제
 function deleteAlertMember() {
-    if (confirm("요청을 삭제하시겠습니까?") === true) {
+    if (confirm("직원 정보를 삭제하시겠습니까?") === true) {
         request('DELETE', getURL('account', $("#memberId").text()), deleteMember);
     } else {
         return false;
@@ -171,10 +174,14 @@ function deleteMember(res) {
     if (res.code === null) {
         return;
     }
-    if (res.code === 'DRA001') {
+    if (res.code === 'DA001') {
         alert("삭제되었습니다.");
         location.href='/manage/member';
-    } else if (res.code === 'DRA002') {
-        alert("정정요청 삭제 실패");
+    } else if (res.code === 'DA002') {
+        alert("삭제 실패");
+    } else if (res.code === 'DA003') {
+        alert("삭제 실패.\n 권한이 없습니다.");
+    } else if (res.code === 'DA004') {
+        alert("삭제 실패.\n 대상이 존재하지 않습니다.");
     }
 }

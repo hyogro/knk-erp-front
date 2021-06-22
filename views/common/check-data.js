@@ -103,7 +103,6 @@ function getQuery() {
 
 //비밀번호 유효성 체크
 function chkPW(pass1, text) {
-    console.log(pass1);
     let num = pass1.search(/[0-9]/g);
     let eng = pass1.search(/[a-z]/ig);
     let spe = pass1.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
@@ -140,6 +139,16 @@ function matchPW(pass1, pass2, text) {
 function chkEmail(email) {
     const reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
     if (!reg_email.test(email)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+//아이디 유효성 체크
+function chkId(id) {
+    var idReg = /^[a-z]+[a-z0-9]{5,14}$/g;
+    if(!idReg.test(id) ) {
         return false;
     } else {
         return true;

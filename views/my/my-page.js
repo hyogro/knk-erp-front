@@ -50,6 +50,7 @@ function chkUpdateMyInfo() {
     if (!isEmpty(pass1) && !isEmpty(pass2)) {
         if (!chkPW(pass1, 'chkPassword') || !matchPW(pass1, pass2, 'matchPassword')) {
             alert("비밀번호를 확인해주세요.");
+            return;
         } else {
             saveData.password = pass1;
         }
@@ -62,11 +63,11 @@ function chkUpdateMyInfo() {
     if (!isEmpty(phone2) && phone2.length < 4) {
         $("#phone2").focus();
         alert("올바른 연락처를 입력해주세요.");
-        return false;
+        return;
     } else if (!isEmpty(phone3) && phone3.length < 4) {
         $("#phone3").focus();
         alert("올바른 연락처를 입력해주세요.");
-        return false;
+        return;
     } else {
         saveData.phone = phone1 + '-' + phone2 + '-' + phone3;
     }
@@ -76,6 +77,7 @@ function chkUpdateMyInfo() {
     if (!chkEmail(email) && !isEmpty(email)) {
         $("#email").focus();
         alert("올바른 이메일 주소를 입력해주세요.");
+        return;
     } else {
         saveData.email = email;
     }
