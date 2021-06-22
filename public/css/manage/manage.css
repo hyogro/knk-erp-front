@@ -1,0 +1,12 @@
+#main .row {
+    width: 80rem;
+    display: block;
+}
+
+#memberList tr {
+    cursor: pointer;
+}
+
+#memberList tr:hover {
+    background: #f8f9ff;
+}

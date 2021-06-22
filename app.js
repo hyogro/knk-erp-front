@@ -13,6 +13,7 @@ const vacationRouter = require('./routes/vacation');
 const attendanceRouter = require('./routes/attendance');
 const boardRouter = require('./routes/board');
 const approveRouter = require('./routes/approve');
+const manageRouter = require('./routes/manage');
 
 server.listen(port, hostname, () => {
     console.log('server start');
@@ -20,7 +21,6 @@ server.listen(port, hostname, () => {
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-// app.set('public', path.join(__dirname, 'public'));
 
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/jsCookie', express.static(__dirname + '/node_modules/jquery.cookie'));
@@ -34,5 +34,6 @@ app.use('/vacation', vacationRouter);
 app.use('/attendance', attendanceRouter);
 app.use('/board', boardRouter);
 app.use('/approve', approveRouter);
+app.use('/manage', manageRouter);
 
 module.exports = app;

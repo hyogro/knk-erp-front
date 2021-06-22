@@ -100,3 +100,48 @@ function getQuery() {
     }
     return result;
 }
+
+//비밀번호 유효성 체크
+function chkPW(pass1, text) {
+    console.log(pass1);
+    let num = pass1.search(/[0-9]/g);
+    let eng = pass1.search(/[a-z]/ig);
+    let spe = pass1.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+    if (pass1 === "") {
+        return true;
+    } else if (pass1.length < 8 || pass1.length > 16) {
+        $("#" + text).text("8자리 ~ 16자리 이내로 입력해주세요.");
+        return false;
+    } else if (pass1.search(/\s/) !== -1) {
+        $("#" + text).text("비밀번호는 공백 없이 입력해주세요.");
+        return false;
+    } else if ((num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0)) {
+        $("#" + text).text("영문, 숫자, 특수문자 중 2가지 이상을 조합하여 입력해주세요.");
+        return false;
+    } else {
+        $("#" + text).empty();
+        return true;
+    }
+}
+
+//비밀번호 확인
+function matchPW(pass1, pass2, text) {
+    if (pass1 !== pass2) {
+        $("#" + text).text("비밀번호가 일치하지 않습니다.");
+        return false;
+    } else {
+        $("#" + text).empty();
+        return true;
+    }
+}
+
+//이메일 유효성 체크
+function chkEmail(email) {
+    const reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+    if (!reg_email.test(email)) {
+        return false;
+    } else {
+        return true;
+    }
+}

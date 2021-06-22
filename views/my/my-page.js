@@ -1,6 +1,6 @@
-//내 정보 셋팅
 request('GET', 'my', setMemberInfo);
 
+//내 정보 셋팅
 function setMemberInfo(res) {
     if (res.code === null) {
         return;
@@ -40,54 +40,6 @@ function setVacationInfo(res) {
     }
 }
 
-//비밀번호 유효성 체크
-function chkPW() {
-    let pw = $("#password1").val();
-    let num = pw.search(/[0-9]/g);
-    let eng = pw.search(/[a-z]/ig);
-    let spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-
-    if (pw === "") {
-        return true;
-    } else if (pw.length < 8 || pw.length > 16) {
-        $("#chkPassword").text("8자리 ~ 16자리 이내로 입력해주세요.");
-        return false;
-    } else if (pw.search(/\s/) != -1) {
-        $("#chkPassword").text("비밀번호는 공백 없이 입력해주세요.");
-        return false;
-    } else if ((num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0)) {
-        $("#chkPassword").text("영문, 숫자, 특수문자 중 2가지 이상을 조합하여 입력해주세요.");
-        return false;
-    } else {
-        $("#chkPassword").empty();
-        return true;
-    }
-}
-
-//비밀번호 확인
-function matchPW() {
-    let pw1 = $("#password1").val();
-    let pw2 = $("#password2").val();
-
-    if (pw1 !== pw2) {
-        $("#matchPassword").text("비밀번호가 일치하지 않습니다.");
-        return false;
-    } else {
-        $("#matchPassword").empty();
-        return true;
-    }
-}
-
-//이메일 유효성 체크
-function chkEmail(email) {
-    const reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-    if (!reg_email.test(email)) {
-        return false;
-    } else {
-        return true;
-    }
-}
-
 //변경 사항 value 체크
 function chkUpdateMyInfo() {
     let saveData = {};
@@ -96,7 +48,7 @@ function chkUpdateMyInfo() {
     let pass1 = $("#password1").val();
     let pass2 = $("#password2").val();
     if (!isEmpty(pass1) && !isEmpty(pass2)) {
-        if (!chkPW() || !matchPW()) {
+        if (!chkPW(pass1, 'chkPassword') || !matchPW(pass1, pass2, 'matchPassword')) {
             alert("비밀번호를 확인해주세요.");
         } else {
             saveData.password = pass1;
