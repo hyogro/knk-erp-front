@@ -1,0 +1,27 @@
+<div class="modal fade" id="departmentModal" tabindex="-1"
+     aria-labelledby="departmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>부서생성</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>부서명</th>
+                        <td>
+                            <input type="text" id="createDep" maxlength="20" style="width: 100%">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" onclick="createDepartment()">생성하기</button>
+            </div>
+        </div>
+    </div>
+</div>

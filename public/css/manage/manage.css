@@ -3,10 +3,12 @@
     display: block;
 }
 
-#memberList tr {
+#memberList tr,
+#departmentList tr{
     cursor: pointer;
 }
 
-#memberList tr:hover {
+#memberList tr:hover,
+#departmentList tr:hover{
     background: #f8f9ff;
 }

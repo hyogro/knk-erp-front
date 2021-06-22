@@ -22,23 +22,23 @@
 
     <div class="row" style="display: inline-block">
         <button type="button" class="btn btn-secondary" style="float: right"
-                onclick="location.href='/manage/member/create'">부서생성
+                data-bs-toggle="modal" data-bs-target="#departmentModal">부서생성
         </button>
     </div>
+
+    <%- include ('department-modal.ejs') %>
 
     <div class="row">
         <table>
             <thead>
             <tr>
                 <th>No</th>
-                <th>이름</th>
-                <th>아이디</th>
-                <th>부서</th>
-                <th>연락처</th>
-                <th>입사일</th>
+                <th>부서명</th>
+                <th>파트장</th>
+                <th>부서인원수</th>
             </tr>
             </thead>
-            <tbody id="memberList">
+            <tbody id="departmentList">
             </tbody>
         </table>
     </div>

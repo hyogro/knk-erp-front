@@ -25,7 +25,6 @@ function setMemberInfo(res) {
 request('GET', getURL('vacation/info', $.cookie("id")), setVacationInfo);
 
 function setVacationInfo(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }

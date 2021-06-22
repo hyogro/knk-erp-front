@@ -2,7 +2,6 @@ request('GET', 'account', setMemberList);
 
 //직원 리스트 셋팅
 function setMemberList(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }

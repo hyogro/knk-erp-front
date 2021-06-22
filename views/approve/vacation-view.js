@@ -48,7 +48,6 @@ $("#approveBtn").click(function () {
 
 //휴가 승인
 function approveVacation(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }
@@ -71,7 +70,6 @@ $("#rejectBtn").click(function () {
 
 //휴가 승인
 function rejectVacation(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }

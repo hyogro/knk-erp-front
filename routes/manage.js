@@ -20,5 +20,8 @@ router.get('/member/create', function (req, res, next) {
 router.get('/department', function (req, res, next) {
     res.render('manage/department', {api: api, title: '구이앤금우통신:부서관리'});
 });
+router.get('/department/view', function (req, res, next) {
+    res.render('manage/department-view', {api: api, title: '구이앤금우통신:부서관리'});
+});
 
 module.exports = router;
