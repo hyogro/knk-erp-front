@@ -163,14 +163,15 @@ function applyAttendanceData(id, empty) {
 
     if (isEmpty(saveData.attendanceDate)) {
         alert("정정희망일을 입력해주세요.");
-    } else if (isEmpty(saveData.onWork)) {
+    } else if (isEmpty(saveData.onWork) ||
+        isEmpty(saveData.onWork) && !isEmpty(saveData.offWork)) {
         alert("출근시간을 선택해주세요.");
-    } else if (isEmpty(saveData.offWork)) {
+    } else if (!isEmpty(saveData.onWork) && isEmpty(saveData.offWork)) {
         alert("퇴근시간을 선택해주세요.");
     } else if (isEmpty(saveData.memo)) {
         alert("사유를 작성해주세요.");
     } else if (chkDate(start, end)) {
-        alert("출근시간이 퇴근시간보다 빠를 수 없습니다.다시 선택해주세요.");
+        alert("출근시간이 퇴근시간보다 빠를 수 없습니다. 다시 선택해주세요.");
     } else {
         if (!empty) {
             requestWithData('POST', getURL('attendance/rectify', id), saveData, applyAlertAttendance);
@@ -201,7 +202,7 @@ function setMyApplyList(res) {
     if (res.code === 'RRAL001') {
         $("#myApplyList").empty();
 
-        if(res.data.length === 0) {
+        if (res.data.length === 0) {
             let html = '<tr class="empty-tr"><td colspan="3">요청이 없습니다.</td></tr>';
             $("#myApplyList").html(html);
             return false;

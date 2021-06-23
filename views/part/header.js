@@ -34,11 +34,14 @@ if (token === undefined || token === "null") {
 
 //로그아웃
 function logout() {
-    $.cookie('token', null, {path: '/'});
-    let cookies = $.cookie();
-    for (let cookie in cookies) {
-        $.removeCookie(cookie);
-    }
+    // $.cookie('token', null);
+    $.removeCookie('token');
+    $.removeCookie('authority');
+
+    // let cookies = $.cookie();
+    // for (let cookie in cookies) {
+    //     $.removeCookie(cookie);
+    // }
     location.href = "/login";
 }
 

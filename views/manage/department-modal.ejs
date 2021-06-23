@@ -14,7 +14,7 @@
                     <tr>
                         <th>부서명</th>
                         <td>
-                            <input type="text" id="createDep" maxlength="20" style="width: 100%">
+                            <input type="text" id="createDep" maxlength="20">
                         </td>
                     </tr>
                 </table>
@@ -73,46 +73,48 @@
                         aria-label="Close"></button>
             </div>
             <div class="modal-body member-modal">
-                <div class="content-box" style="width: 45%;height: 45rem">
-                    <div style="margin-bottom: 1rem">🔹 소속 부서원</div>
-                    <table class="table-bordered">
-                        <thead>
-                        <tr>
-                            <th width="10%"></th>
-                            <th width="45%">이름</th>
-                            <th width="45%">아이디</th>
-                        </tr>
-                        </thead>
-                        <tbody id="memberGroup">
+                <div class="content-box member-box">
+                    <div class="title">🔹 소속 부서원</div>
+                    <div class="dep-member-table scroll">
+                        <table class="table-bordered">
+                            <thead>
+                            <tr>
+                                <th width="10%"></th>
+                                <th width="45%">이름</th>
+                                <th width="45%">아이디</th>
+                            </tr>
+                            </thead>
+                            <tbody id="memberGroup">
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <div style="width: 10%;text-align: center;">
+                <div class="select-box">
                     <button type="button" class="btn btn-primary btn-lg"
-                            style="margin: 2px;padding: 0.5rem 1rem"
                             onclick="deleteDepartmentMember()">▶
                     </button>
                     <button type="button" class="btn btn-primary btn-lg"
-                            style="margin: 2px;padding: 0.5rem 1rem"
                             onclick="addDepartmentMember()">◀
                     </button>
                 </div>
 
-                <div class="content-box" style="width: 45%;height: 45rem">
-                    <div style="margin-bottom: 1rem">🔹 소속 외 직원</div>
-                    <table class="table-bordered">
-                        <thead>
-                        <tr>
-                            <th width="10%"></th>
-                            <th width="45%">이름</th>
-                            <th width="45%">아이디</th>
-                        </tr>
-                        </thead>
-                        <tbody id="otherGroup">
-                        </tbody>
-                    </table>
+                <div class="content-box member-box">
+                    <div class="title">🔹 소속 외 직원</div>
+                    <div class="dep-member-table scroll">
+                        <table class="table-bordered">
+                            <thead>
+                            <tr>
+                                <th width="10%"></th>
+                                <th width="45%">이름</th>
+                                <th width="45%">아이디</th>
+                            </tr>
+                            </thead>
+                            <tbody id="otherGroup">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
