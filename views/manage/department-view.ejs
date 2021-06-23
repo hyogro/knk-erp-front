@@ -28,10 +28,14 @@
                 <th width="20%">부서명</th>
                 <td width="30%">
                     <input type="text" id="departmentName" maxlength="20">
-                    <span class="badge bg-secondary badge-btn">수정</span>
+                    <span class="badge bg-secondary badge-btn" onclick="modifyDepartmentName()">수정</span>
                 </td>
                 <th width="20%">파트장</th>
-                <td width="30%" id="leaderName"></td>
+                <td width="30%">
+                    <span id="leaderName"></span>
+                    <span class="badge bg-secondary badge-btn"
+                          data-bs-toggle="modal" data-bs-target="#departmentLeaderModal">변경</span>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -41,26 +45,37 @@
         부서원
     </div>
 
-    <div class="row">
-        <div style="float: right;padding: 0">
+    <div class="row" style="display: inline-block">
+        <div style="float: left;padding: 0;width: fit-content">
             총인원 : <span id="headCount"></span>명
         </div>
+        <div style="float: right;padding: 0;width: fit-content">
+            <button type="button" class="btn btn-primary"
+                    onclick="request('GET', getURL('department', getQuery().id), setDepartmentInfo);"
+                    data-bs-toggle="modal" data-bs-target="#memberDepartmentModal">
+                부서원 구성
+            </button>
+        </div>
+    </div>
 
-        <table>
+    <div class="row">
+        <table class="table-bordered">
             <thead>
             <tr>
-                <th>아이디</th>
-                <th>이름</th>
+                <th width="20%">No</th>
+                <th width="40%">이름</th>
+                <th width="40%">아이디</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>test1</td>
-                <td>임현주</td>
-            </tr>
+            <tbody id="depMemberList">
             </tbody>
         </table>
+        <div class="leader-notice">
+            * : 현재 파트장
+        </div>
     </div>
+
+    <%- include ('department-modal.ejs') %>
 </div>
 </body>
 

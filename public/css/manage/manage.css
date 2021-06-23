@@ -4,12 +4,14 @@
 }
 
 #memberList tr,
-#departmentList tr{
+#departmentList tr {
     cursor: pointer;
 }
 
 #memberList tr:hover,
-#departmentList tr:hover{
+#departmentList tr:hover,
+#memberGroup tr:hover,
+#otherGroup tr:hover {
     background: #f8f9ff;
 }
 
@@ -18,5 +20,24 @@ input {
 }
 
 #headCount {
+    padding: 0;
+}
+
+.member-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50rem;
+    padding: 2rem;
+}
+
+.leader {
+    font-weight: bold;
+}
+
+.leader-notice {
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: right;
     padding: 0;
 }

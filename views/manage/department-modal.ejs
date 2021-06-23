@@ -1,3 +1,4 @@
+<!--부서생성-->
 <div class="modal fade" id="createDepartmentModal" tabindex="-1"
      aria-labelledby="createDepartmentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -21,6 +22,101 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                 <button type="button" class="btn btn-primary" onclick="createDepartment()">생성하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--부서 파트장 변경-->
+<div class="modal fade" id="departmentLeaderModal" tabindex="-1"
+     aria-labelledby="departmentLeaderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>파트장 지정</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="leader-notice">
+                    * : 현재 파트장
+                </div>
+                <table class="table-bordered">
+                    <thead>
+                    <tr>
+                        <th width="10%"></th>
+                        <th width="45%">이름</th>
+                        <th width="45%">아이디</th>
+                    </tr>
+                    </thead>
+                    <tbody id="leaderAndMemberList">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-success" onclick="modifyLeader()">파트장 변경하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--부서 멤버 구성-->
+<div class="modal fade" id="memberDepartmentModal" tabindex="-1"
+     aria-labelledby="memberDepartmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="min-width: 80rem !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>부서원 구성</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body member-modal">
+                <div class="content-box" style="width: 45%;height: 45rem">
+                    <div style="margin-bottom: 1rem">🔹 소속 부서원</div>
+                    <table class="table-bordered">
+                        <thead>
+                        <tr>
+                            <th width="10%"></th>
+                            <th width="45%">이름</th>
+                            <th width="45%">아이디</th>
+                        </tr>
+                        </thead>
+                        <tbody id="memberGroup">
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="width: 10%;text-align: center;">
+                    <button type="button" class="btn btn-primary btn-lg"
+                            style="margin: 2px;padding: 0.5rem 1rem"
+                            onclick="deleteDepartmentMember()">▶
+                    </button>
+                    <button type="button" class="btn btn-primary btn-lg"
+                            style="margin: 2px;padding: 0.5rem 1rem"
+                            onclick="addDepartmentMember()">◀
+                    </button>
+                </div>
+
+                <div class="content-box" style="width: 45%;height: 45rem">
+                    <div style="margin-bottom: 1rem">🔹 소속 외 직원</div>
+                    <table class="table-bordered">
+                        <thead>
+                        <tr>
+                            <th width="10%"></th>
+                            <th width="45%">이름</th>
+                            <th width="45%">아이디</th>
+                        </tr>
+                        </thead>
+                        <tbody id="otherGroup">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
             </div>
         </div>
     </div>
