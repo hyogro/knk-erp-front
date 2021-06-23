@@ -1,7 +1,5 @@
 //부서 옵션 셋팅
 request('GET', 'department', setDepartmentList);
-
-//부서 옵션 셋팅
 function setDepartmentList(res) {
     if (res.code === null) {
         return;

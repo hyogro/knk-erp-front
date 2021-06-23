@@ -12,3 +12,11 @@
 #departmentList tr:hover{
     background: #f8f9ff;
 }
+
+input {
+    text-align: center;
+}
+
+#headCount {
+    padding: 0;
+}

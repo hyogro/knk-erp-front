@@ -201,6 +201,7 @@ function resetScheduleData(set, type) {
 //일정등록 모달 초기화
 function setCreateSchedule(start, end) {
     resetScheduleData(false, "create");
+    $('#scheduleMemberView').hide();
 
     if (!isEmpty(start) && !isEmpty(end)) {
         $("#scheduleStartDate").val(start);
@@ -220,6 +221,7 @@ function detailScheduleView(res) {
     }
     if (res.code === 'RSD001') {
         resetScheduleData(true, "read");
+        $('#scheduleMemberView').show();
 
         $("#scheduleTitle").val(res.data.title);
         $("#scheduleMember").text(res.data.memberName);

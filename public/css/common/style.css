@@ -276,3 +276,11 @@ input, select, textarea {
 .empty-tr {
     cursor: default
 }
+
+.badge-btn {
+    cursor: pointer;
+}
+
+.badge-btn:hover {
+    background-color: gray !important;
+}

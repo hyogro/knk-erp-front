@@ -1,17 +1,16 @@
 //부서 옵션 셋팅
 request('GET', 'department', setDepartmentOption);
-
-//부서 옵션 셋팅
 function setDepartmentOption(res) {
     if (res.code === null) {
         return;
     }
     if (res.code === 'RD001') {
-        let data = res.readDepartmentDTO.departmentName;
+        console.log(res)
+        let data = res.readDepartmentDTO;
         $("#departmentName").empty();
         for (let i = 0; i < data.length; i++) {
-            let html = '<option value=\'' + res.readDepartmentDTO.dep_id[i] + '\'>' +
-                res.readDepartmentDTO.departmentName[i] + '</option>';
+            let html = '<option value=\'' + data[i].dep_id + '\'>' +
+                data[i].departmentName + '</option>';
             $("#departmentName").append(html);
         }
         request('GET', getURL('account', getQuery().id), setMemberInfo);

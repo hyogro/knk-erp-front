@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('../part/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/my/my-page.css?version=1.2">
+    <link rel="stylesheet" type="text/css" href="/css/manage/manage.css?version=1.2">
+</head>
+
+<header>
+    <%- include ('../part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('../part/menu.ejs') %>
+<div id="main">
+    <div class="row main-title">
+        부서정보
+    </div>
+
+    <div class="row" style="margin-bottom: 3rem">
+        <table>
+            <tbody>
+            <tr>
+                <th width="20%">부서명</th>
+                <td width="30%">
+                    <input type="text" id="departmentName" maxlength="20">
+                    <span class="badge bg-secondary badge-btn">수정</span>
+                </td>
+                <th width="20%">파트장</th>
+                <td width="30%" id="leaderName"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row main-title">
+        부서원
+    </div>
+
+    <div class="row">
+        <div style="float: right;padding: 0">
+            총인원 : <span id="headCount"></span>명
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>아이디</th>
+                <th>이름</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>test1</td>
+                <td>임현주</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script>
+
+    <%- include ('../common/check-data.js') %>
+    <%- include ('../common/request.js') %>
+    <%- include ('department-view.js') %>
+
+</script>

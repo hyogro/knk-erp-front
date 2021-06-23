@@ -37,7 +37,10 @@ function loginRequest(res) {
         return;
     }
     if (res.code === 'LI001') {
-        $.cookie('token', 'Bearer ' + res.tokenDto.accessToken, {expires: 1, path: '/'});
+        var date = new Date();
+        var m = 600;
+        date.setTime(date.getTime() + (m * 60 * 1000));
+        $.cookie('token', 'Bearer ' + res.tokenDto.accessToken, {expires: date, path: '/'});
         $.cookie('id', $("#id").val());
         $.cookie('authority', res.tokenDto.authority);
         location.href = '/';
