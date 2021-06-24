@@ -1,5 +1,6 @@
 setBoardData();
 
+
 //전체 정보 조회
 function setBoardData() {
     let todayArr = getTodayArr(new Date());
