@@ -19,7 +19,17 @@ function setBoardList(res) {
         return;
     }
     if (res.code === 'RNB001') {
-        // for (let i=0;i<res.)
+        $("#noticeList").empty();
+        let data = res.page.content;
+        for (let i = 0; i < data.length; i++) {
+            let html = '<tr>' +
+                '<td>'+ data[i].board_idx +'</td>' +
+                '<td class="notice-title">'+ data[i].title +'</td>' +
+                '<td>'+ data[i].writerMemberName +'</td>' +
+                '<td>'+ getToday(data[i].createDate) +'</td>' +
+                '</tr>';
+            $("#noticeList").append(html);
+        }
     } else if (res.code === 'RNB002') {
         console.log("공지사항 목록 불러오기 실패");
     }
