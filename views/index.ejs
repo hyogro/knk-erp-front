@@ -37,12 +37,12 @@
             <div class="row attendance-self">
                 <div style="width: fit-content;margin: 1rem">
                     <button type="button" class="btn btn-primary"
-                            onclick="request('POST','attendance/onWork', onWork)">
+                            onclick="checkWork('onWork')">
                         <img src="/images/icon-on-work.png">
                         <div>출근</div>
                     </button>
                     <button type="button" class="btn btn-danger"
-                            onclick="request('POST','attendance/offWork', offWork)">
+                            onclick="checkWork('offWork')">
                         <img src="/images/icon-off-work.png">
                         <div>퇴근</div>
                     </button>
@@ -111,6 +111,7 @@
 
 </html>
 
+<script type="text/javascript" src="https://jsgetip.appspot.com"></script>
 <script>
     <%- include ('index.js') %>
 </script>

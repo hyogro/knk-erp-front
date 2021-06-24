@@ -1,6 +1,5 @@
 setBoardData();
 
-
 //전체 정보 조회
 function setBoardData() {
     let todayArr = getTodayArr(new Date());
@@ -124,7 +123,27 @@ function setCalendar(data) {
     calendar.render();
 }
 
-//출근 기록
+//출,퇴근 기록
+function checkWork(type) {
+
+    let allowIP = '61.42.17.186'; // 허용할 IP
+
+    let remoteIp = ip(); // 사용자 IP
+    if(allowIP === remoteIp){
+        if(type === 'onWork')
+            request('POST', 'attendance/onWork', onWork);
+        else if(type === 'offWork')
+            request('POST', 'attendance/offWork', offWork);
+        else
+            alert('올바른 요청이 아닙니다.');
+    }
+    else {
+        alert('요청하신 주소: ' + remoteIp + ' 에서는 출/퇴근 기록을 할 수 없습니다.');
+    }
+
+}
+
+//출근 기록 리스폰스
 function onWork(res) {
     if (res.code === null) {
         return;
@@ -141,7 +160,7 @@ function onWork(res) {
     }
 }
 
-//퇴근 기록
+//퇴근 기록 리스폰스
 function offWork(res) {
     if (res.code === null) {
         return;
@@ -187,10 +206,10 @@ function setNoticeList(res) {
             let data = res.page.content[i];
             let html = '';
             html += '<tr>' +
-                '<td>' + data.board_idx +'</td>' +
-                '<td class="notice-title">' + data.title +'</td>' +
-                '<td>' + data.writerMemberName +'</td>' +
-                '<td>' + getToday(data.createDate.split("T")[0]) +'</td>' +
+                '<td>' + data.board_idx + '</td>' +
+                '<td class="notice-title">' + data.title + '</td>' +
+                '<td>' + data.writerMemberName + '</td>' +
+                '<td>' + getToday(data.createDate.split("T")[0]) + '</td>' +
                 '</tr>';
             $("#noticeList").append(html);
         }
