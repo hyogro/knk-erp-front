@@ -15,4 +15,12 @@ function searchPage(type) {
 //게시판 상세보기
 function setBoardList(res) {
     console.log(res);
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'RNB001') {
+        // for (let i=0;i<res.)
+    } else if (res.code === 'RNB002') {
+        console.log("공지사항 목록 불러오기 실패");
+    }
 }
