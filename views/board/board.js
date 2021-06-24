@@ -41,6 +41,53 @@ function loadDetailPage(id) {
     location.href = '/board/notice/view?id=' + id;
 }
 
+//페이지 셋팅
 function setPageCount(total) {
+    $("#paging").empty();
 
+    let html = '';
+    let urlParams = getQuery();
+    let nowPage = parseInt(urlParams.page);
+
+    let firstPage = Math.floor(nowPage / 10) * 10 + 1;
+    if (nowPage % 10 === 0) {
+        firstPage = Math.floor(nowPage / 10);
+    }
+
+    //이전 버튼
+    if (firstPage - 10 > 0) {
+        html += ' <li class="page-item">' +
+            '<a class="page-link"' +
+            'href=' + returnPageUrl(urlParams.searchType, urlParams.keyword, firstPage - 10) + '>' +
+            '이전</a></li>';
+    }
+
+    for (let i = firstPage; i < (firstPage + 10); i++) {
+        if (i > total) {
+            break;
+        } else if (i === nowPage) {
+            html += '<li class="page-item active">';
+        } else {
+            html += '<li class="page-item">';
+        }
+        html += '<a class="page-link" ' +
+            'href=' + returnPageUrl(urlParams.searchType, urlParams.keyword, i) + '>' +
+            i + '</a></li>';
+    }
+
+    //다음 버튼
+    if ((nowPage / 10) < (total / 10)) {
+        html += '<li class="page-item">' +
+            '<a class="page-link" ' +
+            'href=' + returnPageUrl(urlParams.searchType, urlParams.keyword, firstPage + 10) + '>' +
+            '다음</a></li>';
+    }
+
+    $("#paging").append(html);
+}
+
+function returnPageUrl(searchType, keyword, page) {
+    searchType = searchType.replaceAll("'", "");
+    keyword = keyword.replaceAll("'", "");
+    return '/board/notice?searchType=' + searchType + '&keyword=' + keyword + '&page=' + page;
 }
