@@ -19,9 +19,9 @@ const manageRouter = require('./routes/manage');
  * 이상훈 추가
  * 2021-06-24 화이트리스트 ip 추가
  **/
-const ipFilter = require('express-ipfilter').IpFilter;
-const ips = ['61.42.17.186'];
-app.use(ipFilter(ips, { mode: 'allow' }));
+// const ipFilter = require('express-ipfilter').IpFilter;
+// const ips = ['61.42.17.186'];
+// app.use(ipFilter(ips, { mode: 'allow' }));
 
 server.listen(port, hostname, () => {
     console.log('server start');
