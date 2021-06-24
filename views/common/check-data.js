@@ -1,6 +1,25 @@
+//브라우저 체크
+function getBrowserType() {
+    let userAgent = window.navigator.userAgent.toLowerCase();
+
+    let isChrome = userAgent.indexOf('chrome');
+    let isEdge = userAgent.indexOf('edge');
+    let isIE = userAgent.indexOf('trident');
+
+    if (isChrome > -1) {
+        if (isEdge > -1) {
+            return "Edge";
+        } else {
+            return "Chrome";
+        }
+    } else {
+        return "etc";
+    }
+}
+
 //빈값 체크
 function isEmpty(val) {
-    return val == null || val === '' || val === undefined;
+    return val == null || val === '' || val === undefined || val === "null";
 }
 
 //날짜 년, 월, 일 배열
@@ -148,9 +167,10 @@ function chkEmail(email) {
 //아이디 유효성 체크
 function chkId(id) {
     var idReg = /^[a-z]+[a-z0-9]{5,14}$/g;
-    if(!idReg.test(id) ) {
+    if (!idReg.test(id)) {
         return false;
     } else {
         return true;
     }
 }
+

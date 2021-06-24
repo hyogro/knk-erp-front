@@ -1,3 +1,8 @@
+if (getBrowserType() === "etc") {
+    alert("이 홈페이지는 크롬과 엣지에 최적화되어있습니다.\n다른 브라우저를 이용해주세요.");
+    self.close();
+}
+
 //메뉴 효과
 $(document).ready(function () {
     $("#nav ul.sub").show();
@@ -27,7 +32,7 @@ $(document).ready(function () {
 
 const token = $.cookie('token');
 // 로그인이 안되어있으면 로그인으로
-if (token === undefined || token === "null") {
+if (isEmpty(token)) {
     $(".title-bar").hide();
     location.href = "/login";
 }

@@ -1,3 +1,27 @@
+if (getBrowserType() === "etc") {
+    alert("이 홈페이지는 크롬과 엣지에 최적화되어있습니다.\n다른 브라우저를 이용해주세요.");
+    self.close();
+}
+
+//브라우저 체크
+function getBrowserType() {
+    let userAgent = window.navigator.userAgent.toLowerCase();
+
+    let isChrome = userAgent.indexOf('chrome');
+    let isEdge = userAgent.indexOf('edge');
+    let isIE = userAgent.indexOf('trident');
+
+    if (isChrome > -1) {
+        if (isEdge > -1) {
+            return "Edge";
+        } else {
+            return "Chrome";
+        }
+    } else {
+        return "etc";
+    }
+}
+
 const token = $.cookie("token");
 const id = $.cookie("id");
 
@@ -38,12 +62,6 @@ function login(id, password) {
 
     requestWithData('POST', 'account/login', loginData, loginRequest);
 }
-
-// $("#saveId").click(function(){
-//     if(!$("#saveId").is(":checked")){
-//         $("#id").val('');
-//     }
-// });
 
 function loginRequest(res) {
     if (res.code === null) {
