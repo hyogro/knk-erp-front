@@ -1,1 +1,1 @@
-searchPage('notice');
+let boardType = 'notice'

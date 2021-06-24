@@ -231,12 +231,12 @@ input, select, textarea {
     text-overflow: ellipsis;
 }
 
-.board #noticeList tr:hover {
-    background: #f8f9ff;
-}
-
 .board .board-title:hover {
     text-decoration: underline;
+}
+
+.board .board-no {
+    font-size: 1.3rem;
 }
 
 /*승인 테이블*/

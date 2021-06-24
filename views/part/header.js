@@ -1,7 +1,4 @@
-if (getBrowserType() === "etc") {
-    alert("이 홈페이지는 크롬과 엣지에 최적화되어있습니다.\n다른 브라우저를 이용해주세요.");
-    self.close();
-}
+getBrowserType();
 
 //메뉴 효과
 $(document).ready(function () {

@@ -1,19 +1,12 @@
 //브라우저 체크
 function getBrowserType() {
-    let userAgent = window.navigator.userAgent.toLowerCase();
+    let agent = navigator.userAgent.toLowerCase();
 
-    let isChrome = userAgent.indexOf('chrome');
-    let isEdge = userAgent.indexOf('edge');
-    let isIE = userAgent.indexOf('trident');
-
-    if (isChrome > -1) {
-        if (isEdge > -1) {
-            return "Edge";
-        } else {
-            return "Chrome";
-        }
-    } else {
-        return "etc";
+    if ( (navigator.appName === 'Netscape' &&
+        navigator.userAgent.search('Trident') !== -1) ||
+        (agent.indexOf("msie") !== -1) ) {
+        alert("이 홈페이지는 크롬과 엣지에 최적화되어있습니다.\n다른 브라우저를 이용해주세요.");
+        self.close();
     }
 }
 

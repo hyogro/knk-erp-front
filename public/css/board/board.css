@@ -1,3 +1,50 @@
 #main .row {
     width: 80rem;
+    display: block;
+}
+
+.important{
+    background-color: #fcf5f5;
+}
+
+.important .board-title {
+    color: #ff4e59;
+    font-weight: bold;
+}
+
+.reference-form {
+    float: right;
+    width: fit-content;
+    font-size: 1.4rem;
+    color: midnightblue;
+    font-weight: bold;
+}
+
+.board-form {
+    display: inline-block !important;
+    margin: 1rem 0 4rem !important;
+}
+
+.board-form .input-group{
+    float: right;
+    width: 40rem;
+    padding: 0;
+}
+
+.board-form .input-group .form-select,
+.board-form .input-group .form-control {
+    font-size: 1.4rem !important;
+    height: 34px;
+}
+
+.board-form .input-group .form-select {
+    max-width: 10rem;
+}
+
+.board-form .btn {
+    font-size: 1.4rem !important;
+}
+
+.board-form #writeBtn {
+    float: left;
 }

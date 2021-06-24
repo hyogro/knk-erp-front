@@ -196,7 +196,6 @@ function setWorkBoard(res) {
 
 //공지 리스트
 function setNoticeList(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }
@@ -207,7 +206,7 @@ function setNoticeList(res) {
             let html = '';
             html += '<tr>' +
                 '<td>' + data.board_idx + '</td>' +
-                '<td class="notice-title">' + data.title + '</td>' +
+                '<td class="board-title">' + data.title + '</td>' +
                 '<td>' + data.writerMemberName + '</td>' +
                 '<td>' + getToday(data.createDate.split("T")[0]) + '</td>' +
                 '</tr>';
