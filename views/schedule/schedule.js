@@ -46,8 +46,8 @@ setScheduleCalendar('all dep own');
 //체크값 전달
 function chkViewOption() {
     let viewOptionArr = [];
-    $('input:checkbox[name="viewOption"]').each(function () {
-        viewOptionArr.push(this.value);
+    $("input[name='viewOption']:checked").each(function () {
+        viewOptionArr.push($(this).val());
     });
     let viewOption = viewOptionArr.join(" ");
 
