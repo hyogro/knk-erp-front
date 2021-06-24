@@ -20,5 +20,8 @@
     "jquery": "^3.6.0",
     "jquery.cookie": "^1.4.1",
     "nodemon": "^2.0.7"
+  },
+  "devDependencies": {
+    "express-ipfilter": "^1.2.0"
   }
 }
