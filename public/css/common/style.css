@@ -218,11 +218,11 @@ input, select, textarea {
     flex-grow: 0 !important;
 }
 
-.notice-board {
+.board {
     table-layout: fixed;
 }
 
-.notice-board .notice-title {
+.board .board-title {
     width: 100%;
     cursor: pointer;
     text-align: left !important;
@@ -231,11 +231,11 @@ input, select, textarea {
     text-overflow: ellipsis;
 }
 
-.notice-board #noticeList tr:hover {
+.board #noticeList tr:hover {
     background: #f8f9ff;
 }
 
-.notice-board .notice-title:hover {
+.board .board-title:hover {
     text-decoration: underline;
 }
 
