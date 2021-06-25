@@ -52,3 +52,9 @@ $("#myPage").click(function () {
     location.href = "/my-page";
     return false;
 });
+
+//내 정보
+$("#manualDownload").click(function () {
+    window.open('<%= fileApi %>'+'user_manual.pdf');
+    return false;
+});
