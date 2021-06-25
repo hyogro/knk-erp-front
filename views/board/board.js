@@ -62,7 +62,6 @@ function setBoardList(res) {
 
 //게시판 리스트
 function setBoardInfo(data, type) {
-    console.log(data);
     if (data.length === 0) {
         let html = '<tr><td colspan="4">해당 게시물이 없습니다.</td></tr>';
         $("#" + boardType + "List").append(html);
