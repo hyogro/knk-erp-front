@@ -62,17 +62,59 @@ function setAttendanceSummary(res) {
         console.log(res.data.yetWork);
         console.log(res.data.offWork);
         console.log(res.data.vacation);
+
         $("#onWork").text(res.data.onWork.length);
         $("#lateWork").text(res.data.lateWork.length);
         $("#yetWork").text(res.data.yetWork.length);
         $("#offWork").text(res.data.offWork.length);
         $("#vacation").text(res.data.vacation.length);
+
+
+        $("#onWork").click(function () {
+            drawSelectedList(0, res.data.onWork);
+        });
+        $("#lateWork").click(function () {
+            drawSelectedList(0, res.data.lateWork);
+        });
+        $("#yetWork").click(function () {
+            drawSelectedList(1, res.data.yetWork);
+        });
+        $("#offWork").click(function () {
+            drawSelectedList(2, res.data.offWork);
+        });
+        $("#vacation").click(function () {
+            drawSelectedList(3, res.data.vacation);
+        });
+
     } else if (res.code === 'RAS002') {
         console.log("일정요약 조회 실패");
     } else if (res.code === 'RAS003') {
         $(".attendance-board").hide();
         console.log("일정요약 조회 실패\n권한이 없습니다.");
     }
+}
+
+function drawSelectedList(type, data) {
+    let text = '';
+    for (let i = 0; i < data.length; i++) {
+        text += data[i].departmentName + '-' + data[i].memberName + '(' + data[i].memberId + ')';
+        if(type === 0){//출근, 지각의 경우
+            text += ' 출근 시간: '+ data[i].onWork;
+        }
+        else if(type === 1){//미출근의 경우
+            text += ' 연락처: '+ data[i].phone;
+        }
+        else if(type === 2){//퇴근의 경우
+            text += ' 출근 시간: '+ data[i].onWork;
+            text += ' 퇴근 시간: '+ data[i].offWork;
+        }
+        else if(type === 3){//휴가의의경우
+            text += ' 휴가기간: '+ data[i].vacationStartDate + '~' + data[i].vacationEndDate;
+        }
+        text += '<br>';
+    }
+    $("#selectedList").html(text);
+
 }
 
 //주간일정 조회
@@ -120,15 +162,14 @@ function checkWork(type) {
     let allowIP = '61.42.17.186'; // 허용할 IP
 
     let remoteIp = ip(); // 사용자 IP
-    if(allowIP === remoteIp){
-        if(type === 'onWork')
+    if (allowIP === remoteIp) {
+        if (type === 'onWork')
             request('POST', 'attendance/onWork', onWork);
-        else if(type === 'offWork')
+        else if (type === 'offWork')
             request('POST', 'attendance/offWork', offWork);
         else
             alert('올바른 요청이 아닙니다.');
-    }
-    else {
+    } else {
         alert('요청하신 주소: ' + remoteIp + ' 에서는 출/퇴근 기록을 할 수 없습니다.');
     }
 
