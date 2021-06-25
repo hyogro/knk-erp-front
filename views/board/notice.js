@@ -1,1 +1,0 @@
-let boardType = 'notice'

@@ -3,7 +3,7 @@
     display: block;
 }
 
-.important{
+.important {
     background-color: #fcf5f5;
 }
 
@@ -25,7 +25,7 @@
     margin: 1rem 0 4rem !important;
 }
 
-.board-form .input-group{
+.board-form .input-group {
     float: right;
     width: 40rem;
     padding: 0;
@@ -47,4 +47,33 @@
 
 .board-form #writeBtn {
     float: left;
+}
+
+.board-detail {
+    text-align: left;
+}
+
+.board-detail #content {
+    padding: 2rem;
+    vertical-align: top;
+    height: 30rem;
+    min-height: 30rem;
+}
+
+.btn-row {
+    display: inline-block;
+    margin: 1rem 0 !important;
+}
+
+.btn-row div{
+    padding: 0 !important;
+    width: fit-content;
+}
+
+.btn-row div:first-child {
+    float: left;
+}
+
+.btn-row div:last-child {
+    float: right;
 }
