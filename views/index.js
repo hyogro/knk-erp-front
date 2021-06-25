@@ -57,10 +57,15 @@ function setAttendanceSummary(res) {
     }
     if (res.code === 'RAS001') {
         $(".attendance-board").css('display', 'flex');
-        console.log(res.data);
+        console.log(res.data.onWork);
+        console.log(res.data.lateWork);
+        console.log(res.data.yetWork);
+        console.log(res.data.offWork);
+        console.log(res.data.vacation);
         $("#onWork").text(res.data.onWork.length);
-        $("#yetWork").text(res.data.yetWork.length);
         $("#lateWork").text(res.data.lateWork.length);
+        $("#yetWork").text(res.data.yetWork.length);
+        $("#offWork").text(res.data.offWork.length);
         $("#vacation").text(res.data.vacation.length);
     } else if (res.code === 'RAS002') {
         console.log("일정요약 조회 실패");
