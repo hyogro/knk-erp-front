@@ -57,11 +57,6 @@ function setAttendanceSummary(res) {
     }
     if (res.code === 'RAS001') {
         $(".attendance-board").css('display', 'flex');
-        console.log(res.data.onWork);
-        console.log(res.data.lateWork);
-        console.log(res.data.yetWork);
-        console.log(res.data.offWork);
-        console.log(res.data.vacation);
 
         $("#onWork").text(res.data.onWork.length);
         $("#lateWork").text(res.data.lateWork.length);
