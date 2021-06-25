@@ -9,14 +9,14 @@ window.onload = function () {
     });
 
     setTimeout(function () {
-        var ctntarea = document.querySelector("iframe").contentWindow.document.querySelector("iframe").contentWindow.document.querySelector(".se2_inputarea");
+        let ctntarea = document.querySelector("iframe").contentWindow.document.querySelector("iframe").contentWindow.document.querySelector(".se2_inputarea");
         ctntarea.addEventListener("keyup", function (e) {
-            var text = this.innerHTML;
+            let text = this.innerHTML;
             text = text.replace(/<br>/ig, "");	// br 제거
             text = text.replace(/&nbsp;/ig, "");// 공백 제거
             text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");	// html 제거
 
-            var len = text.length;
+            let len = text.length;
             document.querySelector(".count span").innerHTML = len;
 
             if (len > 40000) {
@@ -46,5 +46,27 @@ function setSelectOptionMemberList(res) {
         }
     } else if (res.code === 'MIL002') {
         console.log("멤버 id, 이름 목록 불러오기 실패");
+    }
+}
+
+function saveBoard() {
+
+    console.log(ctntarea.innerHTML);
+    // let files = new FormData($('#fileForm')[0]);
+    // requestWithFile('POST', 'file/upload', files, saveFile);
+}
+
+function saveFile(res) {
+    console.log(res);
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'RA001') {
+        let saveData = {};
+        saveData.title = $("#title").val();
+        let ctntarea = document.querySelector("iframe").contentWindow.document.querySelector("iframe").contentWindow.document.querySelector(".se2_inputarea");
+        saveData.content = ctntarea.innerHTML;
+    } else if (res.code === 'RA002') {
+        console.log("파일 저장 실패");
     }
 }

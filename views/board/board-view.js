@@ -37,7 +37,7 @@ function setBoardContent(res) {
 function setFileList(data) {
     let file = '';
     for (let i = 0; i < data.length; i++) {
-        file += '<a class="file" href="<%= fileApi %>' + data[i] + '">' + data[i] + '</a><br>';
+        file += '<a class="file" href="<%= fileApi %>' + data[i].fileName + '">' + data[i].originalFileName + '</a><br>';
     }
     $("#file").html(file);
 }
