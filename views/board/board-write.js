@@ -1,4 +1,6 @@
-var EDITORS = [];
+let EDITORS = [];
+let contentText;
+
 window.onload = function () {
     // smartEditor 세팅
     nhn.husky.EZCreator.createInIFrame({
@@ -10,8 +12,8 @@ window.onload = function () {
     });
 
     setTimeout(function () {
-        let ctntarea = document.querySelector("iframe").contentWindow.document.querySelector("iframe").contentWindow.document.querySelector(".se2_inputarea");
-        ctntarea.addEventListener("keyup", function (e) {
+        contentText = document.querySelector("iframe").contentWindow.document.querySelector("iframe").contentWindow.document.querySelector(".se2_inputarea");
+        contentText.addEventListener("keyup", function (e) {
             let text = this.innerHTML;
             text = text.replace(/<br>/ig, "");	// br 제거
             text = text.replace(/&nbsp;/ig, "");// 공백 제거
@@ -26,6 +28,7 @@ window.onload = function () {
         });
     }, 1000)
 }
+
 
 //참조 대상 - 전체 멤버 셋팅
 $('#reference').select2({
@@ -52,12 +55,11 @@ function setSelectOptionMemberList(res) {
 
 //빈값 체크
 function chkEmpty() {
-    let ctntarea = document.querySelector("iframe").contentWindow.document.querySelector("iframe").contentWindow.document.querySelector(".se2_inputarea");
     if (isEmpty($("#title").val())) {
         alert("제목을 입력해주세요.");
         $("#title").focus();
         return false;
-    } else if (isEmpty(ctntarea.innerHTML)) {
+    } else if (isEmpty(contentText.innerHTML)) {
         alert("내용을 입력해주세요.");
         return false;
     } else {
@@ -103,8 +105,7 @@ function saveFile(res) {
 function saveBoardData() {
     let saveData = {};
     saveData.title = $("#title").val();
-    let ctntarea = document.querySelector("iframe").contentWindow.document.querySelector("iframe").contentWindow.document.querySelector(".se2_inputarea");
-    saveData.content = ctntarea.innerHTML;
+    saveData.content = contentText.innerHTML;
     saveData.referenceMemberId = $("#reference").val();
     if (boardType === 'notice') {
         saveData.boardType = '공지사항';
