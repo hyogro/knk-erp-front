@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('../part/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/board/board.css?version=1.2">
+</head>
+
+<header>
+    <%- include ('../part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('../part/menu.ejs') %>
+<div id="main">
+    <div class="row main-title">
+        공지게시판-글쓰기
+    </div>
+
+    <div class="row">
+        <table class="board-detail">
+            <tbody>
+            <tr>
+                <th width="16%">제목</th>
+                <td width="84%" colspan="5" id="title"></td>
+            </tr>
+            <tr>
+                <th width="16%">첨부파일</th>
+                <td width="84%" colspan="5" id="file"></td>
+            </tr>
+            <tr>
+                <th width="16%">참조</th>
+                <td width="84%" colspan="5" id="reference"></td>
+            </tr>
+            <tr>
+                <td colspan="6" id="content"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row btn-row">
+        <div id="controlBtn" style="display: none">
+            <button type="button" class="btn btn-secondary">수정</button>
+            <button type="button" class="btn btn-danger"
+                    onclick="deleteAlertBoard()">삭제</button>
+        </div>
+
+        <div>
+            <button type="button" class="btn btn-outline-dark"
+                    onclick="history.back()">목록</button>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>
+
+<script>
+
+    let boardType = 'notice';
+    <%- include ('board-write.js') %>
+
+</script>

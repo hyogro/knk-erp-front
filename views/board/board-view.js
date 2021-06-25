@@ -15,15 +15,12 @@ function setBoardContent(res) {
         $("#count").text(data.count);
         $("#content").html(data.content);
 
-        if (!isEmpty(data.referenceMemberId)) {
-            $("#reference").text(data.referenceMemberId.join(", "));
+        if (res.readReferenceMemberDTO.length > 0) {
+            setReferenceMemberList(res.readReferenceMemberDTO);
         }
-
-        let file = '';
-        for (let i = 0; i < data.file.length; i++) {
-            file += '<a class="file" href="<%= fileApi %>' + data.file[i] + '">' + data.file[i] + '</a><br>';
+        if (data.file.length > 0) {
+            setFileList(data.file);
         }
-        $("#file").html(file);
 
         if (data.writerMemberId === $.cookie("id")) {
             $("#controlBtn").show();
@@ -34,6 +31,23 @@ function setBoardContent(res) {
         alert("해당 게시글이 존재하지 않습니다.");
         history.back();
     }
+}
+
+//파일 리스트 셋팅
+function setFileList(data) {
+    let file = '';
+    for (let i = 0; i < data.length; i++) {
+        file += '<a class="file" href="<%= fileApi %>' + data[i] + '">' + data[i] + '</a><br>';
+    }
+    $("#file").html(file);
+}
+
+function setReferenceMemberList(data) {
+    let member = [];
+    for (let i = 0; i < data.length; i++) {
+        member.push(data[i].referenceMemberId + "(" + data[i].referenceMemberName + ")");
+    }
+    $("#reference").text(member.join(", "));
 }
 
 //게시글 삭제
