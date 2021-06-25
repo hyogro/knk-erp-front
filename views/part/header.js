@@ -8,8 +8,11 @@ $(document).ready(function () {
     });
 
     let authority = $.cookie('authority');
-    if (authority === "LVL1" || authority === "LVL2") {
+    if (authority === "LVL1") {
         $("#approveMenu").hide();
+        $("#manageMenu").hide();
+    } else if (authority === "LVL2") {
+        $("#approveMenu").show();
         $("#manageMenu").hide();
     } else {
         $("#approveMenu").show();
@@ -44,8 +47,14 @@ function logout() {
     // for (let cookie in cookies) {
     //     $.removeCookie(cookie);
     // }
-    location.href = "/login";
+    console.log($.cookie());
 }
+
+$("#logout").click(function () {
+    logout();
+    location.href = "/login";
+    return false;
+});
 
 //내 정보
 $("#myPage").click(function () {
