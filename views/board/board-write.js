@@ -6,6 +6,7 @@ window.onload = function () {
         elPlaceHolder: "content",	// textarea id
         sSkinURI: "/smartEditor/SmartEditor2Skin.html",	// 경로
         fCreator: "createSEditor2",
+        htParams: { fOnBeforeUnload : function(){}}
     });
 
     setTimeout(function () {
@@ -49,24 +50,84 @@ function setSelectOptionMemberList(res) {
     }
 }
 
-function saveBoard() {
-
-    console.log(ctntarea.innerHTML);
-    // let files = new FormData($('#fileForm')[0]);
-    // requestWithFile('POST', 'file/upload', files, saveFile);
+//빈값 체크
+function chkEmpty() {
+    let ctntarea = document.querySelector("iframe").contentWindow.document.querySelector("iframe").contentWindow.document.querySelector(".se2_inputarea");
+    if (isEmpty($("#title").val())) {
+        alert("제목을 입력해주세요.");
+        $("#title").focus();
+        return false;
+    } else if (isEmpty(ctntarea.innerHTML)) {
+        alert("내용을 입력해주세요.");
+        return false;
+    } else {
+        return true;
+    }
 }
 
+//파일 유무에 따른 게시글 저장
+function saveBoard() {
+    if (!chkEmpty()) {
+        return;
+    }
+
+    var files = $('input[name="file"]')[0].files;
+    // for(var i= 0; i<files.length; i++){
+    //     alert('file_name :'+files[i].name);
+    // }
+    if (files.length > 0) {
+        let sendFiles = new FormData($('#fileForm')[0]);
+        requestWithFile('POST', 'file/upload', sendFiles, saveFile);
+    } else { //파일 없는 게시글 저장
+        let saveData = saveBoardData();
+        requestWithData('POST', 'board', saveData, saveAlertBoard);
+    }
+}
+
+//파일 있는 게시글 저장
 function saveFile(res) {
     console.log(res);
     if (res.code === null) {
         return;
     }
     if (res.code === 'RA001') {
-        let saveData = {};
-        saveData.title = $("#title").val();
-        let ctntarea = document.querySelector("iframe").contentWindow.document.querySelector("iframe").contentWindow.document.querySelector(".se2_inputarea");
-        saveData.content = ctntarea.innerHTML;
+        let saveData = saveBoardData();
+        saveData.fileName = res.message;
+        requestWithData('POST', 'board', saveData, saveAlertBoard);
     } else if (res.code === 'RA002') {
         console.log("파일 저장 실패");
+    }
+}
+
+//저장할 게시글 정보
+function saveBoardData() {
+    let saveData = {};
+    saveData.title = $("#title").val();
+    let ctntarea = document.querySelector("iframe").contentWindow.document.querySelector("iframe").contentWindow.document.querySelector(".se2_inputarea");
+    saveData.content = ctntarea.innerHTML;
+    saveData.referenceMemberId = $("#reference").val();
+    if (boardType === 'notice') {
+        saveData.boardType = '공지사항';
+    } else if (boardType === 'work') {
+        saveData.boardType = '업무게시판';
+    }
+
+    return saveData;
+}
+
+//게시글 저장 알림창
+function saveAlertBoard(res) {
+    console.log(res);
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'CB001') {
+        location.href = "/board/" + boardType + "?searchType=&keyword=&page=1";
+    } else if (res.code === 'CB002') {
+        console.log("파일 저장 실패");
+    } else if (res.code === 'CB003') {
+        alert("게시글 생성 실패 - 권한 부족");
+    } else if (res.code === 'CB004') {
+        alert("게시글 생성 실패 - 작성자와 다른 부서 태그");
     }
 }
