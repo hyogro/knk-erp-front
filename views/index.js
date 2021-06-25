@@ -238,7 +238,7 @@ function setNoticeList(res) {
             let html = '';
             html += '<tr>' +
                 '<td>' + data.board_idx + '</td>' +
-                '<td class="board-title">' + data.title + '</td>' +
+                '<td class="board-title" onclick="getNoticeDetail('+data.board_idx+')">' + data.title + '</td>' +
                 '<td>' + data.writerMemberName + '</td>' +
                 '<td>' + getToday(data.createDate.split("T")[0]) + '</td>' +
                 '</tr>';
@@ -247,4 +247,9 @@ function setNoticeList(res) {
     } else if (res.code === 'NBL002') {
         console.log("공지사항 조회 실패");
     }
+}
+
+//공지 상세
+function getNoticeDetail(idx){
+    location.href = '/board/notice/view?id=' + idx;
 }
