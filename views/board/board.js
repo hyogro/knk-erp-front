@@ -62,9 +62,11 @@ function setBoardList(res) {
 
 //게시판 리스트
 function setBoardInfo(data, type) {
+    console.log(data);
     if (data.length === 0) {
         let html = '<tr><td colspan="4">해당 게시물이 없습니다.</td></tr>';
         $("#" + boardType + "List").append(html);
+        return;
     }
 
     for (let i = 0; i < data.length; i++) {
@@ -77,12 +79,24 @@ function setBoardInfo(data, type) {
             html += '<tr><td class="board-no">' + data[i].board_idx + '</td>';
         }
 
-        html += '<td class="board-title" id=\'' + data[i].board_idx + '\' ' +
-            'onclick="loadDetailPage(id)">' + data[i].title + '</td>' +
+        html += '<td class="board-title" data-id=\'' + data[i].board_idx + '\' ' +
+            'onclick="loadDetailPage(\'' + data[i].board_idx + '\')">'
+            + data[i].title + '</td>' +
             '<td>' + data[i].writerMemberName + '</td>' +
             '<td>' + getToday(data[i].createDate) + '</td>' +
             '</tr>';
+
         $("#" + boardType + "List").append(html);
+
+        //읽은 글 표시
+        if (!isEmpty(data[i].visitors)) {
+            for (let j = 0; j < data[i].visitors.length; j++) {
+                if (data[i].visitors[j] === $.cookie("id")) {
+                    $("[data-id=" + data[i].board_idx + "]").addClass("read");
+                    break;
+                }
+            }
+        }
     }
 }
 

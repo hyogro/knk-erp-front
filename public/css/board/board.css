@@ -20,6 +20,10 @@
     font-weight: bold;
 }
 
+.board .read {
+    color: gray;
+}
+
 .board-form {
     display: inline-block !important;
     margin: 1rem 0 4rem !important;
@@ -58,6 +62,15 @@
     vertical-align: top;
     height: 30rem;
     min-height: 30rem;
+}
+
+.board-detail .file {
+    color: dimgrey;
+}
+
+.board-detail .file:hover,
+.board-detail .file:focus{
+    color: black;
 }
 
 .btn-row {
