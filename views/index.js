@@ -7,10 +7,9 @@ function setBoardData() {
 
     //부서정보 조회
     request('GET', 'department/readDepartmentNameAndMemberCount', setDepartmentInfo);
-    //일정요약(출퇴근) 조회
+    //일정요약(출퇴근), 휴가요약(출퇴근) 조회
     request('GET', 'attendance/summary', setAttendanceSummary);
-    //휴가요약(출퇴근) 조회
-    request('GET', 'vacation/summary', setVacationSummary);
+
     //출퇴근기록 조회
     request('GET', 'attendance/today', setWorkBoard);
     //공지사항 최근 5개 조회
@@ -58,29 +57,16 @@ function setAttendanceSummary(res) {
     }
     if (res.code === 'RAS001') {
         $(".attendance-board").css('display', 'flex');
-        $("#onWork").text(res.data.onWork);
-        $("#yetWork").text(res.data.yetWork);
-        $("#lateWork").text(res.data.lateWork);
+        console.log(res.data);
+        $("#onWork").text(res.data.onWork.length);
+        $("#yetWork").text(res.data.yetWork.length);
+        $("#lateWork").text(res.data.lateWork.length);
+        $("#vacation").text(res.data.vacation.length);
     } else if (res.code === 'RAS002') {
         console.log("일정요약 조회 실패");
     } else if (res.code === 'RAS003') {
         $(".attendance-board").hide();
         console.log("일정요약 조회 실패\n권한이 없습니다.");
-    }
-}
-
-//일정요약(출퇴근) 조회
-function setVacationSummary(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RVS001') {
-        $("#vacation").text(res.data.vacation);
-    } else if (res.code === 'RVS002') {
-        console.log("휴가요약 조회 실패");
-    } else if (res.code === 'RVS003') {
-        $(".attendance-board").hide();
-        console.log("휴가요약 조회 실패\n권한이 없습니다.");
     }
 }
 
