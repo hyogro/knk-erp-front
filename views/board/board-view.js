@@ -2,6 +2,7 @@
 request('GET', getURL('board', getQuery().id), setBoardContent);
 
 function setBoardContent(res) {
+    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -12,8 +13,17 @@ function setBoardContent(res) {
         $("#writerDepartment").text(data.writer_department);
         $("#creatDate").text(getToday(data.create_date));
         $("#count").text(data.count);
-        $("#file").html(data.file.join("<br>"));
         $("#content").html(data.content);
+
+        if (!isEmpty(data.referenceMemberId)) {
+            $("#reference").text(data.referenceMemberId.join(", "));
+        }
+
+        let file = '';
+        for (let i = 0; i < data.file.length; i++) {
+            file += '<a class="file" href="<%= fileApi %>' + data.file[i] + '">' + data.file[i] + '</a><br>';
+        }
+        $("#file").html(file);
 
         if (data.writerMemberId === $.cookie("id")) {
             $("#controlBtn").show();
@@ -37,6 +47,7 @@ function deleteAlertBoard() {
         return false;
     }
 }
+
 function deleteBoard(res) {
     if (res.code === null) {
         return;
