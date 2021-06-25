@@ -11,7 +11,7 @@ $(document).ready(function () {
     if (authority === "LVL1") {
         $("#approveMenu").hide();
         $("#manageMenu").hide();
-    } else if (authority === "LVL2") {
+    } else if(authority === "LVL2") {
         $("#approveMenu").show();
         $("#manageMenu").hide();
     } else {
@@ -40,21 +40,19 @@ if (isEmpty(token)) {
 //로그아웃
 function logout() {
     // $.cookie('token', null);
-    $.removeCookie('token');
-    $.removeCookie('authority');
+
+    $.cookie("token", null, { path: '/' });
+    $.cookie("authority", null, { path: '/' });
+    //$.removeCookie('token');
+    //$.removeCookie('authority');
 
     // let cookies = $.cookie();
     // for (let cookie in cookies) {
     //     $.removeCookie(cookie);
     // }
-    console.log($.cookie());
-}
-
-$("#logout").click(function () {
-    logout();
+    alert("로그아웃 되었습니다.");
     location.href = "/login";
-    return false;
-});
+}
 
 //내 정보
 $("#myPage").click(function () {

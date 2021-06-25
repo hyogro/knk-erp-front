@@ -16,7 +16,8 @@ const token = $.cookie("token");
 const id = $.cookie("id");
 
 // 이미 로그인된 상태
-if (token !== undefined && token !== "null") {
+if (!isEmpty(token)) {
+    $(".title-bar").hide();
     location.href = "/";
 }
 
