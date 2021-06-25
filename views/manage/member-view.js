@@ -157,7 +157,6 @@ function updateMemberInfo(res) {
     }
 }
 
-//TODO:계정생성 하고 나서 테스트해보기
 //멤버 삭제
 function deleteAlertMember() {
     if (confirm("직원 정보를 삭제하시겠습니까?") === true) {

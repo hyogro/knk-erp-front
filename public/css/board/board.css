@@ -53,7 +53,7 @@
     float: left;
 }
 
-.board-detail {
+.board-detail, .board-write {
     text-align: left;
 }
 
@@ -71,6 +71,15 @@
 .board-detail .file:hover,
 .board-detail .file:focus{
     color: black;
+}
+
+.board-write input {
+    width: 100%;
+}
+
+.board-write #boardTextCount{
+    float: right;
+    font-size: 1.3rem;
 }
 
 .btn-row {
