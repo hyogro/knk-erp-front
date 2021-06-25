@@ -42,6 +42,7 @@ function setFileList(data) {
     $("#file").html(file);
 }
 
+//참조 대상 출력
 function setReferenceMemberList(data) {
     let member = [];
     for (let i = 0; i < data.length; i++) {

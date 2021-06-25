@@ -40,7 +40,7 @@ window.createSEditor2 = function(elIRField, htParams, elSeAppContainer){
 	oEditor.registerPlugin(new nhn.husky.CorePlugin(htParams?htParams.fOnAppLoad:null));	
 	oEditor.registerPlugin(new nhn.husky.StringConverterManager());
 	if(htParams.bSkipXssFilter !== true){
-		// 보안 필터링 플러그인 (TODO:소스분리 및 블랙리스트 옵션 추가)
+		// 보안 필터링 플러그인
 		oEditor.registerPlugin({
 			_rxFilter:/<\/*(?:applet|b(?:ase|gsound|link)|embed|frame(?:set)?|i(?:frame|layer)|l(?:ayer|ink)|meta|object|s(?:cript|tyle)|title|xml)[^>]*?>/gi,
 			$ON_REGISTER_CONVERTERS : function() {

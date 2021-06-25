@@ -21,37 +21,42 @@
     </div>
 
     <div class="row">
-        <table class="board-detail">
+        <table class="board-write">
             <tbody>
             <tr>
                 <th width="16%">제목</th>
-                <td width="84%" colspan="5" id="title"></td>
+                <td width="84%" colspan="5">
+                    <input type="text" maxlength="80" id="title">
+                </td>
             </tr>
             <tr>
                 <th width="16%">첨부파일</th>
-                <td width="84%" colspan="5" id="file"></td>
+                <td width="84%" colspan="5">
+                    <form id="fileForm" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file" multiple="true"></form>
+                </td>
             </tr>
             <tr>
                 <th width="16%">참조</th>
-                <td width="84%" colspan="5" id="reference"></td>
+                <td width="84%" colspan="5">
+                    <select class="form-control" id="reference" multiple="multiple">
+                    </select>
+                </td>
             </tr>
             <tr>
-                <td colspan="6" id="content"></td>
+                <td colspan="6">
+                    <textarea style="display:none;" name="content" id="content"
+                              rows="20" cols="100"></textarea>
+                    <p class="count"><span>0</span> / 40000</p>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
 
     <div class="row btn-row">
-        <div id="controlBtn" style="display: none">
-            <button type="button" class="btn btn-secondary">수정</button>
-            <button type="button" class="btn btn-danger"
-                    onclick="deleteAlertBoard()">삭제</button>
-        </div>
-
         <div>
-            <button type="button" class="btn btn-outline-dark"
-                    onclick="history.back()">목록</button>
+            <button type="button" class="btn btn-primary">저장</button>
         </div>
     </div>
 
