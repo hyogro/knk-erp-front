@@ -110,7 +110,6 @@ function modifyLeader() {
         sendData, modifyAlertLeader);
 }
 function modifyAlertLeader(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }
@@ -133,7 +132,6 @@ function deleteDepartmentMember() {
     });
 }
 function deleteDepartmentMemberRefresh(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }

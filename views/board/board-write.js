@@ -115,13 +115,19 @@ function saveBoard() {
         requestWithFile('POST', 'file/upload', sendFiles, saveFile);
     } else { //파일 없는 게시글 저장
         let saveData = saveBoardData();
-        requestWithData('POST', 'board', saveData, saveAlertBoard);
+        if (isEmpty(getQuery().id)) {
+            //글 생성
+            requestWithData('POST', 'board', saveData, saveAlertBoard);
+        } else {
+            //글 수정
+            requestWithData('PUT', getURL('board', getQuery().id),
+                saveData, saveAlertBoard);
+        }
     }
 }
 
 //파일 있는 게시글 저장
 function saveFile(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }
@@ -137,6 +143,9 @@ function saveFile(res) {
 //저장할 게시글 정보
 function saveBoardData() {
     let saveData = {};
+    if (!isEmpty(getQuery().id)) {
+        saveData.board_idx = getQuery().id;
+    }
     saveData.title = $("#title").val();
     saveData.content = contentText.innerHTML;
     saveData.referenceMemberId = $("#reference").val();
@@ -151,15 +160,16 @@ function saveBoardData() {
 
 //게시글 저장 알림창
 function saveAlertBoard(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }
-    if (res.code === 'CB001') {
-        location.href = "/board/" + boardType + "?searchType=&keyword=&page=1";
-    } else if (res.code === 'CB002') {
-        console.log("파일 저장 실패");
-    } else if (res.code === 'CB003') {
+    if (res.code === 'CB001' || res.code === 'UB001') {
+        location.href = "/board/" + boardType + "/view?id=" + getQuery().id;
+    } else if (res.code === 'CB002' || res.code === 'UB002') {
+        console.log("게시글 저장 실패");
+    } else if (res.code === 'UB003') {
+        alert("게시글 수정 실패 - 게시글 작성자가 아닙니다.");
+    } else if (res.code === 'CB003' || res.code === 'UB004') {
         alert("게시글 생성 실패 - 권한 부족");
     } else if (res.code === 'CB004') {
         alert("게시글 생성 실패 - 작성자와 다른 부서 태그");
