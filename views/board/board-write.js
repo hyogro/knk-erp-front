@@ -8,11 +8,21 @@ window.onload = function () {
         elPlaceHolder: "content",	// textarea id
         sSkinURI: "/smartEditor/SmartEditor2Skin.html",	// 경로
         fCreator: "createSEditor2",
-        htParams: { fOnBeforeUnload : function(){}}
+        htParams: {
+            fOnBeforeUnload: function () {
+            }
+        }
     });
 
     setTimeout(function () {
         contentText = document.querySelector("iframe").contentWindow.document.querySelector("iframe").contentWindow.document.querySelector(".se2_inputarea");
+
+        //참조 대상 - 전체 멤버 셋팅
+        $('#reference').select2({
+            placeholder: '참조시킬 대상의 이름이나 아이디를 선택(입력)해주세요.'
+        });
+        request('GET', 'board/memberIdList', setSelectOptionMemberList);
+
         contentText.addEventListener("keyup", function (e) {
             let text = this.innerHTML;
             text = text.replace(/<br>/ig, "");	// br 제거
@@ -29,14 +39,7 @@ window.onload = function () {
     }, 1000)
 }
 
-
 //참조 대상 - 전체 멤버 셋팅
-$('#reference').select2({
-    placeholder: '참조시킬 대상의 이름이나 아이디를 선택(입력)해주세요.'
-});
-
-request('GET', 'board/memberIdList', setSelectOptionMemberList);
-
 function setSelectOptionMemberList(res) {
     if (res.code === null) {
         return;
@@ -48,8 +51,38 @@ function setSelectOptionMemberList(res) {
                 data[i].memberName + '(' + data[i].memberId + ')</option>'
             $("#reference").append(html);
         }
+
+        //글 수정일 때 셋팅
+        if (!isEmpty(getQuery().id)) {
+            request('GET', getURL('board', getQuery().id), setModifyBoardContent);
+        }
+
     } else if (res.code === 'MIL002') {
         console.log("멤버 id, 이름 목록 불러오기 실패");
+    }
+}
+
+//글 수정
+function setModifyBoardContent(res) {
+    console.log(res)
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'RB001') {
+        let data = res.readBoardDTO;
+        $("#title").val(data.title);
+        contentText.innerHTML = data.content;
+
+        //참조 리스트
+        let reference = res.readReferenceMemberDTO;
+        let referenceData = [];
+        for (let i = 0; i < reference.length; i++) {
+            referenceData.push(reference[i].referenceMemberId);
+        }
+        $("#reference").select2().val(referenceData).trigger("change");
+    } else if (res.code === 'RB002') {
+        alert("해당 게시글이 존재하지 않습니다.");
+        history.back();
     }
 }
 

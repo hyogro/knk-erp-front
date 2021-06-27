@@ -30,7 +30,7 @@
 }
 
 .board-form .input-group {
-    float: right;
+    float: left;
     width: 40rem;
     padding: 0;
 }
@@ -50,7 +50,7 @@
 }
 
 .board-form #writeBtn {
-    float: left;
+    float: right;
 }
 
 .board-detail, .board-write {

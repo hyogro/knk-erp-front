@@ -2,7 +2,6 @@
 request('GET', getURL('board', getQuery().id), setBoardContent);
 
 function setBoardContent(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -49,6 +48,11 @@ function setReferenceMemberList(data) {
         member.push(data[i].referenceMemberId + "(" + data[i].referenceMemberName + ")");
     }
     $("#reference").text(member.join(", "));
+}
+
+//글 수정 이동
+function modifyBoard() {
+    location.href = '/board/notice/write?id=' + getQuery().id;
 }
 
 //게시글 삭제
