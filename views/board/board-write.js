@@ -101,15 +101,25 @@ function chkEmpty() {
 }
 
 let fileList = [];
+let addFileList = []; //현재 게시판에서 추가한 파일 리스트
 
 //파일 선택
 $("#file").change(function () {
     let files = $("#file")[0].files;
     for (let i = 0; i < files.length; i++) {
-        let html = '<div>' + files[i].name + '<span class="deleteBtn"> 삭제</span></div>';
+        let html = '<div id=addFile' + addFileList.length + '>' + files[i].name +
+            '<span class="deleteBtn" onclick="deleteFile(' + addFileList.length + ')"> 삭제</span></div>';
         $("#addFileNameList").append(html);
+        addFileList.push(files[i]);
     }
 });
+
+//불러온 파일 삭제
+function deleteFile(index) {
+    addFileList[index] = null;
+    console.log(addFileList);
+    $("#addFile" + index).empty();
+}
 
 //파일 유무에 따른 게시글 저장
 function saveBoard() {
@@ -117,17 +127,20 @@ function saveBoard() {
         return;
     }
 
-    let files = $("#file")[0].files;
-    if (files.length > 0) {//파일 있는 게시글 저장
-        for (let i = 0; i < files.length; i++) {
-            let sendFiles = new FormData();
-            sendFiles.append('file', files[i]);
-            requestWithFile('POST', 'file/upload', sendFiles, saveFile);
+    if (addFileList.length > 0) {//파일 있는 게시글 저장
+        for (let i = 0; i < addFileList.length; i++) {
+            if (!isEmpty(addFileList[i])) {
+                let sendFiles = new FormData();
+                sendFiles.append('file', addFileList[i]);
+                requestWithFile('POST', 'file/upload', sendFiles, saveFile);
+            }
 
             setTimeout(function () {
-                if (i === (files.length - 1)) {
+                if (i === (addFileList.length - 1)) {
                     let saveData = saveBoardData();
                     saveData.fileName = fileList;
+                    console.log(saveData);
+                    alert("0")
                     requestWithData('POST', 'board', saveData, saveAlertBoard);
                 }
             }, 1000);

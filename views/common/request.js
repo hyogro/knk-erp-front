@@ -17,7 +17,7 @@ function request(method, url, processFunc) {
             $("#loading").hide();
         },
         error: function (err) {
-            alert("잘못된 접근입니다.\n" + err);
+            alert("잘못된 접근입니다.\n");
         }
     });
 }
@@ -41,7 +41,7 @@ function requestWithData(method, url, data, processFunc) {
             $("#loading").hide();
         },
         error: function (err) {
-            alert("잘못된 접근입니다.\n" + err);
+            alert("잘못된 접근입니다.\n");
         }
     });
 }
@@ -66,7 +66,7 @@ function requestWithFile(method, url, data, processFunc) {
             $("#loading").hide();
         },
         error: function (err) {
-            alert("잘못된 접근입니다.\n" + err);
+            alert("잘못된 접근입니다.\n");
         }
     });
 }
