@@ -124,7 +124,7 @@ function setPageCount(total) {
     }
 
     for (let i = firstPage; i < (firstPage + 10); i++) {
-        if (i > total) {
+        if (i > total + 1) {
             break;
         } else if (i === nowPage) {
             html += '<a class="active" href=' + returnPageUrl(urlParams.searchType, urlParams.keyword, i) + '>' + i + '</a>';

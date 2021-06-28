@@ -12,9 +12,6 @@
     border-radius: 10%;
 }
 
-.attendance-self {
-}
-
 .attendance-self img {
     width: 48px;
     height: 48px;
@@ -44,7 +41,6 @@
     vertical-align: middle;
 }
 
-
 .attendance-self table th:not(:last-child),
 .attendance-self table td:not(:last-child) {
     border-right: 1px solid #DCDCDC;
@@ -56,9 +52,39 @@
     font-size: 2rem;
 }
 
+.attendance-board .col-md {
+    cursor: pointer;
+}
+
+.attendance-board .col-md:hover,
+.attendance-board .col-md:focus{
+    background-color: #f8f9ff;
+}
+
+.attendance-board .active {
+    background-color: #f8f9ff;
+}
+
+
 .attendance-board .count {
     font-size: 4rem;
     font-weight: bold;
+}
+
+#selectedList .member {
+    display: flex;
+}
+
+#selectedList .dep {
+    width: 15rem;
+}
+
+#selectedList .name {
+    width: 20rem;
+}
+
+#selectedList .attendance {
+    width: 40rem;
 }
 
 #calendar {

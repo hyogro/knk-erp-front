@@ -156,6 +156,7 @@ function addDepartmentMember() {
     });
 }
 function addDepartmentMemberRefresh(res) {
+    console.log(res);
     if (res.code === null) {
         return;
     }
@@ -163,5 +164,7 @@ function addDepartmentMemberRefresh(res) {
         request('GET', getURL('department', getQuery().id), setDepartmentInfo);
     } else if (res.code === 'ADM002') {
         alert("부서 멤버 추가 실패");
+    } else if (res.code === 'ADM003') {
+        alert("다른 부서의 파트장이므로 추가할 수 없습니다.");
     }
 }

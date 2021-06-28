@@ -2,9 +2,9 @@
 function getBrowserType() {
     let agent = navigator.userAgent.toLowerCase();
 
-    if ( (navigator.appName === 'Netscape' &&
+    if ((navigator.appName === 'Netscape' &&
         navigator.userAgent.search('Trident') !== -1) ||
-        (agent.indexOf("msie") !== -1) ) {
+        (agent.indexOf("msie") !== -1)) {
         alert("이 홈페이지는 크롬과 엣지에 최적화되어있습니다.\n다른 브라우저를 이용해주세요.");
         self.close();
     }
@@ -56,7 +56,7 @@ function chkDate(start, end) {
     return (startDate > endDate);
 }
 
-
+//분 -> 일 시간 단위로
 function makeDateForm(min) {
     var days = Math.floor(min / 60 / 8)
     var hours = Math.floor((min - (days * 60 * 8)) / 60);
@@ -68,7 +68,6 @@ function makeDateForm(min) {
 
     return daysStr + '일 ' + hourStr + '시간 ' + minStr + '분';
 }
-
 
 //엔터 br로 바꾸기
 function enterToBr(text) {
@@ -166,4 +165,3 @@ function chkId(id) {
         return true;
     }
 }
-

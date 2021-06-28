@@ -6,6 +6,7 @@
     <title><%= title %></title>
 
     <%- include ('./part/head.ejs') %>
+    <script type="text/javascript" src="https://jsgetip.appspot.com"></script>
     <link rel="stylesheet" type="text/css" href="/css/index.css?version=1.2">
 </head>
 
@@ -85,34 +86,33 @@
 
     <div class="row attendance-board">
         <div class="col-md content-box"
-             style="border-top: 5px solid #576cfa;color: #1354d9" onclick="">
+             style="border-top: 5px solid #105af1;color: #1354d9">
             출근
             <div class="count" id="onWork"></div>
         </div>
         <div class="col-md content-box"
-             style="border-top: 5px solid #ffb43d; color: #e07c00">
+             style="border-top: 5px solid #ffb43d; color: #f3a01a">
             지각
             <div class="count" id="lateWork"></div>
         </div>
         <div class="col-md content-box"
-             style="border-top: 5px solid #ff4848;color: #ff2d47">
+             style="border-top: 5px solid #767676;color: #6c6c6c">
             미출근
             <div class="count" id="yetWork"></div>
         </div>
         <div class="col-md content-box"
-             style="border-top: 5px solid #DA7F8F;color: #DA7F8F">
+             style="border-top: 5px solid #fa0c0c;color: #ea0404">
             퇴근
             <div class="count" id="offWork"></div>
         </div>
         <div class="col-md content-box"
-             style="border-top: 5px solid #00bd00;color: #01853d">
+             style="border-top: 5px solid rgb(3,161,75);color: #01853d">
             휴가
             <div class="count" id="vacation"></div>
         </div>
     </div>
 
-    <div class="row content-box" id="selectedList">
-        명단을 확인하실 버튼을 클릭해 주세유~
+    <div class="row content-box" id="selectedList" style="display: none">
     </div>
 
 </div>
@@ -120,7 +120,7 @@
 
 </html>
 
-<script type="text/javascript" src="https://jsgetip.appspot.com"></script>
+
 
 <script>
     <%- include ('index.js') %>

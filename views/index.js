@@ -64,23 +64,31 @@ function setAttendanceSummary(res) {
         $("#offWork").text(res.data.offWork.length);
         $("#vacation").text(res.data.vacation.length);
 
-
-        $("#onWork").click(function () {
-            drawSelectedList(0, res.data.onWork);
+        $("#onWork").parent().click(function () {
+            setSelectedList(0, res.data.onWork);
+            $(".col-md").removeClass('active');
+            $(this).addClass('active');
         });
-        $("#lateWork").click(function () {
-            drawSelectedList(0, res.data.lateWork);
+        $("#lateWork").parent().click(function () {
+            setSelectedList(0, res.data.lateWork);
+            $(".col-md").removeClass('active');
+            $(this).addClass('active');
         });
-        $("#yetWork").click(function () {
-            drawSelectedList(1, res.data.yetWork);
+        $("#yetWork").parent().click(function () {
+            setSelectedList(1, res.data.yetWork);
+            $(".col-md").removeClass('active');
+            $(this).addClass('active');
         });
-        $("#offWork").click(function () {
-            drawSelectedList(2, res.data.offWork);
+        $("#offWork").parent().click(function () {
+            setSelectedList(2, res.data.offWork);
+            $(".col-md").removeClass('active');
+            $(this).addClass('active');
         });
-        $("#vacation").click(function () {
-            drawSelectedList(3, res.data.vacation);
+        $("#vacation").parent().click(function () {
+            setSelectedList(3, res.data.vacation);
+            $(".col-md").removeClass('active');
+            $(this).addClass('active');
         });
-
     } else if (res.code === 'RAS002') {
         console.log("일정요약 조회 실패");
     } else if (res.code === 'RAS003') {
@@ -89,27 +97,43 @@ function setAttendanceSummary(res) {
     }
 }
 
-function drawSelectedList(type, data) {
-    let text = '';
-    for (let i = 0; i < data.length; i++) {
-        text += data[i].departmentName + '-' + data[i].memberName + '(' + data[i].memberId + ')';
-        if(type === 0){//출근, 지각의 경우
-            text += ' 출근 시간: '+ data[i].onWork;
-        }
-        else if(type === 1){//미출근의 경우
-            text += ' 연락처: '+ data[i].phone;
-        }
-        else if(type === 2){//퇴근의 경우
-            text += ' 출근 시간: '+ data[i].onWork;
-            text += ' 퇴근 시간: '+ data[i].offWork;
-        }
-        else if(type === 3){//휴가의의경우
-            text += ' 휴가기간: '+ data[i].vacationStartDate + '~' + data[i].vacationEndDate;
-        }
-        text += '<br>';
+function setSelectedList(type, data) {
+    $("#selectedList").show();
+    $("#selectedList").empty();
+    if (data.length === 0) {
+        $("#selectedList").text('해당 정보가 없습니다.');
     }
-    $("#selectedList").html(text);
 
+    //부서 이름으로 정렬
+    data = data.sort(function (a, b) {
+        let x = a.departmentName.toLowerCase();
+        let y = b.departmentName.toLowerCase();
+        if (x < y) {
+            return -1;
+        }
+        if (x > y) {
+            return 1;
+        }
+        return 0;
+    });
+
+    for (let i = 0; i < data.length; i++) {
+        let text = '<div class="member">' +
+            '<div class="dep">[' + data[i].departmentName + '] ' + '</div>'+
+            '<div class="name">' + data[i].memberName + '(' + data[i].memberId + ')</div>';
+        if (type === 0) { //출근, 지각의 경우
+            text += '<div class="attendance"> 출근: ' + data[i].onWork + '</div></div>';
+        } else if (type === 1) { //미출근의 경우
+            text += '<div class="attendance"> 연락처: ' + data[i].phone + '</div></div>';
+        } else if (type === 2) { //퇴근의 경우
+            text += '<div class="attendance">  출근: ' + data[i].onWork;
+            text += ' / 퇴근: ' + data[i].offWork + '</div></div>'
+        } else if (type === 3) { //휴가의의경우
+            text += '<div class="attendance"> 휴가: ' +
+                data[i].vacationStartDate + '~' + data[i].vacationEndDate + '</div></div>';
+        }
+        $("#selectedList").append(text);
+    }
 }
 
 //주간일정 조회
@@ -233,7 +257,7 @@ function setNoticeList(res) {
             let html = '';
             html += '<tr>' +
                 '<td>' + data.board_idx + '</td>' +
-                '<td class="board-title" onclick="getNoticeDetail('+data.board_idx+')">' + data.title + '</td>' +
+                '<td class="board-title" onclick="getNoticeDetail(' + data.board_idx + ')">' + data.title + '</td>' +
                 '<td>' + data.writerMemberName + '</td>' +
                 '<td>' + getToday(data.createDate.split("T")[0]) + '</td>' +
                 '</tr>';
@@ -245,6 +269,6 @@ function setNoticeList(res) {
 }
 
 //공지 상세
-function getNoticeDetail(idx){
+function getNoticeDetail(idx) {
     location.href = '/board/notice/view?id=' + idx;
 }
