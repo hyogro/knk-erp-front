@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('../part/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/manage/manage.css?version=1.2">
+</head>
+
+<header>
+    <%- include ('../part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('../part/menu.ejs') %>
+<div id="main">
+    <div class="row main-title">
+        출퇴근관리
+    </div>
+
+    <div class="row">
+        <button type="button" class="col btn btn-primary" onclick="downloadAttendance()">출퇴근 기록 엑셀저장</button>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script>
+    <%- include ('attendance.js') %>
+
+</script>

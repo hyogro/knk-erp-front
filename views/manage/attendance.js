@@ -1,9 +1,8 @@
 
-test();
-function test() {
+function downloadAttendance() {
     let sendData = {};
-    sendData.startDate = '2021-06-12';
-    sendData.endDate = '2021-06-30';
+    sendData.startDate = '2021-05-12';
+    sendData.endDate = '2021-06-28';
 
     request('GET', getURL('file/download/excel/attendance', sendData), consoleLogFunc);
 }
