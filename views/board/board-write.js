@@ -100,19 +100,38 @@ function chkEmpty() {
     }
 }
 
+let fileList = [];
+
+//파일 선택
+$("#file").change(function () {
+    let files = $("#file")[0].files;
+    for (let i = 0; i < files.length; i++) {
+        let html = '<div>' + files[i].name + '<span class="deleteBtn"> 삭제</span></div>';
+        $("#addFileNameList").append(html);
+    }
+});
+
 //파일 유무에 따른 게시글 저장
 function saveBoard() {
     if (!chkEmpty()) {
         return;
     }
 
-    var files = $('input[name="file"]')[0].files;
-    // for(var i= 0; i<files.length; i++){
-    //     alert('file_name :'+files[i].name);
-    // }
-    if (files.length > 0) {
-        let sendFiles = new FormData($('#fileForm')[0]);
-        requestWithFile('POST', 'file/upload', sendFiles, saveFile);
+    let files = $("#file")[0].files;
+    if (files.length > 0) {//파일 있는 게시글 저장
+        for (let i = 0; i < files.length; i++) {
+            let sendFiles = new FormData();
+            sendFiles.append('file', files[i]);
+            requestWithFile('POST', 'file/upload', sendFiles, saveFile);
+
+            setTimeout(function () {
+                if (i === (files.length - 1)) {
+                    let saveData = saveBoardData();
+                    saveData.fileName = fileList;
+                    requestWithData('POST', 'board', saveData, saveAlertBoard);
+                }
+            }, 1000);
+        }
     } else { //파일 없는 게시글 저장
         let saveData = saveBoardData();
         if (isEmpty(getQuery().id)) {
@@ -128,14 +147,13 @@ function saveBoard() {
 
 //파일 있는 게시글 저장
 function saveFile(res) {
+    console.log(res);
     if (res.code === null) {
         return;
     }
-    if (res.code === 'RA001') {
-        let saveData = saveBoardData();
-        saveData.fileName = res.message;
-        requestWithData('POST', 'board', saveData, saveAlertBoard);
-    } else if (res.code === 'RA002') {
+    if (res.code === 'FS001') {
+        fileList.push(res.message);
+    } else if (res.code === 'FS002') {
         console.log("파일 저장 실패");
     }
 }
@@ -160,10 +178,13 @@ function saveBoardData() {
 
 //게시글 저장 알림창
 function saveAlertBoard(res) {
+    console.log(res);
     if (res.code === null) {
         return;
     }
-    if (res.code === 'CB001' || res.code === 'UB001') {
+    if (res.code === 'CB001') {
+        location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
+    } else if (res.code === 'UB001') {
         location.href = "/board/" + boardType + "/view?id=" + getQuery().id;
     } else if (res.code === 'CB002' || res.code === 'UB002') {
         console.log("게시글 저장 실패");
