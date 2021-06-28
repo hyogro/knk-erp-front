@@ -2,6 +2,7 @@
 request('GET', getURL('board', getQuery().id), setBoardContent);
 
 function setBoardContent(res) {
+    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -28,7 +29,7 @@ function setBoardContent(res) {
         }
     } else if (res.code === 'RB002') {
         alert("해당 게시글이 존재하지 않습니다.");
-        history.back();
+        // history.back();
     }
 }
 
@@ -45,7 +46,9 @@ function setFileList(data) {
 function setReferenceMemberList(data) {
     let member = [];
     for (let i = 0; i < data.length; i++) {
-        member.push(data[i].referenceMemberId + "(" + data[i].referenceMemberName + ")");
+        if (data[i].referenceMemberId !== null && data[i].referenceMemberName !== null) {
+            member.push(data[i].referenceMemberId + "(" + data[i].referenceMemberName + ")");
+        }
     }
     $("#reference").text(member.join(", "));
 }

@@ -62,6 +62,7 @@ function setSelectOptionMemberList(res) {
     }
 }
 
+let beforeFileList = []; //기존 수정 전, 파일 리스트
 //글 수정
 function setModifyBoardContent(res) {
     console.log(res)
@@ -72,6 +73,12 @@ function setModifyBoardContent(res) {
         let data = res.readBoardDTO;
         $("#title").val(data.title);
         contentText.innerHTML = data.content;
+        for (let i = 0; i < data.file.length; i++) {
+            let html = '<div id=beforeFile' + beforeFileList.length + '>' + data.file[i].originalFileName +
+                '<span class="deleteBtn" onclick="deleteBeforeFileList(' + beforeFileList.length + ')"> 삭제</span></div>';
+            $("#addFileNameList").append(html);
+            beforeFileList.push(data.file[i].fileName);
+        }
 
         //참조 리스트
         let reference = res.readReferenceMemberDTO;
@@ -84,6 +91,12 @@ function setModifyBoardContent(res) {
         alert("해당 게시글이 존재하지 않습니다.");
         history.back();
     }
+}
+
+//기존 파일 리스트 - 삭제
+function deleteBeforeFileList(index) {
+    beforeFileList[index] = null;
+    $("#beforeFile" + index).empty();
 }
 
 //빈값 체크
@@ -101,15 +114,24 @@ function chkEmpty() {
 }
 
 let fileList = [];
+let newFileList = []; //현재 게시판에서 추가한 파일 리스트
 
 //파일 선택
 $("#file").change(function () {
     let files = $("#file")[0].files;
     for (let i = 0; i < files.length; i++) {
-        let html = '<div>' + files[i].name + '<span class="deleteBtn"> 삭제</span></div>';
+        let html = '<div id=addFile' + newFileList.length + '>' + files[i].name +
+            '<span class="deleteBtn" onclick="deleteNewFile(' + newFileList.length + ')"> 삭제</span></div>';
         $("#addFileNameList").append(html);
+        newFileList.push(files[i]);
     }
 });
+
+//불러온 파일 삭제
+function deleteNewFile(index) {
+    newFileList[index] = null;
+    $("#addFile" + index).empty();
+}
 
 //파일 유무에 따른 게시글 저장
 function saveBoard() {
@@ -117,31 +139,51 @@ function saveBoard() {
         return;
     }
 
-    let files = $("#file")[0].files;
-    if (files.length > 0) {//파일 있는 게시글 저장
-        for (let i = 0; i < files.length; i++) {
-            let sendFiles = new FormData();
-            sendFiles.append('file', files[i]);
-            requestWithFile('POST', 'file/upload', sendFiles, saveFile);
 
-            setTimeout(function () {
-                if (i === (files.length - 1)) {
-                    let saveData = saveBoardData();
-                    saveData.fileName = fileList;
-                    requestWithData('POST', 'board', saveData, saveAlertBoard);
-                }
-            }, 1000);
-        }
-    } else { //파일 없는 게시글 저장
+
+    let myPromise1 = new Promise(function(resolve, reject) {
         let saveData = saveBoardData();
-        if (isEmpty(getQuery().id)) {
-            //글 생성
-            requestWithData('POST', 'board', saveData, saveAlertBoard);
-        } else {
-            //글 수정
-            requestWithData('PUT', getURL('board', getQuery().id),
-                saveData, saveAlertBoard);
+
+        if (newFileList.length > 0) {//새로운 파일 추가한 게시글 저장
+            for (let i = 0; i < newFileList.length; i++) {
+                if (!isEmpty(newFileList[i])) {
+                    let sendFiles = new FormData();
+                    sendFiles.append('file', newFileList[i]);
+                    requestWithFile('POST', 'file/upload', sendFiles, saveFile);
+                }
+            }
         }
+
+        if (beforeFileList.length > 0) {//기존 파일 있는 게시글 저장 (글 수정)
+            for (let i = 0; i < beforeFileList.length; i++) {
+                if (!isEmpty(beforeFileList[i])) {
+                    fileList.push(beforeFileList[i]);
+                }
+
+                setTimeout(function () {
+                    if (i === (beforeFileList.length - 1)) {
+                        saveData.fileName = fileList;
+                    }
+                }, 1000);
+            }
+        }
+
+        resolve(saveData);
+    });
+    myPromise1.then((saveData)=>{ uploadBoard(saveData);});
+
+    // console.log(saveData);
+    // uploadBoard(saveData);
+}
+
+function uploadBoard(saveData) {
+    if (isEmpty(getQuery().id)) {
+        //글 생성
+        requestWithData('POST', 'board', saveData, saveAlertBoard);
+    } else {
+        //글 수정
+        requestWithData('PUT', getURL('board', getQuery().id),
+            saveData, saveAlertBoard);
     }
 }
 
@@ -164,9 +206,14 @@ function saveBoardData() {
     if (!isEmpty(getQuery().id)) {
         saveData.board_idx = getQuery().id;
     }
+
     saveData.title = $("#title").val();
     saveData.content = contentText.innerHTML;
-    saveData.referenceMemberId = $("#reference").val();
+
+    if ($("#reference").val().length > 0) {
+        saveData.referenceMemberId = $("#reference").val();
+    }
+
     if (boardType === 'notice') {
         saveData.boardType = '공지사항';
     } else if (boardType === 'work') {
@@ -183,9 +230,9 @@ function saveAlertBoard(res) {
         return;
     }
     if (res.code === 'CB001') {
-        location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
+        // location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
     } else if (res.code === 'UB001') {
-        location.href = "/board/" + boardType + "/view?id=" + getQuery().id;
+        // location.href = "/board/" + boardType + "/view?id=" + getQuery().id;
     } else if (res.code === 'CB002' || res.code === 'UB002') {
         console.log("게시글 저장 실패");
     } else if (res.code === 'UB003') {
