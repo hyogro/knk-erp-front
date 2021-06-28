@@ -294,3 +294,5 @@ input, select, textarea {
 .badge-btn:hover {
     background-color: gray !important;
 }
+
+input[type=time]
