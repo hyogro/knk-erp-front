@@ -100,6 +100,16 @@
     float: right;
 }
 
+#addFileNameList {
+    font-size: 1.4rem;
+}
+
+#addFileNameList .upload-file {
+    width: fit-content;
+    background: #e5eeeb;
+    border-bottom: 1px solid white;
+}
+
 #addFileNameList .deleteBtn {
     font-size: 1.2rem;
     cursor: pointer;

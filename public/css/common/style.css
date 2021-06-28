@@ -295,4 +295,19 @@ input, select, textarea {
     background-color: gray !important;
 }
 
-input[type=time]
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+    margin: 0 !important;
+}
+
+#file {
+    position: absolute;
+    left: -9999px;
+}
+
+label[for="file"] {
+    display: inline-block;
+    cursor: pointer;
+    padding: 0.3rem 1rem !important;
+    font-size: 1.3rem !important;
+}

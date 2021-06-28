@@ -47,7 +47,7 @@ function requestWithData(method, url, data, processFunc) {
 }
 
 //api 요청 (파일)
-function requestWithFile(method, url, data, processFunc) {
+function requestWithFile(method, url, data, index, processFunc) {
     $.ajax({
         type: method,
         url: '<%= api %>' + url,
@@ -57,7 +57,7 @@ function requestWithFile(method, url, data, processFunc) {
         contentType: false,
         data: data,
         success: function (res) {
-            processFunc(res);
+            processFunc(res, index);
         },
         beforeSend: function () { //로딩이미지 보여주기
             $("#loading").show();

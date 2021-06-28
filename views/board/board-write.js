@@ -120,7 +120,7 @@ let newFileList = []; //현재 게시판에서 추가한 파일 리스트
 $("#file").change(function () {
     let files = $("#file")[0].files;
     for (let i = 0; i < files.length; i++) {
-        let html = '<div id=addFile' + newFileList.length + '>' + files[i].name +
+        let html = '<div class="upload-file" id=addFile' + newFileList.length + '>' + files[i].name +
             '<span class="deleteBtn" onclick="deleteNewFile(' + newFileList.length + ')"> 삭제</span></div>';
         $("#addFileNameList").append(html);
         newFileList.push(files[i]);
@@ -139,44 +139,59 @@ function saveBoard() {
         return;
     }
 
-
-
-    let myPromise1 = new Promise(function(resolve, reject) {
-        let saveData = saveBoardData();
-
-        if (newFileList.length > 0) {//새로운 파일 추가한 게시글 저장
-            for (let i = 0; i < newFileList.length; i++) {
-                if (!isEmpty(newFileList[i])) {
-                    let sendFiles = new FormData();
-                    sendFiles.append('file', newFileList[i]);
-                    requestWithFile('POST', 'file/upload', sendFiles, saveFile);
-                }
-            }
-        }
-
-        if (beforeFileList.length > 0) {//기존 파일 있는 게시글 저장 (글 수정)
-            for (let i = 0; i < beforeFileList.length; i++) {
-                if (!isEmpty(beforeFileList[i])) {
-                    fileList.push(beforeFileList[i]);
-                }
-
-                setTimeout(function () {
-                    if (i === (beforeFileList.length - 1)) {
-                        saveData.fileName = fileList;
-                    }
-                }, 1000);
-            }
-        }
-
-        resolve(saveData);
+    newFileList = newFileList.filter(function (item) {
+        return item !== null && item !== undefined && item !== '';
     });
-    myPromise1.then((saveData)=>{ uploadBoard(saveData);});
 
-    // console.log(saveData);
-    // uploadBoard(saveData);
+    if (newFileList.length > 0) {//새로운 파일 추가한 게시글 저장
+        for (let i = 0; i < newFileList.length; i++) {
+            let sendFiles = new FormData();
+            sendFiles.append('file', newFileList[i]);
+            requestWithFile('POST', 'file/upload', sendFiles, i, saveFile);
+        }
+    } else {//새로 추가한 파일이 없을 경우
+        uploadBeforeFileList();
+    }
 }
 
-function uploadBoard(saveData) {
+//파일 있는 게시글 저장
+function saveFile(res, index) {
+    console.log(res);
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'FS001') {
+        fileList.push(res.message);
+        if (index === newFileList.length - 1) {
+            uploadBeforeFileList();
+        }
+    } else if (res.code === 'FS002') {
+        console.log("파일 저장 실패");
+    }
+}
+
+//기존 파일 있는 게시글 저장 (글 수정)
+function uploadBeforeFileList() {
+    beforeFileList = beforeFileList.filter(function (item) {
+        return item !== null && item !== undefined && item !== '';
+    });
+
+    for (let i = 0; i < beforeFileList.length; i++) {
+        fileList.push(beforeFileList[i]);
+    }
+
+    uploadBoard();
+}
+
+//게시글 업로드
+function uploadBoard() {
+    let saveData = saveBoardData();
+
+    if (fileList.length > 0) {
+        saveData.fileName = fileList;
+    }
+    console.log(saveData)
+
     if (isEmpty(getQuery().id)) {
         //글 생성
         requestWithData('POST', 'board', saveData, saveAlertBoard);
@@ -184,19 +199,6 @@ function uploadBoard(saveData) {
         //글 수정
         requestWithData('PUT', getURL('board', getQuery().id),
             saveData, saveAlertBoard);
-    }
-}
-
-//파일 있는 게시글 저장
-function saveFile(res) {
-    console.log(res);
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'FS001') {
-        fileList.push(res.message);
-    } else if (res.code === 'FS002') {
-        console.log("파일 저장 실패");
     }
 }
 
@@ -230,9 +232,9 @@ function saveAlertBoard(res) {
         return;
     }
     if (res.code === 'CB001') {
-        // location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
+        location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
     } else if (res.code === 'UB001') {
-        // location.href = "/board/" + boardType + "/view?id=" + getQuery().id;
+        location.href = "/board/" + boardType + "/view?id=" + getQuery().id;
     } else if (res.code === 'CB002' || res.code === 'UB002') {
         console.log("게시글 저장 실패");
     } else if (res.code === 'UB003') {

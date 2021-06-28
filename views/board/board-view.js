@@ -29,7 +29,7 @@ function setBoardContent(res) {
         }
     } else if (res.code === 'RB002') {
         alert("해당 게시글이 존재하지 않습니다.");
-        // history.back();
+        history.back();
     }
 }
 
