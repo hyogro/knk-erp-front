@@ -6,8 +6,12 @@ const dataBuffer = fs.readFileSync('/home/ubuntu/node-config/api.json');
 const dataJSON = dataBuffer.toString();
 const data = JSON.parse(dataJSON);
 const api = data.api;
+const fileApi = data.fileApi;
 
 
+router.get('/excel', function (req, res, next) {
+    res.render('manage/excel', {api: api, fileApi: fileApi, title: '구이앤금우통신:엑셀관리'});
+});
 router.get('/member', function (req, res, next) {
     res.render('manage/member', {api: api, title: '구이앤금우통신:직원관리'});
 });
