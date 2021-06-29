@@ -133,8 +133,12 @@ function deleteNewFile(index) {
     $("#addFile" + index).empty();
 }
 
+
+let fileUploadCount = 0;
+
 //파일 유무에 따른 게시글 저장
 function saveBoard() {
+
     if (!chkEmpty()) {
         return;
     }
@@ -154,6 +158,7 @@ function saveBoard() {
     }
 }
 
+
 //파일 있는 게시글 저장
 function saveFile(res, index) {
     console.log(res);
@@ -162,9 +167,12 @@ function saveFile(res, index) {
     }
     if (res.code === 'FS001') {
         fileList.push(res.message);
-        if (index === newFileList.length - 1) {
+        fileUploadCount += 1;
+        console.log(fileUploadCount);
+        if(fileUploadCount === newFileList.length){
             uploadBeforeFileList();
         }
+
     } else if (res.code === 'FS002') {
         console.log("파일 저장 실패");
     }
@@ -191,7 +199,6 @@ function uploadBoard() {
         saveData.fileName = fileList;
     }
     console.log(saveData)
-
     if (isEmpty(getQuery().id)) {
         //글 생성
         requestWithData('POST', 'board', saveData, saveAlertBoard);
