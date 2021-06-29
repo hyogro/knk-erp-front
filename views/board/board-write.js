@@ -105,7 +105,8 @@ function chkEmpty() {
         alert("제목을 입력해주세요.");
         $("#title").focus();
         return false;
-    } else if (isEmpty(contentText.innerHTML)) {
+    } else if (isEmpty(contentText.innerText) || contentText.innerText === ' ' ||
+        contentText.innerText === '\n' || contentText.innerText === '\t') {
         alert("내용을 입력해주세요.");
         return false;
     } else {
@@ -138,7 +139,6 @@ let fileUploadCount = 0;
 
 //파일 유무에 따른 게시글 저장
 function saveBoard() {
-
     if (!chkEmpty()) {
         return;
     }
