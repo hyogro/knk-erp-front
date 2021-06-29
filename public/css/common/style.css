@@ -308,6 +308,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 label[for="file"] {
     display: inline-block;
     cursor: pointer;
-    padding: 0.3rem 1rem !important;
+    padding: 3px 5px !important;
     font-size: 1.3rem !important;
+    font-weight: bold;
 }

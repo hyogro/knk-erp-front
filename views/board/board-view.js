@@ -35,11 +35,12 @@ function setBoardContent(res) {
 
 //파일 리스트 셋팅
 function setFileList(data) {
-    let file = '';
+    $("#downLoadFileList").empty();
     for (let i = 0; i < data.length; i++) {
-        file += '<a class="file" href="<%= fileApi %>' + data[i].fileName + '">' + data[i].originalFileName + '</a><br>';
+        let file = '<a class="file" href="<%= fileApi %>' + data[i].fileName + '">' +
+            data[i].originalFileName + '</a><br>';
+        $("#downLoadFileList").append(file);
     }
-    $("#file").html(file);
 }
 
 //참조 대상 출력

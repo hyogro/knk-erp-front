@@ -7,6 +7,7 @@
 
     <%- include ('../part/head.ejs') %>
     <link rel="stylesheet" type="text/css" href="/css/board/board.css?version=1.2">
+    <link rel="stylesheet" type="text/css" href="/css/board/page.css?version=1.2">
 </head>
 
 <header>
@@ -21,6 +22,15 @@
     </div>
 
     <div class="row">
+        <div class="form-check reference-form">
+            <input class="form-check-input" type="checkbox"
+                   onclick="LoadReferencePage(value)"
+                   value="참조" id="referenceChk">
+            <label class="form-check-label" for="referenceChk">
+                참조된 글만 보기
+            </label>
+        </div>
+
         <table class="board">
             <thead>
             <tr>
@@ -30,31 +40,36 @@
                 <th width="20%">등록일</th>
             </tr>
             </thead>
-            <tbody id="noticeList">
-            <tr>
-                <td>10</td>
-                <td class="board-title">임현주입니다</td>
-                <td>임현주</td>
-                <td>2021.05.12</td>
-            </tr>
+            <tbody id="workList">
             </tbody>
         </table>
     </div>
 
+    <div class="row board-form">
+        <div class="input-group">
+            <select class="form-select" id="searchType">
+                <option value="제목검색">제목</option>
+                <option value="작성자검색">작성자</option>
+            </select>
+            <input type="text" class="form-control" id="keyword" onkeyup="enterKey()"
+                   placeholder="검색어를 입력해주세요" aria-describedby="search">
+            <button class="btn btn-dark" type="button" id="search"
+                    onclick="search()">검색
+            </button>
+        </div>
+
+        <button type="button" class="btn btn-outline-dark"
+                id="writeBtn" onclick="location.href='/board/notice/write'">
+            <i class="ri-edit-2-line"></i>
+            글쓰기
+        </button>
+    </div>
+
     <div class="row">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">다음</a>
-                </li>
-            </ul>
-        </nav>
+        <div class="page_wrap">
+            <div class="page_nation" id="paging">
+            </div>
+        </div>
     </div>
 </div>
 </body>
@@ -63,7 +78,7 @@
 
 <script>
 
-
+    let boardType = 'work';
     <%- include ('board.js') %>
 
 </script>

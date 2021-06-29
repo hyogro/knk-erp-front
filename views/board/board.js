@@ -1,4 +1,15 @@
-request('GET', 'board/noticeLatest', setNoticeList);
+// let authority = $.cookie('authority');
+// if (authority === "LVL1") {
+//     $("#writeBtn").hide();
+// } else {
+//     $("#writeBtn").show();
+// }
+
+if (boardType === 'notice') {
+    searchPage();
+} else if (boardType === 'work') {
+    request('GET', 'board/noticeLatest', setNoticeList);
+}
 
 function setNoticeList(res) {
     if (res.code === null) {
@@ -49,14 +60,15 @@ function searchPage() {
 
 //게시판 상세보기
 function setBoardList(res) {
+    console.log(res)
     if (res.code === null) {
         return;
     }
-    if (res.code === 'RNB001') {
+    if (res.code === 'RNB001' || res.code === 'RWB001') {
         setBoardInfo(res.page.content);
         setPageCount(res.totalPage);
-    } else if (res.code === 'RNB002') {
-        console.log("공지사항 목록 불러오기 실패");
+    } else if (res.code === 'RNB002' || res.code === 'RWB002') {
+        console.log("게시글 목록 불러오기 실패");
     }
 }
 
@@ -124,12 +136,14 @@ function setPageCount(total) {
     }
 
     for (let i = firstPage; i < (firstPage + 10); i++) {
-        if (i > total + 1) {
-            break;
-        } else if (i === nowPage) {
+        if (i === nowPage) {
             html += '<a class="active" href=' + returnPageUrl(urlParams.searchType, urlParams.keyword, i) + '>' + i + '</a>';
         } else {
             html += '<a href=' + returnPageUrl(urlParams.searchType, urlParams.keyword, i) + '>' + i + '</a>';
+        }
+
+        if (i === total) {
+            break;
         }
     }
 

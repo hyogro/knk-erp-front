@@ -232,9 +232,9 @@ function saveAlertBoard(res) {
         return;
     }
     if (res.code === 'CB001') {
-        location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
+        // location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
     } else if (res.code === 'UB001') {
-        location.href = "/board/" + boardType + "/view?id=" + getQuery().id;
+        // location.href = "/board/" + boardType + "/view?id=" + getQuery().id;
     } else if (res.code === 'CB002' || res.code === 'UB002') {
         console.log("게시글 저장 실패");
     } else if (res.code === 'UB003') {

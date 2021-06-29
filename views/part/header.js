@@ -3,9 +3,9 @@ getBrowserType();
 //메뉴 효과
 $(document).ready(function () {
     $("#nav ul.sub").show();
-    $("#nav ul.menu li").click(function () {
-        $("ul", this).stop().slideToggle();
-    });
+    // $("#nav ul.menu li").click(function () {
+    //     $("ul", this).stop().slideToggle();
+    // });
 
     let authority = $.cookie('authority');
     if (authority === "LVL1") {
