@@ -151,7 +151,7 @@ function saveBoard() {
         for (let i = 0; i < newFileList.length; i++) {
             let sendFiles = new FormData();
             sendFiles.append('file', newFileList[i]);
-            requestWithFile('POST', 'file/upload', sendFiles, i, saveFile);
+            requestWithFile('POST', 'file/upload', sendFiles, saveFile);
         }
     } else {//새로 추가한 파일이 없을 경우
         uploadBeforeFileList();
