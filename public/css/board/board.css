@@ -100,30 +100,37 @@
     float: right;
 }
 
-#addFileNameList {
+#addFileNameList, #downLoadFileList {
     font-size: 1.4rem;
     padding: 1rem;
-    height: 15rem;
+    max-height: 15rem;
 }
 
-#addFileNameList .upload-file {
+.upload-file, .download-file {
     width: fit-content;
     background: #e5eeeb;
     border: 1px solid white;
+}
+
+.upload-file {
     cursor: default;
 }
 
-#addFileNameList .upload-file:hover {
+.upload-file:hover {
     background: #ebf6f2;
 }
 
-#addFileNameList .deleteBtn {
+.download-file {
+    cursor: pointer;
+}
+
+.deleteBtn {
     font-size: 1.2rem;
     cursor: pointer;
     color: #ee0505;
     font-weight: bold;
 }
 
-#addFileNameList .deleteBtn:hover {
+.deleteBtn:hover {
     color: #f53c3c;
 }

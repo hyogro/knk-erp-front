@@ -74,7 +74,7 @@ function setModifyBoardContent(res) {
         $("#title").val(data.title);
         contentText.innerHTML = data.content;
         for (let i = 0; i < data.file.length; i++) {
-            let html = '<div id=beforeFile' + beforeFileList.length + '>' + data.file[i].originalFileName +
+            let html = '<div class="upload-file" id=beforeFile' + beforeFileList.length + '>' + data.file[i].originalFileName +
                 '<span class="deleteBtn" onclick="deleteBeforeFileList(' + beforeFileList.length + ')"> 삭제</span></div>';
             $("#addFileNameList").append(html);
             beforeFileList.push(data.file[i].fileName);
@@ -160,7 +160,7 @@ function saveBoard() {
 
 
 //파일 있는 게시글 저장
-function saveFile(res, index) {
+function saveFile(res) {
     console.log(res);
     if (res.code === null) {
         return;
@@ -168,11 +168,9 @@ function saveFile(res, index) {
     if (res.code === 'FS001') {
         fileList.push(res.message);
         fileUploadCount += 1;
-        console.log(fileUploadCount);
-        if(fileUploadCount === newFileList.length){
+        if (fileUploadCount === newFileList.length) {
             uploadBeforeFileList();
         }
-
     } else if (res.code === 'FS002') {
         console.log("파일 저장 실패");
     }

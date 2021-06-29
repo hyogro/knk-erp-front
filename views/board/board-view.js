@@ -37,7 +37,9 @@ function setBoardContent(res) {
 function setFileList(data) {
     $("#downLoadFileList").empty();
     for (let i = 0; i < data.length; i++) {
-        let file = '<a class="file" href="<%= fileApi %>' + data[i].fileName + '">' +
+        let file = '<a class="file download-file" ' +
+            'href="<%= fileApi %>' + data[i].fileName + '" ' +
+            'download="' + data[i].originalFileName + '">' +
             data[i].originalFileName + '</a><br>';
         $("#downLoadFileList").append(file);
     }
