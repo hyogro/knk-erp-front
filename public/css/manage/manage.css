@@ -19,6 +19,10 @@ input {
     text-align: center;
 }
 
+.excel-table input {
+    width: 15rem;
+}
+
 #createDep {
     width: 100%;
 }

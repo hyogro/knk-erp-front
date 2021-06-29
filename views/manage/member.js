@@ -24,3 +24,32 @@ function setMemberList(res) {
         console.log("회원정보 목록 읽어오기 실패");
     }
 }
+
+//출퇴근 관리 다운로드
+function downloadAttendance() {
+    let sendData = {};
+    sendData.startDate = $("#attendanceExcelStartDate").val();
+    sendData.endDate = $("#attendanceExcelEndDate").val();
+
+    if (isEmpty(sendData.startDate)) {
+        alert("기간 시작일을 선택해주세요.");
+    } else if (isEmpty(sendData.endDate)) {
+        alert("기간 종료일을 선택해주세요.");
+    } else if (chkDate(sendData.startDate, sendData.endDate)) {
+        alert("올바른 기간이 아닙니다. 다시 선택해주세요.");
+    } else {
+        request('GET', getURL('file/download/excel/attendance', sendData), consoleLogFunc);
+    }
+}
+
+function consoleLogFunc(res) {
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'ES001') {
+        location.href = '<%= fileApi %>' + res.message;
+        console.log(res.message);
+    } else {
+        alert("출퇴근 기록 다운로드 실패");
+    }
+}
