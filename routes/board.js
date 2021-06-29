@@ -22,7 +22,10 @@ router.get('/work', function (req, res, next) {
     res.render('board/work', {api: api, title: '구이앤금우통신:업무게시판'});
 });
 router.get('/work/view', function (req, res, next) {
-    res.render('board/work-view', {api: api, fileApi: fileApi, title: '구이앤금우통신:공지게시판'});
+    res.render('board/work-view', {api: api, fileApi: fileApi, title: '구이앤금우통신:업무게시판'});
+});
+router.get('/work/write', function (req, res, next) {
+    res.render('board/work-write', {api: api, fileApi: fileApi, title: '구이앤금우통신:업무게시판'});
 });
 
 module.exports = router;

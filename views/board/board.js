@@ -120,6 +120,10 @@ function loadDetailPage(id) {
 function setPageCount(total) {
     $("#paging").empty();
 
+    if (total === 0) {
+        return;
+    }
+
     let html = '';
     let urlParams = getQuery();
     let nowPage = parseInt(urlParams.page);

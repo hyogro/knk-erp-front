@@ -41,7 +41,9 @@
             </tr>
             <tr>
                 <th width="16%">첨부파일</th>
-                <td width="84%" colspan="5" id="downLoadFileList"></td>
+                <td width="84%" colspan="5">
+                    <div class="scroll" id="downLoadFileList"></div>
+                </td>
             </tr>
             <tr>
                 <th width="16%">참조</th>
@@ -54,20 +56,24 @@
         </table>
     </div>
 
-    <div class="row btn-row">
-        <div id="controlBtn" style="display: none">
-            <button type="button" class="btn btn-secondary"
-                    onclick="modifyBoard()">수정</button>
-            <button type="button" class="btn btn-danger"
-                    onclick="deleteAlertBoard()">삭제</button>
-        </div>
+    <div class="row ">
+        <div class="btn-row">
+            <div id="controlBtn" style="display: none">
+                <button type="button" class="btn btn-secondary"
+                        onclick="modifyBoard()">수정
+                </button>
+                <button type="button" class="btn btn-danger"
+                        onclick="deleteAlertBoard()">삭제
+                </button>
+            </div>
 
-        <div>
-            <button type="button" class="btn btn-outline-dark"
-                    onclick="history.back()">이전</button>
+            <div>
+                <button type="button" class="btn btn-outline-dark"
+                        onclick="history.back()">이전
+                </button>
+            </div>
         </div>
     </div>
-
 </div>
 </body>
 

@@ -85,6 +85,7 @@
 .btn-row {
     display: inline-block;
     margin: 1rem 0 !important;
+    padding: 0;
 }
 
 .btn-row div {
@@ -103,7 +104,7 @@
 #addFileNameList, #downLoadFileList {
     font-size: 1.4rem;
     padding: 1rem;
-    max-height: 15rem;
+    max-height: 10rem;
 }
 
 .upload-file, .download-file {
