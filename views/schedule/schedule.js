@@ -74,7 +74,7 @@ function setScheduleCalendar(viewOption) {
 
     //휴가일정 조회
     if ($("#checkViewOptionVac").is(":checked")) {
-        request('GET', 'vacation', setVacationList);
+        request('GET', 'vacation/all', setVacationList);
     }
 }
 
@@ -170,7 +170,7 @@ function setMyScheduleList(res) {
 function addEvent(data, type, color) {
     let schedule = {};
     schedule.id = data.id;
-    schedule.title = (type === 'vacation') ? data.type : data.title;
+    schedule.title = (type === 'vacation') ? data.memberName + '-'+data.type : data.title;
     schedule.memo = data.memo;
     schedule.start = data.startDate;
     schedule.end = data.endDate;
@@ -265,6 +265,7 @@ function detailVacationView(res) {
         return;
     }
     if (res.code === 'RVD001') {
+        $("#vacationAuthor").text(res.data.departmentName + "-" + res.data.memberName);
         $("#vacationType").text(res.data.type);
         let start = res.data.startDate.split("T");
         $("#vacationStart").text(start[0]);
