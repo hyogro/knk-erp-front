@@ -74,7 +74,7 @@ function setScheduleCalendar(viewOption) {
 
     //휴가일정 조회
     if ($("#checkViewOptionVac").is(":checked")) {
-        request('GET', 'vacation', setVacationList);
+        request('GET', 'vacation/all', setVacationList);
     }
 }
 
