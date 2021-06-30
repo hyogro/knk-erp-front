@@ -74,7 +74,7 @@ function setBoardList(res) {
 
 //게시판 리스트
 function setBoardInfo(data, type) {
-    if (data.length === 0) {
+    if (data.length === 0 && type !== 'important') {
         let html = '<tr><td colspan="4">해당 게시물이 없습니다.</td></tr>';
         $("#" + boardType + "List").append(html);
         return;
@@ -159,14 +159,6 @@ function setPageCount(total) {
     $("#paging").append(html);
 }
 
-//이동할 페이지 주소 리턴
-function returnPageUrl(searchType, keyword, page) {
-    searchType = searchType.replaceAll("'", "");
-    keyword = keyword.replaceAll("'", "");
-    return '/board/' + boardType + '?searchType=' +
-        searchType + '&keyword=' + keyword + '&page=' + page;
-}
-
 //참조 페이지 로드
 function LoadReferencePage(val) {
     if ($('input:checkbox[id="referenceChk"]').is(":checked") === true) {
@@ -174,4 +166,12 @@ function LoadReferencePage(val) {
     } else {
         location.href = returnPageUrl('', '', 1);
     }
+}
+
+//이동할 페이지 주소 리턴
+function returnPageUrl(searchType, keyword, page) {
+    searchType = searchType.replaceAll("'", "");
+    keyword = keyword.replaceAll("'", "");
+    return '/board/' + boardType + '?searchType=' +
+        searchType + '&keyword=' + keyword + '&page=' + page;
 }
