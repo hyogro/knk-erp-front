@@ -177,7 +177,6 @@ function addEvent(data, type, color) {
     schedule.type = type;
     schedule.color = color;
     schedule.rendering = "background";
-
     calendar.addEvent(schedule);
 }
 
