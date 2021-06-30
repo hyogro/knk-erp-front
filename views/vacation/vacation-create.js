@@ -12,7 +12,9 @@ $('input[type="checkbox"][name="vacation"]').click(function () {
         $('input[type="time"]').val("");
     }
 
-    if ($('#full').is(":checked") === true) {
+    //연차, 공가 선택
+    if ($('#full').is(":checked") === true ||
+        $('#official').is(":checked") === true) {
         $('#endView').show();
     } else {
         $('#endView').hide();
@@ -28,6 +30,7 @@ function createVacation() {
 
     let startTime = "09:00:00";
     let endTime = "18:00:00";
+
     if (saveData.type === "오전반차") {
         endTime = "13:00:00";
     } else if (saveData.type === "오후반차") {
@@ -37,7 +40,7 @@ function createVacation() {
         endTime = $("#endTime").val();
     }
 
-    if (saveData.type !== "연차") {
+    if (saveData.type !== "연차" && saveData.type !== "공가") {
         $('#endDate').val($('#startDate').val());
     }
 

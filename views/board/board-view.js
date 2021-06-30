@@ -2,7 +2,6 @@
 request('GET', getURL('board', getQuery().id), setBoardContent);
 
 function setBoardContent(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -37,7 +36,9 @@ function setBoardContent(res) {
 function setFileList(data) {
     $("#downLoadFileList").empty();
     for (let i = 0; i < data.length; i++) {
-        let file = '<a class="file" href="<%= fileApi %>' + data[i].fileName + '">' +
+        let file = '<a class="file download-file" ' +
+            'href="<%= fileApi %>' + data[i].fileName + '" ' +
+            'download="' + data[i].originalFileName + '">' +
             data[i].originalFileName + '</a><br>';
         $("#downLoadFileList").append(file);
     }
@@ -77,7 +78,7 @@ function deleteBoard(res) {
     }
     if (res.code === 'DB001') {
         alert("삭제되었습니다.");
-        history.back();
+        location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
     } else if (res.code === 'DB002') {
         console.log("게시글 삭제 실패");
     } else if (res.code === 'DB002') {

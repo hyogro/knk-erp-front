@@ -74,7 +74,7 @@ function setModifyBoardContent(res) {
         $("#title").val(data.title);
         contentText.innerHTML = data.content;
         for (let i = 0; i < data.file.length; i++) {
-            let html = '<div id=beforeFile' + beforeFileList.length + '>' + data.file[i].originalFileName +
+            let html = '<div class="upload-file" id=beforeFile' + beforeFileList.length + '>' + data.file[i].originalFileName +
                 '<span class="deleteBtn" onclick="deleteBeforeFileList(' + beforeFileList.length + ')"> 삭제</span></div>';
             $("#addFileNameList").append(html);
             beforeFileList.push(data.file[i].fileName);
@@ -105,7 +105,8 @@ function chkEmpty() {
         alert("제목을 입력해주세요.");
         $("#title").focus();
         return false;
-    } else if (isEmpty(contentText.innerHTML)) {
+    } else if (isEmpty(contentText.innerText) || contentText.innerText === ' ' ||
+        contentText.innerText === '\n' || contentText.innerText === '\t') {
         alert("내용을 입력해주세요.");
         return false;
     } else {
@@ -138,7 +139,6 @@ let fileUploadCount = 0;
 
 //파일 유무에 따른 게시글 저장
 function saveBoard() {
-
     if (!chkEmpty()) {
         return;
     }
@@ -151,7 +151,7 @@ function saveBoard() {
         for (let i = 0; i < newFileList.length; i++) {
             let sendFiles = new FormData();
             sendFiles.append('file', newFileList[i]);
-            requestWithFile('POST', 'file/upload', sendFiles, i, saveFile);
+            requestWithFile('POST', 'file/upload', sendFiles, saveFile);
         }
     } else {//새로 추가한 파일이 없을 경우
         uploadBeforeFileList();
@@ -160,7 +160,7 @@ function saveBoard() {
 
 
 //파일 있는 게시글 저장
-function saveFile(res, index) {
+function saveFile(res) {
     console.log(res);
     if (res.code === null) {
         return;
@@ -168,11 +168,9 @@ function saveFile(res, index) {
     if (res.code === 'FS001') {
         fileList.push(res.message);
         fileUploadCount += 1;
-        console.log(fileUploadCount);
-        if(fileUploadCount === newFileList.length){
+        if (fileUploadCount === newFileList.length) {
             uploadBeforeFileList();
         }
-
     } else if (res.code === 'FS002') {
         console.log("파일 저장 실패");
     }
@@ -239,9 +237,9 @@ function saveAlertBoard(res) {
         return;
     }
     if (res.code === 'CB001') {
-        // location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
+        location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
     } else if (res.code === 'UB001') {
-        // location.href = "/board/" + boardType + "/view?id=" + getQuery().id;
+        location.href = "/board/" + boardType + "/view?id=" + getQuery().id;
     } else if (res.code === 'CB002' || res.code === 'UB002') {
         console.log("게시글 저장 실패");
     } else if (res.code === 'UB003') {

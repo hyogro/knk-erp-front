@@ -21,10 +21,18 @@
     </div>
 
     <div class="row" style="display: inline-block">
-        <button type="button" class="btn btn-secondary" style="float: right"
-                onclick="location.href='/manage/member/create'">직원계정생성
-        </button>
+        <div style="float: right;width: fit-content;padding: 0">
+            <button type="button" class="col btn btn-outline-success"
+                    data-bs-toggle="modal" data-bs-target="#attendanceExcelModal">
+                전직원 출퇴근 기록 엑셀 다운로드
+            </button>
+            <button type="button" class="btn btn-secondary"
+                    onclick="location.href='/manage/member/create'">직원계정생성
+            </button>
+        </div>
     </div>
+
+    <%- include ('member-modal.ejs') %>
 
     <div class="row">
         <table>
@@ -48,7 +56,6 @@
 </html>
 
 <script>
-
 
     <%- include ('member.js') %>
 
