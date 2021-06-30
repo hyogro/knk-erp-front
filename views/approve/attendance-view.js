@@ -24,7 +24,6 @@ $("#approveBtn").click(function () {
 
 //출퇴근 정정요청 승인
 function approveAttendance(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }

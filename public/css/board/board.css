@@ -3,15 +3,6 @@
     display: block;
 }
 
-.important {
-    background-color: #fcf5f5;
-}
-
-.important .board-title {
-    color: #ff4e59;
-    font-weight: bold;
-}
-
 .reference-form {
     float: right;
     width: fit-content;

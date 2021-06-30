@@ -119,7 +119,7 @@ function setSelectedList(type, data) {
 
     for (let i = 0; i < data.length; i++) {
         let text = '<div class="member">' +
-            '<div class="dep">[' + data[i].departmentName + '] ' + '</div>'+
+            '<div class="dep">[' + data[i].departmentName + '] ' + '</div>' +
             '<div class="name">' + data[i].memberName + '(' + data[i].memberId + ')</div>';
         if (type === 0) { //출근, 지각의 경우
             text += '<div class="attendance"> 출근: ' + data[i].onWork + '</div></div>';
@@ -177,24 +177,23 @@ function setCalendar(data) {
 
 //출,퇴근 기록
 function checkWork(type) {
-
     let allowIP = '61.42.17.186'; // 허용할 IP
-
     let remoteIp = ip(); // 사용자 IP
+
     if (allowIP === remoteIp) {
-        if (type === 'onWork')
+        if (type === 'onWork') {
             request('POST', 'attendance/onWork', onWork);
-        else if (type === 'offWork')
+        } else if (type === 'offWork') {
             request('POST', 'attendance/offWork', offWork);
-        else
+        } else {
             alert('올바른 요청이 아닙니다.');
+        }
     } else {
         alert('요청하신 주소: ' + remoteIp + ' 에서는 출/퇴근 기록을 할 수 없습니다.');
     }
-
 }
 
-//출근 기록 리스폰스
+//출근 기록 찍기
 function onWork(res) {
     if (res.code === null) {
         return;
@@ -211,7 +210,7 @@ function onWork(res) {
     }
 }
 
-//퇴근 기록 리스폰스
+//퇴근 기록 찍기
 function offWork(res) {
     if (res.code === null) {
         return;
@@ -251,13 +250,13 @@ function setNoticeList(res) {
         return;
     }
     if (res.code === 'NBL001') {
-        $("#noticeList").empty();
         for (let i = 0; i < res.page.content.length; i++) {
             let data = res.page.content[i];
             let html = '';
             html += '<tr>' +
                 '<td>' + data.board_idx + '</td>' +
-                '<td class="board-title" onclick="getNoticeDetail(' + data.board_idx + ')">' + data.title + '</td>' +
+                '<td class="board-title" onclick="getNoticeDetail(' + data.board_idx + ')">' +
+                data.title + '</td>' +
                 '<td>' + data.writerMemberName + '</td>' +
                 '<td>' + getToday(data.createDate.split("T")[0]) + '</td>' +
                 '</tr>';
@@ -271,4 +270,9 @@ function setNoticeList(res) {
 //공지 상세
 function getNoticeDetail(idx) {
     location.href = '/board/notice/view?id=' + idx;
+}
+
+//매뉴얼 다운로드
+function downloadManual() {
+    location.href = '<%= fileApi %>'+'user_manual.pdf';
 }

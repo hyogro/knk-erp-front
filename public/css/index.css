@@ -6,6 +6,7 @@
     font-size: 2rem;
 }
 
+/*춭퇴근기록 찍기*/
 .attendance-self .btn {
     font-size: 1.8rem !important;
     padding: 1rem 0 !important;
@@ -24,15 +25,21 @@
     height: calc(100% - 7rem);
 }
 
+.attendance-self .attendance-self-btns {
+    width: fit-content;
+    margin: 1rem;
+}
+
+.attendance-self .attendance-self-time {
+    width: 45rem;
+    max-width: 45rem;
+}
+
 .attendance-self .btn {
     width: 10rem;
     min-width: 10rem;
     height: 10rem;
     min-height: 10rem;
-}
-
-.attendance-self table {
-    border: 1px solid #DCDCDC;
 }
 
 .attendance-self table td {
@@ -41,11 +48,7 @@
     vertical-align: middle;
 }
 
-.attendance-self table th:not(:last-child),
-.attendance-self table td:not(:last-child) {
-    border-right: 1px solid #DCDCDC;
-}
-
+/*출퇴근 기록*/
 .attendance-board {
     display: none;
     text-align: center;
@@ -57,7 +60,7 @@
 }
 
 .attendance-board .col-md:hover,
-.attendance-board .col-md:focus{
+.attendance-board .col-md:focus {
     background-color: #f8f9ff;
 }
 
@@ -65,28 +68,58 @@
     background-color: #f8f9ff;
 }
 
+.attendance-board .on-work {
+    border-top: 5px solid #105af1;
+    color: #1354d9;
+}
+
+.attendance-board .late-work {
+    border-top: 5px solid #ffb43d;
+    color: #f3a01a;
+}
+
+.attendance-board .yet-work {
+    border-top: 5px solid #767676;
+    color: #6c6c6c;
+}
+
+.attendance-board .off-work {
+    border-top: 5px solid #fa0c0c;
+    color: #ea0404;
+}
+
+.attendance-board .vacation {
+    border-top: 5px solid rgb(3, 161, 75);
+    color: #01853d
+}
 
 .attendance-board .count {
     font-size: 4rem;
     font-weight: bold;
 }
 
-#selectedList .member {
+/*출퇴근 기록 직원 목록 자세히 보기*/
+.selected-list {
+    display: none;
+}
+
+.selected-list .member {
     display: flex;
 }
 
-#selectedList .dep {
+.selected-list .dep {
     width: 15rem;
 }
 
-#selectedList .name {
+.selected-list .name {
     width: 20rem;
 }
 
-#selectedList .attendance {
+.selected-list .attendance {
     width: 40rem;
 }
 
+/*주간일정 달력*/
 #calendar {
     max-height: 30rem
 }

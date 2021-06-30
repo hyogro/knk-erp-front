@@ -5,7 +5,6 @@ function setDepartmentOption(res) {
         return;
     }
     if (res.code === 'RD001') {
-        console.log(res)
         let data = res.readDepartmentDTO;
         $("#departmentName").empty();
         for (let i = 0; i < data.length; i++) {
@@ -25,7 +24,6 @@ function setMemberInfo(res) {
         return;
     }
     if (res.code === 'RDA001') {
-        console.log(res)
         let data = res.readDetailAccountDTO;
         $("#memberId").text(data.memberId);
         $("#memberName").text(data.memberName);
@@ -168,7 +166,6 @@ function deleteAlertMember() {
 
 //일정 삭제
 function deleteMember(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }

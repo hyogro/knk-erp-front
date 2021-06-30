@@ -20,11 +20,11 @@
     <div class="row main-title" id="today">
     </div>
     <div class="row company-info">
-        <div class="col-lg" style="text-align: left">
+        <div class="col-lg text-left">
             구이앤금우통신 - <span id="departmentName"></span>
         </div>
-        <div class="col-lg" style="text-align: right">
-            총 직원 수: <span id="memberCount"></span>명
+        <div class="col-lg text-right">
+            직원 수: <span id="memberCount"></span>명
         </div>
     </div>
 
@@ -36,7 +36,7 @@
         <div class="col-xl content-box">
             <div class="content-box-title">🔹 출퇴근기록</div>
             <div class="row attendance-self">
-                <div style="width: fit-content;margin: 1rem">
+                <div class="attendance-self-btns">
                     <button type="button" class="btn btn-primary"
                             onclick="checkWork('onWork')">
                         <img src="/images/icon-on-work.png">
@@ -48,8 +48,8 @@
                         <div>퇴근</div>
                     </button>
                 </div>
-                <div style="width: 45rem">
-                    <table>
+                <div class="attendance-self-time">
+                    <table class="table-bordered">
                         <thead>
                         <tr>
                             <th width="50%">출근</th>
@@ -79,47 +79,47 @@
                 </tr>
                 </thead>
                 <tbody id="noticeList">
+                <tr class="important">
+                    <td><span class="badge bg-danger">필독</span></td>
+                    <td class="board-title" onclick="downloadManual()">구이앤금우통신 ERP 사용자 매뉴얼</td>
+                    <td>관리자</td>
+                    <td>2021.06.30</td>
+                </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
     <div class="row attendance-board">
-        <div class="col-md content-box"
-             style="border-top: 5px solid #105af1;color: #1354d9">
+        <div class="col-md content-box on-work">
             출근
             <div class="count" id="onWork"></div>
         </div>
-        <div class="col-md content-box"
-             style="border-top: 5px solid #ffb43d; color: #f3a01a">
+        <div class="col-md content-box late-work">
             지각
             <div class="count" id="lateWork"></div>
         </div>
-        <div class="col-md content-box"
-             style="border-top: 5px solid #767676;color: #6c6c6c">
+        <div class="col-md content-box yet-work">
             미출근
             <div class="count" id="yetWork"></div>
         </div>
-        <div class="col-md content-box"
-             style="border-top: 5px solid #fa0c0c;color: #ea0404">
+        <div class="col-md content-box off-work">
             퇴근
             <div class="count" id="offWork"></div>
         </div>
-        <div class="col-md content-box"
-             style="border-top: 5px solid rgb(3,161,75);color: #01853d">
+        <div class="col-md content-box vacation">
             휴가
             <div class="count" id="vacation"></div>
         </div>
     </div>
 
-    <div class="row content-box" id="selectedList" style="display: none">
+    <div class="row content-box selected-list" id="selectedList">
     </div>
 
 </div>
 </body>
 
 </html>
-
 
 
 <script>

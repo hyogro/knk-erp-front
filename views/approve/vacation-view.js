@@ -2,7 +2,6 @@ request('GET', getURL('vacation', getQuery().id), detailAppliedVacation);
 
 //휴가 상세보기
 function detailAppliedVacation(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }

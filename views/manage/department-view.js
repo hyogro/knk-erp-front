@@ -156,7 +156,6 @@ function addDepartmentMember() {
     });
 }
 function addDepartmentMemberRefresh(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }

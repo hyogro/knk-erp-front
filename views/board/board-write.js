@@ -65,7 +65,6 @@ function setSelectOptionMemberList(res) {
 let beforeFileList = []; //기존 수정 전, 파일 리스트
 //글 수정
 function setModifyBoardContent(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -161,7 +160,6 @@ function saveBoard() {
 
 //파일 있는 게시글 저장
 function saveFile(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }
@@ -232,7 +230,6 @@ function saveBoardData() {
 
 //게시글 저장 알림창
 function saveAlertBoard(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }

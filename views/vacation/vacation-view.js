@@ -6,7 +6,6 @@ function detailVacation(res) {
         return;
     }
     if (res.code === 'RVD001') {
-        console.log(res.data);
         let start = res.data.startDate.split("T");
         let end = res.data.endDate.split("T");
         $("#type").text(res.data.type);

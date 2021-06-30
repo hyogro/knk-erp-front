@@ -107,7 +107,6 @@ function chkCreateMemberInfo() {
 
 //회원가입
 function createMemberInfo(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }

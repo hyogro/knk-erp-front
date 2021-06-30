@@ -49,6 +49,14 @@ body {
     padding: 0.5rem 1.5rem;
 }
 
+.text-left {
+    text-align: left
+}
+
+.text-right {
+    text-align: right
+}
+
 .content-box {
     border: 1px solid #CCCCCC;
     padding: 1.5rem !important;
@@ -228,6 +236,7 @@ input, select, textarea {
     min-height: 0 !important;
 }
 
+/*게시판 테이블*/
 .board {
     table-layout: fixed;
 }
@@ -247,6 +256,15 @@ input, select, textarea {
 
 .board .board-no {
     font-size: 1.3rem;
+}
+
+.important {
+    background-color: #fcf5f5;
+}
+
+.important .board-title {
+    color: #ff4e59;
+    font-weight: bold;
 }
 
 /*승인 테이블*/

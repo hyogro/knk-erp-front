@@ -60,7 +60,6 @@ function searchPage() {
 
 //게시판 상세보기
 function setBoardList(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
