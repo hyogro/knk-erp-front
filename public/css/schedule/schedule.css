@@ -46,11 +46,6 @@
     cursor: pointer;
 }
 
-/*.fc-daygrid-day:hover {*/
-/*    background: #f8f9ff;*/
-/*}*/
-
-
 /*modal*/
 .schedule-write table td {
     text-align: left;
@@ -86,11 +81,20 @@
     vertical-align: top;
 }
 
+/* 내 스케줄*/
 #myScheduleList {
     text-align: left;
     cursor: pointer;
+    font-size: 1.3rem;
 }
 
 #myScheduleList tr:hover {
     background: #f8f9ff;
+}
+
+#myScheduleList .title {
+    width: 20rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

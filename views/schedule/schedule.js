@@ -138,23 +138,33 @@ function setMyScheduleList(res) {
             let start = getYYYYMMDD(new Date(res.data[i].startDate));
             let end = getYYYYMMDD(new Date(res.data[i].endDate));
             if (start === end) {
-                html += '<th>' + start.replaceAll("-", ".").substring(5, 10) + '</th>';
+                html += '<th width="30%">' +
+                    start.replaceAll("-", ".").substring(5, 10) +
+                    '</th>';
             } else {
-                html += '<th>' +
+                html += '<th width="30%">' +
                     start.replaceAll("-", ".").substring(5, 10) + '~' +
                     end.replaceAll("-", ".").substring(5, 10) +
                     '</th>';
             }
 
             if (res.data[i].viewOption === "all") {
-                html += '<td style="color: #3788d8">■ 전체</td>'
+                html += '<td width="70%" class="title">' +
+                    '<span style="color: #3788d8">■ 전체</span><br>'
+                    + res.data[i].title +
+                    '</td>'
             } else if (res.data[i].viewOption === "dep") {
-                html += '<td style="color: #e09222">■ 팀</td>'
+                html += '<td width="70%" class="title">' +
+                    '<span style="color: #e09222">■ 팀</span><br>'
+                    + res.data[i].title +
+                    '</td>'
             } else if (res.data[i].viewOption === "own") {
-                html += '<td style="color: #d46d8c">■ 개인</td>'
+                html += '<td width="70%">' +
+                    '<div style="color: #d46d8c">■ 개인</div>' +
+                    '<div class="title">' + res.data[i].title + '</div>' +
+                    '</td>'
             }
 
-            html += '<td>' + res.data[i].title + '</td>';
             html += '</tr>';
 
             $("#myScheduleList").append(html);
@@ -170,7 +180,7 @@ function setMyScheduleList(res) {
 function addEvent(data, type, color) {
     let schedule = {};
     schedule.id = data.id;
-    schedule.title = (type === 'vacation') ? data.memberName + '-'+data.type : data.title;
+    schedule.title = (type === 'vacation') ? data.memberName + '-' + data.type : data.title;
     schedule.memo = data.memo;
     schedule.start = data.startDate;
     schedule.end = data.endDate;
