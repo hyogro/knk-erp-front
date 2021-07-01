@@ -212,6 +212,9 @@ function setCreateSchedule(start, end) {
     resetScheduleData(false, "create");
     $('#scheduleMemberView').hide();
 
+    $("#startTime3").val("00");
+    $("#endTime3").val("00");
+
     if (!isEmpty(start) && !isEmpty(end)) {
         $("#scheduleStartDate").val(start);
         $("#scheduleEndDate").val(end);
@@ -235,12 +238,19 @@ function detailScheduleView(res) {
         $("#scheduleTitle").val(res.data.title);
         $("#scheduleMember").text(res.data.memberName);
         $("#scheduleViewOption").val(res.data.viewOption);
-        let start = res.data.startDate.split("T");
-        $("#scheduleStartDate").val(start[0]);
-        $("#scheduleStartTime").val(start[1]);
-        let end = res.data.endDate.split("T");
-        $("#scheduleEndDate").val(end[0]);
-        $("#scheduleEndTime").val(end[1]);
+
+        $("#scheduleStartDate").val(res.data.startDate.split("T")[0]);
+        let startTime = conversionTimeGet(res.data.startDate);
+        $("#startTime1").val(startTime[0]);
+        $("#startTime2").val(startTime[1]);
+        $("#startTime3").val(startTime[2]);
+
+        $("#scheduleEndDate").val(res.data.endDate.split("T")[0]);
+        let endTime = conversionTimeGet(res.data.endDate);
+        $("#endTime1").val(endTime[0]);
+        $("#endTime2").val(endTime[1]);
+        $("#endTime3").val(endTime[2]);
+
         $("#scheduleMemo").val(res.data.memo);
         $("#scheduleMemoTextCnt").text("(" + $("#scheduleMemo").val().length + " / 255)");
 
@@ -277,10 +287,18 @@ function detailVacationView(res) {
         $("#vacationDep").text(res.data.departmentName);
         $("#vacationAuthor").text(res.data.memberName);
         $("#vacationType").text(res.data.type);
+
         let start = res.data.startDate.split("T");
-        $("#vacationStart").text(start[0]);
         let end = res.data.endDate.split("T");
-        $("#vacationEnd").text(end[0]);
+
+        if (res.data.type === "연차") {
+            $("#vacationDate").html(start[0] + " ~ " + end[0]);
+        } else if (res.data.type === "기타") {
+            $("#vacationDate").html(start[0] + ' 🕒 ' +
+                start[1].substring(0, 5) + " ~ " + end[1].substring(0, 5));
+        } else {
+            $("#vacationDate").html(start[0]);
+        }
     } else if (res.code === 'RVD002') {
         console.log("휴가 상세 조회 실패");
     }
@@ -327,11 +345,13 @@ function saveSchedule(type, id) {
     saveData.memo = $("#scheduleMemo").val();
     saveData.viewOption = $("#scheduleViewOption").val();
     let start1 = $("#scheduleStartDate").val();
-    let start2 = $("#scheduleStartTime").val();
+    let start2 = conversionTimeSet($("#startTime1").val(), $("#startTime2").val(), $("#startTime3").val());
     saveData.startDate = start1 + "T" + start2;
     let end1 = $("#scheduleEndDate").val();
-    let end2 = $("#scheduleEndTime").val();
+    let end2 = conversionTimeSet($("#endTime1").val(), $("#endTime2").val(), $("#endTime3").val());
     saveData.endDate = end1 + "T" + end2;
+
+    console.log(saveData)
 
     if (isEmpty(saveData.title)) {
         alert("제목을 입력해주세요.");
@@ -339,14 +359,20 @@ function saveSchedule(type, id) {
         alert("내용을 입력해주세요.");
     } else if (isEmpty(start1)) {
         alert("시작일을 선택해주세요.");
-    } else if (isEmpty(start2)) {
-        alert("시작시간을 선택해주세요.");
+    } else if (isEmpty(start2) || isEmpty($("#startTime3").val())) {
+        alert("시작시간을 입력해주세요.");
+    } else if (parseInt($("#startTime3").val()) > 59) {
+        alert("올바른 시작 시간을 입력해주세요.");
+        $("#startTime3").focus();
     } else if (isEmpty(end1)) {
         alert("종료일을 선택해주세요.");
-    } else if (isEmpty(end2)) {
-        alert("종료시간을 선택해주세요.");
+    } else if (isEmpty(end2) || isEmpty($("#endTime3").val())) {
+        alert("종료시간을 입력해주세요.");
+    } else if (parseInt($("#endTime3").val()) > 59) {
+        alert("올바른 종료 시간을 입력해주세요.");
+        $("#endTime3").focus();
     } else if (chkDate(saveData.startDate, saveData.endDate)) {
-        alert("종료일/시간이 시작일/시간보다 빠를 수 없습니다.\n다시 선택해주세요.");
+        alert("종료일/시간이 시작일/시간보다 빠르거나 같을 수 없습니다.\n다시 선택해주세요.");
     } else {
         if (type === 'create') {
             requestWithData('POST', 'schedule', saveData, createAlertSchedule);

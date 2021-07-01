@@ -6,9 +6,11 @@ $('input[type="checkbox"][name="vacation"]').click(function () {
 
     //기타 선택
     if ($('#etc').is(":checked") === true) {
-        $('input[type="time"]').prop('readonly', false);
+        $('input[type=text]').attr('disabled', false);
+        $('select').attr('disabled', false);
     } else {
-        $('input[type="time"]').prop('readonly', true);
+        $('input[type=text]').attr('disabled', true);
+        $('select').attr('disabled', true);
         $('input[type="time"]').val("");
     }
 
@@ -36,8 +38,8 @@ function createVacation() {
     } else if (saveData.type === "오후반차") {
         startTime = "14:00:00";
     } else if (saveData.type === "기타") {
-        startTime = $("#startTime").val();
-        endTime = $("#endTime").val();
+        startTime = conversionTimeSet($("#startTime1").val(), $("#startTime2").val(), $("#startTime3").val());
+        endTime = conversionTimeSet($("#endTime1").val(), $("#endTime2").val(), $("#endTime3").val());
     }
 
     if (saveData.type !== "연차" && saveData.type !== "공가") {
@@ -47,18 +49,19 @@ function createVacation() {
     saveData.startDate = $("#startDate").val() + "T" + startTime;
     saveData.endDate = $("#endDate").val() + "T" + endTime;
 
-    console.log(saveData);
-
     if (isEmpty(saveData.type)) {
         alert("휴가 유형을 선택해주세요.");
     } else if (isEmpty(saveData.memo)) {
         alert("사유를 작성해주세요.");
-    } else if ($('#etc').is(":checked") && (isEmpty(startTime)) || (isEmpty(endTime))) {
-        alert("휴가기간을 선택해주세요.");
-    } else if (isEmpty(saveData.startDate) || isEmpty(saveData.endDate)) {
-        alert("휴가기간을 선택해주세요.");
-    } else if (new Date(saveData.startDate) > new Date(saveData.endDate)) {
-        alert("올바른 휴가기간을 선택해주세요.")
+    } else if ($('#etc').is(":checked") &&
+        isEmpty($("#startTime3").val()) || isEmpty($("#endTime3").val())) {
+        alert("휴가기간을 입력해주세요.");
+    } else if (($('#etc').is(":checked") &&
+        parseInt($("#startTime3").val()) > 59 ||
+        parseInt($("#endTime3").val()) > 59)) {
+        alert("올바른 휴가기간을 입력해주세요.");
+    } else if (new Date(saveData.startDate) >= new Date(saveData.endDate)) {
+        alert("올바른 휴가기간을 입력해주세요.")
     } else {
         requestWithData("POST", "vacation", saveData, alertCreateVacation)
     }

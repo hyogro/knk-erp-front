@@ -53,7 +53,37 @@ function chkDate(start, end) {
     let startDate = new Date(start);
     let endDate = new Date(end);
 
-    return (startDate > endDate);
+    return (startDate >= endDate);
+}
+
+//시간 형식 바꾸기 - 가져오기
+function conversionTimeSet(time1, time2, time3) {
+    if (time1 === "pm") {
+        time2 = parseInt(time2) + 12;
+    }
+
+    time2 = ("0" + time2).slice(-2);
+    time3 = ("0" + time3).slice(-2);
+
+    return time2 + ':' + time3 + ':00';
+}
+
+//시간 형식 바꾸기 - 저장하기
+function conversionTimeGet(date) {
+    let arr = getTodayArr(new Date(date));
+    let timeArr = [];
+    if (arr[3] > 12) {
+        timeArr[0] = 'pm';
+        timeArr[1] = arr[3] - 12;
+    } else {
+        timeArr[0] = 'am';
+        timeArr[1] = arr[3];
+    }
+    timeArr[1] = ("0" + timeArr[1]).slice(-2);
+    timeArr[2] = ("0" + arr[4]).slice(-2);
+
+    console.log(timeArr)
+    return timeArr;
 }
 
 //분 -> 일 시간 단위로

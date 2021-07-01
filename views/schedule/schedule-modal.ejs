@@ -34,14 +34,58 @@
                         <th>시작</th>
                         <td>
                             <input type="date" id="scheduleStartDate">
-                            <input type="time" id="scheduleStartTime">
+                            <span class="time-select">
+                                <select id="startTime1">
+                                    <option value="am" selected>오전</option>
+                                    <option value="pm">오후</option>
+                                </select>
+                                <select id="startTime2">
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option selected>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                </select>
+                                :
+                                <input type="text" id="startTime3" maxlength="2"
+                                       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <th>종료</th>
                         <td>
                             <input type="date" id="scheduleEndDate">
-                            <input type="time" id="scheduleEndTime">
+                            <span class="time-select">
+                                <select id="endTime1">
+                                    <option value="am">오전</option>
+                                    <option value="pm" selected>오후</option>
+                                </select>
+                                <select id="endTime2">
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option selected>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                </select>
+                                :
+                                <input type="text" id="endTime3" maxlength="2"
+                                       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -74,8 +118,8 @@
                 <table>
                     <tbody>
                     <tr>
-                        <th>부서</th>
-                        <td id="vacationDep"></td>
+                        <th width="30%">부서</th>
+                        <td width="70%" id="vacationDep"></td>
                     </tr>
                     <tr>
                         <th>작성자</th>
@@ -87,9 +131,7 @@
                     </tr>
                     <tr>
                         <th>휴가기간</th>
-                        <td>
-                            <span id="vacationStart"></span> ~ <span id="vacationEnd"></span>
-                        </td>
+                        <td id="vacationDate"></td>
                     </tr>
                     </tbody>
                 </table>
