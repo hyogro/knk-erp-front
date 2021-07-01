@@ -133,7 +133,7 @@ function setSelectedList(select, type, data) {
         if (type === "출근" || type === "지각") {
             html += '<td>출근: ' + data[i].onWork + '</td>';
         } else if (type === "미출근") {
-            html += '<td>연락처: ' + data[i].phone + '</td>';
+            html += '<td>기록 없음</td>';
         } else if (type === "퇴근") {
             html += '<td>출근: ' + data[i].onWork + ' / 퇴근: ' + data[i].offWork + '</td>';
         } else if (type === "휴가") {
