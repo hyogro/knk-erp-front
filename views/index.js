@@ -65,29 +65,19 @@ function setAttendanceSummary(res) {
         $("#vacation").text(res.data.vacation.length);
 
         $("#onWork").parent().click(function () {
-            setSelectedList(0, res.data.onWork);
-            $(".col-md").removeClass('active');
-            $(this).addClass('active');
+            setSelectedList(this, "출근", res.data.onWork);
         });
         $("#lateWork").parent().click(function () {
-            setSelectedList(0, res.data.lateWork);
-            $(".col-md").removeClass('active');
-            $(this).addClass('active');
+            setSelectedList(this, "지각", res.data.lateWork);
         });
         $("#yetWork").parent().click(function () {
-            setSelectedList(1, res.data.yetWork);
-            $(".col-md").removeClass('active');
-            $(this).addClass('active');
+            setSelectedList(this, "미출근", res.data.yetWork);
         });
         $("#offWork").parent().click(function () {
-            setSelectedList(2, res.data.offWork);
-            $(".col-md").removeClass('active');
-            $(this).addClass('active');
+            setSelectedList(this, "퇴근", res.data.offWork);
         });
         $("#vacation").parent().click(function () {
-            setSelectedList(3, res.data.vacation);
-            $(".col-md").removeClass('active');
-            $(this).addClass('active');
+            setSelectedList(this, "휴가", res.data.vacation);
         });
     } else if (res.code === 'RAS002') {
         console.log("일정요약 조회 실패");
@@ -97,11 +87,14 @@ function setAttendanceSummary(res) {
     }
 }
 
-function setSelectedList(type, data) {
-    $("#selectedList").show();
+function setSelectedList(select, type, data) {
+    $(".col-md").removeClass('active');
+    $(select).addClass('active');
+
     $("#selectedList").empty();
+
     if (data.length === 0) {
-        $("#selectedList").text('해당 정보가 없습니다.');
+        $("#selectedList").html('<tr><td colspan="3">내역이 없습니다.</td></tr>')
     }
 
     //부서 이름으로 정렬
@@ -117,22 +110,38 @@ function setSelectedList(type, data) {
         return 0;
     });
 
+    $("#logTitle").text(type);
+
+    if (type === "출근") { //출근
+        $("#logTitle").css("color", "#1354d9");
+    } else if (type === "지각") { //지각
+        $("#logTitle").css("color", "#f3a01a");
+    } else if (type === "미출근") { //미출근
+        $("#logTitle").css("color", "#6c6c6c");
+    } else if (type === "퇴근") { //퇴근
+        $("#logTitle").css("color", "#ea0404");
+    } else if (type === "휴가") { //휴가
+        $("#logTitle").css("color", "#01853d");
+    }
+
     for (let i = 0; i < data.length; i++) {
-        let text = '<div class="member">' +
-            '<div class="dep">[' + data[i].departmentName + '] ' + '</div>' +
-            '<div class="name">' + data[i].memberName + '(' + data[i].memberId + ')</div>';
-        if (type === 0) { //출근, 지각의 경우
-            text += '<div class="attendance"> 출근: ' + data[i].onWork + '</div></div>';
-        } else if (type === 1) { //미출근의 경우
-            text += '<div class="attendance"> 연락처: ' + data[i].phone + '</div></div>';
-        } else if (type === 2) { //퇴근의 경우
-            text += '<div class="attendance">  출근: ' + data[i].onWork;
-            text += ' / 퇴근: ' + data[i].offWork + '</div></div>'
-        } else if (type === 3) { //휴가의의경우
-            text += '<div class="attendance"> 휴가: ' +
-                data[i].vacationStartDate + '~' + data[i].vacationEndDate + '</div></div>';
+        let html = '';
+        html += '<tr>' +
+            '<td>' + data[i].departmentName + '</td>' +
+            '<td>' + data[i].memberName + '(' + data[i].memberId + ')</td>';
+
+        if (type === "출근" || type === "지각") {
+            html += '<td>출근: ' + data[i].onWork + '</td>';
+        } else if (type === "미출근") {
+            html += '<td>연락처: ' + data[i].phone + '</td>';
+        } else if (type === "퇴근") {
+            html += '<td>출근: ' + data[i].onWork + ' / 퇴근: ' + data[i].offWork + '</td>';
+        } else if (type === "휴가") {
+            html += '휴가: ' + data[i].vacationStartDate + '~' + data[i].vacationEndDate + '</td>';
         }
-        $("#selectedList").append(text);
+        html += '</tr>';
+
+        $("#selectedList").append(html);
     }
 }
 
@@ -274,5 +283,5 @@ function getNoticeDetail(idx) {
 
 //매뉴얼 다운로드
 function downloadManual() {
-    location.href = '<%= fileApi %>'+'user_manual.pdf';
+    location.href = '<%= fileApi %>' + 'user_manual.pdf';
 }

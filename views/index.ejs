@@ -91,30 +91,37 @@
     </div>
 
     <div class="row attendance-board">
-        <div class="col-md content-box on-work">
+        <div class="col-md content-box on-work"
+             data-bs-toggle="modal" data-bs-target="#attendanceModal">
             출근
             <div class="count" id="onWork"></div>
         </div>
-        <div class="col-md content-box late-work">
+        <div class="col-md content-box late-work"
+             data-bs-toggle="modal" data-bs-target="#attendanceModal">
             지각
             <div class="count" id="lateWork"></div>
         </div>
-        <div class="col-md content-box yet-work">
+        <div class="col-md content-box yet-work"
+             data-bs-toggle="modal" data-bs-target="#attendanceModal">
             미출근
             <div class="count" id="yetWork"></div>
         </div>
-        <div class="col-md content-box off-work">
+        <div class="col-md content-box off-work"
+             data-bs-toggle="modal" data-bs-target="#attendanceModal">
             퇴근
             <div class="count" id="offWork"></div>
         </div>
-        <div class="col-md content-box vacation">
+        <div class="col-md content-box vacation"
+             data-bs-toggle="modal" data-bs-target="#attendanceModal">
             휴가
             <div class="count" id="vacation"></div>
         </div>
     </div>
 
-    <div class="row content-box selected-list" id="selectedList">
-    </div>
+    <%- include ('index-modal.ejs') %>
+
+<!--    <div class="row content-box selected-list" id="selectedList">-->
+<!--    </div>-->
 
 </div>
 </body>

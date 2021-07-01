@@ -1,0 +1,29 @@
+<!--출근 기록 요약-->
+<div class="modal fade" id="attendanceModal" tabindex="-1"
+     aria-labelledby="attendanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="min-width: 60rem !important;">
+            <div class="modal-header">
+                <div id="logTitle"></div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table-bordered">
+                    <thead>
+                    <tr>
+                        <th>부서</th>
+                        <th>이름</th>
+                        <th>기록</th>
+                    </tr>
+                    </thead>
+                    <tbody id="selectedList">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
