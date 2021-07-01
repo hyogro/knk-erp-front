@@ -264,13 +264,13 @@ function detailVacationView(res) {
         return;
     }
     if (res.code === 'RVD001') {
-        $("#vacationAuthor").text(res.data.departmentName + "-" + res.data.memberName);
+        $("#vacationDep").text(res.data.departmentName);
+        $("#vacationAuthor").text(res.data.memberName);
         $("#vacationType").text(res.data.type);
         let start = res.data.startDate.split("T");
         $("#vacationStart").text(start[0]);
         let end = res.data.endDate.split("T");
         $("#vacationEnd").text(end[0]);
-        $("#vacationMemo").text(res.data.memo);
     } else if (res.code === 'RVD002') {
         console.log("휴가 상세 조회 실패");
     }

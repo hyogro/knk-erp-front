@@ -70,9 +70,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
-            <div class="modal-body schedule-write">
+            <div class="modal-body schedule-write" style="padding: 7rem 3rem !important;">
                 <table>
                     <tbody>
+                    <tr>
+                        <th>부서</th>
+                        <td id="vacationDep"></td>
+                    </tr>
                     <tr>
                         <th>작성자</th>
                         <td id="vacationAuthor"></td>
@@ -86,10 +90,6 @@
                         <td>
                             <span id="vacationStart"></span> ~ <span id="vacationEnd"></span>
                         </td>
-                    </tr>
-                    <tr>
-                        <th>휴가사유</th>
-                        <td id="vacationMemo"></td>
                     </tr>
                     </tbody>
                 </table>
