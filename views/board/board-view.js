@@ -82,6 +82,6 @@ function deleteBoard(res) {
     } else if (res.code === 'DB002') {
         console.log("게시글 삭제 실패");
     } else if (res.code === 'DB002') {
-        console.log("게시글 삭제 실패\n권한이 없습니다.");
+        alert("게시글 삭제 실패\n권한이 없습니다.");
     }
 }

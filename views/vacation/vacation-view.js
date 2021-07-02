@@ -29,7 +29,7 @@ function detailVacation(res) {
     } else if (res.code === 'RVD002') {
         console.log("휴가상세 조회 실패");
     } else if (res.code === 'RVD003') {
-        console.log("휴가상세 조회 실패\n권한이 없습니다.");
+        alert("휴가상세 조회 실패\n권한이 없습니다.");
     }
 }
 

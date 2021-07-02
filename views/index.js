@@ -83,7 +83,7 @@ function setAttendanceSummary(res) {
         console.log("일정요약 조회 실패");
     } else if (res.code === 'RAS003') {
         $(".attendance-board").hide();
-        console.log("일정요약 조회 실패\n권한이 없습니다.");
+        alert("일정요약 조회 실패\n권한이 없습니다.");
     }
 }
 
