@@ -14,7 +14,7 @@ function detailAppliedVacation(res) {
         let start = res.data.startDate.split("T");
         let end = res.data.endDate.split("T");
 
-        if (res.data.type === "기타") {
+        if (res.data.type === "시간제") {
             $("#date").text(getToday(start[0]) + " 🕒 " +
                 start[1].substring(0, 5) + " ~ " + end[1].substring(0, 5));
         } else {

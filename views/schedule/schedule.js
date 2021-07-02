@@ -298,7 +298,7 @@ function detailVacationView(res) {
 
         if (res.data.type === "연차") {
             $("#vacationDate").html(start[0] + " ~ " + end[0]);
-        } else if (res.data.type === "기타") {
+        } else if (res.data.type === "시간제") {
             $("#vacationDate").html(start[0] + ' 🕒 ' +
                 start[1].substring(0, 5) + " ~ " + end[1].substring(0, 5));
         } else {
