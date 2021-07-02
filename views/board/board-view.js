@@ -37,7 +37,7 @@ function setFileList(data) {
     $("#downLoadFileList").empty();
     for (let i = 0; i < data.length; i++) {
         let file = '<a class="file download-file" ' +
-            'href="<%= fileApi %>' + data[i].fileName + '" ' +
+            'href="<%= fileApi %>' + 'board/'+data[i].fileName + '" ' +
             'download="' + data[i].originalFileName + '">' +
             data[i].originalFileName + '</a><br>';
         $("#downLoadFileList").append(file);
