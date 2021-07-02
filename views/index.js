@@ -186,7 +186,7 @@ function setCalendar(data) {
 
 //출,퇴근 기록
 function checkWork(type) {
-    let allowIP = ['61.42.17.186', '59.1.168.71']; // 허용할 IP
+    let allowIP = ['61.42.17.186'/*회사아이피*/, '59.1.168.71'/*재택근무자*/]; // 허용할 IP
     let remoteIp = ip(); // 사용자 IP
 
     if (0 <= allowIP.indexOf(remoteIp)) {
