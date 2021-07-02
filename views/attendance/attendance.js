@@ -163,11 +163,8 @@ function applyAttendanceData(id, empty) {
 
     if (isEmpty(saveData.attendanceDate)) {
         alert("정정희망일을 입력해주세요.");
-    } else if (isEmpty(saveData.onWork) ||
-        isEmpty(saveData.onWork) && !isEmpty(saveData.offWork)) {
+    } else if (isEmpty(saveData.onWork)) {
         alert("출근시간을 선택해주세요.");
-    } else if (!isEmpty(saveData.onWork) && isEmpty(saveData.offWork)) {
-        alert("퇴근시간을 선택해주세요.");
     } else if (isEmpty(saveData.memo)) {
         alert("사유를 작성해주세요.");
     } else if (chkDate(start, end)) {
