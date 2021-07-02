@@ -1,5 +1,3 @@
-getBrowserType();
-
 //메뉴 효과
 $(document).ready(function () {
     $("#nav ul.sub").show();
@@ -28,6 +26,7 @@ $(document).ready(function () {
     if (subMenuId !== undefined) {
         $("#" + subMenuId + "SubMenu > a").addClass("side-menu-active");
     }
+
 });
 
 const token = $.cookie('token');
