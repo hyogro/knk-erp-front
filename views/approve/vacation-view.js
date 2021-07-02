@@ -7,17 +7,27 @@ function detailAppliedVacation(res) {
     }
     if (res.code === 'RVD001') {
         $("#member").text(res.data.memberName);
+
+        $("#memo").text(res.data.memo);
+        $("#type").text(res.data.type);
+
         let start = res.data.startDate.split("T");
         let end = res.data.endDate.split("T");
-        $("#type").text(res.data.type);
+
         if (res.data.type === "기타") {
-            $("#type").text("기타 (" + start[1] + " ~ " + end[1] + ")");
+            $("#date").text(getToday(start[0]) + " 🕒 " +
+                start[1].substring(0, 5) + " ~ " + end[1].substring(0, 5));
+        } else {
+            if (start[0] === end[0]) {
+                $("#date").text(getToday(start[0]));
+            } else {
+                $("#date").text(getToday(start[0])+" ~ "+getToday(end[0]));
+            }
         }
-        $("#memo").text(res.data.memo);
-        $("#startDate").text(start[0]);
-        $("#endDate").text(end[0]);
+
         $("#approver1").text(res.data.approver1);
         $("#approver2").text(res.data.approver2);
+
         //내 휴가 정보
         request('GET', getURL('vacation/info', res.data.memberId), setVacationInfo);
     } else if (res.code === 'RVD002') {

@@ -212,7 +212,12 @@ function setCreateSchedule(start, end) {
     resetScheduleData(false, "create");
     $('#scheduleMemberView').hide();
 
+    $("#startTime1").val("am").prop("selected", true);
+    $("#startTime2").val("09").prop("selected", true);
     $("#startTime3").val("00");
+
+    $("#endTime1").val("pm").prop("selected", true);
+    $("#endTime2").val("06").prop("selected", true);
     $("#endTime3").val("00");
 
     if (!isEmpty(start) && !isEmpty(end)) {
