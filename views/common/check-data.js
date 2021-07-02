@@ -1,15 +1,3 @@
-//브라우저 체크
-function getBrowserType() {
-    let agent = navigator.userAgent.toLowerCase();
-
-    if ((navigator.appName === 'Netscape' &&
-        navigator.userAgent.search('Trident') !== -1) ||
-        (agent.indexOf("msie") !== -1)) {
-        alert("이 홈페이지는 크롬과 엣지에 최적화되어있습니다.\n다른 브라우저를 이용해주세요.");
-        self.close();
-    }
-}
-
 //빈값 체크
 function isEmpty(val) {
     return val == null || val === '' || val === undefined || val === "null";
