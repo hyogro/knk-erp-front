@@ -4,7 +4,7 @@ $('input[type="checkbox"][name="vacation"]').click(function () {
         $(this).prop('checked', true);
     }
 
-    //기타 선택
+    //시간제 선택
     if ($('#etc').is(":checked") === true) {
         $('input[type=text]').attr('disabled', false);
         $('select').attr('disabled', false);
@@ -37,7 +37,7 @@ function createVacation() {
         endTime = "13:00:00";
     } else if (saveData.type === "오후반차") {
         startTime = "14:00:00";
-    } else if (saveData.type === "기타") {
+    } else if (saveData.type === "시간제") {
         startTime = conversionTimeSet($("#startTime1").val(), $("#startTime2").val(), $("#startTime3").val());
         endTime = conversionTimeSet($("#endTime1").val(), $("#endTime2").val(), $("#endTime3").val());
     }
