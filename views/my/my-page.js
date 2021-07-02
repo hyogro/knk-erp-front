@@ -1,7 +1,10 @@
 request('GET', 'my', setMemberInfo);
 
+let profileFile = {};
+
 //내 정보 셋팅
 function setMemberInfo(res) {
+    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -10,12 +13,25 @@ function setMemberInfo(res) {
         $("#memberId").text(data.memberId);
         $("#memberName").text(data.memberName);
         $("#departmentName").text(data.departmentName);
-        let phone = (data.phone).split("-");
-        $("#phone1").val(phone[0]);
-        $("#phone2").val(phone[1]);
-        $("#phone3").val(phone[2]);
+        if (!isEmpty(data.phone)) {
+            let phone = (data.phone).split("-");
+            $("#phone1").val(phone[0]);
+            $("#phone2").val(phone[1]);
+            $("#phone3").val(phone[2]);
+        }
         $("#email").val(data.email);
         $("#address").val(data.address);
+        if (!isEmpty(data.birthDate)) {
+            let birth = (data.birthDate).split("-");
+            $("#birth1").val(birth[0]);
+            $("#birth2").val(birth[1]);
+            $("#birth3").val(birth[2]);
+        }
+        if (!isEmpty(data.images)) {
+            profileFile.src = '<%= fileApi %>' + 'member/' + data.images;
+            $("#profileImg").attr("src", profileFile.src);
+            $("#profileDelBtn").show();
+        }
     } else if (res.code === 'GMI002') {
         console.log("본인 정보 보기 실패");
     }
@@ -38,6 +54,40 @@ function setVacationInfo(res) {
         console.log("휴가 정보 조회 실패");
     }
 }
+
+//프로필 사진 바꾸기
+function changeProfileImg(input) {
+    if (isEmpty(input.files[0])) {
+        $("#profileImg").attr("src", profileFile.src);
+        input.files[0] = profileFile.file;
+    } else {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            $('#profileImg').attr('src', e.target.result);
+            profileFile.src = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
+        profileFile.file = input.files[0];
+    }
+}
+
+$(":input[name='file']").change(function () {
+    if (isEmpty($(":input[name='file']").val())) {
+        $('#profileImg').attr('src', '');
+    }
+    $("#profileDelBtn").show();
+    changeProfileImg(this);
+});
+
+//프로필 이미지 삭제
+function deleteProfileImg() {
+    profileFile.file = null;
+    profileFile.src = "/images/img-profile-default.png";
+    $("#profileImg").attr("src", profileFile.src);
+    $("#profileDelBtn").hide();
+}
+
+let myInfo = {};
 
 //변경 사항 value 체크
 function chkUpdateMyInfo() {
@@ -87,7 +137,49 @@ function chkUpdateMyInfo() {
         saveData.address = address;
     }
 
-    requestWithData('PUT', 'my', saveData, updateMyInfo);
+    //생년월일
+    if (!isEmpty($("#birth1").val()) ||
+        !isEmpty($("#birth2").val()) || !isEmpty($("#birth3").val())) {
+        let month = ("0" + $("#birth2").val()).slice(-2);
+        let day = ("0" + $("#birth3").val()).slice(-2);
+        let birthDate = $("#birth1").val() + "-" + month + "-" + day;
+        if (!checkValidDate(birthDate)) {
+            alert("올바른 날짜를 입력해주세요.");
+            return;
+        } else {
+            saveData.birthDate = birthDate;
+        }
+    }
+
+    myInfo = saveData;
+    saveProfileImage();
+}
+
+
+//프로필 이미지 먼저 저장 -> 나머지 내 정보 저장
+function saveProfileImage() {
+    if (!isEmpty(profileFile.file)) {
+        let saveFiles = new FormData();
+        saveFiles.append('file', profileFile.file);
+        saveFiles.append('location', 'member');
+        requestWithFile('POST', 'file/upload', saveFiles, sendProfileImage);
+    } else {
+        myInfo.images = null;
+        console.log(myInfo);
+        requestWithData('PUT', 'my', myInfo, updateMyInfo);
+    }
+}
+
+function sendProfileImage(res) {
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'FS001') {
+        myInfo.images = res.message;
+        requestWithData('PUT', 'my', myInfo, updateMyInfo);
+    } else if (res.code === 'FS002') {
+        console.log("파일 저장 실패");
+    }
 }
 
 //변경 사항 저장

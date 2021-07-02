@@ -44,6 +44,23 @@ function chkDate(start, end) {
     return (startDate >= endDate);
 }
 
+//유효한 날짜인지 체크
+function checkValidDate(value) {
+    let result = true;
+    try {
+        let date = value.split("-");
+        let y = parseInt(date[0], 10),
+            m = parseInt(date[1], 10),
+            d = parseInt(date[2], 10);
+
+        let dateRegex = /^(?=\d)(?:(?:31(?!.(?:0?[2469]|11))|(?:30|29)(?!.0?2)|29(?=.0?2.(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))(?:\x20|$))|(?:2[0-8]|1\d|0?[1-9]))([-.\/])(?:1[012]|0?[1-9])\1(?:1[6-9]|[2-9]\d)?\d\d(?:(?=\x20\d)\x20|$))?(((0?[1-9]|1[012])(:[0-5]\d){0,2}(\x20[AP]M))|([01]\d|2[0-3])(:[0-5]\d){1,2})?$/;
+        result = dateRegex.test(d + '-' + m + '-' + y);
+    } catch (err) {
+        result = false;
+    }
+    return result;
+}
+
 //시간 형식 바꾸기 - 가져오기
 function conversionTimeSet(time1, time2, time3) {
     if (time1 === "pm") {
@@ -181,5 +198,16 @@ function chkId(id) {
         return false;
     } else {
         return true;
+    }
+}
+
+//이미지 파일인지 체크
+function chkImageFile(id) {
+    let imgFile = $('#' + id).val();
+    let fileForm = /(.*?)\.(jpg|jpeg|png)$/;
+    if (!imgFile.match(fileForm)) {
+        alert("지원되는 형식(jpg, jpeg, png)의 이미지 파일이 아닙니다.");
+        $('#' + id).val(null);
+        return;
     }
 }
