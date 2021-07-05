@@ -43,7 +43,6 @@ function downloadAttendance() {
 }
 //엑셀 관리 다운로드
 function downloadVacation() {
-    alert("다운 눌렀음");
     let sendData = {};
     sendData.startDate = $("#vacationExcelStartDate").val();
     sendData.endDate = $("#vacationExcelEndDate").val();
