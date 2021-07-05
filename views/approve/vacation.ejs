@@ -18,7 +18,7 @@
 <div id="main">
     <div class="row">
         <div class="row main-title">
-            휴가 신청 목록
+            휴가 승인 대기 목록
         </div>
         <div class="row">
             <table>
@@ -37,12 +37,32 @@
             </table>
         </div>
     </div>
+    <div class="row">
+        <div class="row main-title">
+            휴가 승인/거절 목록
+        </div>
+        <div class="row">
+            <table>
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>휴가구분</th>
+                    <th>시작일</th>
+                    <th>종료일</th>
+                    <th>작성자</th>
+                    <th>신청일</th>
+                </tr>
+                </thead>
+                <tbody id="vacationHistoryList">
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 
 </html>
 
 <script>
-
     <%- include ('vacation.js') %>
 </script>

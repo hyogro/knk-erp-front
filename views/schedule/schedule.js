@@ -57,14 +57,24 @@ function chkViewOption() {
 //달력에 한달 일정 셋팅
 function setScheduleCalendar(viewOption) {
     calendar.removeAllEvents();
+    let sendData = {};
+
+    sendData.startDate = $(".fc-scrollgrid-sync-table tr:first-child .fc-daygrid-day:first-child").data("date") + "T00:00:00";
+    sendData.endDate = $(".fc-scrollgrid-sync-table tr:last-child .fc-daygrid-day:last-child").data("date") + "T11:59:59";
+
+    //휴가일정 조회
+    if ($("#checkViewOptionVac").is(":checked")) {
+        request('GET', 'vacation/all', setVacationList);
+    }
+
+    //기념일일정 조회
+    if ($("#checkViewOptionAnn").is(":checked")) {
+        request('GET', getURL('schedule/anniversary', sendData), setAnniversaryList);
+    }
 
     if (!(isEmpty(viewOption))) {
         //전체일정 조회
-        let sendData = new Object();
         sendData.viewOption = viewOption;
-        sendData.startDate = $(".fc-scrollgrid-sync-table tr:first-child .fc-daygrid-day:first-child").data("date") + "T00:00:00";
-        sendData.endDate = $(".fc-scrollgrid-sync-table tr:last-child .fc-daygrid-day:last-child").data("date") + "T11:59:59";
-
         request('GET', getURL('schedule', sendData), setScheduleList);
 
         //내일정 조회
@@ -72,10 +82,6 @@ function setScheduleCalendar(viewOption) {
         request('GET', getURL('schedule', sendData), setMyScheduleList);
     }
 
-    //휴가일정 조회
-    if ($("#checkViewOptionVac").is(":checked")) {
-        request('GET', 'vacation/all', setVacationList);
-    }
 }
 
 //달력 일정 셋팅 - 근무일정
@@ -92,6 +98,25 @@ function setScheduleList(res) {
                 color = '#d46d8c';
             }
             addEvent(res.data[i], 'schedule', color);
+        }
+    } else if (res.code === 'RSL002') {
+        console.log("일정목록 조회 실패");
+    }
+}
+
+//달력 일정 셋팅 - 기념일
+function setAnniversaryList(res) {
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'RSL001') {
+        for (let i = 0; i < res.data.length; i++) {
+            let color = '#874519';
+            res.data[i].id=-1;
+            res.data[i].memo='생일축하합니다.';
+            console.log(res.data[i].viewOption);
+            if(res.data[i].viewOption === 'false') res.data[i].title += '(음)';
+            addEvent(res.data[i], 'anniversary', color);
         }
     } else if (res.code === 'RSL002') {
         console.log("일정목록 조회 실패");

@@ -86,6 +86,18 @@
                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 월
                     <input type="text" style="width: 5rem" maxlength="2" id="birth3"
                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 일
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="birthDateType" id="birthDateSolar" value="solar" onclick="test()">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            양력
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="birthDateType" id="birthDateLunar" value="lunar" onclick="test()">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            음력
+                        </label>
+                    </div>
                 </td>
             </tr>
             <tr>

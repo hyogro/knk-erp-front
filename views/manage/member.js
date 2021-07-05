@@ -38,16 +38,33 @@ function downloadAttendance() {
     } else if (chkDate(sendData.startDate, sendData.endDate)) {
         alert("올바른 기간이 아닙니다. 다시 선택해주세요.");
     } else {
-        request('GET', getURL('file/download/excel/attendance', sendData), consoleLogFunc);
+        request('GET', getURL('file/download/excel/attendance', sendData), downloadExcel);
+    }
+}
+//엑셀 관리 다운로드
+function downloadVacation() {
+    let sendData = {};
+    sendData.startDate = $("#vacationExcelStartDate").val();
+    sendData.endDate = $("#vacationExcelEndDate").val();
+
+    if (isEmpty(sendData.startDate)) {
+        alert("기간 시작일을 선택해주세요.");
+    } else if (isEmpty(sendData.endDate)) {
+        alert("기간 종료일을 선택해주세요.");
+    } else if (chkDate(sendData.startDate, sendData.endDate)) {
+        alert("올바른 기간이 아닙니다. 다시 선택해주세요.");
+    } else {
+        request('GET', getURL('file/download/excel/vacation', sendData), downloadExcel);
     }
 }
 
-function consoleLogFunc(res) {
+
+function downloadExcel(res) {
     if (res.code === null) {
         return;
     }
     if (res.code === 'ES001') {
-        location.href = '<%= fileApi %>' + res.message;
+        location.href = '<%= fileApi %>' + "excel/" + res.message;
         console.log(res.message);
     } else {
         alert("출퇴근 기록 다운로드 실패");

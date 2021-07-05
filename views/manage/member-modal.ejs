@@ -32,3 +32,38 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="vacationExcelModal" tabindex="-1"
+     aria-labelledby="vacationExcelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>전직원 휴가 기록 엑셀 다운로드</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding: 3rem!important;">
+                <table class="excel-table">
+                    <thead>
+                    <tr>
+                        <th>다운로드를 희망하는 기간을 지정해주세요.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <input type="date" id="vacationExcelStartDate">
+                            ~
+                            <input type="date" id="vacationExcelEndDate">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-success" onclick="downloadVacation()">엑셀 다운로드</button>
+            </div>
+        </div>
+    </div>
+</div>
