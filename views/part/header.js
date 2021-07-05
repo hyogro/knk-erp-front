@@ -9,12 +9,19 @@ $(document).ready(function () {
     if (authority === "LVL1") {
         $("#approveMenu").hide();
         $("#manageMenu").hide();
-    } else if(authority === "LVL2") {
+        $("#manageSubMenu").hide();
+    } else if (authority === "LVL2") {
         $("#approveMenu").show();
         $("#manageMenu").hide();
+        $("#manageSubMenu").show();
+    } else if (authority === "MANAGE") {
+        $("#approveMenu").hide();
+        $("#manageMenu").hide();
+        $("#manageSubMenu").show();
     } else {
         $("#approveMenu").show();
         $("#manageMenu").show();
+        $("#manageSubMenu").show();
     }
 
     //해당 메뉴 표시
@@ -40,8 +47,8 @@ if (isEmpty(token)) {
 function logout() {
     // $.cookie('token', null);
 
-    $.cookie("token", null, { path: '/' });
-    $.cookie("authority", null, { path: '/' });
+    $.cookie("token", null, {path: '/'});
+    $.cookie("authority", null, {path: '/'});
     //$.removeCookie('token');
     //$.removeCookie('authority');
 

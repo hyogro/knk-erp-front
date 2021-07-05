@@ -46,7 +46,12 @@ body {
 }
 
 #main .btn {
-    padding: 0.5rem 1.5rem;
+    padding: 5px 15px;
+}
+
+#main .btn-sm {
+    padding: 3px 7px;
+    font-size: 1.3rem !important;
 }
 
 .text-left {

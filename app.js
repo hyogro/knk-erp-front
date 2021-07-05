@@ -12,6 +12,7 @@ const scheduleRouter = require('./routes/schedule');
 const vacationRouter = require('./routes/vacation');
 const attendanceRouter = require('./routes/attendance');
 const boardRouter = require('./routes/board');
+const equipmentRouter = require('./routes/equipment');
 const approveRouter = require('./routes/approve');
 const manageRouter = require('./routes/manage');
 
@@ -33,6 +34,7 @@ app.use('/schedule', scheduleRouter);
 app.use('/vacation', vacationRouter);
 app.use('/attendance', attendanceRouter);
 app.use('/board', boardRouter);
+app.use('/equipment', equipmentRouter);
 app.use('/approve', approveRouter);
 app.use('/manage', manageRouter);
 

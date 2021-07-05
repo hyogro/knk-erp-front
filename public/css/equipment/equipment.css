@@ -1,0 +1,9 @@
+#main .row {
+    --bs-gutter-x: 0;
+    display: block;
+    width: 80rem !important;
+}
+
+#applyMyEquipmentList input {
+    width: 100%;
+}
