@@ -47,7 +47,7 @@ function consoleLogFunc(res) {
         return;
     }
     if (res.code === 'ES001') {
-        location.href = '<%= fileApi %>' + res.message;
+        location.href = '<%= fileApi %>' + "excel/" + res.message;
         console.log(res.message);
     } else {
         alert("출퇴근 기록 다운로드 실패");
