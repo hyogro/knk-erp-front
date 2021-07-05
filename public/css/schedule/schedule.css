@@ -42,6 +42,11 @@
     border-color: #198754;
 }
 
+.ann:checked {
+    background-color: #874519;
+    border-color: #874519;
+}
+
 .fc-daygrid-event, .fc-daygrid-day {
     cursor: pointer;
 }

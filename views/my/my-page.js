@@ -32,6 +32,15 @@ function setMemberInfo(res) {
             $("#profileImg").attr("src", profileFile.src);
             $("#profileDelBtn").show();
         }
+
+        if(data.birthDateSolar){
+            $("input:radio[name='birthDateType']:radio[value='solar']").prop('checked', true); // 선택하기
+        }
+        else {
+            $("input:radio[name='birthDateType']:radio[value='lunar']").prop('checked', true); // 선택하기
+        }
+
+        
     } else if (res.code === 'GMI002') {
         console.log("본인 정보 보기 실패");
     }
@@ -150,6 +159,7 @@ function chkUpdateMyInfo() {
             saveData.birthDate = birthDate;
         }
     }
+    saveData.birthDateSolar = $('input[name="birthDateType"]:checked').val() === 'solar';
 
     myInfo = saveData;
     saveProfileImage();
@@ -193,4 +203,8 @@ function updateMyInfo(res) {
     } else if (res.code === 'USM002') {
         console.log("본인 정보 수정 실패");
     }
+}
+
+function test(){
+    let checked = $('input[name="birthDateType"]:checked').val();
 }
