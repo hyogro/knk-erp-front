@@ -10,7 +10,7 @@ function setMyEquipmentList(res) {
         $("#myEquipmentList").empty();
         let data = res.readFixturesFormDTO;
         for (let i = 0; i < data.length; i++) {
-            let html = '<tr>' +
+            let html = '<tr onclick="loadDetailPage(' + data[i].fixturesFormId + ')">' +
                 '<td>' + (i + 1) + '</td>' +
                 '<td>' + getToday(data[i].createDate) + '</td>' +
                 '<td>' + (data[i].check ? '처리완료' : '처리전') + '</td>' +
@@ -20,4 +20,9 @@ function setMyEquipmentList(res) {
     } else if (res.code === 'RFF002') {
         console.log("내 비품 요청 목록 읽기 실패");
     }
+}
+
+//상세보기 페이지 이동
+function loadDetailPage(id) {
+    location.href = '/equipment/apply/view?id=' + id;
 }

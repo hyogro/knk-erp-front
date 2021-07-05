@@ -4,6 +4,14 @@
     width: 80rem !important;
 }
 
-#applyMyEquipmentList input {
+#applyMyEquipmentList input[type=text] {
     width: 100%;
+}
+
+.equipment-table tr{
+    cursor: pointer;
+}
+
+.equipment-table tr:hover{
+    background: #f8f9ff;
 }

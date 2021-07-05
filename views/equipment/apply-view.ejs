@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('../part/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/equipment/equipment.css?ver=1.1">
+</head>
+
+<header>
+    <%- include ('../part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('../part/menu.ejs') %>
+<div id="main" class="vacation">
+    <div class="row main-title">
+        비품 신청서
+    </div>
+
+    <div class="row">
+        <table class="table-bordered">
+            <thead>
+            <tr>
+                <th width="5%">No</th>
+                <th width="40%">품명</th>
+                <th width="10%">수량</th>
+                <th width="25%">비고</th>
+                <th width="10%">승인</th>
+                <th width="10%">구매</th>
+            </tr>
+            </thead>
+            <tbody id="equipmentList">
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row" style="margin: 3rem 0;display: inline-block">
+        <div style="float: right;padding: 0;width: fit-content">
+            <button type="button" class="btn btn-secondary" onclick="location.href='/equipment/apply'">목록으로</button>
+            <button type="button" class="btn btn-primary" onclick="loadModifyPage()">수정</button>
+            <button type="button" class="btn btn-danger" onclick="deleteAlertMyApply()">삭제</button>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script>
+    <%- include ('apply-view.js') %>
+</script>

@@ -4,7 +4,6 @@ let profileFile = {};
 
 //내 정보 셋팅
 function setMemberInfo(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
