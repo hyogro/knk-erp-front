@@ -10,10 +10,14 @@ function setMyEquipmentList(res) {
         let data = res.readFixturesFormDTO;
         for (let i = 0; i < data.length; i++) {
             let html = '<tr onclick="loadDetailPage(' + data[i].fixturesFormId + ')">' +
-                '<td>' + (i + 1) + '</td>' +
-                '<td>' + getToday(data[i].createDate) + '</td>' +
-                '<td>' + (data[i].check ? '처리완료' : '처리전') + '</td>' +
-                '</tr>';
+                '<td class="no">' + (i + 1) + '</td>' +
+                '<td>' + getToday(data[i].createDate) + '</td>';
+            if (data[i].check) {
+                html += '<td>처리완료</td>';
+            } else {
+                html += '<td class="yet-state">미처리</td>';
+            }
+            html += '</tr>';
             $("#myEquipmentList").append(html);
         }
     } else if (res.code === 'RFF002') {

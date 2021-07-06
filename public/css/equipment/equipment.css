@@ -15,3 +15,15 @@
 .equipment-table tr:hover{
     background: #f8f9ff;
 }
+
+.equipment-table .no {
+    font-size: 1.3rem;
+}
+
+.equipment-table .yet-state {
+    color: gray;
+}
+
+.equipment-table .complete-state {
+
+}
