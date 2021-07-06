@@ -22,10 +22,10 @@ function detailEquipmentList(res) {
 
             if (res.readDetailFixturesFormDTO.check) {
                 if (data[i].confirm) {
-                    html += '<td>Y</td>';
+                    html += '<td><span class="badge bg-primary">승인</span></td>';
                     html += '<td>' + (data[i].purchase ? '완료' : ' ') + '</td>';
                 } else {
-                    html += '<td>N</td>';
+                    html += '<td><span class="badge bg-danger">거절</span></td>';
                     html += '<td> </td>';
                 }
             } else {
@@ -41,12 +41,12 @@ function detailEquipmentList(res) {
     }
 }
 
-//상세보기 페이지 이동
+//수정 페이지 이동
 function loadModifyPage() {
     location.href = '/equipment/apply/write?id=' + getQuery().id;
 }
 
-//일정 삭제
+//비품 신청서 삭제
 function deleteAlertMyApply() {
     if (confirm("비품 신청서를 삭제하시겠습니까?") === true) {
         let sendData = {};

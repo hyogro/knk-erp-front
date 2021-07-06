@@ -16,7 +16,8 @@
     background: #f8f9ff;
 }
 
-.equipment-table .no {
+.equipment-table .no,
+.table-bordered .no{
     font-size: 1.3rem;
 }
 
@@ -24,6 +25,6 @@
     color: gray;
 }
 
-.equipment-table .complete-state {
-
+.writer {
+    margin-bottom: 5px;
 }
