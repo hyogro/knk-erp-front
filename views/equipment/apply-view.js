@@ -1,17 +1,14 @@
 request('GET', getURL('fixtures', getQuery().id), detailEquipmentList);
 
 function detailEquipmentList(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
     if (res.code === 'RDFF001') {
         if (!res.readDetailFixturesFormDTO.check) {
-            $("#modifyBtn").show();
-            $("#deleteBtn").show();
+            $("#controlBtn").show();
         } else {
-            $("#modifyBtn").hide();
-            $("#deleteBtn").hide();
+            $("#controlBtn").hide();
         }
 
         $("#equipmentList").empty();
@@ -31,7 +28,6 @@ function detailEquipmentList(res) {
                     html += '<td>N</td>';
                     html += '<td> </td>';
                 }
-                // html += '<td>' + (data[i].confirm ? 'Y' : 'N') + '</td>';
             } else {
                 html += '<td> </td>';
                 html += '<td> </td>';

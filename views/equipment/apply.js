@@ -2,7 +2,6 @@
 request('GET', 'fixtures', setMyEquipmentList);
 
 function setMyEquipmentList(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
