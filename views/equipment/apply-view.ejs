@@ -40,8 +40,10 @@
     <div class="row" style="margin: 3rem 0;display: inline-block">
         <div style="float: right;padding: 0;width: fit-content">
             <button type="button" class="btn btn-secondary" onclick="location.href='/equipment/apply'">목록으로</button>
-            <button type="button" class="btn btn-primary" onclick="loadModifyPage()">수정</button>
-            <button type="button" class="btn btn-danger" onclick="deleteAlertMyApply()">삭제</button>
+            <button type="button" class="btn btn-primary" id="modifyBtn" style="display: none"
+                    onclick="loadModifyPage()">수정</button>
+            <button type="button" class="btn btn-danger" id="deleteBtn" style="display: none"
+                    onclick="deleteAlertMyApply()">삭제</button>
         </div>
     </div>
 </div>
