@@ -122,7 +122,7 @@ function applyEquipment() {
     console.log(saveData);
     if (!isEmpty(getQuery().id)) {
         saveData.fixturesFormId = getQuery().id;
-        saveData.updateFixturesFormDTOReq = fixturesDTOReq;
+        saveData.updateFixturesDTOReq = fixturesDTOReq;
         console.log(saveData);
         requestWithData('PUT',
             getURL('fixtures', getQuery().id), saveData, applyModifyAlertEquipment);
