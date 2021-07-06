@@ -189,6 +189,10 @@ function applyAlertAttendance(res) {
     } else if (res.code === 'CRA002' || res.code === 'URA002') {
         console.log("출퇴근 정정요청 실패");
     }
+    else if(res.code === 'CRA003' || res.code === 'URA003') {
+        alert("해당날짜에 이미 정정요청이 존재합니다. 삭제 후 재요청 해주세요.");
+        location.reload();
+    }
 }
 
 //내 정정요청 목록 조회

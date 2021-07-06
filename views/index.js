@@ -215,7 +215,7 @@ function onWork(res) {
     } else if (res.code === 'ON003') {
         alert("이미 출근 기록이 존재합니다.");
     } else if (res.code === 'ON004') {
-        alert("권한이 없습니다.");
+        alert("오늘 날짜의 정정요청이 존재 합니다.");
     }
 }
 
