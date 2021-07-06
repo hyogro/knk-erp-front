@@ -272,6 +272,26 @@ input, select, textarea {
     font-weight: bold;
 }
 
+/*버튼 모임*/
+.btn-row {
+    display: inline-block;
+    margin: 1rem 0 !important;
+    padding: 0;
+}
+
+.btn-row div {
+    padding: 0 !important;
+    width: fit-content;
+}
+
+.btn-row div:first-child {
+    float: left;
+}
+
+.btn-row div:last-child {
+    float: right;
+}
+
 /*승인 테이블*/
 .apply-table th,
 .apply-table td {

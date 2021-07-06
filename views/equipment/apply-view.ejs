@@ -15,7 +15,7 @@
 
 <body>
 <%- include ('../part/menu.ejs') %>
-<div id="main" class="vacation">
+<div id="main">
     <div class="row main-title">
         비품 신청서
     </div>
@@ -37,11 +37,19 @@
         </table>
     </div>
 
-    <div class="row" style="margin: 3rem 0;display: inline-block">
-        <div style="float: right;padding: 0;width: fit-content">
-            <button type="button" class="btn btn-secondary" onclick="location.href='/equipment/apply'">목록으로</button>
-            <button type="button" class="btn btn-primary" onclick="loadModifyPage()">수정</button>
-            <button type="button" class="btn btn-danger" onclick="deleteAlertMyApply()">삭제</button>
+    <div class="row">
+        <div class="btn-row">
+            <div id="controlBtn" style="display: none">
+                <button type="button" class="btn btn-secondary"
+                        onclick="loadModifyPage()">수정</button>
+                <button type="button" class="btn btn-danger"
+                        onclick="deleteAlertMyApply()">삭제</button>
+            </div>
+
+            <div>
+                <button type="button" class="btn btn-outline-secondary"
+                        onclick="location.href='/equipment/apply'">목록으로</button>
+            </div>
         </div>
     </div>
 </div>

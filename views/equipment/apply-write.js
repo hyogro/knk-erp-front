@@ -8,7 +8,6 @@ if (!isEmpty(getQuery().id)) {
 }
 
 function detailEquipmentList(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }
@@ -67,13 +66,22 @@ function addRow() {
 function deleteRow() {
     if ($("input:checkbox[name='equipment']:checked").length === 0) {
         alert("삭제할 항목을 선택해주세요.");
+        return;
     }
 
     $("input[name='equipment']:checked").each(function () {
         let index = $(this).val();
-        $("#applyMyEquipmentList").find("tr:eq(" + index + ")").remove();
-        equipmentArr[index] = 0;
+        if (index === 'all') {
+            $("input:checkbox[name='equipment']").prop("checked", false);
+        } else {
+            $(this).parent().parent().remove();
+            equipmentArr[index] = 0;
+        }
     });
+
+    if ($("#applyMyEquipmentList tr").length === 0) {
+        addRow();
+    }
 }
 
 //비품 빈 값 체크
@@ -119,7 +127,6 @@ function applyEquipment() {
         }
     }
 
-    console.log(saveData);
     if (!isEmpty(getQuery().id)) {
         saveData.fixturesFormId = getQuery().id;
         saveData.updateFixturesDTOReq  = fixturesDTOReq;
@@ -145,13 +152,12 @@ function applyAlertEquipment(res) {
 }
 
 function applyModifyAlertEquipment(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
     if (res.code === 'UFF001') {
-        // alert("신청되었습니다.")
-        // location.href = "/equipment/apply";
+        alert("수정되었습니다.")
+        location.href = "/equipment/apply";
     } else if (res.code === 'UFF002') {
         console.log("비품 요청 수정 실패");
     } else if (res.code === 'UFF003') {

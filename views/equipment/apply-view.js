@@ -1,11 +1,16 @@
 request('GET', getURL('fixtures', getQuery().id), detailEquipmentList);
 
 function detailEquipmentList(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
     if (res.code === 'RDFF001') {
+        if (!res.readDetailFixturesFormDTO.check) {
+            $("#controlBtn").show();
+        } else {
+            $("#controlBtn").hide();
+        }
+
         $("#equipmentList").empty();
         let data = res.readDetailFixturesFormDTO.readDetailFixturesDTO;
         for (let i = 0; i < data.length; i++) {
@@ -13,10 +18,22 @@ function detailEquipmentList(res) {
                 '<td>' + (i + 1) + '</td>' +
                 '<td class="text-left">' + data[i].fixturesName + '</td>' +
                 '<td>' + data[i].amount + '</td>' +
-                '<td class="text-left">' + data[i].memo + '</td>' +
-                '<td>' + (data[i].confirm ? 'Y' : 'N') + '</td>' +
-                '<td>' + (data[i].purchase ? '완료' : ' ') + '</td>' +
-                '</tr>';
+                '<td class="text-left">' + data[i].memo + '</td>';
+
+            if (res.readDetailFixturesFormDTO.check) {
+                if (data[i].confirm) {
+                    html += '<td>Y</td>';
+                    html += '<td>' + (data[i].purchase ? '완료' : ' ') + '</td>';
+                } else {
+                    html += '<td>N</td>';
+                    html += '<td> </td>';
+                }
+            } else {
+                html += '<td> </td>';
+                html += '<td> </td>';
+            }
+
+            html += '</tr>';
             $("#equipmentList").append(html);
         }
     } else if (res.code === 'RDFF002') {
@@ -47,7 +64,7 @@ function deleteMyApply(res) {
     }
     if (res.code === 'DFF001') {
         alert("삭제되었습니다.");
-        location.reload();
+        location.href = '/equipment/apply';
     } else if (res.code === 'DFF002') {
         console.log("비품 요청서 삭제 실패");
     } else if (res.code === 'DFF003') {

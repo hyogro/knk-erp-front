@@ -65,9 +65,9 @@ function loginRequest(res) {
             $.cookie('id', $("#id").val(), 7);
         } else {
             $.removeCookie('id');
-            $.cookie('id', $("#id").val());
+            $.cookie('id', $("#id").val(), {expires: date});
         }
-        $.cookie('authority', res.tokenDto.authority);
+        $.cookie('authority', res.tokenDto.authority, {expires: date});
         location.href = '/';
     } else if (res.code === 'LI002') {
         alert('등록되지 않은 아이디이거나, 잘못된 비밀번호입니다.');
