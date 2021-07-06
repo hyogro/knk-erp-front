@@ -98,6 +98,8 @@ function deleteProfileImg() {
 
 let myInfo = {};
 
+let isLogout = false;
+
 //변경 사항 value 체크
 function chkUpdateMyInfo() {
     let saveData = {};
@@ -111,6 +113,7 @@ function chkUpdateMyInfo() {
             return;
         } else {
             saveData.password = pass1;
+            isLogout = true;
         }
     }
 
@@ -198,8 +201,14 @@ function updateMyInfo(res) {
         return;
     }
     if (res.code === 'USM001') {
-        alert("저장되었습니다. 다시 로그인 후, 이용해주세요.");
-        logout();
+        if(isLogout){
+            alert("저장되었습니다. 다시 로그인 후, 이용해주세요.");
+            logout();
+        }
+       else {
+            alert("변경사항이 저장되었습니다.");
+            location.href = "/";
+       }
     } else if (res.code === 'USM002') {
         console.log("본인 정보 수정 실패");
     }
