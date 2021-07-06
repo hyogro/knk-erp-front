@@ -36,26 +36,28 @@
                 <th width="5%">
                     <input type="checkbox" name="equipment" id="all" value="all">
                 </th>
-                <th width="5%">No</th>
-                <th width="45%">품명</th>
+                <!--                <th width="5%">No</th>-->
+                <th width="50%">품명</th>
                 <th width="10%">수량</th>
                 <th width="35%">비고</th>
             </tr>
             </thead>
             <tbody id="applyMyEquipmentList">
-<!--            <tr>-->
-<!--                <td>1</td>-->
-<!--                <td>-->
-<!--                    <input type="text" id="1FixturesName">-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <input type="text" id="1Amount"-->
-<!--                           oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <input type="text" id="1Memo">-->
-<!--                </td>-->
-<!--            </tr>-->
+            <tr>
+                <td>
+                    <input type="checkbox" name="equipment" value="0">
+                </td>
+                <td>
+                    <input type="text" id="0FixturesName">
+                </td>
+                <td>
+                    <input type="text" id="0Amount"
+                           oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                </td>
+                <td>
+                    <input type="text" id="0Memo">
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
