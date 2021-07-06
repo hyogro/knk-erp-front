@@ -111,6 +111,7 @@ function setAnniversaryList(res) {
     }
     if (res.code === 'RSL001') {
         for (let i = 0; i < res.data.length; i++) {
+            console.log(res.data[i]);
             let color = '#874519';
             res.data[i].id=-1;
             res.data[i].memo='생일축하합니다.';

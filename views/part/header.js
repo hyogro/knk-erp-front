@@ -45,17 +45,10 @@ if (isEmpty(token)) {
 
 //로그아웃
 function logout() {
-    // $.cookie('token', null);
 
-    $.cookie("token", null, {path: '/'});
-    $.cookie("authority", null, {path: '/'});
-    //$.removeCookie('token');
-    //$.removeCookie('authority');
+    $.cookie("token", null, { path: '/' });
+    $.cookie("authority", null, { path: '/' });
 
-    // let cookies = $.cookie();
-    // for (let cookie in cookies) {
-    //     $.removeCookie(cookie);
-    // }
     alert("로그아웃 되었습니다.");
     location.href = "/login";
 }
