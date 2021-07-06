@@ -1,0 +1,17 @@
+#main .row {
+    --bs-gutter-x: 0;
+    display: block;
+    width: 80rem !important;
+}
+
+#applyMyEquipmentList input[type=text] {
+    width: 100%;
+}
+
+.equipment-table tr{
+    cursor: pointer;
+}
+
+.equipment-table tr:hover{
+    background: #f8f9ff;
+}

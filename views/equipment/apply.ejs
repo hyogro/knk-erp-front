@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('../part/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/equipment/equipment.css?ver=1.1">
+</head>
+
+<header>
+    <%- include ('../part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('../part/menu.ejs') %>
+<div id="main" class="vacation">
+    <div class="row" style="margin-bottom: 10rem !important;">
+        <div class="row main-title">
+            비품 신청 목록
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-secondary" style="float: right;margin-bottom: 5px"
+                    onclick="location.href='/equipment/apply/write'">
+                신청하기
+            </button>
+        </div>
+        <div class="row">
+            <table>
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>신청일</th>
+                    <th>처리상태</th>
+                </tr>
+                </thead>
+                <tbody class="equipment-table" id="myEquipmentList">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script>
+    <%- include ('apply.js') %>
+</script>
