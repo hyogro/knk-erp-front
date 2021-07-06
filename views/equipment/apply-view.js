@@ -47,7 +47,7 @@ function deleteMyApply(res) {
     }
     if (res.code === 'DFF001') {
         alert("삭제되었습니다.");
-        location.reload();
+        location.href = '/equipment/apply';
     } else if (res.code === 'DFF002') {
         console.log("비품 요청서 삭제 실패");
     } else if (res.code === 'DFF003') {
