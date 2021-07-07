@@ -1,5 +1,18 @@
-request('GET', 'vacation/approve', setAppliedVacationList);
-request('GET', 'vacation/approve/history', setHistoryVacationList);
+readVacation();
+
+function readVacation(){
+    let sendData = {};
+    sendData.startDate = "2021-07-01";
+    sendData.endDate = "2021-07-29";
+
+    let sd = $("#searchStartDate").val();
+    let ed = $("#searchEndDate").val();
+    alert(sd + " / " + ed);
+
+
+    request('GET', getURL('vacation/approve', sendData), setAppliedVacationList);
+    request('GET', getURL('vacation/approve/history', sendData), setHistoryVacationList);
+}
 
 //승인 해야 할 출,퇴근 휴가목록 셋팅
 function setAppliedVacationList(res) {
