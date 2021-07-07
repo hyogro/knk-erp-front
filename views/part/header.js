@@ -13,7 +13,7 @@ $(document).ready(function () {
     } else if (authority === "LVL2") {
         $("#approveMenu").show();
         $("#manageMenu").hide();
-        $("#manageSubMenu").show();
+        $("#manageSubMenu").hide();
     } else if (authority === "MANAGE") {
         $("#approveMenu").hide();
         $("#manageMenu").hide();

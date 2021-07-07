@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('../part/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/equipment/equipment.css?ver=1.1">
+</head>
+
+<header>
+    <%- include ('../part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('../part/menu.ejs') %>
+<div id="main">
+    <div class="row main-title">
+        비품 신청서
+    </div>
+
+    <div class="row">
+        <div class="writer text-right">
+            작성자: <span id="authorName"></span>(<span id="authorId"></span>)
+        </div>
+
+        <table class="table-bordered">
+            <thead>
+            <tr>
+                <th width="5%">
+                    <input type="checkbox" name="equipment" id="all" value="all">
+                </th>
+                <th width="5%">No</th>
+                <th width="38%">품명</th>
+                <th width="7%">수량</th>
+                <th width="25%">비고</th>
+                <th width="10%">승인</th>
+                <th width="10%">구매</th>
+            </tr>
+            </thead>
+            <tbody id="equipmentList">
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <div class="btn-row">
+            <div>
+                <button type="button" class="btn btn-outline-secondary"
+                        onclick="history.back()">목록으로</button>
+            </div>
+
+            <div>
+                <button type="button" class="btn btn-sm btn-secondary"
+                        onclick="updateConfirmState(true)">승인</button>
+                <button type="button" class="btn btn-sm btn-danger"
+                        onclick="updateConfirmState(false)">거절</button>
+                <button type="button" class="btn btn-sm btn-success"
+                        onclick="updatePurchaseState(true)">구매완료</button>
+                <button type="button" class="btn btn-sm btn-outline-success"
+                        onclick="updatePurchaseState(false)">미구매</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script>
+    <%- include ('manage-view.js') %>
+</script>

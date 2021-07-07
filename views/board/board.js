@@ -1,13 +1,13 @@
-// let authority = $.cookie('authority');
-// if (authority === "LVL1") {
-//     $("#writeBtn").hide();
-// } else {
-//     $("#writeBtn").show();
-// }
-
 if (boardType === 'notice') {
+    let authority = $.cookie('authority');
+    if (authority === "LVL1") {
+        $("#writeBtn").hide();
+    } else {
+        $("#writeBtn").show();
+    }
     searchPage();
 } else if (boardType === 'work') {
+    $("#writeBtn").show();
     request('GET', 'board/noticeLatest', setNoticeList);
 }
 

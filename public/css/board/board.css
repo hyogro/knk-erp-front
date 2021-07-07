@@ -17,7 +17,7 @@
 
 .board-form {
     display: inline-block !important;
-    margin: 1rem 0 4rem !important;
+    margin: 1rem 0 !important;
 }
 
 .board-form .input-group {
@@ -42,6 +42,7 @@
 
 .board-form #writeBtn {
     float: right;
+    display: none;
 }
 
 .board-detail, .board-write {
