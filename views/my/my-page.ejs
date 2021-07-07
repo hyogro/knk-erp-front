@@ -80,21 +80,26 @@
             <tr>
                 <th>생년월일</th>
                 <td>
-                    <input type="text" style="width: 7rem" maxlength="4" id="birth1"
-                           oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 년
-                    <input type="text" style="width: 5rem" maxlength="2" id="birth2"
-                           oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 월
-                    <input type="text" style="width: 5rem" maxlength="2" id="birth3"
-                           oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 일
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="birthDateType" id="birthDateSolar" value="solar" onclick="test()">
-                        <label class="form-check-label" for="flexRadioDefault1">
+                    <div style="display: flex;width: fit-content!important;align-items: center;justify-content: center;">
+                        <input type="text" style="width: 7rem" maxlength="4" id="birth1"
+                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                        &nbsp;년&nbsp;
+                        <input type="text" style="width: 5rem" maxlength="2" id="birth2"
+                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                        &nbsp;월&nbsp;
+                        <input type="text" style="width: 5rem" maxlength="2" id="birth3"
+                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                        &nbsp;일&nbsp;&nbsp;&nbsp;
+
+                        <input class="form-check-input" type="radio" name="birthDateType" id="birthDateSolar"
+                               value="solar" onclick="test()">
+                        <label class="form-check-label" for="birthDateSolar">
                             양력
                         </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="birthDateType" id="birthDateLunar" value="lunar" onclick="test()">
-                        <label class="form-check-label" for="flexRadioDefault2">
+
+                        <input class="form-check-input" type="radio" name="birthDateType" id="birthDateLunar"
+                               value="lunar" onclick="test()">
+                        <label class="form-check-label" for="birthDateLunar">
                             음력
                         </label>
                     </div>
@@ -128,7 +133,9 @@
         <table class="member-table">
             <tr>
                 <th width="20%">부서</th>
-                <td width="80%" colspan="3" id="departmentName"></td>
+                <td width="30%" id="departmentName"></td>
+                <th width="20%">직급</th>
+                <td width="30%" id="position"></td>
             </tr>
             <tr>
                 <th width="20%">법정휴가</th>

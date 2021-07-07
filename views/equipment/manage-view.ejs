@@ -52,10 +52,13 @@
             </div>
 
             <div>
-                <button type="button" class="btn btn-sm btn-secondary"
-                        onclick="updateConfirmState(true)">승인</button>
-                <button type="button" class="btn btn-sm btn-danger"
-                        onclick="updateConfirmState(false)">거절</button>
+                <span id="comfirmBtns" style="display: none">
+                    <button type="button" class="btn btn-sm btn-secondary"
+                            onclick="updateConfirmState(true)">승인</button>
+                    <button type="button" class="btn btn-sm btn-danger"
+                            onclick="updateConfirmState(false)">거절</button>
+                </span>
+
                 <button type="button" class="btn btn-sm btn-success"
                         onclick="updatePurchaseState(true)">구매완료</button>
                 <button type="button" class="btn btn-sm btn-outline-success"

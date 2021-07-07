@@ -4,6 +4,7 @@ let profileFile = {};
 
 //내 정보 셋팅
 function setMemberInfo(res) {
+    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -12,6 +13,7 @@ function setMemberInfo(res) {
         $("#memberId").text(data.memberId);
         $("#memberName").text(data.memberName);
         $("#departmentName").text(data.departmentName);
+        $("#position").text(data.position);
         if (!isEmpty(data.phone)) {
             let phone = (data.phone).split("-");
             $("#phone1").val(phone[0]);
@@ -32,14 +34,12 @@ function setMemberInfo(res) {
             $("#profileDelBtn").show();
         }
 
-        if(data.birthDateSolar){
-            $("input:radio[name='birthDateType']:radio[value='solar']").prop('checked', true); // 선택하기
-        }
-        else {
-            $("input:radio[name='birthDateType']:radio[value='lunar']").prop('checked', true); // 선택하기
+        if (data.birthDateSolar) {
+            $("input:radio[name='birthDateType']:radio[value='solar']").prop('checked', true);
+        } else {
+            $("input:radio[name='birthDateType']:radio[value='lunar']").prop('checked', true);
         }
 
-        
     } else if (res.code === 'GMI002') {
         console.log("본인 정보 보기 실패");
     }
@@ -200,19 +200,18 @@ function updateMyInfo(res) {
         return;
     }
     if (res.code === 'USM001') {
-        if(isLogout){
+        if (isLogout) {
             alert("저장되었습니다. 다시 로그인 후, 이용해주세요.");
             logout();
-        }
-       else {
+        } else {
             alert("변경사항이 저장되었습니다.");
             location.href = "/";
-       }
+        }
     } else if (res.code === 'USM002') {
         console.log("본인 정보 수정 실패");
     }
 }
 
-function test(){
+function test() {
     let checked = $('input[name="birthDateType"]:checked').val();
 }

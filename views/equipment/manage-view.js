@@ -1,3 +1,8 @@
+let authority = $.cookie('authority');
+if (authority !== "MANAGE") {
+    $("#comfirmBtns").show();
+}
+
 request('GET', getURL('fixtures', getQuery().id), detailEquipmentList);
 
 let applyState = false;

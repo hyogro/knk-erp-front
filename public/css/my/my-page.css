@@ -41,3 +41,13 @@
 .member-table #address {
     min-width: 100%;
 }
+
+.form-check-input{
+    width: 13px;
+    height: 13px;
+}
+
+.form-check-label {
+    margin: 0 5px;
+    font-size: 1.3rem;
+}
