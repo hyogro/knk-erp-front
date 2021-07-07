@@ -16,6 +16,14 @@
 <body>
 <%- include ('../part/menu.ejs') %>
 <div id="main">
+
+    <div class="row">
+        검색조건
+        <input type="date" id="searchStartDate">
+        ~
+        <input type="date" id="searchEndDate">
+        <button onclick="readVacation()"> 조회 </button>
+    </div>
     <div class="row">
         <div class="row main-title">
             휴가 승인 대기 목록
