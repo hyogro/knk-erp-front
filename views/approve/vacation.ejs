@@ -16,14 +16,19 @@
 <body>
 <%- include ('../part/menu.ejs') %>
 <div id="main">
-
     <div class="row">
-        검색조건
-        <input type="date" id="searchStartDate">
-        ~
-        <input type="date" id="searchEndDate">
-        <button onclick="readVacation()"> 조회 </button>
+        <div class="vacation-search">
+            조회기간
+            &nbsp;
+            <input type="date" id="searchStartDate">
+            &nbsp;~&nbsp;
+            <input type="date" id="searchEndDate"> &nbsp;
+            <button class="btn btn-sm btn-success"
+                    style="font-size: 1.1rem !important;"
+                    onclick="readVacation()">검색</button>
+        </div>
     </div>
+
     <div class="row">
         <div class="row main-title">
             휴가 승인 대기 목록
@@ -32,12 +37,12 @@
             <table>
                 <thead>
                 <tr>
-                    <th>No</th>
-                    <th>휴가구분</th>
-                    <th>시작일</th>
-                    <th>종료일</th>
-                    <th>작성자</th>
-                    <th>신청일</th>
+                    <th width="9%">No</th>
+                    <th width="17%">휴가구분</th>
+                    <th width="20%">시작일</th>
+                    <th width="20%">종료일</th>
+                    <th width="18%">작성자</th>
+                    <th width="20%">신청일</th>
                 </tr>
                 </thead>
                 <tbody id="vacationList">
@@ -45,6 +50,7 @@
             </table>
         </div>
     </div>
+
     <div class="row">
         <div class="row main-title">
             휴가 승인/거절 목록
@@ -53,12 +59,12 @@
             <table>
                 <thead>
                 <tr>
-                    <th>No</th>
-                    <th>휴가구분</th>
-                    <th>시작일</th>
-                    <th>종료일</th>
-                    <th>작성자</th>
-                    <th>신청일</th>
+                    <th width="9%">No</th>
+                    <th width="17%">휴가구분</th>
+                    <th width="20%">시작일</th>
+                    <th width="20%">종료일</th>
+                    <th width="18%">작성자</th>
+                    <th width="20%">신청일</th>
                 </tr>
                 </thead>
                 <tbody id="vacationHistoryList">

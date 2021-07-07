@@ -1,14 +1,26 @@
-readVacation();
+setTodayMonth();
 
-function readVacation(){
+// 오늘날짜 ~ 한달후날짜 셋팅
+function setTodayMonth() {
+    let today = getTodayArr(new Date());
+    let after = getTodayArr(new Date(new Date().setMonth(new Date().getMonth() + 1)));
+
+    $("#searchStartDate").val(today[0] + "-" + today[1] + "-01");
+    $("#searchEndDate").val(after[0] + "-" + after[1] + "-01");
+
+    readVacation();
+}
+
+//날짜 검색
+function readVacation() {
     let sendData = {};
-    sendData.startDate = "2021-07-01";
-    sendData.endDate = "2021-07-29";
+    sendData.startDate = $("#searchStartDate").val();
+    sendData.endDate = $("#searchEndDate").val();
 
-    let sd = $("#searchStartDate").val();
-    let ed = $("#searchEndDate").val();
-    alert(sd + " / " + ed);
-
+    if (chkDate(sendData.startDate, sendData.endDate)) {
+        alert("올바른 기간을 선택해주세요.");
+        return;
+    }
 
     request('GET', getURL('vacation/approve', sendData), setAppliedVacationList);
     request('GET', getURL('vacation/approve/history', sendData), setHistoryVacationList);
@@ -25,6 +37,7 @@ function setAppliedVacationList(res) {
         console.log("휴가 승인대기 목록 조회 실패");
     }
 }
+
 function setHistoryVacationList(res) {
     if (res.code === null) {
         return;
@@ -36,12 +49,12 @@ function setHistoryVacationList(res) {
     }
 }
 
-function setTable(table, res){
-    $("#"+table).empty();
+function setTable(table, res) {
+    $("#" + table).empty();
 
     if (res.data.length === 0) {
         let html = '<tr><td colspan="6" class="empty-tr">신청이 없습니다.</td></tr>'
-        $("#"+table).html(html);
+        $("#" + table).html(html);
         return false;
     }
 
@@ -55,6 +68,6 @@ function setTable(table, res){
             '<td>' + res.data[i].memberName + '</td>' +
             '<td>' + getToday(res.data[i].requestDate) + '</td>' +
             '</tr>';
-        $("#"+table).append(html);
+        $("#" + table).append(html);
     }
 }

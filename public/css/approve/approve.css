@@ -23,3 +23,15 @@
     float: right;
     width: fit-content;
 }
+
+.vacation-search {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    float: right;
+    font-size: 1.4rem;
+}
+
+.vacation-search input {
+    width: fit-content
+}
