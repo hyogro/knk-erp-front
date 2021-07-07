@@ -4,7 +4,6 @@ let profileFile = {};
 
 //내 정보 셋팅
 function setMemberInfo(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -205,7 +204,7 @@ function updateMyInfo(res) {
             logout();
         } else {
             alert("변경사항이 저장되었습니다.");
-            location.href = "/";
+            location.reload();
         }
     } else if (res.code === 'USM002') {
         console.log("본인 정보 수정 실패");

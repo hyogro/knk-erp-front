@@ -1,5 +1,6 @@
 //부서 옵션 셋팅
 request('GET', 'department', setDepartmentOption);
+
 function setDepartmentOption(res) {
     if (res.code === null) {
         return;
@@ -20,6 +21,7 @@ function setDepartmentOption(res) {
 
 //직원 정보 셋팅
 function setMemberInfo(res) {
+    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -32,11 +34,17 @@ function setMemberInfo(res) {
         $("#phone2").val(phone[1]);
         $("#phone3").val(phone[2]);
         $("#email").val(data.email);
+        let birth = data.birthDate + " " + (data.birthDateSolar ? "(양력)" : "(음력)");
+        $("#birthDate").text(birth);
         $("#address").val(data.address);
+        if (!isEmpty(data.images)) {
+            $("#profileImg").attr("src", '<%= fileApi %>' + 'member/' + data.images);
+        }
         $("#departmentName").val(data.dep_id);
         $("#authority").val(data.authority);
+        $("#position").val(data.position);
         $("#joiningDate").val(data.joiningDate);
-        $("#addVacation").val(data.vacation/480);
+        $("#addVacation").val(data.vacation / 480);
 
         //휴가 정보
         request('GET', getURL('vacation/info', data.memberId), setVacationInfo);
@@ -120,6 +128,12 @@ function chkUpdateMemberInfo() {
         saveData.authority = authority;
     }
 
+    //직급
+    let position = $("#position").val();
+    if (!isEmpty(position)) {
+        saveData.position = position;
+    }
+
     //입사일
     let joiningDate = $("#joiningDate").val();
     if (isEmpty(joiningDate)) {
@@ -171,7 +185,7 @@ function deleteMember(res) {
     }
     if (res.code === 'DA001') {
         alert("삭제되었습니다.");
-        location.href='/manage/member';
+        location.href = '/manage/member';
     } else if (res.code === 'DA002') {
         alert("삭제 실패");
     } else if (res.code === 'DA003') {

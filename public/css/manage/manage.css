@@ -73,3 +73,16 @@ input {
     text-align: right;
     padding: 0;
 }
+
+.btn-row {
+    margin: 0 !important;
+}
+
+.btn-row div {
+    display: inline-block;
+    line-height: 40px;
+}
+
+.btn-row div button {
+    vertical-align: bottom;
+}

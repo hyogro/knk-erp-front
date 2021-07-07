@@ -20,20 +20,25 @@
         직원관리
     </div>
 
-    <div class="row" style="display: inline-block">
-        <div style="float: right;width: fit-content;padding: 0">
-            <button type="button" class="col btn btn-outline-success"
-                    data-bs-toggle="modal" data-bs-target="#vacationExcelModal">
-                전직원 휴가 기록 엑셀 다운로드
-            </button>
-            <button type="button" class="col btn btn-outline-success"
-                    data-bs-toggle="modal" data-bs-target="#attendanceExcelModal">
-                전직원 출퇴근 기록 엑셀 다운로드
-            </button>
-            <button type="button" class="btn btn-secondary"
-                    onclick="location.href='/manage/member/create'">직원계정생성
-            </button>
+    <div class="row">
+        <div class="btn-row">
+            <div>
+                <button type="button" class="btn btn-sm btn-outline-success"
+                        data-bs-toggle="modal" data-bs-target="#vacationExcelModal">
+                    전직원 휴가 기록 엑셀 다운로드
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-success"
+                        data-bs-toggle="modal" data-bs-target="#attendanceExcelModal">
+                    전직원 출퇴근 기록 엑셀 다운로드
+                </button>
+            </div>
+            <div>
+                <button type="button" class="btn btn-secondary"
+                        onclick="location.href='/manage/member/create'">직원계정생성
+                </button>
+            </div>
         </div>
+
     </div>
 
     <%- include ('member-modal.ejs') %>
