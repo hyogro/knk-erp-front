@@ -26,6 +26,12 @@ function setManageEquipmentList(res) {
     if (res.code === 'RAFF001') {
         $("#manageEquipmentList").empty();
         let data = res.page.content;
+
+        if (data.length === 0) {
+            let html = '<tr><td colspan="4">요청이 없습니다.</td></tr>';
+            $("#myEquipmentList").append(html);
+        }
+
         for (let i = 0; i < data.length; i++) {
             let html = '<tr onclick="loadDetailPage(' + data[i].id + ')">' +
                 '<td class="no">' + data[i].id + '</td>' +

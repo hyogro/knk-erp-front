@@ -8,6 +8,12 @@ function setMyEquipmentList(res) {
     if (res.code === 'RFF001') {
         $("#myEquipmentList").empty();
         let data = res.readFixturesFormDTO;
+
+        if (data.length === 0) {
+            let html = '<tr><td colspan="3">신청이 없습니다.</td></tr>';
+            $("#myEquipmentList").append(html);
+        }
+
         for (let i = 0; i < data.length; i++) {
             let html = '<tr onclick="loadDetailPage(' + data[i].fixturesFormId + ')">' +
                 '<td class="no">' + (i + 1) + '</td>' +
