@@ -158,9 +158,9 @@ function chkUpdateMyInfo() {
             return;
         } else {
             saveData.birthDate = birthDate;
+            saveData.birthDateSolar = $('input[name="birthDateType"]:checked').val() === 'solar';
         }
     }
-    saveData.birthDateSolar = $('input[name="birthDateType"]:checked').val() === 'solar';
 
     myInfo = saveData;
     saveProfileImage();
@@ -175,7 +175,8 @@ function saveProfileImage() {
         saveFiles.append('location', 'member');
         requestWithFile('POST', 'file/upload', saveFiles, sendProfileImage);
     } else {
-        myInfo.images = null;
+        let image = profileFile.src.split("/");
+        myInfo.images = image[image.length - 1];
         console.log(myInfo);
         requestWithData('PUT', 'my', myInfo, updateMyInfo);
     }
