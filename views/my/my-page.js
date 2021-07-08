@@ -32,7 +32,6 @@ function setMemberInfo(res) {
             $("#profileImg").attr("src", profileFile.src);
             $("#profileDelBtn").show();
         }
-
         if (data.birthDateSolar) {
             $("input:radio[name='birthDateType']:radio[value='solar']").prop('checked', true);
         } else {
@@ -175,9 +174,12 @@ function saveProfileImage() {
         saveFiles.append('location', 'member');
         requestWithFile('POST', 'file/upload', saveFiles, sendProfileImage);
     } else {
-        let image = profileFile.src.split("/");
-        myInfo.images = image[image.length - 1];
-        console.log(myInfo);
+        if (profileFile.src === "/images/img-profile-default.png") {
+            myInfo.images = null;
+        } else {
+            let image = profileFile.src.split("/");
+            myInfo.images = image[image.length - 1];
+        }
         requestWithData('PUT', 'my', myInfo, updateMyInfo);
     }
 }
