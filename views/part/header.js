@@ -10,18 +10,22 @@ $(document).ready(function () {
         $("#approveMenu").hide();
         $("#manageMenu").hide();
         $("#manageSubMenu").hide();
+        $("#departmentSubMenu").hide();
     } else if (authority === "LVL2") {
         $("#approveMenu").show();
         $("#manageMenu").hide();
         $("#manageSubMenu").hide();
+        $("#departmentSubMenu").hide();
     } else if (authority === "MANAGE") {
         $("#approveMenu").hide();
         $("#manageMenu").show();
         $("#manageSubMenu").show();
+        $("#departmentSubMenu").hide();
     } else {
         $("#approveMenu").show();
         $("#manageMenu").show();
         $("#manageSubMenu").show();
+        $("#departmentSubMenu").show();
     }
 
     //해당 메뉴 표시
