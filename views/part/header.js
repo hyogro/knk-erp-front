@@ -16,7 +16,7 @@ $(document).ready(function () {
         $("#manageSubMenu").hide();
     } else if (authority === "MANAGE") {
         $("#approveMenu").hide();
-        $("#manageMenu").hide();
+        $("#manageMenu").show();
         $("#manageSubMenu").show();
     } else {
         $("#approveMenu").show();
