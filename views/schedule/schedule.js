@@ -64,7 +64,7 @@ function setScheduleCalendar(viewOption) {
 
     //휴가일정 조회
     if ($("#checkViewOptionVac").is(":checked")) {
-        request('GET', 'vacation/all', setVacationList);
+        request('GET', getURL('vacation/all', sendData), setVacationList);
     }
 
     //기념일일정 조회
