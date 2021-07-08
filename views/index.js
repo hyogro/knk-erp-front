@@ -179,7 +179,15 @@ function setCalendar(data) {
             hour: '2-digit',
             minute: '2-digit',
             hour12: false
-        }
+        },
+        googleCalendarApiKey: 'AIzaSyDzvT6BwKaKBK4vnBPr_dFL6iBbP4ZJRfY',
+        eventSources:
+            [{
+                googleCalendarId: 'ko.south_korea.official#holiday@group.v.calendar.google.com',
+                className: 'ko_event',
+                backgroundColor : '#f11212',
+                borderColor : '#f11212'
+            }]
     });
     calendar.render();
 }

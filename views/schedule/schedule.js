@@ -16,6 +16,14 @@ let calendar = new FullCalendar.Calendar(calendarEl, {
     fixedWeekCount: false,
     height: 800,
     selectable: true,
+    googleCalendarApiKey: 'AIzaSyDzvT6BwKaKBK4vnBPr_dFL6iBbP4ZJRfY',
+    eventSources:
+        [{
+        googleCalendarId: 'ko.south_korea.official#holiday@group.v.calendar.google.com',
+            className: 'ko_event',
+            backgroundColor : '#f11212',
+            borderColor : '#f11212'
+    }],
     eventClick: function (info) {
         if (info.event.extendedProps.type === 'schedule') {
             new bootstrap.Modal(document.getElementById('scheduleModal')).show();
@@ -113,10 +121,10 @@ function setAnniversaryList(res) {
         for (let i = 0; i < res.data.length; i++) {
             console.log(res.data[i]);
             let color = '#874519';
-            res.data[i].id=-1;
-            res.data[i].memo='생일축하합니다.';
+            res.data[i].id = -1;
+            res.data[i].memo = '생일축하합니다.';
             console.log(res.data[i].viewOption);
-            if(res.data[i].viewOption === 'false') res.data[i].title += '(음)';
+            if (res.data[i].viewOption === 'false') res.data[i].title += '(음)';
             addEvent(res.data[i], 'anniversary', color);
         }
     } else if (res.code === 'RSL002') {
