@@ -34,8 +34,10 @@ function setMemberInfo(res) {
         $("#phone2").val(phone[1]);
         $("#phone3").val(phone[2]);
         $("#email").val(data.email);
-        let birth = data.birthDate + " " + (data.birthDateSolar ? "(양력)" : "(음력)");
-        $("#birthDate").text(birth);
+        if (!isEmpty(data.birthDate)) {
+            let birth = data.birthDate + " " + (data.birthDateSolar ? "(양력)" : "(음력)");
+            $("#birthDate").text(birth);
+        }
         $("#address").val(data.address);
         if (!isEmpty(data.images)) {
             $("#profileImg").attr("src", '<%= fileApi %>' + 'member/' + data.images);
