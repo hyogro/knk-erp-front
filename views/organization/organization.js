@@ -37,7 +37,7 @@ function setOrganization(data) {
             html += ' <div class="card border-secondary mb-3">' +
                 '<div class="card-header">' + member[j].memberName + '</div>' +
                 '<div class="card-body text-secondary">' +
-                '직급 : ' + member[j].position + '<br>' +
+                '직위 : ' + member[j].position + '<br>' +
                 '연락처 : ' + member[j].phone +
                 '</div>' +
                 '</div>'

@@ -130,7 +130,7 @@ function chkUpdateMemberInfo() {
         saveData.authority = authority;
     }
 
-    //직급
+    //직위
     let position = $("#position").val();
     if (!isEmpty(position)) {
         saveData.position = position;
