@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('../part/head.ejs') %>
+
+    <link rel="stylesheet" type="text/css" href="/css/index.css?ver=1.2">
+</head>
+
+<header>
+    <%- include ('../part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('../part/menu.ejs') %>
+<div id="main">
+    <div class="row main-title">
+        조직도
+    </div>
+
+    <div class="row" id="organizationList">
+    </div>
+
+</div>
+</body>
+
+</html>
+
+<script>
+    <%- include ('organization.js') %>
+</script>

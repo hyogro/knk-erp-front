@@ -131,3 +131,30 @@
 .fc-toolbar-chunk:last-child {
     display: none;
 }
+
+/*조직도*/
+.organization-name {
+    font-size: 2rem
+}
+
+.organization-content {
+    padding: 1rem 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+}
+
+.organization-content .card {
+    padding: 0;
+    min-width: 25rem;
+    width: 25rem;
+    max-width: 25rem;
+    margin: 5px
+}
+
+.organization-content .card-header {
+    font-weight: bold;
+}
+
+.organization-content .card-body {
+    font-size: 1.5rem
+}

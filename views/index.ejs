@@ -20,8 +20,12 @@
     <div class="row main-title" id="today">
     </div>
     <div class="row company-info">
-        <div class="col-lg text-left">
-            구이앤금우통신 - <span id="departmentName"></span>
+        <div class="col-lg text-left" style="display: flex;align-items: center">
+            구이앤금우통신 -&nbsp;<span id="departmentName"></span>&nbsp;
+            <button type="button" onclick="location.href='/organization/'"
+                    class="btn-sm btn btn-outline-success">
+                조직도
+            </button>
         </div>
         <div class="col-lg text-right">
             직원 수: <span id="memberCount"></span>명
@@ -119,9 +123,6 @@
     </div>
 
     <%- include ('index-modal.ejs') %>
-
-<!--    <div class="row content-box selected-list" id="selectedList">-->
-<!--    </div>-->
 
 </div>
 </body>

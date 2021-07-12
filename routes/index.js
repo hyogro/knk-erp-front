@@ -18,5 +18,8 @@ router.get('/login', function (req, res, next) {
 router.get('/my-page', function (req, res, next) {
     res.render('my/my-page', {api: api, fileApi: fileApi, title: '구이앤금우통신:내 정보'});
 });
+router.get('/organization', function (req, res, next) {
+    res.render('organization/organization', {api: api, title: '구이앤금우통신:조직도'});
+});
 
 module.exports = router;
