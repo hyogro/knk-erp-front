@@ -195,7 +195,6 @@ function uploadBoard() {
     if (fileList.length > 0) {
         saveData.fileName = fileList;
     }
-    console.log(saveData)
     if (isEmpty(getQuery().id)) {
         //글 생성
         requestWithData('POST', 'board', saveData, saveAlertBoard);

@@ -16,7 +16,6 @@ function readOrganization(res) {
 function setOrganization(data) {
     let positionList = ['사장', '대표', '이사', '부장', '과장', '차장', '대리',
         '주임', '실장', '팀장', '센터장', '사원', '연구원'];
-    console.log(data);
     $("#organizationList").empty();
     for (let i = 0; i < data.length; i++) {
         let html = '';

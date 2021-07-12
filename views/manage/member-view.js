@@ -21,7 +21,6 @@ function setDepartmentOption(res) {
 
 //직원 정보 셋팅
 function setMemberInfo(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }

@@ -87,7 +87,6 @@ function conversionTimeGet(date) {
     timeArr[1] = ("0" + timeArr[1]).slice(-2);
     timeArr[2] = ("0" + arr[4]).slice(-2);
 
-    console.log(timeArr)
     return timeArr;
 }
 

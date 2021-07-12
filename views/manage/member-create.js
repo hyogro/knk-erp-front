@@ -101,7 +101,6 @@ function chkCreateMemberInfo() {
         saveData.joiningDate = joiningDate;
     }
 
-    console.log(saveData);
     requestWithData('POST', 'account/signup', saveData, createMemberInfo);
 }
 

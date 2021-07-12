@@ -19,7 +19,6 @@ function searchPage() {
 }
 
 function setManageEquipmentList(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }

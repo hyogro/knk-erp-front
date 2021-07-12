@@ -119,11 +119,9 @@ function setAnniversaryList(res) {
     }
     if (res.code === 'RSL001') {
         for (let i = 0; i < res.data.length; i++) {
-            console.log(res.data[i]);
             let color = '#874519';
             res.data[i].id = -1;
             res.data[i].memo = '생일축하합니다.';
-            console.log(res.data[i].viewOption);
             if (res.data[i].viewOption === 'false') res.data[i].title += '(음)';
             addEvent(res.data[i], 'anniversary', color);
         }
@@ -389,8 +387,6 @@ function saveSchedule(type, id) {
     let end1 = $("#scheduleEndDate").val();
     let end2 = conversionTimeSet($("#endTime1").val(), $("#endTime2").val(), $("#endTime3").val());
     saveData.endDate = end1 + "T" + end2;
-
-    console.log(saveData)
 
     if (isEmpty(saveData.title)) {
         alert("제목을 입력해주세요.");

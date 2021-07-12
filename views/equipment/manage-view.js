@@ -8,7 +8,6 @@ request('GET', getURL('fixtures', getQuery().id), detailEquipmentList);
 let applyState = false;
 
 function detailEquipmentList(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -70,14 +69,11 @@ function updateConfirmState(state) {
     sendData.fixturesId = selectItems();
     sendData.confirm = state;
 
-    console.log(sendData)
-
     requestWithData('PUT',
         getURL('fixtures/confirm', getQuery().id), sendData, updateAlertConfirmState)
 }
 
 function updateAlertConfirmState(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }
@@ -122,7 +118,6 @@ function updatePurchaseState(state) {
 }
 
 function updateAlertPurchaseState(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
