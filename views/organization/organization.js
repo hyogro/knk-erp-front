@@ -19,7 +19,7 @@ function setOrganization(data) {
     $("#organizationList").empty();
     for (let i = 0; i < data.length; i++) {
         let html = '';
-        html += '<div class="organization-name">🔹 ' + data[i].departmentName + '</div>'
+        html += '<div class="organization-name">🔸 ' + data[i].departmentName + '</div>'
         html += '<div class="organization-content">'
         let member = data[i].organizationChartMemberInfoDTO;
         member.sort(function (a, b) {

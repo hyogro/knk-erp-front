@@ -65,19 +65,19 @@ function setAttendanceSummary(res) {
         $("#vacation").text(res.data.vacation.length);
 
         $("#onWork").parent().click(function () {
-            setSelectedList(this, "출근", res.data.onWork);
+            setSelectedList("출근", res.data.onWork);
         });
         $("#lateWork").parent().click(function () {
-            setSelectedList(this, "지각", res.data.lateWork);
+            setSelectedList("지각", res.data.lateWork);
         });
         $("#yetWork").parent().click(function () {
-            setSelectedList(this, "미출근", res.data.yetWork);
+            setSelectedList("미출근", res.data.yetWork);
         });
         $("#offWork").parent().click(function () {
-            setSelectedList(this, "퇴근", res.data.offWork);
+            setSelectedList("퇴근", res.data.offWork);
         });
         $("#vacation").parent().click(function () {
-            setSelectedList(this, "휴가", res.data.vacation);
+            setSelectedList("휴가", res.data.vacation);
         });
     } else if (res.code === 'RAS002') {
         console.log("일정요약 조회 실패");
@@ -87,9 +87,9 @@ function setAttendanceSummary(res) {
     }
 }
 
-function setSelectedList(select, type, data) {
-    $(".col-md").removeClass('active');
-    $(select).addClass('active');
+function setSelectedList(type, data) {
+    // $(".col-md").removeClass('active');
+    // $(select).addClass('active');
 
     $("#selectedList").empty();
 
@@ -153,7 +153,7 @@ function setScheduleList(res) {
     if (res.code === 'RSL001') {
         let scheduleArr = new Array();
         for (let i = 0; i < res.data.length; i++) {
-            var schedule = new Object();
+            let schedule = new Object();
 
             schedule.title = res.data[i].title;
             schedule.start = res.data[i].startDate;

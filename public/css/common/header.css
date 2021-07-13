@@ -11,7 +11,7 @@ header {
 }
 
 .title-bar .title-bar-left {
-    padding: 0.5rem;
+    padding: 5px;
     cursor: pointer;
     float: left;
 }
@@ -28,19 +28,24 @@ header {
 }
 
 .title-bar .btn-primary {
-    background: #054499;
-    border: 1px solid #054499;
+    background: #2f5f4c;
+    border: 1px solid #2f5f4c;
     color: white;
 }
 
+.title-bar .btn-primary:hover {
+    background: #356a55;
+    border: 1px solid #356a55;
+}
+
 .title-bar .btn-outline-primary {
-    border: 1px solid #054499;
-    color: #054499;
+    border: 1px solid #2f5f4c;
+    color: #2f5f4c;
 }
 
 .title-bar .btn-outline-primary:hover {
-    border: 1px solid #054499;
-    background: #054499;
+    border: 1px solid #356a55;
+    background: #356a55;
     color: white;
 }
 
@@ -61,7 +66,7 @@ header {
     float: left;
     width: 20rem;
     height: calc(100% - 6rem);
-    background: #0a336e;
+    background: #2f5f4c;
     color: white;
     padding: 2rem 0;
     overflow-y: auto;
@@ -93,15 +98,15 @@ header {
     line-height: 4rem;
     text-indent: 2rem;
     text-decoration: none;
-    color: #b6c2d4;
+    color: #ffffff;
     font-size: 1.5rem;
 }
 
 #nav ul.menu li a:hover,
 .main-menu-active {
-    background: #054499;
+    background: #356a55;
     color: white !important;
-    border-left: #666666 5px solid;
+    border-left: #bababa 5px solid;
 }
 
 #nav ul.menu li .sub a {
@@ -109,7 +114,7 @@ header {
     float: left;
     display: block;
     width: 100%;
-    background: #0b3777;
+    background: #2f5f4c;
     line-height: 3.5rem;
     text-indent: 4rem;
     font-size: 1.3rem;

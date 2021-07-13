@@ -56,41 +56,44 @@
 }
 
 .attendance-board .col-md {
+    border-radius: 10px;
+    border: none;
     cursor: pointer;
 }
 
 .attendance-board .col-md:hover,
 .attendance-board .col-md:focus {
-    background-color: #f8f9ff;
-}
-
-.attendance-board .active {
-    background-color: #f8f9ff;
+    box-shadow: 0 0 5px #cbcbcb;
 }
 
 .attendance-board .on-work {
-    border-top: 5px solid #105af1;
+    /*border-top: 5px solid #105af1;*/
+    background: rgba(16, 90, 241, 0.15);
     color: #1354d9;
 }
 
 .attendance-board .late-work {
-    border-top: 5px solid #ffb43d;
+    /*border-top: 5px solid #ffb43d;*/
+    background: rgba(255, 180, 61, 0.15);
     color: #f3a01a;
 }
 
 .attendance-board .yet-work {
-    border-top: 5px solid #767676;
+    /*border-top: 5px solid #767676;*/
+    background: rgba(118, 118, 118, 0.15);
     color: #6c6c6c;
 }
 
 .attendance-board .off-work {
-    border-top: 5px solid #fa0c0c;
+    /*border-top: 5px solid #fa0c0c;*/
+    background: rgba(250, 12, 12, 0.15);
     color: #ea0404;
 }
 
 .attendance-board .vacation {
-    border-top: 5px solid rgb(3, 161, 75);
-    color: #01853d
+    /*border-top: 5px solid rgb(3, 161, 75);*/
+    background: rgba(3, 161, 75, 0.15);
+    color: #01853d;
 }
 
 .attendance-board .count {
