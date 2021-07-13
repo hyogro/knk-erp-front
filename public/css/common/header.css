@@ -2,7 +2,6 @@ header {
     box-shadow: 0px 0px 10px #dddddd;
 }
 
-
 /*타이틀바 헤더*/
 .title-bar {
     width: 100%;
@@ -43,6 +42,17 @@ header {
     border: 1px solid #054499;
     background: #054499;
     color: white;
+}
+
+.title-bar .name {
+    font-size: 1.3rem;
+    margin: 0 1rem;
+    color: #444444;
+}
+
+.title-bar .name span {
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 

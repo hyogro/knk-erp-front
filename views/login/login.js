@@ -57,8 +57,8 @@ function loginRequest(res) {
         return;
     }
     if (res.code === 'LI001') {
-        var date = new Date();
-        var m = 600;
+        let date = new Date();
+        let m = 600;
         date.setTime(date.getTime() + (m * 60 * 1000));
         $.cookie('token', 'Bearer ' + res.tokenDto.accessToken, {expires: date});
         if ($("#saveId").is(":checked")) {
@@ -68,6 +68,8 @@ function loginRequest(res) {
             $.cookie('id', $("#id").val(), {expires: date});
         }
         $.cookie('authority', res.tokenDto.authority, {expires: date});
+        $.cookie('name', res.memberName, {expires: date});
+        // console.log(res)
         location.href = '/';
     } else if (res.code === 'LI002') {
         alert('등록되지 않은 아이디이거나, 잘못된 비밀번호입니다.');

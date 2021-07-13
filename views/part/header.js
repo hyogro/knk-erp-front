@@ -38,6 +38,8 @@ $(document).ready(function () {
         $("#" + subMenuId + "SubMenu > a").addClass("side-menu-active");
     }
 
+    //이름 표시
+    $("#myName").text($.cookie('name'));
 });
 
 const token = $.cookie('token');
@@ -49,7 +51,6 @@ if (isEmpty(token)) {
 
 //로그아웃
 function logout() {
-
     $.cookie("token", null, { path: '/' });
     $.cookie("authority", null, { path: '/' });
 
