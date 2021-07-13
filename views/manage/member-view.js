@@ -45,7 +45,7 @@ function setMemberInfo(res) {
         $("#authority").val(data.authority);
         $("#position").val(data.position);
         $("#joiningDate").val(data.joiningDate);
-        $("#addVacation").val(data.vacation / 480);
+        $("#addVacation").text(data.vacation / 480 + "일");
 
         //휴가 정보
         request('GET', getURL('vacation/info', data.memberId), setVacationInfo);

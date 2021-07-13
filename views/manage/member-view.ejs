@@ -6,7 +6,7 @@
     <title><%= title %></title>
 
     <%- include ('../part/head.ejs') %>
-    <link rel="stylesheet" type="text/css" href="/css/my/my-page.css?ver=2.0">
+    <link rel="stylesheet" type="text/css" href="/css/my/my-page.css?ver=2.1">
 </head>
 
 <header>
@@ -136,10 +136,7 @@
                 <th>법정휴가</th>
                 <td id="totalVacation"></td>
                 <th>추가휴가</th>
-                <td>
-                    <input type="text" id="addVacation" style="width: 5rem;text-align: right"
-                           onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"> 일
-                </td>
+                <td id="addVacation"></td>
             </tr>
             <tr>
                 <th>사용휴가</th>
