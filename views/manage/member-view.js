@@ -19,6 +19,8 @@ function setDepartmentOption(res) {
     }
 }
 
+let memberName = '';
+
 //직원 정보 셋팅
 function setMemberInfo(res) {
     if (res.code === null) {
@@ -28,6 +30,7 @@ function setMemberInfo(res) {
         let data = res.readDetailAccountDTO;
         $("#memberId").text(data.memberId);
         $("#memberName").text(data.memberName);
+        memberName = data.memberName;
         let phone = (data.phone).split("-");
         $("#phone1").val(phone[0]);
         $("#phone2").val(phone[1]);
@@ -179,7 +182,6 @@ function deleteAlertMember() {
     }
 }
 
-//일정 삭제
 function deleteMember(res) {
     if (res.code === null) {
         return;
@@ -194,4 +196,8 @@ function deleteMember(res) {
     } else if (res.code === 'DA004') {
         alert("삭제 실패.\n 대상이 존재하지 않습니다.");
     }
+}
+
+function detailAddVacation() {
+    location.href = '/manage/member/vacation?id=' + getQuery().id + '&name=' + memberName;
 }

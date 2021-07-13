@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('../part/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/my/my-page.css?ver=2.1">
+</head>
+
+<header>
+    <%- include ('../part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('../part/menu.ejs') %>
+<div id="main">
+    <div class="row main-title">
+        추가휴가
+    </div>
+
+    <div class="row">
+
+    </div>
+
+    <div class="row">
+        <div class="btn-row" style="margin: 2rem 0 !important;">
+            <div>
+                <button type="button" class="btn btn-outline-secondary" onclick="history.back()">이전</button>
+            </div>
+            <div>
+                <button type="button" class="btn btn-danger" onclick="deleteAlertMember()">삭제</button>
+                <button type="button" class="btn btn-secondary" onclick="chkUpdateMemberInfo()">저장</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script>
+
+    <%- include ('member-vacation.js') %>
+
+</script>
