@@ -77,7 +77,7 @@ body {
 table {
     width: 100%;
     text-align: center;
-    border-top: 1px solid #356a55;
+    border-top: 1px solid #386f59;
     font-size: 1.5rem;
     height: fit-content;
 }
@@ -129,7 +129,7 @@ input, select, textarea {
 .scroll::-webkit-scrollbar-thumb,
 .fc-scroller::-webkit-scrollbar-thumb {
     height: 17%;
-    background-color: #5a759d;
+    background-color: #68a358;
     border-radius: 10px;
 }
 

@@ -27,25 +27,25 @@ header {
     font-size: 1.4rem !important;
 }
 
-.title-bar .btn-primary {
+.title-bar .btn-success {
     background: #2f5f4c;
     border: 1px solid #2f5f4c;
     color: white;
 }
 
-.title-bar .btn-primary:hover {
-    background: #356a55;
-    border: 1px solid #356a55;
+.title-bar .btn-success:hover {
+    background: #386f59;
+    border: 1px solid #386f59;
 }
 
-.title-bar .btn-outline-primary {
+.title-bar .btn-outline-success {
     border: 1px solid #2f5f4c;
     color: #2f5f4c;
 }
 
-.title-bar .btn-outline-primary:hover {
-    border: 1px solid #356a55;
-    background: #356a55;
+.title-bar .btn-outline-success:hover {
+    border: 1px solid #386f59;
+    background: #386f59;
     color: white;
 }
 
@@ -98,13 +98,13 @@ header {
     line-height: 4rem;
     text-indent: 2rem;
     text-decoration: none;
-    color: #ffffff;
+    color: #cdcdcd;
     font-size: 1.5rem;
 }
 
 #nav ul.menu li a:hover,
 .main-menu-active {
-    background: #356a55;
+    background: #386f59;
     color: white !important;
     border-left: #bababa 5px solid;
 }
@@ -114,7 +114,7 @@ header {
     float: left;
     display: block;
     width: 100%;
-    background: #2f5f4c;
+    background: #346652;
     line-height: 3.5rem;
     text-indent: 4rem;
     font-size: 1.3rem;
