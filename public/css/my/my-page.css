@@ -42,7 +42,7 @@
     min-width: 100%;
 }
 
-.form-check-input{
+.form-check-input {
     width: 13px;
     height: 13px;
 }
@@ -54,4 +54,30 @@
 
 .badge {
     cursor: pointer;
+}
+
+.add-vacation td {
+    text-align: left;
+}
+
+.add-vacation select {
+    width: 10rem;
+}
+
+.add-vacation input {
+    width: 4rem;
+    text-align: right;
+}
+
+.add-vacation textarea {
+    width: 100%;
+    height: 10rem;
+}
+
+#addVacationList tr {
+    cursor: pointer;
+}
+
+#addVacationList tr:hover {
+    background: #f9f9f9;
 }

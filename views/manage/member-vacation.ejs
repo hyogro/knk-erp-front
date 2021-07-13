@@ -17,23 +17,38 @@
 <%- include ('../part/menu.ejs') %>
 <div id="main">
     <div class="row main-title">
-        추가휴가
+        🔹<span id="memberName"></span>님의 추가휴가
     </div>
 
     <div class="row">
+        <button type="button"
+                data-bs-toggle="modal" data-bs-target="#addVacationModal"
+                style="float: right;margin-bottom: 5px"
+                class="btn btn-success btn-sm">
+            휴가 부여 및 차감하기
+        </button>
 
+        <%- include ('member-vacation-modal.ejs') %>
+
+        <table>
+            <thead>
+            <tr>
+                <th width="10%">No</th>
+                <th width="20%">구분</th>
+                <th width="20%">일수</th>
+                <th width="25%">담당자</th>
+                <th width="25%">작성일</th>
+            </tr>
+            </thead>
+            <tbody id="addVacationList">
+            </tbody>
+        </table>
     </div>
 
-    <div class="row">
-        <div class="btn-row" style="margin: 2rem 0 !important;">
-            <div>
-                <button type="button" class="btn btn-outline-secondary" onclick="history.back()">이전</button>
-            </div>
-            <div>
-                <button type="button" class="btn btn-danger" onclick="deleteAlertMember()">삭제</button>
-                <button type="button" class="btn btn-secondary" onclick="chkUpdateMemberInfo()">저장</button>
-            </div>
-        </div>
+    <div class="row" style="margin: 2rem 0">
+        <button type="button" class="btn btn-outline-secondary"
+                onclick="history.back()">이전
+        </button>
     </div>
 </div>
 </body>

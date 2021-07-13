@@ -48,7 +48,6 @@ function setMemberInfo(res) {
         $("#authority").val(data.authority);
         $("#position").val(data.position);
         $("#joiningDate").val(data.joiningDate);
-        $("#addVacation").text(data.vacation / 480 + "일");
 
         //휴가 정보
         request('GET', getURL('vacation/info', data.memberId), setVacationInfo);
@@ -66,7 +65,8 @@ function setVacationInfo(res) {
         let hourMinutes = 480;
         $("#totalVacation").text(res.data.totalVacation / hourMinutes + "일");
         $("#usedVacation").text(makeDateForm(res.data.usedVacation));
-        $("#residueVacation").text(makeDateForm((res.data.totalVacation + res.data.addVacation) - res.data.usedVacation));
+        $("#residueVacation").text(makeDateForm((res.data.totalVacation + (res.data.addVacation * hourMinutes)) - res.data.usedVacation));
+        $("#addVacation").text(res.data.addVacation + "일");
     } else if (res.code === 'RVI002') {
         console.log("휴가 정보 조회 실패");
     }

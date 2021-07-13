@@ -1,0 +1,90 @@
+<!--추가휴가 생성-->
+<div class="modal fade" id="addVacationModal" tabindex="-1"
+     aria-labelledby="addVacationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>휴가 부여 및 차감</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="add-vacation">
+                    <tbody>
+                    <tr>
+                        <th width="20%">구분</th>
+                        <td width="80%">
+                            <select id="addIncrease" onchange="setMark(value)">
+                                <option value="true">부여</option>
+                                <option value="false">차감</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>일수</th>
+                        <td>
+                            <span id="addMark"></span>
+                            <input type="text" id="addDate" maxlength="2"
+                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 일
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>사유</th>
+                        <td>
+                            <textarea id="addMemo"></textarea>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" onclick="saveAddVacation()">저장</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--추가휴가-->
+<div class="modal fade" id="detailAddVacationModal" tabindex="-1"
+     aria-labelledby="detailAddVacationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>추가 휴가</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="add-vacation">
+                    <tbody>
+                    <tr>
+                        <th width="20%">구분</th>
+                        <td width="30%" id="increase"></td>
+                        <th width="20%">일수</th>
+                        <td width="30%" id="date"></td>
+                    </tr>
+                    <tr>
+                        <th>담당자</th>
+                        <td colspan="3" id="giver"></td>
+                    </tr>
+                    <tr>
+                        <th>작성일</th>
+                        <td colspan="3" id="createDate"></td>
+                    </tr>
+                    <tr>
+                        <th>사유</th>
+                        <td colspan="3" id="memo" style="height: 10rem;vertical-align: top"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <span id="deleteBtn"></span>
+            </div>
+        </div>
+    </div>
+</div>
