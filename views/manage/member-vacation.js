@@ -7,6 +7,13 @@ function setAddVacationList(res) {
         return;
     }
     if (res.code === 'RAVL001') {
+        let authority = $.cookie('authority');
+        if (authority !== "LVL1" && authority !== "LVL2" && authority !== "MANAGE") {
+            $("#addBtn").show();
+        } else {
+            $("#addBtn").hide();
+        }
+
         $("#addVacationList").empty();
 
         if (res.data.length === 0) {
@@ -80,7 +87,7 @@ function detailAddVacationModal(res) {
     }
     if (res.code === 'RAVD001') {
         let data = res.data;
-        $("#increase").text((data.increase === true ? '부여' : '차감'));
+        $("#increase").text((data.increase === true ? '추가' : '차감'));
         $("#date").text(data.date + "일");
         $("#giver").text(data.giverName + "(" + data.giverId + ")");
         $("#createDate").text(getToday(data.createDate));

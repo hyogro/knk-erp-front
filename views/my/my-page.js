@@ -53,9 +53,9 @@ function setVacationInfo(res) {
     if (res.code === 'RVI001') {
         let hourMinutes = 480;
         $("#totalVacation").text(res.data.totalVacation / hourMinutes + "일");
-        $("#addVacation").text(res.data.addVacation / hourMinutes + "일");
+        $("#addVacation").text(res.data.addVacation + "일");
         $("#usedVacation").text(makeDateForm(res.data.usedVacation));
-        $("#residueVacation").text(makeDateForm((res.data.totalVacation + res.data.addVacation) - res.data.usedVacation));
+        $("#residueVacation").text(makeDateForm((res.data.totalVacation + (res.data.addVacation * hourMinutes)) - res.data.usedVacation));
     } else if (res.code === 'RVI002') {
         console.log("휴가 정보 조회 실패");
     }
@@ -214,6 +214,6 @@ function updateMyInfo(res) {
     }
 }
 
-function test() {
-    let checked = $('input[name="birthDateType"]:checked').val();
+function detailAddVacation() {
+    location.href = '/my-page/my-vacation?id=' + $.cookie("id") + '&name=' + $.cookie("name");
 }

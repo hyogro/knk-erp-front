@@ -21,14 +21,14 @@
     </div>
 
     <div class="row">
-        <button type="button"
+        <button type="button" id="addBtn"
                 data-bs-toggle="modal" data-bs-target="#addVacationModal"
-                style="float: right;margin-bottom: 5px"
+                style="float: right;margin: 5px;display: none"
                 class="btn btn-success btn-sm">
             휴가 부여하기
         </button>
 
-        <%- include ('member-vacation-modal.ejs') %>
+        <%- include ('../manage/member-vacation-modal.ejs') %>
 
         <table>
             <thead>
@@ -57,6 +57,6 @@
 
 <script>
 
-    <%- include ('member-vacation.js') %>
+    <%- include ('../manage/member-vacation.js') %>
 
 </script>
