@@ -6,12 +6,14 @@
 }
 
 #vacationList tr,
-#attendanceList tr {
+#attendanceList tr,
+#vacationHistoryList tr{
     cursor: pointer;
 }
 
 #vacationList tr:hover,
-#attendanceList tr:hover {
+#attendanceList tr:hover,
+#vacationHistoryList tr:hover{
     background: #f9f9f9;
 }
 

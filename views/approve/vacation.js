@@ -58,6 +58,18 @@ function setTable(table, res) {
         return false;
     }
 
+    res.data = res.data.sort(function (a, b) {
+        let x = new Date(a.startDate.toLowerCase()).getTime();
+        let y = new Date(b.startDate.toLowerCase()).getTime();
+        if (x > y) {
+            return -1;
+        }
+        if (x < y) {
+            return 1;
+        }
+        return 0;
+    });
+
     for (let i = 0; i < res.data.length; i++) {
         let html = ' <tr id=\'' + res.data[i].id + '\' ' +
             'onclick="location.href = \'/approve/vacation/view?id=\' + id">' +
