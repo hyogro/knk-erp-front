@@ -131,13 +131,18 @@ function setSelectedList(type, data) {
             '<td>' + data[i].memberName + '(' + data[i].memberId + ')</td>';
 
         if (type === "출근" || type === "지각") {
-            html += '<td>출근: ' + data[i].onWork + '</td>';
+            html += '<td class="time-size">출근 🕒 ' + data[i].onWork + '</td>';
         } else if (type === "미출근") {
-            html += '<td>기록 없음</td>';
+            html += '<td class="time-size">기록 없음</td>';
         } else if (type === "퇴근") {
-            html += '<td>출근: ' + data[i].onWork + ' / 퇴근: ' + data[i].offWork + '</td>';
+            html += '<td class="time-size">출근 🕒 ' + data[i].onWork +
+                ' / 퇴근 🕒 ' + data[i].offWork + '</td>';
         } else if (type === "휴가") {
-            html += '휴가: ' + data[i].vacationStartDate + '~' + data[i].vacationEndDate + '</td>';
+            let start = (data[i].vacationStartDate).split('T');
+            let end = (data[i].vacationEndDate).split('T');
+            html += '<td class="time-size">' +
+                getToday(start[0]) + ' 🕒 ' + start[1] + '<br> ~ ' +
+                getToday(end[0]) + ' 🕒 ' + end[1] + '</td>';
         }
         html += '</tr>';
 
@@ -185,8 +190,8 @@ function setCalendar(data) {
             [{
                 googleCalendarId: 'ko.south_korea.official#holiday@group.v.calendar.google.com',
                 className: 'ko_event',
-                backgroundColor : '#f11212',
-                borderColor : '#f11212'
+                backgroundColor: '#f11212',
+                borderColor: '#f11212'
             }]
     });
     calendar.render();
