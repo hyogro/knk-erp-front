@@ -34,6 +34,10 @@ calendar.render();
 
 getAttendanceList();
 
+//오늘
+$(".fc-today-button").click(function () {
+    getAttendanceList();
+});
 //이전달
 $(".fc-prev-button").click(function () {
     getAttendanceList();

@@ -40,6 +40,10 @@ let calendar = new FullCalendar.Calendar(calendarEl, {
 });
 calendar.render();
 
+//오늘
+$(".fc-today-button").click(function () {
+    chkViewOption();
+});
 //이전달
 $(".fc-prev-button").click(function () {
     chkViewOption();
