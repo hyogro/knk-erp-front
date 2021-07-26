@@ -33,9 +33,9 @@ function setMemberInfo(res) {
             $("#profileDelBtn").show();
         }
         if (data.birthDateSolar) {
-            $("input:radio[name='birthDateType']:radio[value='solar']").prop('checked', true);
+            $("input:radio[name='birthDateType']:radio[value='true']").prop('checked', true);
         } else {
-            $("input:radio[name='birthDateType']:radio[value='lunar']").prop('checked', true);
+            $("input:radio[name='birthDateType']:radio[value='false']").prop('checked', true);
         }
 
     } else if (res.code === 'GMI002') {
@@ -157,7 +157,8 @@ function chkUpdateMyInfo() {
             return;
         } else {
             saveData.birthDate = birthDate;
-            saveData.birthDateSolar = $('input[name="birthDateType"]:checked').val() === 'solar';
+            saveData.birthDateSolar = $('input[name="birthDateType"]:checked').val();
+            console.log(saveData);
         }
     }
 
@@ -168,18 +169,21 @@ function chkUpdateMyInfo() {
 
 //프로필 이미지 먼저 저장 -> 나머지 내 정보 저장
 function saveProfileImage() {
+    // console.log(profileFile)
     if (!isEmpty(profileFile.file)) {
         let saveFiles = new FormData();
         saveFiles.append('file', profileFile.file);
         saveFiles.append('location', 'member');
         requestWithFile('POST', 'file/upload', saveFiles, sendProfileImage);
     } else {
-        if (profileFile.src === "/images/img-profile-default.png") {
+        if (profileFile.src === "/images/img-profile-default.png" ||
+            isEmpty(profileFile.src)) {
             myInfo.images = null;
         } else {
             let image = profileFile.src.split("/");
             myInfo.images = image[image.length - 1];
         }
+        console.log(myInfo)
         requestWithData('PUT', 'my', myInfo, updateMyInfo);
     }
 }
