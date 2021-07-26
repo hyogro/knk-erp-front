@@ -60,6 +60,7 @@ function searchPage() {
 
 //게시판 상세보기
 function setBoardList(res) {
+    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -127,10 +128,11 @@ function setPageCount(total) {
     let urlParams = getQuery();
     let nowPage = parseInt(urlParams.page);
 
-    let firstPage = Math.floor(nowPage / 10) * 10 + 1;
-    //다음 직전 페이지
+    let firstPage = 0;
     if (nowPage % 10 === 0) {
-        firstPage = Math.floor(nowPage / 10);
+        firstPage = nowPage - 10 + 1;
+    } else {
+        firstPage = parseInt(Math.floor(nowPage / 10) + "1");
     }
 
     //이전 버튼
@@ -138,6 +140,7 @@ function setPageCount(total) {
         html += '<a class="arrow prev" href=' + returnPageUrl(urlParams.searchType, urlParams.keyword, firstPage - 10) + '></a>';
     }
 
+    let lastPage = 0;
     for (let i = firstPage; i < (firstPage + 10); i++) {
         if (i === nowPage) {
             html += '<a class="active" href=' + returnPageUrl(urlParams.searchType, urlParams.keyword, i) + '>' + i + '</a>';
@@ -146,12 +149,13 @@ function setPageCount(total) {
         }
 
         if (i === total) {
+            lastPage = i;
             break;
         }
     }
 
     //다음 버튼
-    if ((nowPage / 10) < (total / 10)) {
+    if (total !== lastPage) {
         html += '<a class="arrow next" href=' + returnPageUrl(urlParams.searchType, urlParams.keyword, firstPage + 10) + '></a>'
     }
 
