@@ -22,7 +22,7 @@ function readVacation() {
         return;
     }
 
-    request('GET', getURL('vacation/approve', sendData), setAppliedVacationList);
+    request('GET', getURL('vacation/approve'), setAppliedVacationList);
     request('GET', getURL('vacation/approve/history', sendData), setHistoryVacationList);
 }
 

@@ -17,19 +17,6 @@
 <%- include ('../part/menu.ejs') %>
 <div id="main">
     <div class="row">
-        <div class="vacation-search">
-            조회기간
-            &nbsp;
-            <input type="date" id="searchStartDate">
-            &nbsp;~&nbsp;
-            <input type="date" id="searchEndDate"> &nbsp;
-            <button class="btn btn-sm btn-success"
-                    style="font-size: 1.1rem !important;"
-                    onclick="readVacation()">검색</button>
-        </div>
-    </div>
-
-    <div class="row">
         <div class="row main-title">
             휴가 승인 대기 목록
         </div>
@@ -53,8 +40,23 @@
 
     <div class="row">
         <div class="row main-title">
-            휴가 승인/거절 목록
+            <div>
+                휴가 승인/거절 목록
+            </div>
+
+            <div class="vacation-search">
+                조회기간
+                &nbsp;
+                <input type="date" id="searchStartDate">
+                &nbsp;~&nbsp;
+                <input type="date" id="searchEndDate"> &nbsp;
+                <button class="btn btn-sm btn-success"
+                        style="font-size: 1.1rem !important;"
+                        onclick="readVacation()">검색
+                </button>
+            </div>
         </div>
+
         <div class="row">
             <table>
                 <thead>
