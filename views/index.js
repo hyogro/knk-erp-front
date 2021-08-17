@@ -199,21 +199,25 @@ function setCalendar(data) {
 
 //출,퇴근 기록
 function checkWork(type) {
-    /*
-    let allowIP = ['61.42.17.186', '59.1.168.71']; // 허용할 IP
-    let remoteIp = ip(); // 사용자 IP
-    */
-    //if (0 <= allowIP.indexOf(remoteIp)) {
-    if (type === 'onWork') {
-        request('POST', 'attendance/onWork', onWork);
-    } else if (type === 'offWork') {
-        request('POST', 'attendance/offWork', offWork);
-    } else {
-        alert('올바른 요청이 아닙니다.');
-    }
-    // } else {
-    //     alert('요청하신 주소: ' + remoteIp + ' 에서는 출/퇴근 기록을 할 수 없습니다.');
-    // }
+
+    $.getJSON("https://ipinfo.io", function (data){
+
+        let allowIP = ['61.42.17.186', '59.1.168.71']; // 허용할 IP
+        let remoteIp = data.ip; // 사용자 IP
+
+        if (0 <= allowIP.indexOf(remoteIp)) {
+        if (type === 'onWork') {
+            request('POST', 'attendance/onWork', onWork);
+        } else if (type === 'offWork') {
+            request('POST', 'attendance/offWork', offWork);
+        } else {
+            alert('올바른 요청이 아닙니다.');
+        }
+        } else {
+            alert('요청하신 주소: ' + remoteIp + ' 에서는 출/퇴근 기록을 할 수 없습니다.');
+        }
+    })
+
 }
 
 //출근 기록 찍기
