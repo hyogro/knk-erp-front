@@ -199,15 +199,20 @@ function setCalendar(data) {
 
 //출,퇴근 기록
 function checkWork(type) {
-
-    $.getJSON("https://ipinfo.io", function (data){
-
+    $.getJSON("https://api.ipify.org?format=json", function (data){
         let allowIP = ['61.42.17.186', '59.1.168.71']; // 허용할 IP
         let remoteIp = data.ip; // 사용자 IP
+        let uuid = UUID_Check_localStorage();
+        console.log(uuid);
+
+
 
         if (0 <= allowIP.indexOf(remoteIp)) {
         if (type === 'onWork') {
-            request('POST', 'attendance/onWork', onWork);
+            let requestData = {};
+            requestData.uuid = uuid;
+            requestWithData('POST', 'attendance/onWork', requestData, onWork);
+            //request('POST', 'attendance/onWork', onWork);
         } else if (type === 'offWork') {
             request('POST', 'attendance/offWork', offWork);
         } else {
@@ -218,6 +223,28 @@ function checkWork(type) {
         }
     })
 
+}
+
+//localStorage
+function UUID_Check_localStorage(){
+    if (window.localStorage) {
+        let localUUID = localStorage.getItem("work_uuid");
+        if(localUUID === null){
+            localUUID = createUUID();
+        }
+        localStorage.setItem("work_uuid", localUUID);
+        return localUUID;
+    }
+    else {
+        return "not_supported"
+    }
+}
+
+//uuid
+function createUUID() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
 }
 
 //출근 기록 찍기
