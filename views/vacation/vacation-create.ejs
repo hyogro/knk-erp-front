@@ -6,7 +6,13 @@
     <title><%= title %></title>
 
     <%- include ('../part/head.ejs') %>
-    <link rel="stylesheet" type="text/css" href="/css/vacation/vacation.css?ver=2.6">
+    <link rel="stylesheet" type="text/css" href="/css/vacation/vacation.css?ver=2.7">
+
+    <!--datepicker-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!--    <link rel="stylesheet" href="/resources/demos/style.css">-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </head>
 
 <header>
@@ -66,7 +72,7 @@
                                     <option>12</option>
                                 </select>
                                 :
-                                <input type="text" id="startTime3" maxlength="2" value="00" disabled
+                                <input type="text" class="time" id="startTime3" maxlength="2" value="00" disabled
                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                             </span>
                             ~
@@ -90,7 +96,7 @@
                                     <option>12</option>
                                 </select>
                                 :
-                                <input type="text" id="endTime3" maxlength="2" value="00" disabled
+                                <input type="text" class="time" id="endTime3" maxlength="2" value="00" disabled
                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                             </span>
                         </span>
@@ -106,7 +112,10 @@
             <tr>
                 <th>휴가기간</th>
                 <td>
-                    <input type="date" id="startDate"> <span id="endView">~ <input type="date" id="endDate"></span>
+                    <input type="text" class="date" id="startDate" placeholder="날짜 선택" readonly>
+                    <span id="endView">~ <input type="text" class="date" id="endDate" placeholder="날짜 선택"
+                                                readonly></span>
+                    <!--                    <input type="date" id="startDate"> <span id="endView">~ <input type="date" id="endDate"></span>-->
                 </td>
             </tr>
             </tbody>

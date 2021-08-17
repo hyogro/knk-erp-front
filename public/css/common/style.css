@@ -364,3 +364,28 @@ label[for="file"] {
     width: 40px !important;
     height: 24px !important;
 }
+
+
+/*datepicker*/
+.date {
+    width: 15rem;
+    cursor: pointer;
+}
+
+.ui-datepicker-week-end:first-child {
+    color: red !important;
+}
+
+.ui-datepicker-week-end:first-child .ui-state-default {
+    color: red !important;
+}
+
+.ui-datepicker-calendar thead {
+    font-size: 1.2rem !important;
+}
+
+.ui-datepicker-calendar tr,
+.ui-state-default {
+    border: none !important;
+    text-align: center !important;
+}
