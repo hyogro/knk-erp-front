@@ -1,6 +1,7 @@
 #main .row {
     width: 80rem;
     display: block;
+    --bs-gutter-x: 0;
 }
 
 #memberList tr,
@@ -85,4 +86,25 @@ input {
 
 .btn-row div button {
     vertical-align: bottom;
+}
+
+.record-search {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    float: right;
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+}
+
+.record-search input {
+    width: fit-content
+}
+
+.record-guide {
+    line-height: 24px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ea0404;
+    text-decoration: underline;
 }

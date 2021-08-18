@@ -9,9 +9,6 @@ const api = data.api;
 const fileApi = data.fileApi;
 
 
-router.get('/attendance', function (req, res, next) {
-    res.render('manage/attendance', {api: api, fileApi: fileApi, title: '구이앤금우통신:엑셀관리'});
-});
 router.get('/member', function (req, res, next) {
     res.render('manage/member', {api: api, fileApi: fileApi, title: '구이앤금우통신:직원관리'});
 });
@@ -24,6 +21,11 @@ router.get('/member/vacation', function (req, res, next) {
 router.get('/member/create', function (req, res, next) {
     res.render('manage/member-create', {api: api, title: '구이앤금우통신:직원관리'});
 });
+
+router.get('/record', function (req, res, next) {
+    res.render('manage/record', {api: api, fileApi: fileApi, title: '구이앤금우통신:출근기록관리'});
+});
+
 router.get('/department', function (req, res, next) {
     res.render('manage/department', {api: api, title: '구이앤금우통신:부서관리'});
 });
