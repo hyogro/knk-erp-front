@@ -15,17 +15,17 @@ function detailAppliedAttendanceRecord(res) {
     if (res.code === 'RAUL001') {
         $("#recordList").empty();
 
-        let data = res.data.sort(function (a, b) {
-            let x = a.uuid.toLowerCase();
-            let y = b.uuid.toLowerCase();
-            if (x < y) {
-                return -1;
-            }
-            if (x > y) {
-                return 1;
-            }
-            return 0;
-        });
+        // let data = res.data.sort(function (a, b) {
+        //     let x = a.uuid.toLowerCase();
+        //     let y = b.uuid.toLowerCase();
+        //     if (x < y) {
+        //         return -1;
+        //     }
+        //     if (x > y) {
+        //         return 1;
+        //     }
+        //     return 0;
+        // });
 
         let uuidList = []
         for (let i = 0; i < data.length; i++) {
