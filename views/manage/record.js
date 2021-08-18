@@ -27,6 +27,8 @@ function detailAppliedAttendanceRecord(res) {
         //     return 0;
         // });
 
+        let data = res.data;
+
         let uuidList = []
         for (let i = 0; i < data.length; i++) {
             uuidList.push(data[i].uuid);
