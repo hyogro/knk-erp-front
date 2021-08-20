@@ -1,5 +1,6 @@
 let today = getYYYYMMDD(new Date());
 searchAttendanceRecord(today);
+$("#searchDate").val(today)
 
 function searchAttendanceRecord(date) {
     let sendData = {};
@@ -14,18 +15,6 @@ function detailAppliedAttendanceRecord(res) {
     }
     if (res.code === 'RAUL001') {
         $("#recordList").empty();
-
-        // let data = res.data.sort(function (a, b) {
-        //     let x = a.uuid.toLowerCase();
-        //     let y = b.uuid.toLowerCase();
-        //     if (x < y) {
-        //         return -1;
-        //     }
-        //     if (x > y) {
-        //         return 1;
-        //     }
-        //     return 0;
-        // });
 
         let data = res.data;
 
@@ -55,7 +44,7 @@ function detailAppliedAttendanceRecord(res) {
                         html += '<tr style="background-color: #fff7fc">';
                     }
 
-                    html += '<td>' + (j + 1) + '</td>' +
+                    html += '<td class="record-num">' + (i + 1) + '</td>' +
                         '<td>' + data[j].memberName + '(' + data[j].memberId + ')</td>' +
                         '<td>' + getToday(data[j].attendanceDate) + '</td>' +
                         '<td>' + data[j].uuid + '</td>' +

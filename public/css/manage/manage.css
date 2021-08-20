@@ -108,3 +108,7 @@ input {
     color: #ea0404;
     text-decoration: underline;
 }
+
+#recordList .record-num {
+    font-size: 1.4rem;
+}
