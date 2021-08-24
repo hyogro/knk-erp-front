@@ -200,7 +200,7 @@ function setCalendar(data) {
 //출,퇴근 기록
 function checkWork(type) {
     $.getJSON("https://api.ipify.org?format=json", function (data){
-        let allowIP = ['61.42.17.186', '59.1.168.71']; // 허용할 IP
+        let allowIP = ['61.42.17.187', '59.1.168.71']; // 허용할 IP
         let remoteIp = data.ip; // 사용자 IP
         let uuid = UUID_Check_localStorage();
         console.log(uuid);
