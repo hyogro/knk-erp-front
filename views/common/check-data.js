@@ -96,6 +96,8 @@ function makeDateForm(min) {
     var hours = Math.floor((min - (days * 60 * 8)) / 60);
     var mins = min - (days * 60 * 8) - (hours * 60);
 
+    if(min < 0) days++;
+
     var daysStr = days;
     var hourStr = hours;
     var minStr = (mins > 9) ? mins : '0' + mins
