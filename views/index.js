@@ -200,13 +200,13 @@ function setCalendar(data) {
 //출,퇴근 기록
 function checkWork(type) {
     $.getJSON("https://api.ipify.org?format=json", function (data) {
-            let allowIP = ['61.42.17.186', '61.42.17.187', '61.42.17.188', '61.42.17.189', '61.42.17.190', '59.1.168.71']; // 허용할 IP
+            let allowIP = ['112.216.6.34', '59.1.168.71']; // 허용할 IP
             let remoteIp = data.ip; // 사용자 IP
             let uuid = UUID_Check_localStorage();
             console.log(uuid);
 
 
-            //if (0 <= allowIP.indexOf(remoteIp)) {
+            if (0 <= allowIP.indexOf(remoteIp)) {
                 if (type === 'onWork') {
                     let requestData = {};
                     requestData.uuid = uuid;
@@ -217,10 +217,10 @@ function checkWork(type) {
                 } else {
                     alert('올바른 요청이 아닙니다.');
                 }
-            // }
-            // else {
-            //     alert('요청하신 주소: ' + remoteIp + ' 에서는 출/퇴근 기록을 할 수 없습니다.');
-            // }
+            }
+            else {
+                alert('요청하신 주소: ' + remoteIp + ' 에서는 출/퇴근 기록을 할 수 없습니다.');
+            }
         }
     )
 
