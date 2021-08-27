@@ -102,7 +102,8 @@ function makeDateForm(min) {
     var hourStr = hours;
     var minStr = (mins > 9) ? mins : '0' + mins
 
-    return daysStr + '일 ' + hourStr + '시간 ' + minStr + '분';
+
+    return ((min < 0) ? "- " : "") + daysStr + '일 ' + hourStr + '시간 ' + minStr + '분';
 }
 
 //엔터 br로 바꾸기
