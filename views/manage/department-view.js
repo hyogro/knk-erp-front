@@ -1,5 +1,6 @@
 //부서 정보 상세 보기
 request('GET', getURL('department', getQuery().id), setDepartmentInfo);
+
 function setDepartmentInfo(res) {
     if (res.code === null) {
         return;
@@ -79,6 +80,7 @@ function modifyDepartmentName() {
     saveData.departmentName = $("#departmentName").val();
     requestWithData('PUT', getURL('department', getQuery().id), saveData, modifyAlertDepartmentName);
 }
+
 function modifyAlertDepartmentName(res) {
     if (res.code === null) {
         return;
@@ -95,12 +97,13 @@ function modifyAlertDepartmentName(res) {
 }
 
 //리더는 한명만 선택 가능
-$(document).on('click', 'input[name="leader"]', function(){
+$(document).on('click', 'input[name="leader"]', function () {
     if ($(this).prop('checked')) {
         $('input[type="checkbox"][name="leader"]').prop('checked', false);
         $(this).prop('checked', true);
     }
 });
+
 //리더 변경
 function modifyLeader() {
     let sendData = {};
@@ -109,6 +112,7 @@ function modifyLeader() {
     requestWithData('PUT', getURL('department/updateLeader', getQuery().id),
         sendData, modifyAlertLeader);
 }
+
 function modifyAlertLeader(res) {
     if (res.code === null) {
         return;
@@ -131,6 +135,7 @@ function deleteDepartmentMember() {
         request('DELETE', getURL('department/deleteMember', $(this).val()), deleteDepartmentMemberRefresh);
     });
 }
+
 function deleteDepartmentMemberRefresh(res) {
     if (res.code === null) {
         return;
@@ -155,6 +160,7 @@ function addDepartmentMember() {
             sendData, addDepartmentMemberRefresh);
     });
 }
+
 function addDepartmentMemberRefresh(res) {
     if (res.code === null) {
         return;
@@ -165,5 +171,26 @@ function addDepartmentMemberRefresh(res) {
         alert("부서 멤버 추가 실패");
     } else if (res.code === 'ADM003') {
         alert("다른 부서의 파트장이므로 추가할 수 없습니다.");
+    }
+}
+
+function alertRemoveDepartment() {
+    if (confirm("한 번 삭제한 부서 정보는 되돌릴 수 없습니다.\n부서를 삭제하시겠습니까?") === true) {
+        request('DELETE', getURL('department', getQuery().id), removeDepartment)
+    } else {
+        return false;
+    }
+}
+
+function removeDepartment(res) {
+    console.log(res)
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'DD001') {
+        alert("부서가 삭제되었습니다.");
+        history.back()
+    } else if (res.code === 'DD002') {
+        alert("부서 삭제를 실패하였습니다.")
     }
 }
