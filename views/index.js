@@ -24,7 +24,7 @@ function setBoardData() {
 }
 
 function getAttendanceList() {
-    let sendData = new Object();
+    let sendData = {};
 
     sendData.viewOption = 'all dep own';
     let start = getTodayArr(new Date(new Date().setDate(new Date().getDate() - 7)));
