@@ -223,6 +223,8 @@ function saveBoardData() {
         saveData.boardType = '공지사항';
     } else if (boardType === 'work') {
         saveData.boardType = '업무게시판';
+    } else if (boardType === 'fieldTeam') {
+        saveData.boardType = '현장팀게시판'
     }
 
     return saveData;
@@ -234,9 +236,17 @@ function saveAlertBoard(res) {
         return;
     }
     if (res.code === 'CB001') {
-        location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
+        if (boardType === 'fieldTeam') {
+            location.href = '/board/safe?searchType=&keyword=&page=1';
+        } else {
+            location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
+        }
     } else if (res.code === 'UB001') {
-        location.href = "/board/" + boardType + "/view?id=" + getQuery().id;
+        if (boardType === 'fieldTeam') {
+            location.href = "/board/safe/view?id=" + getQuery().id;
+        } else {
+            location.href = "/board/" + boardType + "/view?id=" + getQuery().id;
+        }
     } else if (res.code === 'CB002' || res.code === 'UB002') {
         console.log("게시글 저장 실패");
     } else if (res.code === 'UB003') {

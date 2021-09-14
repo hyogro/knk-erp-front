@@ -37,7 +37,7 @@ function setFileList(data) {
     $("#downLoadFileList").empty();
     for (let i = 0; i < data.length; i++) {
         let file = '<a class="file download-file" ' +
-            'href="<%= fileApi %>' + 'board/'+data[i].fileName + '" ' +
+            'href="<%= fileApi %>' + 'board/' + data[i].fileName + '" ' +
             'download="' + data[i].originalFileName + '">' +
             data[i].originalFileName + '</a><br>';
         $("#downLoadFileList").append(file);
@@ -57,7 +57,11 @@ function setReferenceMemberList(data) {
 
 //글 수정 이동
 function modifyBoard() {
-    location.href = '/board/notice/write?id=' + getQuery().id;
+    if (boardType === 'fieldTeam') {
+        location.href = '/board/safe/write?id=' + getQuery().id;
+    } else {
+        location.href = '/board/' + boardType + '/write?id=' + getQuery().id;
+    }
 }
 
 //게시글 삭제
@@ -78,7 +82,11 @@ function deleteBoard(res) {
     }
     if (res.code === 'DB001') {
         alert("삭제되었습니다.");
-        location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
+        if (boardType === 'fieldTeam') {
+            location.href = '/board/safe?searchType=&keyword=&page=1';
+        } else {
+            location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
+        }
     } else if (res.code === 'DB002') {
         console.log("게시글 삭제 실패");
     } else if (res.code === 'DB002') {

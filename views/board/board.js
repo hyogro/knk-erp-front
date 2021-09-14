@@ -6,7 +6,7 @@ if (boardType === 'notice') {
         $("#writeBtn").show();
     }
     searchPage();
-} else if (boardType === 'work') {
+} else if (boardType === 'work' || boardType === 'fieldTeam') {
     $("#writeBtn").show();
     request('GET', 'board/noticeLatest', setNoticeList);
 }
@@ -64,10 +64,10 @@ function setBoardList(res) {
     if (res.code === null) {
         return;
     }
-    if (res.code === 'RNB001' || res.code === 'RWB001') {
+    if (res.code === 'RNB001' || res.code === 'RWB001' || res.code === 'RFTB001') {
         setBoardInfo(res.page.content);
         setPageCount(res.totalPage);
-    } else if (res.code === 'RNB002' || res.code === 'RWB002') {
+    } else if (res.code === 'RNB002' || res.code === 'RWB002' || res.code === 'RFTB002') {
         console.log("게시글 목록 불러오기 실패");
     }
 }
@@ -77,6 +77,7 @@ function setBoardInfo(data, type) {
     if (data.length === 0 && type !== 'important') {
         let html = '<tr><td colspan="4">해당 게시물이 없습니다.</td></tr>';
         $("#" + boardType + "List").append(html);
+        console.log(data.length)
         return;
     }
 
@@ -113,7 +114,11 @@ function setBoardInfo(data, type) {
 
 //상세보기 페이지 이동
 function loadDetailPage(id) {
-    location.href = '/board/' + boardType + '/view?id=' + id;
+    if (boardType === 'fieldTeam') {
+        location.href = '/board/safe/view?id=' + id;
+    } else {
+        location.href = '/board/' + boardType + '/view?id=' + id;
+    }
 }
 
 //페이징 셋팅
@@ -175,6 +180,9 @@ function LoadReferencePage(val) {
 function returnPageUrl(searchType, keyword, page) {
     searchType = searchType.replaceAll("'", "");
     keyword = keyword.replaceAll("'", "");
-    return '/board/' + boardType + '?searchType=' +
-        searchType + '&keyword=' + keyword + '&page=' + page;
+    if (boardType === 'fieldTeam') {
+        return '/board/safe?searchType=' + searchType + '&keyword=' + keyword + '&page=' + page;
+    } else {
+        return '/board/' + boardType + '?searchType=' + searchType + '&keyword=' + keyword + '&page=' + page;
+    }
 }

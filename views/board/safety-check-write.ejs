@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+
+    <%- include ('../part/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/board/board.css?ver=2.8">
+</head>
+
+<header>
+    <%- include ('../part/header.ejs') %>
+</header>
+
+<body>
+<%- include ('../part/menu.ejs') %>
+<div id="main">
+    <div class="row main-title">
+        현장팀 안전 점검 - 글쓰기
+    </div>
+
+    <div class="row">
+        <table class="board-write">
+            <tbody>
+            <tr>
+                <th width="16%">제목</th>
+                <td width="84%" colspan="5">
+                    <input type="text" maxlength="80" id="title">
+                </td>
+            </tr>
+            <tr>
+                <th width="16%">
+                    첨부파일
+                    <form id="fileForm" method="post" enctype="multipart/form-data">
+                        <label class="btn btn-outline-secondary" for="file">파일선택
+                            <input id="file" type="file" name="file" multiple="true">
+                        </label>
+                    </form>
+                </th>
+                <td width="84%" colspan="5">
+                    <div id="addFileNameList" class="scroll">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th width="16%">참조</th>
+                <td width="84%" colspan="5">
+                    <select class="form-control" id="reference" multiple="multiple">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <textarea style="display:none;" name="content" id="content"
+                              rows="20" cols="100"></textarea>
+                    <p class="count" style="float: right;font-size: 1.3rem;font-weight: bold"><span>0</span> / 40000</p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row" style="margin-top: 2rem">
+        <button type="button" class="btn btn-primary" style="float: right" onclick="saveBoard()">저장</button>
+    </div>
+
+</div>
+</body>
+
+</html>
+
+<script>
+
+    let boardType = 'fieldTeam';
+    <%- include ('board-write.js') %>
+
+</script>
