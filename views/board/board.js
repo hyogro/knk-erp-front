@@ -115,7 +115,7 @@ function setBoardInfo(data, type) {
 //상세보기 페이지 이동
 function loadDetailPage(id) {
     if (boardType === 'fieldTeam') {
-        location.href = '/board/safe/view?id=' + id;
+        location.href = '/manage/safe/view?id=' + id;
     } else {
         location.href = '/board/' + boardType + '/view?id=' + id;
     }
@@ -181,7 +181,7 @@ function returnPageUrl(searchType, keyword, page) {
     searchType = searchType.replaceAll("'", "");
     keyword = keyword.replaceAll("'", "");
     if (boardType === 'fieldTeam') {
-        return '/board/safe?searchType=' + searchType + '&keyword=' + keyword + '&page=' + page;
+        return '/manage/safe?searchType=' + searchType + '&keyword=' + keyword + '&page=' + page;
     } else {
         return '/board/' + boardType + '?searchType=' + searchType + '&keyword=' + keyword + '&page=' + page;
     }

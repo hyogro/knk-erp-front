@@ -27,3 +27,33 @@
         </div>
     </div>
 </div>
+
+<!--장기자재현황-->
+<div class="modal fade" id="toolModal" tabindex="-1"
+     aria-labelledby="toolModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>장기자재 현황 이미지 업로드</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding: 3rem!important;">
+                <form id="fileForm" method="post" enctype="multipart/form-data">
+                    <label class="btn btn-outline-secondary" for="file">파일선택
+                        <input id="file" type="file" name="file" multiple="true" accept="image/jpeg, image/png">
+                    </label>
+                </form>
+                <div id="addFileNameList" class="scroll">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" onclick="saveBoard()"
+                        class="btn btn-secondary">
+                    저장
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

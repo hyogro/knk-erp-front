@@ -146,7 +146,8 @@ function saveBoard() {
         return item !== null && item !== undefined && item !== '';
     });
 
-    if (newFileList.length > 0) {//새로운 파일 추가한 게시글 저장
+    // 새로운 파일 추가한 게시글 저장
+    if (newFileList.length > 0) {
         for (let i = 0; i < newFileList.length; i++) {
             let sendFiles = new FormData();
             sendFiles.append('file', newFileList[i]);
@@ -194,7 +195,10 @@ function uploadBoard() {
 
     if (fileList.length > 0) {
         saveData.fileName = fileList;
+    } else if (fileList.length === 0) {
+        saveData.fileName = [""];
     }
+
     if (isEmpty(getQuery().id)) {
         //글 생성
         requestWithData('POST', 'board', saveData, saveAlertBoard);
@@ -237,13 +241,13 @@ function saveAlertBoard(res) {
     }
     if (res.code === 'CB001') {
         if (boardType === 'fieldTeam') {
-            location.href = '/board/safe?searchType=&keyword=&page=1';
+            location.href = '/manage/safe?searchType=&keyword=&page=1';
         } else {
             location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
         }
     } else if (res.code === 'UB001') {
         if (boardType === 'fieldTeam') {
-            location.href = "/board/safe/view?id=" + getQuery().id;
+            location.href = "/manage/safe/view?id=" + getQuery().id;
         } else {
             location.href = "/board/" + boardType + "/view?id=" + getQuery().id;
         }

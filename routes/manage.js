@@ -33,4 +33,14 @@ router.get('/department/view', function (req, res, next) {
     res.render('manage/department-view', {api: api, title: '구이앤금우통신:부서관리'});
 });
 
+router.get('/safe', function (req, res, next) {
+    res.render('manage/safety-check', {api: api, title: '구이앤금우통신:현장팀안전점검'});
+});
+router.get('/safe/view', function (req, res, next) {
+    res.render('manage/safety-check-view', {api: api, fileApi: fileApi, title: '구이앤금우통신:현장팀안전점검'});
+});
+router.get('/safe/write', function (req, res, next) {
+    res.render('manage/safety-check-write', {api: api, fileApi: fileApi, title: '구이앤금우통신:현장팀안전점검'});
+});
+
 module.exports = router;

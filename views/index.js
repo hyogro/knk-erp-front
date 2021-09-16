@@ -21,6 +21,14 @@ function setBoardData() {
     //주간일정 조회
     setCalendar();
     getAttendanceList();
+
+    let authority = $.cookie('authority');
+    if (authority === "MATERIALS") {
+        $("#btnToolImgUpload").show()
+    } else {
+        $("#btnToolImgUpload").hide()
+    }
+
 }
 
 function getAttendanceList() {
@@ -217,8 +225,7 @@ function checkWork(type) {
                 } else {
                     alert('올바른 요청이 아닙니다.');
                 }
-            }
-            else {
+            } else {
                 alert('요청하신 주소: ' + remoteIp + ' 에서는 출/퇴근 기록을 할 수 없습니다.');
             }
         }
@@ -326,7 +333,162 @@ function getNoticeDetail(idx) {
     location.href = '/board/notice/view?id=' + idx;
 }
 
-//매뉴얼 다운로드
+// 매뉴얼 다운로드
 function downloadManual() {
     location.href = '<%= fileApi %>' + 'user_manual.pdf';
+}
+
+let beforeFileList = []; //기존 수정 전, 파일 리스트
+let fileList = [];
+let newFileList = [];
+
+// 장기 자재 현황
+request('GET', 'materials', setMaterialStatus);
+
+function setMaterialStatus(res) {
+    console.log(res)
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'RMTR001') {
+        let data = res.materials;
+
+        if (data.length === 0) {
+            let empty = '<div class="empty-tool"> 아직 업로드 된 현황이 없습니다. </div>'
+            $("#toolSlide").append(empty);
+            return;
+        }
+
+        for (let i = 0; i < data.length; i++) {
+            if (!isEmpty(data[i])) {
+                let img = "<div>" +
+                    "<a href='<%= fileApi %>/board/" + data[i] + "'>" +
+                    "<img src='<%= fileApi %>/board/" + data[i] + "'>" +
+                    "</a>" +
+                    "</div>"
+                $("#toolSlide").append(img)
+
+                let files = '<div id=beforeFile' + beforeFileList.length + '>' +
+                    '<div class="upload-file"><img class="preview-file" src="<%= fileApi %>/board/' + data[i] + '">' +
+                    '<span class="deleteBtn" onclick="deleteBeforeFileList(' + beforeFileList.length + ')"> 삭제</span></div></div>';
+                $("#addFileNameList").append(files);
+                beforeFileList.push(data[i]);
+            } else {
+                let empty = '<div class="empty-tool"> 아직 업로드 된 현황이 없습니다. </div>'
+                $("#toolSlide").append(empty);
+            }
+        }
+
+        $('.carousel').slick({
+            slidesToShow: 1,
+            dots: true,
+        });
+    } else if (res.code === 'RMTR002') {
+        console.log("장기자재 사진 읽기 실패");
+    }
+}
+
+//기존 파일 리스트 - 삭제
+function deleteBeforeFileList(index) {
+    beforeFileList[index] = null;
+    $("#beforeFile" + index).empty();
+}
+
+//파일 선택
+$("#file").change(function () {
+    let files = $("#file")[0].files;
+    for (let i = 0; i < files.length; i++) {
+        if (!/\.(gif|jpg|jpeg|png)$/i.test(files[i].name)) {
+            alert("지원되지 않는 형식의 이미지 파일을 제외합니다.\n" +
+                "파일명 : " + files[i].name + "\n" +
+                "* 지원되는 형식(jpg, jpeg, png)");
+        } else {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                let html = '<div id=addFile' + newFileList.length + '>' +
+                    '<div class="upload-file"><img class="preview-file" src="' + e.target.result + '">' +
+                    '<span class="deleteBtn" onclick="deleteNewFile(' + newFileList.length + ')"> 삭제</span>' +
+                    '</div></div>';
+                $("#addFileNameList").append(html);
+
+                newFileList.push(files[i]);
+            }
+            reader.readAsDataURL(files[i]);
+        }
+    }
+});
+
+//불러온 파일 삭제
+function deleteNewFile(index) {
+    newFileList[index] = null;
+    $("#addFile" + index).empty();
+}
+
+let fileUploadCount = 0;
+
+//파일 유무에 따른 게시글 저장
+function saveBoard() {
+    newFileList = newFileList.filter(function (item) {
+        return item !== null && item !== undefined && item !== '';
+    });
+
+    // 새로운 파일 추가한 게시글 저장
+    if (newFileList.length > 0) {
+        for (let i = 0; i < newFileList.length; i++) {
+            let sendFiles = new FormData();
+            sendFiles.append('file', newFileList[i]);
+            sendFiles.append('location', 'board');
+            requestWithFile('POST', 'file/upload', sendFiles, saveFile);
+        }
+    } else {//새로 추가한 파일이 없을 경우
+        uploadBeforeFileList();
+    }
+}
+
+//파일 있는 게시글 저장
+function saveFile(res) {
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'FS001') {
+        fileList.push(res.message);
+        fileUploadCount += 1;
+        if (fileUploadCount === newFileList.length) {
+            uploadBeforeFileList();
+        }
+    } else if (res.code === 'FS002') {
+        console.log("파일 저장 실패");
+    }
+}
+
+
+//기존 파일 있는 게시글 저장 (글 수정)
+function uploadBeforeFileList() {
+    beforeFileList = beforeFileList.filter(function (item) {
+        return item !== null && item !== undefined && item !== '';
+    });
+
+    for (let i = 0; i < beforeFileList.length; i++) {
+        fileList.push(beforeFileList[i]);
+    }
+
+    let saveData = {};
+    saveData.materials = fileList;
+
+    console.log(saveData)
+
+    requestWithData('POST', 'materials', saveData, saveAlertBoard);
+}
+
+//게시글 저장 알림창
+function saveAlertBoard(res) {
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'CMTR001') {
+        alert("업로드 되었습니다.")
+        location.reload()
+    } else if (res.code === 'CMTR002') {
+        console.log("장기 자재 현황 이미지 업로드 실패")
+    }
 }

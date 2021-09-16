@@ -210,6 +210,5 @@ function chkImageFile(id) {
     if (!imgFile.match(fileForm)) {
         alert("지원되는 형식(jpg, jpeg, png)의 이미지 파일이 아닙니다.");
         $('#' + id).val(null);
-        return;
     }
 }

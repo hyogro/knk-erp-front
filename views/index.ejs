@@ -36,34 +36,60 @@
         <div id="calendar"></div>
     </div>
 
-    <div class="row">
-        <div class="col-xl content-box">
-            <div class="content-box-title">🔸 출퇴근기록</div>
-            <div class="row attendance-self">
-                <div class="attendance-self-btns">
-                    <button type="button" class="btn btn-primary"
-                            onclick="checkWork('onWork')">
-                        <img src="/images/icon-on-work.png">
-                        <div>출근</div>
-                    </button>
-                    <button type="button" class="btn btn-danger"
-                            onclick="checkWork('offWork')">
-                        <img src="/images/icon-off-work.png">
-                        <div>퇴근</div>
-                    </button>
+    <div class="row" style="--bs-gutter-x: 0 !important;">
+        <div class="col-xl">
+            <div class="row content-box">
+                <div class="content-box-title">🔸 출퇴근기록</div>
+                <div class="row attendance-self">
+                    <div class="attendance-self-btns">
+                        <button type="button" class="btn btn-primary"
+                                onclick="checkWork('onWork')">
+                            <img src="/images/icon-on-work.png">
+                            <div>출근</div>
+                        </button>
+                        <button type="button" class="btn btn-danger"
+                                onclick="checkWork('offWork')">
+                            <img src="/images/icon-off-work.png">
+                            <div>퇴근</div>
+                        </button>
+                    </div>
+                    <div class="attendance-self-time">
+                        <table class="table-bordered">
+                            <thead>
+                            <tr>
+                                <th width="50%">출근</th>
+                                <th width="50%">퇴근</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td id="onWorkTime">　</td>
+                                <td id="offWorkTime">　</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="attendance-self-time">
-                    <table class="table-bordered">
+            </div>
+
+            <div class="row content-box">
+                <div class="content-box-title">🔸 공지사항</div>
+                <div class="notice-box">
+                    <table class="board">
                         <thead>
                         <tr>
-                            <th width="50%">출근</th>
-                            <th width="50%">퇴근</th>
+                            <th width="10%">No</th>
+                            <th width="50%">제목</th>
+                            <th width="20%">작성자</th>
+                            <th width="20%">등록일</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td id="onWorkTime">　</td>
-                            <td id="offWorkTime">　</td>
+                        <tbody id="noticeList">
+                        <tr class="important">
+                            <td><span class="badge bg-danger">필독</span></td>
+                            <td class="board-title" onclick="downloadManual()">구이앤금우통신 ERP 사용자 매뉴얼</td>
+                            <td>관리자</td>
+                            <td>2021.06.30</td>
                         </tr>
                         </tbody>
                     </table>
@@ -71,50 +97,18 @@
             </div>
         </div>
 
-        <div class="col-xl content-box">
-            <div class="content-box-title">🔸 공지사항</div>
-            <table class="board">
-                <thead>
-                <tr>
-                    <th width="10%">No</th>
-                    <th width="50%">제목</th>
-                    <th width="20%">작성자</th>
-                    <th width="20%">등록일</th>
-                </tr>
-                </thead>
-                <tbody id="noticeList">
-                <tr class="important">
-                    <td><span class="badge bg-danger">필독</span></td>
-                    <td class="board-title" onclick="downloadManual()">구이앤금우통신 ERP 사용자 매뉴얼</td>
-                    <td>관리자</td>
-                    <td>2021.06.30</td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="col-xl content-box tool">
+            <div class="content-box-title">🔸 장기자재현황</div>
+            <button id="btnToolImgUpload" type="button" style="display: none"
+                    data-bs-toggle="modal" data-bs-target="#toolModal"
+                    class="btn btn-sm btn-outline-success upload-img">
+                이미지 업로드
+            </button>
+
+            <div id="toolSlide" class="carousel">
+            </div>
         </div>
     </div>
-
-<!--    <div class="row content-box">-->
-<!--        <div class="content-box-title">🔸 공지사항</div>-->
-<!--        <table class="board">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <th width="10%">No</th>-->
-<!--                <th width="50%">제목</th>-->
-<!--                <th width="20%">작성자</th>-->
-<!--                <th width="20%">등록일</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody id="noticeList">-->
-<!--            <tr class="important">-->
-<!--                <td><span class="badge bg-danger">필독</span></td>-->
-<!--                <td class="board-title" onclick="downloadManual()">구이앤금우통신 ERP 사용자 매뉴얼</td>-->
-<!--                <td>관리자</td>-->
-<!--                <td>2021.06.30</td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
 
     <div class="row attendance-board">
         <div class="col-md content-box on-work"

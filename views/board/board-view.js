@@ -7,6 +7,7 @@ function setBoardContent(res) {
     }
     if (res.code === 'RB001') {
         let data = res.readBoardDTO;
+        console.log(data)
         $("#title").text(data.title);
         $("#writerMember").text(data.writerMemberName + "(" + data.writerMemberId + ")");
         $("#writerDepartment").text(data.writer_department);
@@ -58,7 +59,7 @@ function setReferenceMemberList(data) {
 //글 수정 이동
 function modifyBoard() {
     if (boardType === 'fieldTeam') {
-        location.href = '/board/safe/write?id=' + getQuery().id;
+        location.href = '/manage/safe/write?id=' + getQuery().id;
     } else {
         location.href = '/board/' + boardType + '/write?id=' + getQuery().id;
     }
@@ -83,7 +84,7 @@ function deleteBoard(res) {
     if (res.code === 'DB001') {
         alert("삭제되었습니다.");
         if (boardType === 'fieldTeam') {
-            location.href = '/board/safe?searchType=&keyword=&page=1';
+            location.href = '/manage/safe?searchType=&keyword=&page=1';
         } else {
             location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
         }

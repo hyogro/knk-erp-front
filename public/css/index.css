@@ -1,4 +1,4 @@
-.content-box:not(:last-child) {
+.attendance-board .content-box:not(:last-child) {
     margin-right: 1.5rem !important;
 }
 
@@ -164,4 +164,137 @@
 
 .time-size {
     font-size: 1.3rem
+}
+
+/*슬라이드*/
+.carousel {
+    width: 100%;
+    /*margin: 0 auto 20px auto;*/
+}
+
+.carousel img {
+    width: 100%;
+    object-fit: cover;
+    min-height: 38rem;
+    height: 38rem;
+    max-height: 38rem;
+    cursor: pointer;
+}
+
+.slick-next, .slick-prev,
+.slick-next:focus, .slick-next:hover,
+.slick-prev:focus, .slick-prev:hover {
+    height: 100%;
+    width: 70px;
+    z-index: 100;
+    top: 50%;
+}
+
+.slick-next:before, .slick-prev:before {
+    font-size: 30px;
+    color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.slick-prev {
+    left: 0;
+}
+
+.slick-next {
+    right: 0;
+}
+
+.slick-slide {
+    margin: 10px;
+}
+
+.wrapper .slick-dots li button:before {
+    font-size: 20px;
+    color: white;
+}
+
+
+.slick-prev:before,
+.slick-next:before {
+    color: black;
+}
+
+/*장기자재현황*/
+.tool {
+    position: relative;
+    width: 50%;
+}
+
+.tool .upload-img {
+    right: 0;
+    top: 0;
+    margin: 20px;
+    position: absolute
+}
+
+#addFileNameList, #downLoadFileList {
+    font-size: 1.4rem;
+    padding: 1rem;
+    height: 50rem;
+    max-height: 50rem;
+}
+
+.preview-file {
+    width: 300px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.upload-file, .download-file {
+    width: fit-content;
+    background: white;
+    border: 1px solid #DCDCDC;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 4px;
+}
+
+.upload-file {
+    cursor: default;
+}
+
+.upload-file:hover {
+    background: #f6f6f6;
+}
+
+.download-file {
+    cursor: pointer;
+}
+
+.deleteBtn {
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #ee0505;
+    font-weight: bold;
+    vertical-align: bottom;
+}
+
+.deleteBtn:hover {
+    color: #f53c3c;
+}
+
+.empty-tool {
+    font-size: 1.4rem;
+    color: gray;
+}
+
+/*공지사항*/
+.notice-box {
+    min-height: 23rem;
+}
+
+@media screen and (min-width: 1350px) {
+    .col-xl:not(:last-child) {
+        margin-right: 1.5rem !important;
+    }
+}
+
+@media screen and (max-width: 1350px) {
+    .tool {
+        width: 100%;
+    }
 }
