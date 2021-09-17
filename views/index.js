@@ -353,7 +353,7 @@ function setMaterialStatus(res) {
     if (res.code === 'RMTR001') {
         let data = res.materials;
 
-        if (data.length === 0) {
+        if (data.length === 0 || isEmpty(data)) {
             let empty = '<div class="empty-tool"> 아직 업로드 된 현황이 없습니다. </div>'
             $("#toolSlide").append(empty);
             return;
