@@ -342,7 +342,7 @@ let beforeFileList = []; //기존 수정 전, 파일 리스트
 let fileList = [];
 let newFileList = [];
 
-// 장기 자재 현황
+// 정산해야 할 자재
 request('GET', 'materials', setMaterialStatus);
 
 function setMaterialStatus(res) {
@@ -489,6 +489,6 @@ function saveAlertBoard(res) {
         alert("업로드 되었습니다.")
         location.reload()
     } else if (res.code === 'CMTR002') {
-        console.log("장기 자재 현황 이미지 업로드 실패")
+        console.log("정산해야 할 자재 이미지 업로드 실패")
     }
 }
