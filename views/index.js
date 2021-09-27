@@ -30,7 +30,7 @@ function setBoardData() {
         $("#btnToolUpload").hide()
     }
     // 평가표 버튼
-    if (authority === "LVL3") {
+    if (authority === "LVL3" || authority === "LVL4" || authority === "LVL5" || authority === "ADMIN") {
         $("#btnEvaluationUpload").show()
     } else {
         $("#btnEvaluationUpload").hide()
