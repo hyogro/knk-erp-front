@@ -19,11 +19,11 @@ let calendar = new FullCalendar.Calendar(calendarEl, {
     googleCalendarApiKey: 'AIzaSyDzvT6BwKaKBK4vnBPr_dFL6iBbP4ZJRfY',
     eventSources:
         [{
-        googleCalendarId: 'ko.south_korea.official#holiday@group.v.calendar.google.com',
+            googleCalendarId: 'ko.south_korea.official#holiday@group.v.calendar.google.com',
             className: 'ko_event',
-            backgroundColor : '#f11212',
-            borderColor : '#f11212'
-    }],
+            backgroundColor: '#f11212',
+            borderColor: '#f11212'
+        }],
     eventClick: function (info) {
         if (info.event.extendedProps.type === 'schedule') {
             new bootstrap.Modal(document.getElementById('scheduleModal')).show();
@@ -79,11 +79,6 @@ function setScheduleCalendar(viewOption) {
         request('GET', getURL('vacation/all', sendData), setVacationList);
     }
 
-    //기념일일정 조회
-    if ($("#checkViewOptionAnn").is(":checked")) {
-        request('GET', getURL('schedule/anniversary', sendData), setAnniversaryList);
-    }
-
     if (!(isEmpty(viewOption))) {
         //전체일정 조회
         sendData.viewOption = viewOption;
@@ -92,6 +87,23 @@ function setScheduleCalendar(viewOption) {
         //내일정 조회
         sendData.viewOption = '';
         request('GET', getURL('schedule', sendData), setMyScheduleList);
+    }
+
+    //기념일일정 조회
+    let year = $(".fc-toolbar-title").text().substring(0, 4)
+    let month = $(".fc-toolbar-title").text().substring(6).replace("월", "")
+
+    let start = getYYYYMMDD(new Date(year + '-' + month + '-1'));
+    let end = getYYYYMMDD(new Date(year + '-' + month + '-' + (new Date(year, month, 0).getDate()).toString()));
+
+    let birthData = {};
+    birthData.startDate = start + "T00:00:00";
+    birthData.endDate = end + "T11:59:59";
+
+    console.log(birthData)
+
+    if ($("#checkViewOptionAnn").is(":checked")) {
+        request('GET', getURL('schedule/anniversary', birthData), setAnniversaryList);
     }
 
 }

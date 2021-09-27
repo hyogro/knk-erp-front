@@ -503,7 +503,6 @@ let evaluationFile = null
 request('GET', 'evaluation', setEvaluationImage);
 
 function setEvaluationImage(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
