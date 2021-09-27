@@ -29,7 +29,7 @@ function setBoardData() {
     } else {
         $("#btnToolUpload").hide()
     }
-    // 평가표 버튼
+    // 지표 관리 버튼
     if (authority === "LVL3" || authority === "LVL4" || authority === "LVL5" || authority === "ADMIN") {
         $("#btnEvaluationUpload").show()
     } else {
@@ -492,12 +492,12 @@ function saveAlertBoard(res) {
     } else if (res.code === 'CMTR002') {
         console.log("정산해야 할 자재 이미지 업로드 실패")
     } else if (res.code === 'CEV002') {
-        console.log("평가표 이미지 업로드 실패")
+        console.log("지표 관리 이미지 업로드 실패")
     }
 }
 
 
-// 평가표 이미지
+// 지표 관리 이미지
 let evaluationFile = null
 
 request('GET', 'evaluation', setEvaluationImage);
@@ -521,11 +521,11 @@ function setEvaluationImage(res) {
             $(".evaluation-file").html("아직 선택 된 파일이 없습니다.")
         }
     } else if (res.code === 'REV002') {
-        console.log("평가표 이미지 불러오기 실패");
+        console.log("지표 관리 이미지 불러오기 실패");
     }
 }
 
-// 평가표 파일 선택
+// 지표 관리 파일 선택
 $("#evaluationFile").change(function () {
     let file = $("#evaluationFile")[0].files[0];
 
@@ -555,7 +555,7 @@ function deleteEvaluationImage() {
     $("#evaluationSelectFileName").text("")
 }
 
-//평가표 사진 저장
+//지표 관리 사진 저장
 function saveEvaluation() {
     if (isEmpty(evaluationFile)) {
         let saveData = {};
