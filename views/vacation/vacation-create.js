@@ -143,7 +143,6 @@ function createVacation() {
     } else if (new Date(saveData.startDate) >= new Date(saveData.endDate)) {
         alert("올바른 휴가기간을 선택해주세요.")
     } else {
-        console.log(saveData)
         requestWithData("POST", "vacation", saveData, alertCreateVacation)
     }
 }

@@ -158,7 +158,6 @@ function chkUpdateMyInfo() {
         } else {
             saveData.birthDate = birthDate;
             saveData.birthDateSolar = $('input[name="birthDateType"]:checked').val();
-            console.log(saveData);
         }
     }
 
@@ -169,7 +168,6 @@ function chkUpdateMyInfo() {
 
 //프로필 이미지 먼저 저장 -> 나머지 내 정보 저장
 function saveProfileImage() {
-    // console.log(profileFile)
     if (!isEmpty(profileFile.file)) {
         let saveFiles = new FormData();
         saveFiles.append('file', profileFile.file);
@@ -183,7 +181,6 @@ function saveProfileImage() {
             let image = profileFile.src.split("/");
             myInfo.images = image[image.length - 1];
         }
-        console.log(myInfo)
         requestWithData('PUT', 'my', myInfo, updateMyInfo);
     }
 }

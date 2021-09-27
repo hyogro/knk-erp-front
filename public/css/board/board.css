@@ -54,6 +54,8 @@
     vertical-align: top;
     height: 30rem;
     min-height: 30rem;
+    max-width: 76rem;
+    overflow-x: auto;
 }
 
 .board-detail .file {

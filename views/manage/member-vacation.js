@@ -2,7 +2,6 @@ $("#memberName").text(getQuery().name);
 request('GET', getURL('vacation/add/list', getQuery().id), setAddVacationList);
 
 function setAddVacationList(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }
@@ -68,7 +67,6 @@ function saveAddVacation() {
 }
 
 function saveAlertAddVacation(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }
@@ -106,7 +104,6 @@ function detailAddVacationModal(res) {
 }
 
 function deleteAddVacation(res) {
-    console.log(res);
     if (res.code === null) {
         return;
     }

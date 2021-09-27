@@ -39,9 +39,10 @@
                         aria-label="Close"></button>
             </div>
             <div class="modal-body" style="padding: 3rem!important;">
-                <form id="fileForm" method="post" enctype="multipart/form-data">
-                    <label class="btn btn-outline-secondary" for="file">파일선택
-                        <input id="file" type="file" name="file" multiple="true" accept="image/jpeg, image/png">
+                <form class="file-form" method="post" enctype="multipart/form-data">
+                    <label class="btn btn-outline-secondary" for="toolFile">파일선택
+                        <input id="toolFile" type="file" name="toolFile"
+                               multiple="true" accept="image/jpeg, image/png">
                     </label>
                 </form>
                 <div id="addFileNameList" class="scroll">
@@ -50,6 +51,37 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
                 <button type="button" onclick="saveBoard()"
+                        class="btn btn-secondary">
+                    저장
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--평가표-->
+<div class="modal fade" id="evaluationModal" tabindex="-1"
+     aria-labelledby="evaluationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>평가표 이미지 업로드</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding: 3rem!important;">
+                <form class="file-form" method="post" enctype="multipart/form-data">
+                    <label class="btn btn-outline-secondary" for="evaluationFile">파일선택
+                        <input id="evaluationFile" type="file" name="evaluationFile" accept="image/jpeg, image/png">
+                    </label>
+                    <span class="evaluation-file-name" id="evaluationSelectFileName"></span>
+                </form>
+                <img class="evaluation-file" id="evaluationSelectFile"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" onclick="saveEvaluation()"
                         class="btn btn-secondary">
                     저장
                 </button>

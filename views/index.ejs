@@ -32,9 +32,26 @@
         </div>
     </div>
 
-    <div class="row content-box">
-        <div class="content-box-title">🔸 주간일정</div>
-        <div id="calendar"></div>
+    <div class="row" style="--bs-gutter-x: 0 !important;">
+        <div class="col-xl">
+            <div class="row content-box">
+                <div class="content-box-title">🔸 주간일정</div>
+                <div id="calendar"></div>
+            </div>
+        </div>
+        <div class="col-xl content-box img-content">
+            <div class="content-box-title">🔸 평가표</div>
+            <button id="btnEvaluationUpload" type="button" style=""
+                    data-bs-toggle="modal" data-bs-target="#evaluationModal"
+                    class="btn btn-sm btn-outline-success upload-img">
+                이미지 업로드
+            </button>
+            <div class="evaluation-content scroll">
+                <a title="클릭해서 크게보기">
+                    <img id="imgEvaluation" src="">
+                </a>
+            </div>
+        </div>
     </div>
 
     <div class="row" style="--bs-gutter-x: 0 !important;">
@@ -98,9 +115,9 @@
             </div>
         </div>
 
-        <div class="col-xl content-box tool">
+        <div class="col-xl content-box img-content">
             <div class="content-box-title">🔸 정산해야 할 자재</div>
-            <button id="btnToolImgUpload" type="button" style="display: none"
+            <button id="btnToolUpload" type="button" style="display: none"
                     data-bs-toggle="modal" data-bs-target="#toolModal"
                     class="btn btn-sm btn-outline-success upload-img">
                 이미지 업로드

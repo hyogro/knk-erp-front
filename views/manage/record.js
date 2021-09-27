@@ -9,7 +9,6 @@ function searchAttendanceRecord(date) {
 }
 
 function detailAppliedAttendanceRecord(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }

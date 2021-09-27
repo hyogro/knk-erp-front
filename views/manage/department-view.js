@@ -183,7 +183,6 @@ function alertRemoveDepartment() {
 }
 
 function removeDepartment(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }

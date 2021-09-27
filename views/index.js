@@ -23,10 +23,17 @@ function setBoardData() {
     getAttendanceList();
 
     let authority = $.cookie('authority');
+    //정산해야할자재 버튼
     if (authority === "MATERIALS") {
-        $("#btnToolImgUpload").show()
+        $("#btnToolUpload").show()
     } else {
-        $("#btnToolImgUpload").hide()
+        $("#btnToolUpload").hide()
+    }
+    // 평가표 버튼
+    if (authority === "LVL3") {
+        $("#btnEvaluationUpload").show()
+    } else {
+        $("#btnEvaluationUpload").hide()
     }
 
 }
@@ -211,8 +218,6 @@ function checkWork(type) {
             let allowIP = ['112.216.6.34', '59.1.168.71', '61.42.17.186']; // 허용할 IP
             let remoteIp = data.ip; // 사용자 IP
             let uuid = UUID_Check_localStorage();
-            console.log(uuid);
-
 
             if (0 <= allowIP.indexOf(remoteIp)) {
                 if (type === 'onWork') {
@@ -346,7 +351,6 @@ let newFileList = [];
 request('GET', 'materials', setMaterialStatus);
 
 function setMaterialStatus(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -362,7 +366,7 @@ function setMaterialStatus(res) {
         for (let i = 0; i < data.length; i++) {
             if (!isEmpty(data[i])) {
                 let img = "<div>" +
-                    "<a href='<%= fileApi %>/board/" + data[i] + "'>" +
+                    "<a title='클릭해서 크게보기' href='<%= fileApi %>/board/" + data[i] + "'>" +
                     "<img src='<%= fileApi %>/board/" + data[i] + "'>" +
                     "</a>" +
                     "</div>"
@@ -394,9 +398,9 @@ function deleteBeforeFileList(index) {
     $("#beforeFile" + index).empty();
 }
 
-//파일 선택
-$("#file").change(function () {
-    let files = $("#file")[0].files;
+//자재 파일 선택
+$("#toolFile").change(function () {
+    let files = $("#toolFile")[0].files;
     for (let i = 0; i < files.length; i++) {
         if (!/\.(gif|jpg|jpeg|png)$/i.test(files[i].name)) {
             alert("지원되지 않는 형식의 이미지 파일을 제외합니다.\n" +
@@ -415,6 +419,30 @@ $("#file").change(function () {
             }
             reader.readAsDataURL(files[i]);
         }
+    }
+});
+
+let evaluationFile = null
+
+// 평가표 파일 선택
+$("#evaluationFile").change(function () {
+    let file = $("#evaluationFile")[0].files[0];
+
+    console.log(file)
+
+    if (!/\.(gif|jpg|jpeg|png)$/i.test(file.name)) {
+        alert("지원되지 않는 형식의 이미지 파일을 제외합니다.\n" +
+            "파일명 : " + file.name + "\n" +
+            "* 지원되는 형식(jpg, jpeg, png)");
+    } else {
+        let reader = new FileReader()
+        reader.onload = e => {
+            $("#evaluationSelectFile").attr("src", e.target.result)
+            $("#evaluationSelectFileName").text(file.name)
+        }
+        reader.readAsDataURL(file)
+
+        evaluationFile = file
     }
 });
 
@@ -461,7 +489,6 @@ function saveFile(res) {
     }
 }
 
-
 //기존 파일 있는 게시글 저장 (글 수정)
 function uploadBeforeFileList() {
     beforeFileList = beforeFileList.filter(function (item) {
@@ -475,20 +502,62 @@ function uploadBeforeFileList() {
     let saveData = {};
     saveData.materials = fileList;
 
-    console.log(saveData)
-
     requestWithData('POST', 'materials', saveData, saveAlertBoard);
 }
 
 //게시글 저장 알림창
 function saveAlertBoard(res) {
+    console.log(res)
     if (res.code === null) {
         return;
     }
-    if (res.code === 'CMTR001') {
+    if (res.code === 'CMTR001' || res.code === 'CEV001') {
         alert("업로드 되었습니다.")
         location.reload()
     } else if (res.code === 'CMTR002') {
         console.log("정산해야 할 자재 이미지 업로드 실패")
+    } else if (res.code === 'CEV002') {
+        console.log("평가표 이미지 업로드 실패")
+    }
+}
+
+
+// 평가표 이미지
+request('GET', 'evaluation', setEvaluationImage);
+
+function setEvaluationImage(res) {
+    console.log(res)
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'REV001') {
+        let url = '<%= fileApi %>/board/' + res.evaluation
+        $("#imgEvaluation").parent().attr('href', url)
+        $("#imgEvaluation").attr('src', url)
+    } else if (res.code === 'REV002') {
+        console.log("평가표 이미지 불러오기 실패");
+    }
+}
+
+//평가표 사진 저장
+function saveEvaluation() {
+    let sendFiles = new FormData();
+    sendFiles.append('file', evaluationFile);
+    sendFiles.append('location', 'board');
+    requestWithFile('POST', 'file/upload', sendFiles, saveEvaluationFile);
+}
+
+function saveEvaluationFile(res) {
+    if (res.code === null) {
+        return;
+    }
+    if (res.code === 'FS001') {
+        console.log(res)
+        let saveData = {};
+        saveData.evaluation = res.message
+
+        requestWithData('POST', 'evaluation', saveData, saveAlertBoard);
+    } else if (res.code === 'FS002') {
+        console.log("파일 저장 실패");
     }
 }

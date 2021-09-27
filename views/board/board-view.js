@@ -7,7 +7,6 @@ function setBoardContent(res) {
     }
     if (res.code === 'RB001') {
         let data = res.readBoardDTO;
-        console.log(data)
         $("#title").text(data.title);
         $("#writerMember").text(data.writerMemberName + "(" + data.writerMemberId + ")");
         $("#writerDepartment").text(data.writer_department);

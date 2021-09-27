@@ -128,7 +128,7 @@
 
 /*주간일정 달력*/
 #calendar {
-    max-height: 30rem
+    max-height: 40rem
 }
 
 .fc-toolbar-chunk:last-child {
@@ -218,13 +218,41 @@
     color: black;
 }
 
+/*평가표*/
+.evaluation-file {
+    margin-top: 2rem;
+    width: 100%;
+    height: auto;
+    border: 1px solid #DCDCDC;
+    border-radius: 5px;
+    padding: 2rem;
+}
+
+.evaluation-file-name {
+    font-size: 1.4rem;
+    vertical-align: middle;
+
+}
+
+.evaluation-content {
+    width: 100%;
+    max-height: 40rem;
+    overflow-y: auto;
+}
+
+#imgEvaluation {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
 /*정산해야 할 자재*/
-.tool {
+.img-content {
     position: relative;
     width: 50%;
 }
 
-.tool .upload-img {
+.img-content .upload-img {
     right: 0;
     top: 0;
     margin: 20px;
@@ -286,6 +314,7 @@
 .notice-box {
     min-height: 23rem;
 }
+
 
 @media screen and (min-width: 1350px) {
     .col-xl:not(:last-child) {

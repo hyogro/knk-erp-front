@@ -343,12 +343,12 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     margin: 0 !important;
 }
 
-#file {
+input[type="file"] {
     position: absolute;
     left: -9999px;
 }
 
-label[for="file"] {
+label[for="file"], .file-form label {
     display: inline-block;
     cursor: pointer;
     padding: 3px 5px !important;

@@ -60,7 +60,6 @@ function searchPage() {
 
 //게시판 상세보기
 function setBoardList(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -77,7 +76,6 @@ function setBoardInfo(data, type) {
     if (data.length === 0 && type !== 'important') {
         let html = '<tr><td colspan="4">해당 게시물이 없습니다.</td></tr>';
         $("#" + boardType + "List").append(html);
-        console.log(data.length)
         return;
     }
 
