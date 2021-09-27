@@ -220,24 +220,37 @@
 
 /*평가표*/
 .evaluation-file {
+    display: inline-block;
     margin-top: 2rem;
     width: 100%;
     height: auto;
     border: 1px solid #DCDCDC;
     border-radius: 5px;
     padding: 2rem;
+    font-size: 1.4rem;
+}
+
+.evaluation-file img {
+    width: 100%;
+    height: auto;
+}
+
+.evaluation-file button {
+    float: right;
+    margin-top: 6px;
 }
 
 .evaluation-file-name {
     font-size: 1.4rem;
     vertical-align: middle;
-
 }
 
 .evaluation-content {
     width: 100%;
     max-height: 40rem;
     overflow-y: auto;
+    font-size: 1.4rem;
+    color: gray;
 }
 
 #imgEvaluation {

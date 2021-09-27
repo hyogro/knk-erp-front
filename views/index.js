@@ -358,7 +358,7 @@ function setMaterialStatus(res) {
         let data = res.materials;
 
         if (data.length === 0 || isEmpty(data)) {
-            let empty = '<div class="empty-tool"> 아직 업로드 된 현황이 없습니다. </div>'
+            let empty = '<div class="empty-tool"> 아직 업로드된 현황이 없습니다. </div>'
             $("#toolSlide").append(empty);
             return;
         }
@@ -378,7 +378,7 @@ function setMaterialStatus(res) {
                 $("#addFileNameList").append(files);
                 beforeFileList.push(data[i]);
             } else {
-                let empty = '<div class="empty-tool"> 아직 업로드 된 현황이 없습니다. </div>'
+                let empty = '<div class="empty-tool"> 아직 업로드된 현황이 없습니다. </div>'
                 $("#toolSlide").append(empty);
             }
         }
@@ -419,30 +419,6 @@ $("#toolFile").change(function () {
             }
             reader.readAsDataURL(files[i]);
         }
-    }
-});
-
-let evaluationFile = null
-
-// 평가표 파일 선택
-$("#evaluationFile").change(function () {
-    let file = $("#evaluationFile")[0].files[0];
-
-    console.log(file)
-
-    if (!/\.(gif|jpg|jpeg|png)$/i.test(file.name)) {
-        alert("지원되지 않는 형식의 이미지 파일을 제외합니다.\n" +
-            "파일명 : " + file.name + "\n" +
-            "* 지원되는 형식(jpg, jpeg, png)");
-    } else {
-        let reader = new FileReader()
-        reader.onload = e => {
-            $("#evaluationSelectFile").attr("src", e.target.result)
-            $("#evaluationSelectFileName").text(file.name)
-        }
-        reader.readAsDataURL(file)
-
-        evaluationFile = file
     }
 });
 
@@ -507,7 +483,6 @@ function uploadBeforeFileList() {
 
 //게시글 저장 알림창
 function saveAlertBoard(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -523,6 +498,8 @@ function saveAlertBoard(res) {
 
 
 // 평가표 이미지
+let evaluationFile = null
+
 request('GET', 'evaluation', setEvaluationImage);
 
 function setEvaluationImage(res) {
@@ -531,20 +508,67 @@ function setEvaluationImage(res) {
         return;
     }
     if (res.code === 'REV001') {
-        let url = '<%= fileApi %>/board/' + res.evaluation
-        $("#imgEvaluation").parent().attr('href', url)
-        $("#imgEvaluation").attr('src', url)
+        if (res.evaluation != null) {
+            evaluationFile = res.evaluation
+            let url = '<%= fileApi %>/board/' + res.evaluation
+            $("#imgEvaluation").parent().attr('href', url)
+            $("#imgEvaluation").attr('src', url)
+            let html = '<img id="evaluationSelectFile" src="' + url + '"/>' +
+                '<button class="btn btn-sm btn-danger"' +
+                'onclick="deleteEvaluationImage()">삭제</button>'
+            $(".evaluation-file").html(html)
+        } else {
+            $(".evaluation-content").append("아직 업로드된 파일이 없습니다.")
+            $(".evaluation-file").html("아직 선택 된 파일이 없습니다.")
+        }
     } else if (res.code === 'REV002') {
         console.log("평가표 이미지 불러오기 실패");
     }
 }
 
+// 평가표 파일 선택
+$("#evaluationFile").change(function () {
+    let file = $("#evaluationFile")[0].files[0];
+
+    if (!/\.(gif|jpg|jpeg|png)$/i.test(file.name)) {
+        alert("지원되지 않는 형식의 이미지 파일을 제외합니다.\n" +
+            "파일명 : " + file.name + "\n" +
+            "* 지원되는 형식(jpg, jpeg, png)");
+    } else {
+        let reader = new FileReader()
+        reader.onload = e => {
+            $("#evaluationSelectFileName").text(file.name)
+
+            let html = '<img id="evaluationSelectFile" src="' + e.target.result + '"/>' +
+                '<button class="btn btn-sm btn-danger"' +
+                'onclick="deleteEvaluationImage()">삭제</button>'
+            $(".evaluation-file").html(html)
+        }
+        reader.readAsDataURL(file)
+
+        evaluationFile = file
+    }
+});
+
+function deleteEvaluationImage() {
+    evaluationFile = null
+    $(".evaluation-file").html("아직 선택된 파일이 없습니다.")
+    $("#evaluationSelectFileName").text("")
+}
+
 //평가표 사진 저장
 function saveEvaluation() {
-    let sendFiles = new FormData();
-    sendFiles.append('file', evaluationFile);
-    sendFiles.append('location', 'board');
-    requestWithFile('POST', 'file/upload', sendFiles, saveEvaluationFile);
+    if (isEmpty(evaluationFile)) {
+        let saveData = {};
+        saveData.evaluation = null
+
+        requestWithData('POST', 'evaluation', saveData, saveAlertBoard);
+    } else {
+        let sendFiles = new FormData();
+        sendFiles.append('file', evaluationFile);
+        sendFiles.append('location', 'board');
+        requestWithFile('POST', 'file/upload', sendFiles, saveEvaluationFile);
+    }
 }
 
 function saveEvaluationFile(res) {
@@ -552,7 +576,6 @@ function saveEvaluationFile(res) {
         return;
     }
     if (res.code === 'FS001') {
-        console.log(res)
         let saveData = {};
         saveData.evaluation = res.message
 
