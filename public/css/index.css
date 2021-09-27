@@ -144,6 +144,8 @@
     padding: 1rem 2rem;
     margin-bottom: 2rem;
     display: flex;
+    flex-wrap: wrap;
+    width: 140rem;
 }
 
 .organization-content .card {
