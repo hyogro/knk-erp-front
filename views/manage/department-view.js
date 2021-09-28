@@ -2,6 +2,7 @@
 request('GET', getURL('department', getQuery().id), setDepartmentInfo);
 
 function setDepartmentInfo(res) {
+    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -18,30 +19,36 @@ function setDepartmentInfo(res) {
         $("#depMemberList").empty();
         $("#memberGroup").empty();
         $("#leaderAndMemberList").empty();
+
+        let leader1 = '<tr class="leader"><td>1</td>'
+        let leader2 = '<tr class="leader">' +
+            '<td><input class="form-check-input" type="checkbox" ' +
+            'name="depMember" value=\'' + data.leaderId + '\'></td>';
+
+        let leader = '<td>* ' + data.leaderName + '</td>' +
+            '<td>' + data.leaderId + '</td>' +
+            '</tr>';
+        $("#depMemberList").append(leader1 + leader);
+        $("#memberGroup").append(leader2 + leader);
+
         for (let i = 0; i < member.length; i++) {
-            let html = '';
-            if (member[i].memberName === data.leaderName) {
-                html += '<td class="leader">* ' + member[i].memberName + '</td>';
-            } else {
+            if (member[i].memberId != data.leaderId) {
+                let html = '';
                 html += '<td>' + member[i].memberName + '</td>';
-            }
-            html += '<td>' + member[i].memberId + '</td>' + '</tr>';
+                html += '<td>' + member[i].memberId + '</td>' + '</tr>';
 
-            let html1 = '<tr>' +
-                '<td>' + (i + 1) + '</td>' + html;
-            $("#depMemberList").append(html1);
+                let html1 = '<tr>' + '<td>' + (i + 2) + '</td>' + html;
+                $("#depMemberList").append(html1);
 
-            let html2 = '<tr>' +
-                '<td><input class="form-check-input" type="checkbox" ' +
-                'name="depMember" value=\'' + member[i].memberId + '\'></td>' + html;
-            $("#memberGroup").append(html2);
+                let html2 = '<tr>' +
+                    '<td><input class="form-check-input" type="checkbox" ' +
+                    'name="depMember" value=\'' + member[i].memberId + '\'></td>' + html;
+                $("#memberGroup").append(html2);
 
-            let html3 = '<tr>' +
-                '<td><input class="form-check-input" type="checkbox" ' +
-                'name="leader" value=\'' + member[i].memberId + '\'></td>' + html;
-            $("#leaderAndMemberList").append(html3);
-            if (member[i].memberName === data.leaderName) {
-                $(".leader").parent().css("background", "#ffecec");
+                let html3 = '<tr>' +
+                    '<td><input class="form-check-input" type="checkbox" ' +
+                    'name="leader" value=\'' + member[i].memberId + '\'></td>' + html;
+                $("#leaderAndMemberList").append(html3);
             }
         }
 

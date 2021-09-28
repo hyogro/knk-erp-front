@@ -1,4 +1,4 @@
-if (boardType === 'notice') {
+if (boardType === 'notice' ||  boardType === 'fieldTeam') {
     let authority = $.cookie('authority');
     if (authority === "LVL1") {
         $("#writeBtn").hide();
@@ -6,7 +6,7 @@ if (boardType === 'notice') {
         $("#writeBtn").show();
     }
     searchPage();
-} else if (boardType === 'work' || boardType === 'fieldTeam') {
+} else if (boardType === 'work') {
     $("#writeBtn").show();
     request('GET', 'board/noticeLatest', setNoticeList);
 }

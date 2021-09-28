@@ -40,6 +40,9 @@ $(document).ready(function () {
 
     //이름 표시
     $("#myName").text($.cookie('name'));
+
+    //api 통신 전 로딩 숨기기
+    $("#loading").hide();
 });
 
 const token = $.cookie('token');

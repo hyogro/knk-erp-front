@@ -6,7 +6,7 @@
     <title><%= title %></title>
 
     <%- include ('./part/head.ejs') %>
-    <link rel="stylesheet" type="text/css" href="/css/index.css?ver=2.11">
+    <link rel="stylesheet" type="text/css" href="/css/index.css?ver=2.12">
 
 </head>
 
@@ -17,10 +17,9 @@
 <body>
 <%- include ('part/menu.ejs') %>
 <div id="main">
-    <div class="row main-title" id="today">
-    </div>
+    <div class="row main-title" id="today"></div>
     <div class="row company-info">
-        <div class="col-lg text-left" style="display: flex;align-items: center">
+        <div class="col-lg text-left">
             구이앤금우통신 -&nbsp;<span id="departmentName"></span>&nbsp;
             <button type="button" onclick="location.href='/organization/'"
                     class="btn-sm btn btn-outline-success">
@@ -32,85 +31,96 @@
         </div>
     </div>
 
-    <div class="row" style="--bs-gutter-x: 0 !important;">
+    <div class="row">
         <div class="col-xl">
-            <div class="row content-box">
-                <div class="content-box-title">🔸 주간일정</div>
+            <div class="content-box">
+                <div class="content-box-title">
+                    🔸 <a href="/schedule" title="일정 메뉴로 이동">주간일정</a>
+                </div>
                 <div id="calendar"></div>
             </div>
         </div>
-        <div class="col-xl content-box img-content">
+        <div class="col-xl content-box evaluation-img-content">
             <div class="content-box-title">🔸 지표 관리</div>
-            <button id="btnEvaluationUpload" type="button" style=""
+            <button id="btnEvaluationUpload" type="button"
                     data-bs-toggle="modal" data-bs-target="#evaluationModal"
                     class="btn btn-sm btn-outline-success upload-img">
                 이미지 업로드
             </button>
             <div class="evaluation-content scroll">
                 <a title="클릭해서 크게보기">
-                    <img id="imgEvaluation" src="">
+                    <img id="imgEvaluation">
                 </a>
             </div>
         </div>
     </div>
 
-    <div class="row" style="--bs-gutter-x: 0 !important;">
+    <div class="row">
         <div class="col-xl">
-            <div class="row content-box">
-                <div class="content-box-title">🔸 출퇴근기록</div>
-                <div class="row attendance-self">
-                    <div class="attendance-self-btns">
-                        <button type="button" class="btn btn-primary"
-                                onclick="checkWork('onWork')">
-                            <img src="/images/icon-on-work.png">
-                            <div>출근</div>
-                        </button>
-                        <button type="button" class="btn btn-danger"
-                                onclick="checkWork('offWork')">
-                            <img src="/images/icon-off-work.png">
-                            <div>퇴근</div>
-                        </button>
+            <div class="row">
+                <div class="content-box">
+                    <div class="content-box-title">
+                        🔸 <a href="/attendance" title="출퇴근 메뉴로 이동">출퇴근기록</a>
                     </div>
-                    <div class="attendance-self-time">
-                        <table class="table-bordered">
-                            <thead>
-                            <tr>
-                                <th width="50%">출근</th>
-                                <th width="50%">퇴근</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td id="onWorkTime">　</td>
-                                <td id="offWorkTime">　</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="row attendance-self">
+                        <div class="attendance-self-btns">
+                            <button type="button" class="btn btn-primary"
+                                    onclick="checkWork('onWork')">
+                                <img src="/images/icon-on-work.png">
+                                <div>출근</div>
+                            </button>
+                            <button type="button" class="btn btn-danger"
+                                    onclick="checkWork('offWork')">
+                                <img src="/images/icon-off-work.png">
+                                <div>퇴근</div>
+                            </button>
+                        </div>
+                        <div class="attendance-self-time">
+                            <table class="table-bordered">
+                                <thead>
+                                <tr>
+                                    <th width="50%">출근</th>
+                                    <th width="50%">퇴근</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td id="onWorkTime">　</td>
+                                    <td id="offWorkTime">　</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row content-box">
-                <div class="content-box-title">🔸 공지사항</div>
-                <div class="notice-box">
-                    <table class="board">
-                        <thead>
-                        <tr>
-                            <th width="10%">No</th>
-                            <th width="50%">제목</th>
-                            <th width="20%">작성자</th>
-                            <th width="20%">등록일</th>
-                        </tr>
-                        </thead>
-                        <tbody id="noticeList">
-                        <tr class="important">
-                            <td><span class="badge bg-danger">필독</span></td>
-                            <td class="board-title" onclick="downloadManual()">구이앤금우통신 ERP 사용자 매뉴얼</td>
-                            <td>관리자</td>
-                            <td>2021.06.30</td>
-                        </tr>
-                        </tbody>
-                    </table>
+
+            <div class="row">
+                <div class="content-box">
+                    <div class="content-box-title">
+                        🔸 <a href="/board/notice" title="공지사항으로 이동">공지사항</a>
+                    </div>
+                    <div class="notice-box">
+                        <table class="board">
+                            <thead>
+                            <tr>
+                                <th width="10%">No</th>
+                                <th width="50%">제목</th>
+                                <th width="20%">작성자</th>
+                                <th width="20%">등록일</th>
+                            </tr>
+                            </thead>
+                            <tbody id="noticeList">
+                            <tr class="important">
+                                <td><span class="badge bg-danger">필독</span></td>
+                                <td class="board-title" onclick="downloadManual()">구이앤금우통신 ERP 사용자 매뉴얼</td>
+                                <td>관리자</td>
+                                <td>2021.06.30</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -160,7 +170,6 @@
 
 </div>
 </body>
-
 </html>
 
 

@@ -112,3 +112,7 @@ input {
 #recordList .record-num {
     font-size: 1.4rem;
 }
+
+.leader {
+    background: #fcefef;
+}

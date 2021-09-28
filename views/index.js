@@ -103,9 +103,6 @@ function setAttendanceSummary(res) {
 }
 
 function setSelectedList(type, data) {
-    // $(".col-md").removeClass('active');
-    // $(select).addClass('active');
-
     $("#selectedList").empty();
 
     if (data.length === 0) {
@@ -320,7 +317,7 @@ function setNoticeList(res) {
             let data = res.page.content[i];
             let html = '';
             html += '<tr>' +
-                '<td>' + data.board_idx + '</td>' +
+                '<td class="board-no">' + data.board_idx + '</td>' +
                 '<td class="board-title" onclick="getNoticeDetail(' + data.board_idx + ')">' +
                 data.title + '</td>' +
                 '<td>' + data.writerMemberName + '</td>' +

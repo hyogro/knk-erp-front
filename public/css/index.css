@@ -1,9 +1,23 @@
+.row {
+    --bs-gutter-x: 0 !important;
+}
+
 .attendance-board .content-box:not(:last-child) {
     margin-right: 1.5rem !important;
 }
 
 .company-info {
     font-size: 2rem;
+}
+
+.company-info .text-left {
+    display: flex;
+    align-items: center;
+}
+
+.content-box-title a {
+    text-decoration: none;
+    color: black;
 }
 
 /*춭퇴근기록 찍기*/
@@ -27,7 +41,7 @@
 
 .attendance-self .attendance-self-btns {
     width: fit-content;
-    margin: 1rem;
+    margin: 2rem;
 }
 
 .attendance-self .attendance-self-time {
@@ -43,9 +57,11 @@
 }
 
 .attendance-self table td {
-    font-size: 2rem;
-    padding: 2rem;
+    font-size: 2.4rem;
+    padding: 1.5rem;
+    font-weight: 500;
     vertical-align: middle;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 /*출퇴근 기록*/
@@ -127,12 +143,21 @@
 }
 
 /*주간일정 달력*/
-#calendar {
-    max-height: 40rem
+.fc-media-screen {
+    height: 40rem;
+}
+
+.fc-list-table {
+    font-size: 1.5rem !important;
 }
 
 .fc-toolbar-chunk:last-child {
     display: none;
+}
+
+.fc .fc-toolbar-title {
+    font-size: 1.8rem !important;
+    font-weight: 600;
 }
 
 /*조직도*/
@@ -249,10 +274,15 @@
 
 .evaluation-content {
     width: 100%;
-    max-height: 40rem;
     overflow-y: auto;
     font-size: 1.4rem;
     color: gray;
+    height: 40rem;
+}
+
+.evaluation-img-content {
+    width: 100%;
+    position: relative;
 }
 
 #imgEvaluation {
@@ -267,7 +297,7 @@
     width: 50%;
 }
 
-.img-content .upload-img {
+.img-content .upload-img, .evaluation-img-content .upload-img {
     right: 0;
     top: 0;
     margin: 20px;

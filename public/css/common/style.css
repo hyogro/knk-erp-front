@@ -1,11 +1,7 @@
-/*나눔고딕*/
-@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:300,400,500,600,700,800');
-
 html, body {
     margin: 0;
     width: 100%;
     height: 100%;
-    font-family: 'Nanum Gothic';
 }
 
 html {
@@ -26,7 +22,7 @@ body {
 }
 
 #main {
-    padding: 4rem 7rem;
+    padding: 5rem 7rem;
     float: left;
     width: calc(100% - 20rem);
     height: calc(100% - 6rem);
@@ -115,7 +111,6 @@ input, select, textarea {
 }
 
 /* 스크롤바 설정*/
-
 .scroll {
     overflow: auto;
 }
@@ -168,15 +163,9 @@ input, select, textarea {
     padding: 0.5rem !important;
 }
 
-.fc .fc-list-day-side-text {
-    /*float: left !important;*/
-    /*color: black !important;*/
-}
-
 .fc .fc-list-day-text {
     margin-left: 0.7rem;
     float: right !important;
-    /*color: black !important;*/
 }
 
 .fc .fc-day-sun .fc-daygrid-day-number,
@@ -364,7 +353,6 @@ label[for="file"], .file-form label {
     width: 40px !important;
     height: 24px !important;
 }
-
 
 /*datepicker*/
 .date {

@@ -1,5 +1,5 @@
 //api 통신 전 로딩 숨기기
-$("#loading").hide();
+// $("#loading").hide();
 
 //api 요청
 function request(method, url, processFunc) {
@@ -17,6 +17,7 @@ function request(method, url, processFunc) {
             $("#loading").hide();
         },
         error: function (err) {
+            console.log(err)
             alert("잘못된 접근입니다.\n");
         }
     });
