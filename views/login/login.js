@@ -69,7 +69,6 @@ function loginRequest(res) {
         }
         $.cookie('authority', res.tokenDto.authority, {expires: date});
         $.cookie('name', res.memberName, {expires: date});
-        // console.log(res)
         location.href = '/';
     } else if (res.code === 'LI002') {
         alert('등록되지 않은 아이디이거나, 잘못된 비밀번호입니다.');

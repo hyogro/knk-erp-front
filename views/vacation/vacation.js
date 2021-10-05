@@ -72,4 +72,14 @@ function searchVacationList() {
             }
         }
     }
+
+    if (isEmpty($("#confirmVacationList").text())) {
+        let html = '<tr><td colspan="5">내역이 없습니다.</td></tr>'
+        $("#confirmVacationList").append(html);
+    }
+
+    if (isEmpty($("#beforeVacationList").text())) {
+        let html = '<tr><td colspan="4">내역이 없습니다.</td></tr>'
+        $("#beforeVacationList").append(html);
+    }
 }

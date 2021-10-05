@@ -2,7 +2,6 @@
 request('GET', getURL('department', getQuery().id), setDepartmentInfo);
 
 function setDepartmentInfo(res) {
-    console.log(res)
     if (res.code === null) {
         return;
     }
@@ -10,51 +9,76 @@ function setDepartmentInfo(res) {
         let data = res.readDetailDepartmentDTO;
         $("#departmentName").val(data.departmentName);
         if (data.leaderName === "파트장이 지정되지 않음") {
-            data.leaderName = "";
+            $("#leaderName").text("");
+        } else {
+            $("#leaderName").text(data.leaderName);
         }
-        $("#leaderName").text(data.leaderName);
         $("#headCount").text(data.headCount);
 
         let member = res.readDepartmentMemberListDTO;
-        $("#depMemberList").empty();
-        $("#memberGroup").empty();
-        $("#leaderAndMemberList").empty();
-
-        let leader1 = '<tr class="leader"><td>1</td>'
-        let leader2 = '<tr class="leader">' +
-            '<td><input class="form-check-input" type="checkbox" ' +
-            'name="depMember" value=\'' + data.leaderId + '\'></td>';
-
-        let leader = '<td>* ' + data.leaderName + '</td>' +
-            '<td>' + data.leaderId + '</td>' +
-            '</tr>';
-        $("#depMemberList").append(leader1 + leader);
-        $("#memberGroup").append(leader2 + leader);
-
-        for (let i = 0; i < member.length; i++) {
-            if (member[i].memberId != data.leaderId) {
-                let html = '';
-                html += '<td>' + member[i].memberName + '</td>';
-                html += '<td>' + member[i].memberId + '</td>' + '</tr>';
-
-                let html1 = '<tr>' + '<td>' + (i + 2) + '</td>' + html;
-                $("#depMemberList").append(html1);
-
-                let html2 = '<tr>' +
-                    '<td><input class="form-check-input" type="checkbox" ' +
-                    'name="depMember" value=\'' + member[i].memberId + '\'></td>' + html;
-                $("#memberGroup").append(html2);
-
-                let html3 = '<tr>' +
-                    '<td><input class="form-check-input" type="checkbox" ' +
-                    'name="leader" value=\'' + member[i].memberId + '\'></td>' + html;
-                $("#leaderAndMemberList").append(html3);
-            }
-        }
+        setDepartmentMemberList(member, data.leaderId, data.leaderName)
 
         request('GET', getURL('department/readNotThisDepartmentMember', getQuery().id), setOtherMemberList);
     } else if (res.code === 'RDD002') {
         console.log("부서 상세 보기 실패");
+    }
+}
+
+function setDepartmentMemberList(member, leaderId, leaderName) {
+    $("#depMemberList").empty();
+    $("#memberGroup").empty();
+    $("#leaderAndMemberList").empty();
+
+    if (member.length === 0) {
+        let html = '<tr><td colspan="3">아직 추가된 부서원이 없습니다.</td></tr>'
+
+        $("#depMemberList").append(html);
+        $("#memberGroup").append(html);
+        $("#leaderAndMemberList").append(html);
+
+        return;
+    }
+
+    let count = 1
+
+    if (leaderId !== '파트장이 지정되지 않음' && leaderName !== '파트장이 지정되지 않음') {
+        let leader1 = '<tr class="leader"><td>' + count + '</td>'
+        let leader2 = '<tr class="leader">' +
+            '<td><input class="form-check-input" type="checkbox" ' +
+            'name="depMember" value=\'' + leaderId + '\'></td>';
+
+        let leader = '<td>* ' + leaderName + '</td>' +
+            '<td>' + leaderId + '</td>' +
+            '</tr>';
+
+        $("#depMemberList").append(leader1 + leader);
+        $("#memberGroup").append(leader2 + leader);
+        $("#leaderAndMemberList").append(leader2 + leader);
+
+        count += 1
+    }
+
+    for (let i = 0; i < member.length; i++) {
+        if (member[i].memberId !== leaderId) {
+            let html = '';
+            html += '<td>' + member[i].memberName + '</td>';
+            html += '<td>' + member[i].memberId + '</td>' + '</tr>';
+
+            let html1 = '<tr>' + '<td>' + count + '</td>' + html;
+            $("#depMemberList").append(html1);
+
+            let html2 = '<tr>' +
+                '<td><input class="form-check-input" type="checkbox" ' +
+                'name="depMember" value=\'' + member[i].memberId + '\'></td>' + html;
+            $("#memberGroup").append(html2);
+
+            let html3 = '<tr>' +
+                '<td><input class="form-check-input" type="checkbox" ' +
+                'name="leader" value=\'' + member[i].memberId + '\'></td>' + html;
+            $("#leaderAndMemberList").append(html3);
+
+            count += 1
+        }
     }
 }
 
@@ -85,6 +109,7 @@ function modifyDepartmentName() {
     let saveData = {};
     saveData.dep_id = getQuery().id;
     saveData.departmentName = $("#departmentName").val();
+
     requestWithData('PUT', getURL('department', getQuery().id), saveData, modifyAlertDepartmentName);
 }
 

@@ -1,5 +1,6 @@
 //부서 옵션 셋팅
 request('GET', 'department', setDepartmentList);
+
 function setDepartmentList(res) {
     if (res.code === null) {
         return;
@@ -7,6 +8,12 @@ function setDepartmentList(res) {
     if (res.code === 'RD001') {
         $("#departmentList").empty();
         let data = res.readDepartmentDTO;
+
+        if (data.length === 0) {
+            let html = '<tr><td colspan="4">아직 추가된 부서가 없습니다.</td></tr>'
+            $("#departmentList").append(html);
+        }
+
         for (let i = 0; i < data.length; i++) {
             if (data[i].leaderName === "리더없음") {
                 data[i].leaderName = "";
@@ -15,7 +22,7 @@ function setDepartmentList(res) {
                 'onclick="location.href = \'/manage/department/view?id=\' + id">' +
                 '<td>' + (i + 1) + '</td>' +
                 '<td>' + data[i].departmentName + '</td>' +
-                '<td>' + data[i].leaderName + '</td>' +
+                '<td>' + (isEmpty(data[i].leaderName) ? "-" : data[i].leaderName) + '</td>' +
                 '<td>' + data[i].headCount + '</td>' +
                 '</tr>';
             $("#departmentList").append(html);

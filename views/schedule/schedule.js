@@ -100,8 +100,6 @@ function setScheduleCalendar(viewOption) {
     birthData.startDate = start + "T00:00:00";
     birthData.endDate = end + "T11:59:59";
 
-    console.log(birthData)
-
     if ($("#checkViewOptionAnn").is(":checked")) {
         request('GET', getURL('schedule/anniversary', birthData), setAnniversaryList);
     }

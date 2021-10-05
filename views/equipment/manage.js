@@ -28,7 +28,7 @@ function setManageEquipmentList(res) {
 
         if (data.length === 0) {
             let html = '<tr><td colspan="4">요청이 없습니다.</td></tr>';
-            $("#myEquipmentList").append(html);
+            $("#manageEquipmentList").append(html);
         }
 
         for (let i = 0; i < data.length; i++) {

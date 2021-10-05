@@ -8,6 +8,12 @@ function setMemberList(res) {
     if (res.code === 'RA001') {
         $("#memberList").empty();
         let data = res.readAccountDTO;
+
+        if (data.length === 0) {
+            let html = '<tr><td colspan="6">아직 추가된 계정이 없습니다.</td></tr>'
+            $("#memberList").append(html);
+        }
+
         for (let i = 0; i < data.length; i++) {
             let html = '<tr id=\'' + data[i].memberId + '\' ' +
                 'onclick="location.href = \'/manage/member/view?id=\' + id">' +
@@ -41,6 +47,7 @@ function downloadAttendance() {
         request('GET', getURL('file/download/excel/attendance', sendData), downloadExcel);
     }
 }
+
 //엑셀 관리 다운로드
 function downloadVacation() {
     let sendData = {};
