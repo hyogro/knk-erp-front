@@ -1,13 +1,10 @@
-request('GET', 'account', setMemberList);
+request('GET', 'account', setMemberList, false);
 
 //직원 리스트 셋팅
 function setMemberList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RA001') {
+    if (res.code === 'A1100') {
         $("#memberList").empty();
-        let data = res.readAccountDTO;
+        let data = res.data;
 
         if (data.length === 0) {
             let html = '<tr><td colspan="6">아직 추가된 계정이 없습니다.</td></tr>'
@@ -26,8 +23,6 @@ function setMemberList(res) {
                 '</tr>';
             $("#memberList").append(html);
         }
-    } else if (res.code === 'RA002') {
-        console.log("회원정보 목록 읽어오기 실패");
     }
 }
 
@@ -44,7 +39,7 @@ function downloadAttendance() {
     } else if (chkDate(sendData.startDate, sendData.endDate)) {
         alert("올바른 기간이 아닙니다. 다시 선택해주세요.");
     } else {
-        request('GET', getURL('file/download/excel/attendance', sendData), downloadExcel);
+        request('GET', getURL('file/download/excel/attendance', sendData), downloadExcel, true);
     }
 }
 

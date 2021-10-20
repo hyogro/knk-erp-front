@@ -152,7 +152,7 @@ function saveBoard() {
             let sendFiles = new FormData();
             sendFiles.append('file', newFileList[i]);
             sendFiles.append('location', 'board');
-            requestWithFile('POST', 'file/upload', sendFiles, saveFile);
+            requestWithFile('POST', 'file/upload', sendFiles, saveFile, true);
         }
     } else {//새로 추가한 파일이 없을 경우
         uploadBeforeFileList();
@@ -162,17 +162,12 @@ function saveBoard() {
 
 //파일 있는 게시글 저장
 function saveFile(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'FS001') {
-        fileList.push(res.message);
+    if (res.code === 'A6001') {
+        fileList.push(res.data);
         fileUploadCount += 1;
         if (fileUploadCount === newFileList.length) {
             uploadBeforeFileList();
         }
-    } else if (res.code === 'FS002') {
-        console.log("파일 저장 실패");
     }
 }
 

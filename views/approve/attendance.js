@@ -1,11 +1,8 @@
-request('GET', 'attendance/rectify/approve', setAppliedAttendanceList);
+request('GET', 'attendance/rectify/approve', setAppliedAttendanceList, false);
 
 //승인 해야 할 출,퇴근 정정요청목록 셋팅
 function setAppliedAttendanceList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RRAL001') {
+    if (res.code === 'A5505') {
         $("#attendanceList").empty();
 
         if (res.data.length === 0) {
@@ -24,7 +21,5 @@ function setAppliedAttendanceList(res) {
                 '</tr>';
             $("#attendanceList").append(html);
         }
-    } else if (res.code === 'RRAL002') {
-        console.log("출퇴근 정정요청 목록 조회 실패");
     }
 }

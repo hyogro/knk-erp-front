@@ -17,13 +17,13 @@ let calendar = new FullCalendar.Calendar(calendarEl, {
     height: 700,
     eventClick: function (info) {
         setAttendanceForm(getYYYYMMDD(info.event.start), info.event.id, false);
-        request('GET', getURL('attendance', info.event.id), detailAttendanceData);
+        request('GET', getURL('attendance', info.event.id), detailAttendanceData, false);
     },
     dateClick: function (info) {
         let id = searchAttendanceDate(info.dateStr);
         if (!isEmpty(id)) {
             setAttendanceForm(info.dateStr, id, false);
-            request('GET', getURL('attendance', id), detailAttendanceData);
+            request('GET', getURL('attendance', id), detailAttendanceData, false);
         } else {
             setAttendanceForm(info.dateStr, null, true);
             emptyAttendanceData(info.dateStr);
@@ -64,18 +64,15 @@ function getAttendanceList() {
     sendData.startDate = $(".fc-scrollgrid-sync-table tr:first-child .fc-daygrid-day:first-child").data("date");
     sendData.endDate = $(".fc-scrollgrid-sync-table tr:last-child .fc-daygrid-day:last-child").data("date");
 
-    request('GET', getURL('attendance', sendData), setAttendanceList);
-    request('GET', 'attendance/rectify', setMyApplyList);
+    request('GET', getURL('attendance/list', sendData), setAttendanceList, false);
+    request('GET', 'attendance/rectify', setMyApplyList, false);
 }
 
 let AttendanceArr = [];
 
-//출석 정보 셋팅
+//달력 기간내 출석 정보 셋팅
 function setAttendanceList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RAL001') {
+    if (res.code === 'A5503') {
         calendar.removeAllEvents();
         for (let i = 0; i < res.data.length; i++) {
             if (!isEmpty(res.data[i].onWork)) {
@@ -86,8 +83,6 @@ function setAttendanceList(res) {
             }
         }
         AttendanceArr = res.data;
-    } else if (res.code === 'RAL002') {
-        console.log("출퇴근 목록 조회 실패");
     }
 }
 
@@ -133,17 +128,12 @@ function searchAttendanceDate(date) {
 
 //출퇴근 기록 상세 보기
 function detailAttendanceData(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RAD001') {
+    if (res.code === 'A5503') {
         let day = getTodayArr(new Date(res.data.attendanceDate));
         $("#attendanceTitle").text(day[0] + "." + day[1] + "." + day[2] + " (" + day[6] + ")");
         let onWork = isEmpty(res.data.onWork) ? ' ' : res.data.onWork;
         let offWork = isEmpty(res.data.offWork) ? ' ' : res.data.offWork;
         $("#attendanceMemo").html("출근 🕒 " + onWork + "<br>퇴근 🕒 " + offWork);
-    } else if (res.code === 'RAD002') {
-        console.log("출퇴근 기록 상세 조회 실패");
     }
 }
 
@@ -175,36 +165,24 @@ function applyAttendanceData(id, empty) {
         alert("출근시간이 퇴근시간보다 빠를 수 없습니다. 다시 선택해주세요.");
     } else {
         if (!empty) {
-            requestWithData('POST', getURL('attendance/rectify', id), saveData, applyAlertAttendance);
+            requestWithData('POST', getURL('attendance/rectify', id), saveData, applyAlertAttendance, true);
         } else {
-            requestWithData('POST', 'attendance/rectify', saveData, applyAlertAttendance);
+            requestWithData('POST', 'attendance/rectify', saveData, applyAlertAttendance, true);
         }
     }
 }
 
-//출퇴근 기록 정정요청 결과 알림 alert
+//내 출퇴근 기록 정정요청 결과 알림창
 function applyAlertAttendance(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'CRA001' || res.code === 'URA001') {
+    if (res.code === 'A5504') {
         alert("제출되었습니다");
-        location.reload();
-    } else if (res.code === 'CRA002' || res.code === 'URA002') {
-        console.log("출퇴근 정정요청 실패");
-    }
-    else if(res.code === 'CRA003' || res.code === 'URA003') {
-        alert("해당날짜에 이미 정정요청이 존재합니다. 삭제 후 재요청 해주세요.");
         location.reload();
     }
 }
 
-//내 정정요청 목록 조회
+//내 출퇴근 정정요청 목록 조회
 function setMyApplyList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RRAL001') {
+    if (res.code === 'A5505') {
         $("#myApplyList").empty();
 
         if (res.data.length === 0) {
@@ -216,24 +194,19 @@ function setMyApplyList(res) {
         for (let i = 0; i < res.data.length; i++) {
             let html = '';
             html = ' <tr data-bs-toggle="modal" data-bs-target="#attendanceModal"' +
-                'onclick="request(\'GET\', getURL(\'attendance/rectify\', \'' + res.data[i].id + '\'), detailMyApply);">' +
+                'onclick="request(\'GET\', getURL(\'attendance/rectify\', \'' + res.data[i].id + '\', false), detailMyApply);">' +
                 '<td>' + (i + 1) + '</td>' +
                 '<td>' + (res.data[i].attendanceDate).replaceAll("-", ".") + '</td>' +
                 '<td>' + (res.data[i].createDate).split("T")[0].replaceAll("-", ".") + '</td>' +
                 '</tr>';
             $("#myApplyList").append(html);
         }
-    } else if (res.code === 'RRAL002') {
-        console.log("출퇴근 정정 목록 조회 실패");
     }
 }
 
-//정정요청 상세보기
+//내 출퇴근 정정요청 상세보기
 function detailMyApply(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RRA001') {
+    if (res.code === 'A5505') {
         setInputStyle(true);
 
         $("#applyAttendanceDate").text(res.data.attendanceDate);
@@ -248,29 +221,22 @@ function detailMyApply(res) {
         html += '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>';
         $("#applyFooter").html(html);
 
-    } else if (res.code === 'RRA002') {
-        console.log("출퇴근 정정 상세 조회 실패");
     }
 }
 
-//일정 삭제
+//내 출퇴근 정정요청 삭제
 function deleteAlertMyApply(id) {
     if (confirm("요청을 삭제하시겠습니까?") === true) {
-        request('DELETE', getURL('attendance/rectify', id), deleteMyApply);
+        request('DELETE', getURL('attendance/rectify', id, true), deleteMyApply);
     } else {
         return false;
     }
 }
 
-//일정 삭제
+//내 출퇴근 정정요청 삭제
 function deleteMyApply(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'DRA001') {
+    if (res.code === 'A5506') {
         alert("삭제되었습니다.");
         location.reload();
-    } else if (res.code === 'DRA002') {
-        alert("정정요청 삭제 실패");
     }
 }

@@ -16,7 +16,7 @@ $(function () {
     $("#endDate").datepicker(set);
 });
 
-// 특정날짜들 배열
+// 공휴일
 let disabledDays = ["2021-1-1",
     "2021-2-11", "2021-2-12", "2021-2-13",
     "2021-3-1",
@@ -38,7 +38,7 @@ function disableSomeDay(date) {
     return [date.getDay() !== 0 && date.getDay() !== 6];
 }
 
-
+// 신청 휴가 유형 선택박스
 $('input[type="checkbox"][name="vacation"]').click(function () {
     if ($(this).prop('checked')) {
         $('input[type="checkbox"][name="vacation"]').prop('checked', false);
@@ -69,6 +69,7 @@ $('input[type="checkbox"][name="vacation"]').click(function () {
     }
 });
 
+// 선택 불가능 날짜 설정
 function unableToChooseDate() {
     let listDate = getDatesStartToLast($("#startDate").val(), $("#endDate").val());
 
@@ -143,18 +144,13 @@ function createVacation() {
     } else if (new Date(saveData.startDate) >= new Date(saveData.endDate)) {
         alert("올바른 휴가기간을 선택해주세요.")
     } else {
-        requestWithData("POST", "vacation", saveData, alertCreateVacation)
+        requestWithData("POST", "vacation", saveData, alertCreateVacation, true)
     }
 }
 
 function alertCreateVacation(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'CV001') {
+    if (res.code === 'A5711') {
         alert("제출되었습니다.");
         location.href = '/vacation';
-    } else if (res.code === 'CV002') {
-        alert("휴가신청 실패");
     }
 }

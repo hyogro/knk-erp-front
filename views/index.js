@@ -8,12 +8,11 @@ function setBoardData() {
     //부서정보 조회
     request('GET', 'department/readDepartmentNameAndMemberCount', setDepartmentInfo);
     //일정요약(출퇴근), 휴가요약(출퇴근) 조회
-    request('GET', 'attendance/summary', setAttendanceSummary);
-
+    request('GET', 'attendance/summary', setAttendanceSummary, false);
     //출퇴근기록 조회
-    request('GET', 'attendance/today', setWorkBoard);
+    request('GET', 'attendance/today', setWorkBoard, false);
     //공지사항 최근 5개 조회
-    request('GET', 'board/noticeLatest', setNoticeList);
+    request('GET', 'board/noticeLatest', setNoticeList, false);
 
     let scheduleSendData = {};
     scheduleSendData.viewOption = 'all dep own';
@@ -47,7 +46,8 @@ function getAttendanceList() {
     let end = getTodayArr(new Date(new Date().setDate(new Date().getDate() + 7)));
     sendData.endDate = end[0] + "-" + end[1] + "-" + end[2] + "T11:59:59";
 
-    request('GET', getURL('schedule', sendData), setScheduleList);
+    // 주간일정 조회
+    request('GET', getURL('schedule', sendData), setScheduleList, false);
 }
 
 //부서정보 조회
@@ -67,10 +67,7 @@ function setDepartmentInfo(res) {
 
 //일정요약(출퇴근) 조회
 function setAttendanceSummary(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RAS001') {
+    if (res.code === 'A5508') {
         $(".attendance-board").css('display', 'flex');
 
         $("#onWork").text(res.data.onWork.length);
@@ -94,14 +91,10 @@ function setAttendanceSummary(res) {
         $("#vacation").parent().click(function () {
             setSelectedList("휴가", res.data.vacation);
         });
-    } else if (res.code === 'RAS002') {
-        console.log("일정요약 조회 실패");
-    } else if (res.code === 'RAS003') {
-        $(".attendance-board").hide();
-        console.log("일정요약 조회 실패\n권한이 없습니다.");
     }
 }
 
+//전직원 출퇴근 요약 모달창 기록 내용
 function setSelectedList(type, data) {
     $("#selectedList").empty();
 
@@ -141,11 +134,10 @@ function setSelectedList(type, data) {
         html += '<tr>' +
             '<td>' + data[i].departmentName + '</td>' +
             '<td>' + data[i].memberName + '(' + data[i].memberId + ')</td>';
-
         if (type === "출근" || type === "지각") {
             html += '<td class="time-size">출근 🕒 ' + data[i].onWork + '</td>';
         } else if (type === "미출근") {
-            html += '<td class="time-size">기록 없음</td>';
+            html += '<td class="time-size">-</td>';
         } else if (type === "퇴근") {
             html += '<td class="time-size">출근 🕒 ' + data[i].onWork +
                 ' / 퇴근 🕒 ' + data[i].offWork + '</td>';
@@ -164,13 +156,10 @@ function setSelectedList(type, data) {
 
 //주간일정 조회
 function setScheduleList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RSL001') {
-        let scheduleArr = new Array();
+    if (res.code === 'A5602') {
+        let scheduleArr = [];
         for (let i = 0; i < res.data.length; i++) {
-            let schedule = new Object();
+            let schedule = {};
 
             schedule.title = res.data[i].title;
             schedule.start = res.data[i].startDate;
@@ -178,14 +167,12 @@ function setScheduleList(res) {
 
             scheduleArr.push(schedule);
         }
-        setCalendar(scheduleArr);
 
-    } else if (res.code === 'RSL002') {
-        console.log("일정목록 조회 실패");
+        setCalendar(scheduleArr);
     }
 }
 
-//fullcalendar - 셋팅
+//주간일정 fullcalendar - 셋팅
 function setCalendar(data) {
     let calendarEl = document.getElementById('calendar');
     let calendar = new FullCalendar.Calendar(calendarEl, {
@@ -209,7 +196,7 @@ function setCalendar(data) {
     calendar.render();
 }
 
-//출,퇴근 기록
+//출퇴근 기록 찍기
 function checkWork(type) {
     $.getJSON("https://api.ipify.org?format=json", function (data) {
             let allowIP = ['112.216.6.34', '59.1.168.71', '61.42.17.186']; // 허용할 IP
@@ -220,10 +207,10 @@ function checkWork(type) {
                 if (type === 'onWork') {
                     let requestData = {};
                     requestData.uuid = uuid;
-                    requestWithData('POST', 'attendance/onWork', requestData, onWork);
+                    requestWithData('POST', 'attendance/onWork', requestData, onWork, true);
                     //request('POST', 'attendance/onWork', onWork);
                 } else if (type === 'offWork') {
-                    request('POST', 'attendance/offWork', offWork);
+                    request('POST', 'attendance/offWork', offWork, true);
                 } else {
                     alert('올바른 요청이 아닙니다.');
                 }
@@ -232,10 +219,9 @@ function checkWork(type) {
             }
         }
     )
-
 }
 
-//localStorage
+//출퇴근 기록 찍기 uuid - localStorage
 function UUID_Check_localStorage() {
     if (window.localStorage) {
         let localUUID = localStorage.getItem("work_uuid");
@@ -258,52 +244,25 @@ function createUUID() {
 
 //출근 기록 찍기
 function onWork(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'ON001') {
+    if (res.code === 'A5501') {
         alert("출근이 기록되었습니다.");
         location.reload();
-    } else if (res.code === 'ON002') {
-        alert("출근 기록 실패");
-    } else if (res.code === 'ON003') {
-        alert("이미 출근 기록이 존재합니다.");
-    } else if (res.code === 'ON004') {
-        alert("오늘 날짜의 정정요청이 존재 합니다.");
     }
 }
 
 //퇴근 기록 찍기
 function offWork(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'OFF001') {
+    if (res.code === 'A5502') {
         alert("퇴근이 기록되었습니다.");
         location.reload();
-    } else if (res.code === 'OFF002') {
-        alert("퇴근 기록 실패");
-    } else if (res.code === 'OFF003') {
-        alert("이미 퇴근 기록이 존재합니다.");
-    } else if (res.code === 'OFF004') {
-        alert("권한이 없습니다.");
-    } else if (res.code === 'OFF005') {
-        alert("출근 기록이 존재하지 않습니다.");
     }
 }
 
-//출퇴근기록
+//내 출퇴근 기록
 function setWorkBoard(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RA001') {
+    if (res.code === 'A5509') {
         $("#onWorkTime").text(res.data.onWork);
         $("#offWorkTime").text(res.data.offWork);
-    } else if (res.code === 'RA002') {
-        console.log("출근기록 조회 실패");
-    } else if (res.code === 'RA003') {
-        console.log("출근기록 조회 실패\n출근정보 존재하지 않음");
     }
 }
 
@@ -439,7 +398,7 @@ function saveBoard() {
             let sendFiles = new FormData();
             sendFiles.append('file', newFileList[i]);
             sendFiles.append('location', 'board');
-            requestWithFile('POST', 'file/upload', sendFiles, saveFile);
+            requestWithFile('POST', 'file/upload', sendFiles, saveFile, true);
         }
     } else {//새로 추가한 파일이 없을 경우
         uploadBeforeFileList();
@@ -448,17 +407,12 @@ function saveBoard() {
 
 //파일 있는 게시글 저장
 function saveFile(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'FS001') {
-        fileList.push(res.message);
+    if (res.code === 'A6001') {
+        fileList.push(res.data);
         fileUploadCount += 1;
         if (fileUploadCount === newFileList.length) {
             uploadBeforeFileList();
         }
-    } else if (res.code === 'FS002') {
-        console.log("파일 저장 실패");
     }
 }
 
@@ -492,7 +446,6 @@ function saveAlertBoard(res) {
         console.log("지표 관리 이미지 업로드 실패")
     }
 }
-
 
 // 지표 관리 이미지
 let evaluationFile = null
@@ -563,20 +516,15 @@ function saveEvaluation() {
         let sendFiles = new FormData();
         sendFiles.append('file', evaluationFile);
         sendFiles.append('location', 'board');
-        requestWithFile('POST', 'file/upload', sendFiles, saveEvaluationFile);
+        requestWithFile('POST', 'file/upload', sendFiles, saveEvaluationFile, true);
     }
 }
 
 function saveEvaluationFile(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'FS001') {
+    if (res.code === 'A6001') {
         let saveData = {};
-        saveData.evaluation = res.message
+        saveData.evaluation = res.data
 
         requestWithData('POST', 'evaluation', saveData, saveAlertBoard);
-    } else if (res.code === 'FS002') {
-        console.log("파일 저장 실패");
     }
 }

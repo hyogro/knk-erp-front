@@ -27,10 +27,10 @@ let calendar = new FullCalendar.Calendar(calendarEl, {
     eventClick: function (info) {
         if (info.event.extendedProps.type === 'schedule') {
             new bootstrap.Modal(document.getElementById('scheduleModal')).show();
-            request('GET', getURL('schedule', info.event.id), detailScheduleView);
+            request('GET', getURL('schedule', info.event.id), detailScheduleView, false);
         } else if (info.event.extendedProps.type === 'vacation') {
             new bootstrap.Modal(document.getElementById('vacationModal')).show();
-            request('GET', getURL('vacation', info.event.id), detailVacationView);
+            request('GET', getURL('vacation', info.event.id), detailVacationView, false);
         }
     },
     select: function (info) {
@@ -76,17 +76,17 @@ function setScheduleCalendar(viewOption) {
 
     //휴가일정 조회
     if ($("#checkViewOptionVac").is(":checked")) {
-        request('GET', getURL('vacation/all', sendData), setVacationList);
+        request('GET', getURL('vacation/all', sendData), setVacationList, false);
     }
 
     if (!(isEmpty(viewOption))) {
         //전체일정 조회
         sendData.viewOption = viewOption;
-        request('GET', getURL('schedule', sendData), setScheduleList);
+        request('GET', getURL('schedule', sendData), setScheduleList, false);
 
         //내일정 조회
         sendData.viewOption = '';
-        request('GET', getURL('schedule', sendData), setMyScheduleList);
+        request('GET', getURL('schedule', sendData), setMyScheduleList, false);
     }
 
     //기념일일정 조회
@@ -101,17 +101,14 @@ function setScheduleCalendar(viewOption) {
     birthData.endDate = end + "T11:59:59";
 
     if ($("#checkViewOptionAnn").is(":checked")) {
-        request('GET', getURL('schedule/anniversary', birthData), setAnniversaryList);
+        request('GET', getURL('schedule/anniversary', birthData), setAnniversaryList, false);
     }
 
 }
 
 //달력 일정 셋팅 - 근무일정
 function setScheduleList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RSL001') {
+    if (res.code === 'A5602') {
         for (let i = 0; i < res.data.length; i++) {
             let color = '#3788d8';
             if (res.data[i].viewOption === "dep") {
@@ -121,17 +118,12 @@ function setScheduleList(res) {
             }
             addEvent(res.data[i], 'schedule', color);
         }
-    } else if (res.code === 'RSL002') {
-        console.log("일정목록 조회 실패");
     }
 }
 
 //달력 일정 셋팅 - 기념일
 function setAnniversaryList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RSL001') {
+    if (res.code === 'A5602') {
         for (let i = 0; i < res.data.length; i++) {
             let color = '#874519';
             res.data[i].id = -1;
@@ -139,24 +131,17 @@ function setAnniversaryList(res) {
             if (res.data[i].viewOption === 'false') res.data[i].title += '(음)';
             addEvent(res.data[i], 'anniversary', color);
         }
-    } else if (res.code === 'RSL002') {
-        console.log("일정목록 조회 실패");
     }
 }
 
 //달력 일정 셋팅 - 휴가
 function setVacationList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RVL001') {
+    if (res.code === 'A5712') {
         for (let i = 0; i < res.data.length; i++) {
             if (!res.data[i].reject || (res.data[i].approval1 && res.data[i].approval2)) {
                 addEvent(res.data[i], 'vacation', '#198754');
             }
         }
-    } else if (res.code === 'RVL002') {
-        console.log("휴가조회 실패");
     }
 }
 
@@ -164,10 +149,7 @@ let myScheduleArr = [];
 
 //내 일정 조회
 function setMyScheduleList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RSL001') {
+    if (res.code === 'A5602') {
         $("#myScheduleList").empty();
 
         if (res.data.length === 0) {
@@ -217,8 +199,6 @@ function setMyScheduleList(res) {
         }
 
         myScheduleArr = res.data;
-    } else if (res.code === 'RSL002') {
-        console.log("일정목록 조회 실패");
     }
 }
 
@@ -279,10 +259,7 @@ function setCreateSchedule(start, end) {
 
 //일정 상세보기
 function detailScheduleView(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RSD001') {
+    if (res.code === 'A5602') {
         resetScheduleData(true, "read");
         $('#scheduleMemberView').show();
 
@@ -307,8 +284,6 @@ function detailScheduleView(res) {
 
         //내 일정인지 체크
         chkMySchedule(res.data.id);
-    } else if (res.code === 'RSD001') {
-        console.log("일정 상세 조회 실패");
     }
 }
 
@@ -331,10 +306,7 @@ function chkMySchedule(id) {
 
 //휴가 상세보기
 function detailVacationView(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RVD001') {
+    if (res.code === 'A5712') {
         $("#vacationDep").text(res.data.departmentName);
         $("#vacationAuthor").text(res.data.memberName);
         $("#vacationType").text(res.data.type);
@@ -350,8 +322,6 @@ function detailVacationView(res) {
         } else {
             $("#vacationDate").html(start[0]);
         }
-    } else if (res.code === 'RVD002') {
-        console.log("휴가 상세 조회 실패");
     }
 }
 
@@ -366,16 +336,9 @@ function deleteAlertSchedule(id) {
 
 //일정 삭제
 function deleteSchedule(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'DS001') {
+    if (res.code === 'A5604') {
         alert("일정이 삭제되었습니다.");
         location.reload();
-    } else if (res.code === 'DS002') {
-        alert("일정삭제 실패");
-    } else if (res.code === 'DS003') {
-        alert("일정삭제 실패\n권한이 없습니다.");
     }
 }
 
@@ -433,28 +396,16 @@ function saveSchedule(type, id) {
 
 //일정 추가 결과 알림창
 function createAlertSchedule(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'CS001') {
+    if (res.code === 'A5507') {
         alert("일정이 추가되었습니다.");
         location.reload();
-    } else if (res.code === 'CS002') {
-        console.log("일정추가 실패");
     }
 }
 
 //일정 수정 결과 알림창
 function updateAlertSchedule(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'US001') {
+    if (res.code === 'A5603') {
         alert("일정이 수정되었습니다.");
         location.reload();
-    } else if (res.code === 'US002') {
-        console.log("일정수정 실패");
-    } else if (res.code === 'US002') {
-        alert("일정수정 실패\n권한이 없습니다.");
     }
 }

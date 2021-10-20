@@ -172,7 +172,7 @@ function saveProfileImage() {
         let saveFiles = new FormData();
         saveFiles.append('file', profileFile.file);
         saveFiles.append('location', 'member');
-        requestWithFile('POST', 'file/upload', saveFiles, sendProfileImage);
+        requestWithFile('POST', 'file/upload', saveFiles, sendProfileImage, true);
     } else {
         if (profileFile.src === "/images/img-profile-default.png" ||
             isEmpty(profileFile.src)) {
@@ -186,14 +186,9 @@ function saveProfileImage() {
 }
 
 function sendProfileImage(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'FS001') {
-        myInfo.images = res.message;
+    if (res.code === 'A6001') {
+        myInfo.images = res.data;
         requestWithData('PUT', 'my', myInfo, updateMyInfo);
-    } else if (res.code === 'FS002') {
-        console.log("파일 저장 실패");
     }
 }
 

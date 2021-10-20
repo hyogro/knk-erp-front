@@ -5,14 +5,11 @@ $("#searchDate").val(today)
 function searchAttendanceRecord(date) {
     let sendData = {};
     sendData.date = date;
-    request('GET', getURL('attendance/duplicate', sendData), detailAppliedAttendanceRecord);
+    request('GET', getURL('attendance/duplicate', sendData), detailAppliedAttendanceRecord, false);
 }
 
 function detailAppliedAttendanceRecord(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RAUL001') {
+    if (res.code === 'A5510') {
         $("#recordList").empty();
 
         let data = res.data;
@@ -59,9 +56,6 @@ function detailAppliedAttendanceRecord(res) {
             let html = '<tr><td colspan="4">중복되는 명단이 없습니다.</td></tr>';
             $("#recordList").append(html);
         }
-
-    } else if (res.code === 'RAUL002') {
-        console.log("출근 기록 읽어오기 실패");
     }
 }
 

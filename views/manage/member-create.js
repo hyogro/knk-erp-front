@@ -1,5 +1,6 @@
 //부서 옵션 셋팅
-request('GET', 'department', setDepartmentOption);
+request('GET', 'department', setDepartmentOption, false);
+
 function setDepartmentOption(res) {
     if (res.code === null) {
         return;
@@ -8,7 +9,7 @@ function setDepartmentOption(res) {
         let data = res.readDepartmentDTO;
         $("#departmentName").empty();
         for (let i = 0; i < data.length; i++) {
-            let html = '<option value=\'' +data[i].dep_id + '\'>' +
+            let html = '<option value=\'' + data[i].dep_id + '\'>' +
                 data[i].departmentName + '</option>';
             $("#departmentName").append(html);
         }
@@ -28,9 +29,10 @@ function chkCreateMemberInfo() {
     if (isEmpty(memberId)) {
         alert("아이디를 입력해주세요");
         return;
-    } else if (!checkId){
+    } else if (!checkId) {
         alert("올바른 아이디를 입력해주세요.");
-    }  else{
+        return;
+    } else {
         saveData.memberId = memberId;
     }
 
@@ -101,61 +103,50 @@ function chkCreateMemberInfo() {
         saveData.joiningDate = joiningDate;
     }
 
-    requestWithData('POST', 'account/signup', saveData, createMemberInfo);
+    requestWithData('POST', 'account/signup', saveData, createMemberInfo, true);
 }
 
 //회원가입
 function createMemberInfo(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'SU001') {
+    if (res.code === 'A1000') {
         alert("회원가입에 성공하였습니다.");
         location.href = '/manage/member';
-    } else if (res.code === 'SU002') {
-        console.log("회원가입 실패");
-    } else if (res.code === 'SU003') {
-        alert("이미 존재하는 아이디입니다. 다시 입력해주세요.");
-        $("#memberId").focus();
     }
 }
 
-//영어,
+// 멤버 아이디 영어로만
 $("input[id=memberId]").keyup(function (event) {
-    if (!(event.keyCode >=37 && event.keyCode<=40)) {
-        var inputVal = $(this).val();
-        $(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+    if (!(event.keyCode >= 37 && event.keyCode <= 40)) {
+        let inputVal = $(this).val();
+        $(this).val(inputVal.replace(/[^a-z0-9]/gi, ''));
     }
 });
 
-//아이디 중복검사
-function chkMemberId(id) {
-    let sendData = {};
-    sendData.memberId = id;
+$('#memberId').focusout(function () {
+    let id = $('#memberId').val()
 
     if (!chkId(id)) {
         $("#chkID").text("아이디는 영어소문자로 시작하는 6~15자 영문자 또는 숫자이어야 합니다.(영어소문자/숫자,6~15자)");
         checkId = false;
-        return;
     } else {
-        requestWithData('POST', 'account/checkId', sendData, chkMemberIdText);
+        let sendData = {};
+        sendData.memberId = id;
+        requestWithData('POST', 'account/checkId', sendData, chkMemberIdText, false);
     }
-}
+});
+
 
 //아이디 중복검사 결과
 function chkMemberIdText(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'CMI001') {
-        if (res.check) {
+    if (res.code === 'A1400') {
+        if (res.data) {
             checkId = false;
-            $("#chkID").text("이미 사용중인 아이디입니다.(영어소문자/숫자,6~15자)");
+            $("#chkID").text("이미 사용중인 아이디입니다. (영어소문자/숫자, 6~15자)");
+            $("#chkID").css('color', 'red');
         } else {
             checkId = true;
-            $("#chkID").text("사용 가능한 아이디입니다.(영어소문자/숫자,6~15자)");
+            $("#chkID").text("사용 가능한 아이디입니다. (영어소문자/숫자, 6~15자)");
+            $("#chkID").css('color', 'black');
         }
-    } else if (res.code === 'CMI002') {
-        console.log("중복 ID 체크 실패");
     }
 }

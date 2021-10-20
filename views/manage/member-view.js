@@ -1,5 +1,5 @@
 //부서 옵션 셋팅
-request('GET', 'department', setDepartmentOption);
+request('GET', 'department', setDepartmentOption, false);
 
 function setDepartmentOption(res) {
     if (res.code === null) {
@@ -13,7 +13,7 @@ function setDepartmentOption(res) {
                 data[i].departmentName + '</option>';
             $("#departmentName").append(html);
         }
-        request('GET', getURL('account', getQuery().id), setMemberInfo);
+        request('GET', getURL('account', getQuery().id), setMemberInfo, false);
     } else if (res.code === 'RD002') {
         console.log("부서 목록 읽기 실패");
     }
@@ -23,11 +23,8 @@ let memberName = '';
 
 //직원 정보 셋팅
 function setMemberInfo(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RDA001') {
-        let data = res.readDetailAccountDTO;
+    if (res.code === 'A1110') {
+        let data = res.data;
         $("#memberId").text(data.memberId);
         $("#memberName").text(data.memberName);
         memberName = data.memberName;
@@ -50,25 +47,18 @@ function setMemberInfo(res) {
         $("#joiningDate").val(data.joiningDate);
 
         //휴가 정보
-        request('GET', getURL('vacation/info', data.memberId), setVacationInfo);
-    } else if (res.code === 'RDA002') {
-        console.log("회원정보 상세보기 실패");
+        request('GET', getURL('vacation/info', data.memberId), setVacationInfo, false);
     }
 }
 
 //직원 휴가 정보
 function setVacationInfo(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RVI001') {
+    if (res.code === 'A5712') {
         let hourMinutes = 480;
         $("#totalVacation").text(res.data.totalVacation / hourMinutes + "일");
         $("#usedVacation").text(makeDateForm(res.data.usedVacation));
         $("#residueVacation").text(makeDateForm((res.data.totalVacation + (res.data.addVacation * hourMinutes)) - res.data.usedVacation));
         $("#addVacation").text(res.data.addVacation + "일");
-    } else if (res.code === 'RVI002') {
-        console.log("휴가 정보 조회 실패");
     }
 }
 
@@ -153,17 +143,14 @@ function chkUpdateMemberInfo() {
         saveData.vacation = vacation;
     }
 
-    requestWithData('PUT', getURL('account', $("#memberId").text()), saveData, updateMemberInfo);
+    requestWithData('PUT', getURL('account', $("#memberId").text()), saveData, updateMemberInfo, true);
 }
 
 //변경 사항 저장
 function updateMemberInfo(res) {
-    if (res.code === null) {
-        return;
-    }
     if (res.code === 'UA001') {
         alert("저장되었습니다.");
-        location.reload();
+        // location.reload();
     } else if (res.code === 'UA002') {
         console.log("회원정보 수정 실패");
     } else if (res.code === 'UA003') {

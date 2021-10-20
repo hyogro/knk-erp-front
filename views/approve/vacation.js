@@ -22,30 +22,20 @@ function readVacation() {
         return;
     }
 
-    request('GET', getURL('vacation/approve'), setAppliedVacationList);
-    request('GET', getURL('vacation/approve/history', sendData), setHistoryVacationList);
+    request('GET', 'vacation/approve', setAppliedVacationList, false);
+    request('GET', getURL('vacation/approve/history', sendData), setHistoryVacationList, false);
 }
 
 //승인 해야 할 출,퇴근 휴가목록 셋팅
 function setAppliedVacationList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RVL001') {
+    if (res.code === 'A5712') {
         setTable('vacationList', res);
-    } else if (res.code === 'RVL002') {
-        console.log("휴가 승인대기 목록 조회 실패");
     }
 }
 
 function setHistoryVacationList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RVL001') {
+    if (res.code === 'A5712') {
         setTable('vacationHistoryList', res);
-    } else if (res.code === 'RVL002') {
-        console.log("휴가 승인대기 목록 조회 실패");
     }
 }
 

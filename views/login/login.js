@@ -3,8 +3,8 @@ getBrowserType();
 //브라우저 체크
 function getBrowserType() {
     let agent = navigator.userAgent.toLowerCase();
-    if ( (navigator.appName == 'Netscape' &&
-        navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+    if ( (navigator.appName === 'Netscape' &&
+        navigator.userAgent.search('Trident') !== -1) || (agent.indexOf("msie") !== -1) ) {
         alert("이 홈페이지는 Internet Explorer를 지원하지 않습니다.\nChrome이나 Edge를 이용해주세요.");
         self.close();
     }

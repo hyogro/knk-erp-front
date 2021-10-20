@@ -2,29 +2,30 @@
 // $("#loading").hide();
 
 //api 요청
-function request(method, url, processFunc) {
+function request(method, url, processFunc, warning) {
     $.ajax({
         type: method,
         headers: {'token': $.cookie('token')},
         url: '<%= api %>' + url,
         success: function (res) {
+            console.log(res);
             processFunc(res);
         },
-        beforeSend: function () { //로딩이미지 보여주기
+        beforeSend: function () {
             $("#loading").show();
         },
-        complete: function () { //로딩이미지 숨기기
+        complete: function () {
             $("#loading").hide();
         },
         error: function (err) {
             console.log(err)
-            alert("잘못된 접근입니다.\n");
+            alertErrorMessage(warning, errorCode(err.responseJSON.code))
         }
     });
 }
 
 //api 요청 (data 포함)
-function requestWithData(method, url, data, processFunc) {
+function requestWithData(method, url, data, processFunc, warning) {
     $.ajax({
         type: method,
         url: '<%= api %>' + url,
@@ -33,22 +34,24 @@ function requestWithData(method, url, data, processFunc) {
         dataType: 'json',
         data: JSON.stringify(data),
         success: function (res) {
+            console.log(res);
             processFunc(res);
         },
-        beforeSend: function () { //로딩이미지 보여주기
+        beforeSend: function () {
             $("#loading").show();
         },
-        complete: function () { //로딩이미지 숨기기
+        complete: function () {
             $("#loading").hide();
         },
         error: function (err) {
-            alert("잘못된 접근입니다.\n");
+            console.log(err)
+            alertErrorMessage(warning, errorCode(err.responseJSON.code))
         }
     });
 }
 
 //api 요청 (파일)
-function requestWithFile(method, url, data, processFunc) {
+function requestWithFile(method, url, data, processFunc, warning) {
     $.ajax({
         type: method,
         url: '<%= api %>' + url,
@@ -58,16 +61,18 @@ function requestWithFile(method, url, data, processFunc) {
         contentType: false,
         data: data,
         success: function (res) {
+            console.log(res);
             processFunc(res);
         },
-        beforeSend: function () { //로딩이미지 보여주기
+        beforeSend: function () {
             $("#loading").show();
         },
-        complete: function () { //로딩이미지 숨기기
+        complete: function () {
             $("#loading").hide();
         },
         error: function (err) {
-            alert("잘못된 접근입니다.\n");
+            console.log(err)
+            alertErrorMessage(warning, errorCode(err.responseJSON.code))
         }
     });
 }
