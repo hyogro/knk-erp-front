@@ -8,7 +8,6 @@ function request(method, url, processFunc, warning) {
         headers: {'token': $.cookie('token')},
         url: '<%= api %>' + url,
         success: function (res) {
-            console.log(res);
             processFunc(res);
         },
         beforeSend: function () {
@@ -18,7 +17,6 @@ function request(method, url, processFunc, warning) {
             $("#loading").hide();
         },
         error: function (err) {
-            console.log(err)
             alertErrorMessage(warning, errorCode(err.responseJSON.code))
         }
     });
@@ -34,7 +32,6 @@ function requestWithData(method, url, data, processFunc, warning) {
         dataType: 'json',
         data: JSON.stringify(data),
         success: function (res) {
-            console.log(res);
             processFunc(res);
         },
         beforeSend: function () {
@@ -44,7 +41,6 @@ function requestWithData(method, url, data, processFunc, warning) {
             $("#loading").hide();
         },
         error: function (err) {
-            console.log(err)
             alertErrorMessage(warning, errorCode(err.responseJSON.code))
         }
     });
@@ -61,7 +57,6 @@ function requestWithFile(method, url, data, processFunc, warning) {
         contentType: false,
         data: data,
         success: function (res) {
-            console.log(res);
             processFunc(res);
         },
         beforeSend: function () {
@@ -71,7 +66,6 @@ function requestWithFile(method, url, data, processFunc, warning) {
             $("#loading").hide();
         },
         error: function (err) {
-            console.log(err)
             alertErrorMessage(warning, errorCode(err.responseJSON.code))
         }
     });
