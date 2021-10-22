@@ -1,11 +1,9 @@
 $("#memberName").text(getQuery().name);
-request('GET', getURL('vacation/add/list', getQuery().id), setAddVacationList);
+
+request('GET', getURL('vacation/add/list', getQuery().id), setAddVacationList, false);
 
 function setAddVacationList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RAVL001') {
+    if (res.code === 'A5702') {
         let authority = $.cookie('authority');
         if (authority !== "LVL1" && authority !== "LVL2" && authority !== "MANAGE") {
             $("#addBtn").show();
@@ -22,7 +20,7 @@ function setAddVacationList(res) {
 
         for (let i = 0; i < res.data.length; i++) {
             let html = '<tr data-bs-toggle="modal" data-bs-target="#detailAddVacationModal"' +
-                'onclick="request(\'GET\', getURL(\'vacation/add\', ' + res.data[i].id + '), detailAddVacationModal)">' +
+                'onclick="request(\'GET\', getURL(\'vacation/add\', ' + res.data[i].id + '), detailAddVacationModal, false)">' +
                 '<td>' + res.data[i].id + '</td>' +
                 '<td>' + (res.data[i].increase === true ? "추가" : "차감") + '</td>' +
                 '<td>' + res.data[i].date + '일</td>' +
@@ -31,8 +29,6 @@ function setAddVacationList(res) {
                 '</tr>';
             $("#addVacationList").append(html);
         }
-    } else if (res.code === 'RAVL002') {
-        console.log("추가휴가 조회 실패");
     }
 }
 
@@ -63,27 +59,19 @@ function saveAddVacation() {
         return;
     }
 
-    requestWithData('POST', 'vacation/add', saveData, saveAlertAddVacation);
+    requestWithData('POST', 'vacation/add', saveData, saveAlertAddVacation, true);
 }
 
 function saveAlertAddVacation(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'CAV001') {
+    if (res.code === 'A5701') {
         alert("저장되었습니다.");
         location.reload();
-    } else if (res.code === 'CAV002') {
-        alert("추가 휴가 생성 실패");
     }
 }
 
 //추가 휴가 자세히 보기
 function detailAddVacationModal(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RAVD001') {
+    if (res.code === 'A5702') {
         let data = res.data;
         $("#increase").text((data.increase === true ? '추가' : '차감'));
         $("#date").text(data.date + "일");
@@ -95,22 +83,15 @@ function detailAddVacationModal(res) {
         if (data.giverId === $.cookie('id')) {
             let html = '<button type="button" class="btn btn-danger" ' +
                 'onclick="request(\'DELETE\', getURL(\'vacation/add\',' + data.id + '), ' +
-                'deleteAddVacation)">삭제</button>';
+                'deleteAddVacation, true)">삭제</button>';
             $("#deleteBtn").html(html);
         }
-    } else if (res.code === 'RAVD002') {
-        console.log("추가 휴가 상세 조회 실패")
     }
 }
 
 function deleteAddVacation(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'DAV001') {
+    if (res.code === 'A5704') {
         alert("부여한 휴가가 삭제되었습니다.");
         location.reload();
-    } else if (res.code === 'DAV002') {
-        alert("추가 휴가 생성 실패");
     }
 }

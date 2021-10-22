@@ -208,7 +208,6 @@ function checkWork(type) {
                     let requestData = {};
                     requestData.uuid = uuid;
                     requestWithData('POST', 'attendance/onWork', requestData, onWork, true);
-                    //request('POST', 'attendance/onWork', onWork);
                 } else if (type === 'offWork') {
                     request('POST', 'attendance/offWork', offWork, true);
                 } else {
