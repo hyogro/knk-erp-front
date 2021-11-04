@@ -27,12 +27,20 @@ function errorCode(code) {
             return "파일 업로드에 실패했습니다.(파일 오류)"
 
         // Account
-        case 'E1000':
-            return "찾을 수 없는 사용자입니다."
         case 'E1100':
             return "이미 존재하는 아이디입니다."
         case 'E1200':
             return "대상이 부서의 파트장이므로 권한이 없습니다."
+        case 'E3100':
+            return "EXPIRED_TOKEN"
+        case 'E3110':
+            return "Wrong Type Token"
+        case 'E3120':
+            return "Unsupported Token"
+        case 'E3130':
+            return "Illegal Argument"
+        case 'E3140':
+            return "아이디 또는 비밀번호가 일치하지 않습니다."
 
         // Department
         case 'E1600':

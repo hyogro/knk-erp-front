@@ -41,10 +41,13 @@ function loginMember() {
     let password = $("#password").val()
 
     if (isEmpty(id)) {
-        alert('아이디를 입력해주세요.');
+        alert("아이디를 입력해주세요.");
         return;
     } else if (isEmpty(password)) {
-        alert('비밀번호를 입력해주세요.');
+        alert("비밀번호를 입력해주세요.");
+        return;
+    } else if (password.length < 4) {
+        alert("아이디와 비밀번호를 정확히 입력해 주세요.")
         return;
     }
 
