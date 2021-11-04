@@ -1,26 +1,23 @@
-request('GET', getURL('fixtures', getQuery().id), detailEquipmentList);
+request('GET', getURL('fixtures', getQuery().id), detailEquipmentList, true);
 
 function detailEquipmentList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RDFF001') {
-        if (!res.readDetailFixturesFormDTO.check) {
+    if (res.code === 'A4120') {
+        if (!res.data.check) {
             $("#controlBtn").show();
         } else {
             $("#controlBtn").hide();
         }
 
         $("#equipmentList").empty();
-        let data = res.readDetailFixturesFormDTO.readDetailFixturesDTO;
+        let data = res.data.readDetailFixturesDTO;
         for (let i = 0; i < data.length; i++) {
             let html = ' <tr>' +
-                '<td>' + (i + 1) + '</td>' +
+                '<td class="no">' + (i + 1) + '</td>' +
                 '<td class="text-left">' + data[i].fixturesName + '</td>' +
                 '<td>' + data[i].amount + '</td>' +
-                '<td class="text-left">' + data[i].memo + '</td>';
+                '<td class="text-left memo">' + data[i].memo + '</td>';
 
-            if (res.readDetailFixturesFormDTO.check) {
+            if (res.data.check) {
                 if (data[i].confirm) {
                     html += '<td><span class="badge bg-primary">승인</span></td>';
                     html += '<td>' + (data[i].purchase ? '완료' : ' ') + '</td>';
@@ -36,8 +33,6 @@ function detailEquipmentList(res) {
             html += '</tr>';
             $("#equipmentList").append(html);
         }
-    } else if (res.code === 'RDFF002') {
-        console.log("비품 요청서 상세보기 실패\n해당 요청서가 존재하지 않습니다.");
     }
 }
 
@@ -52,24 +47,15 @@ function deleteAlertMyApply() {
         let sendData = {};
         sendData.id = getQuery().id;
         requestWithData('DELETE', getURL('fixtures', getQuery().id),
-            sendData, deleteMyApply);
+            sendData, deleteMyApply, true);
     } else {
         return false;
     }
 }
 
 function deleteMyApply(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'DFF001') {
+    if (res.code === 'A4112') {
         alert("삭제되었습니다.");
         location.href = '/equipment/apply';
-    } else if (res.code === 'DFF002') {
-        console.log("비품 요청서 삭제 실패");
-    } else if (res.code === 'DFF003') {
-        alert("비품 요청서 상세보기 실패\n작성자가 아닙니다.");
-    } else if (res.code === 'DFF004') {
-        alert("비품 요청서 상세보기 실패\n이미 처리된 비품 요청서입니다.");
     }
 }

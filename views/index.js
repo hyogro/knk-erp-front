@@ -6,7 +6,7 @@ function setBoardData() {
     $("#today").text(todayArr[0] + "년 " + todayArr[1] + "월 " + todayArr[2] + "일 (" + todayArr[6] + ")");
 
     //부서정보 조회
-    request('GET', 'department/readDepartmentNameAndMemberCount', setDepartmentInfo);
+    request('GET', 'department/readDepartmentNameAndMemberCount', setDepartmentInfo, false);
     //일정요약(출퇴근), 휴가요약(출퇴근) 조회
     request('GET', 'attendance/summary', setAttendanceSummary, false);
     //출퇴근기록 조회
@@ -52,16 +52,9 @@ function getAttendanceList() {
 
 //부서정보 조회
 function setDepartmentInfo(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RDAM001') {
+    if (res.code === 'A1613') {
         $("#departmentName").text(res.data.departmentName);
         $("#memberCount").text(res.data.memberCount);
-    } else if (res.code === 'RDAM002') {
-        console.log("부서정보 조회 실패");
-    } else if (res.code === 'RDAM003') {
-        alert("부서정보 조회 실패\n소속된 부서가 존재하지 않습니다.");
     }
 }
 
@@ -202,10 +195,8 @@ function checkWork(type) {
     // $.getJSON("https://api.ipify.org?format=json", function (data) {
     //         let allowIP = ['112.216.6.34', '59.1.168.71', '61.42.17.186']; // 허용할 IP
     //         let remoteIp = data.ip; // 사용자 IP
-    //         let uuid = UUID_Check_localStorage();
     //
     //         //if (0 <= allowIP.indexOf(remoteIp)) {
-    //
     //         // } else {
     //         //     alert('요청하신 주소: ' + remoteIp + ' 에서는 출/퇴근 기록을 할 수 없습니다.');
     //         // }
@@ -270,12 +261,9 @@ function setWorkBoard(res) {
 
 //공지 리스트
 function setNoticeList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'NBL001') {
-        for (let i = 0; i < res.page.content.length; i++) {
-            let data = res.page.content[i];
+    if (res.code === 'A4543') {
+        for (let i = 0; i < res.data.content.length; i++) {
+            let data = res.data.content[i];
             let html = '';
             html += '<tr>' +
                 '<td class="board-no">' + data.board_idx + '</td>' +
@@ -286,8 +274,6 @@ function setNoticeList(res) {
                 '</tr>';
             $("#noticeList").append(html);
         }
-    } else if (res.code === 'NBL002') {
-        console.log("공지사항 조회 실패");
     }
 }
 
@@ -306,14 +292,11 @@ let fileList = [];
 let newFileList = [];
 
 // 정산해야 할 자재
-request('GET', 'materials', setMaterialStatus);
+request('GET', 'materials', setMaterialStatus, false);
 
 function setMaterialStatus(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RMTR001') {
-        let data = res.materials;
+    if (res.code === 'A4011') {
+        let data = res.data;
 
         if (data.length === 0 || isEmpty(data)) {
             let empty = '<div class="empty-tool"> 아직 업로드된 현황이 없습니다. </div>'
@@ -345,8 +328,6 @@ function setMaterialStatus(res) {
             slidesToShow: 1,
             dots: true,
         });
-    } else if (res.code === 'RMTR002') {
-        console.log("장기자재 사진 읽기 실패");
     }
 }
 
@@ -431,37 +412,27 @@ function uploadBeforeFileList() {
     let saveData = {};
     saveData.materials = fileList;
 
-    requestWithData('POST', 'materials', saveData, saveAlertBoard);
+    requestWithData('POST', 'materials', saveData, saveAlertBoard, true);
 }
 
 //게시글 저장 알림창
 function saveAlertBoard(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'CMTR001' || res.code === 'CEV001') {
-        alert("업로드 되었습니다.")
+    if (res.code === 'A4000' || res.code === 'A4010') {
+        alert("수정되었습니다.")
         location.reload()
-    } else if (res.code === 'CMTR002') {
-        console.log("정산해야 할 자재 이미지 업로드 실패")
-    } else if (res.code === 'CEV002') {
-        console.log("지표 관리 이미지 업로드 실패")
     }
 }
 
 // 지표 관리 이미지
 let evaluationFile = null
 
-request('GET', 'evaluation', setEvaluationImage);
+request('GET', 'evaluation', setEvaluationImage, false);
 
 function setEvaluationImage(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'REV001') {
-        if (res.evaluation != null) {
-            evaluationFile = res.evaluation
-            let url = '<%= fileApi %>/board/' + res.evaluation
+    if (res.code === 'A4001') {
+        if (res.data != null) {
+            evaluationFile = res.data
+            let url = '<%= fileApi %>/board/' + res.data
             $("#imgEvaluation").parent().attr('href', url)
             $("#imgEvaluation").attr('src', url)
             let html = '<img id="evaluationSelectFile" src="' + url + '"/>' +
@@ -472,8 +443,6 @@ function setEvaluationImage(res) {
             $(".evaluation-content").append("아직 업로드된 파일이 없습니다.")
             $(".evaluation-file").html("아직 선택 된 파일이 없습니다.")
         }
-    } else if (res.code === 'REV002') {
-        console.log("지표 관리 이미지 불러오기 실패");
     }
 }
 
@@ -513,7 +482,7 @@ function saveEvaluation() {
         let saveData = {};
         saveData.evaluation = null
 
-        requestWithData('POST', 'evaluation', saveData, saveAlertBoard);
+        requestWithData('POST', 'evaluation', saveData, saveAlertBoard, true);
     } else {
         let sendFiles = new FormData();
         sendFiles.append('file', evaluationFile);
@@ -527,6 +496,6 @@ function saveEvaluationFile(res) {
         let saveData = {};
         saveData.evaluation = res.data
 
-        requestWithData('POST', 'evaluation', saveData, saveAlertBoard);
+        requestWithData('POST', 'evaluation', saveData, saveAlertBoard, true);
     }
 }

@@ -3,20 +3,17 @@ if (authority !== "MANAGE") {
     $("#comfirmBtns").show();
 }
 
-request('GET', getURL('fixtures', getQuery().id), detailEquipmentList);
+request('GET', getURL('fixtures', getQuery().id), detailEquipmentList, true);
 
 let applyState = false;
 
 function detailEquipmentList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RDFF001') {
-        $("#authorName").text(res.readDetailFixturesFormDTO.authorName);
-        $("#authorId").text(res.readDetailFixturesFormDTO.authorId);
+    if (res.code === 'A4120') {
+        $("#authorName").text(res.data.authorName);
+        $("#authorId").text(res.data.authorId);
 
         $("#equipmentList").empty();
-        let data = res.readDetailFixturesFormDTO.readDetailFixturesDTO;
+        let data = res.data.readDetailFixturesDTO;
         for (let i = 0; i < data.length; i++) {
             let html = ' <tr>' +
                 '<td><input type="checkbox" name="equipment" ' +
@@ -24,9 +21,9 @@ function detailEquipmentList(res) {
                 '<td class="no">' + (i + 1) + '</td>' +
                 '<td class="text-left">' + data[i].fixturesName + '</td>' +
                 '<td>' + data[i].amount + '</td>' +
-                '<td class="text-left">' + data[i].memo + '</td>';
+                '<td class="text-left memo">' + data[i].memo + '</td>';
 
-            applyState = res.readDetailFixturesFormDTO.check;
+            applyState = res.data.check;
             if (applyState) {
                 if (data[i].confirm) {
                     html += '<td><span class="badge bg-primary">승인</span></td>';
@@ -43,8 +40,6 @@ function detailEquipmentList(res) {
             html += '</tr>';
             $("#equipmentList").append(html);
         }
-    } else if (res.code === 'RDFF002') {
-        console.log("비품 요청서 상세보기 실패\n해당 요청서가 존재하지 않습니다.");
     }
 }
 
@@ -70,17 +65,13 @@ function updateConfirmState(state) {
     sendData.confirm = state;
 
     requestWithData('PUT',
-        getURL('fixtures/confirm', getQuery().id), sendData, updateAlertConfirmState)
+        getURL('fixtures/confirm', getQuery().id), sendData, updateAlertConfirmState, true)
 }
 
+//비품 승인,거절
 function updateAlertConfirmState(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'CFT001') {
+    if (res.code === 'A4140') {
         location.reload();
-    } else if (res.code === 'CFT002') {
-        console.log("비품 승인 및 거절 실패");
     }
 }
 
@@ -113,18 +104,13 @@ function updatePurchaseState(state) {
         sendData.purchase = state;
 
         requestWithData('PUT',
-            getURL('fixtures/purchase', getQuery().id), sendData, updateAlertPurchaseState)
+            getURL('fixtures/purchase', getQuery().id), sendData, updateAlertPurchaseState, true)
     }
 }
 
 function updateAlertPurchaseState(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'PFT001') {
+    if (res.code === 'A4141') {
         location.reload();
-    } else if (res.code === 'PFT002') {
-        console.log("비품 구매 여부 변경 실패");
     }
 }
 

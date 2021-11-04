@@ -1,34 +1,29 @@
 //게시글 조회
-request('GET', getURL('board', getQuery().id), setBoardContent);
+request('GET', getURL('board', getQuery().id), setBoardContent, true);
 
 function setBoardContent(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RB001') {
-        let data = res.readBoardDTO;
-        $("#title").text(data.title);
-        $("#writerMember").text(data.writerMemberName + "(" + data.writerMemberId + ")");
-        $("#writerDepartment").text(data.writer_department);
-        $("#creatDate").text(getToday(data.create_date));
-        $("#count").text(data.count);
-        $("#content").html(data.content);
+    if (res.code === 'A4510') {
+        let boardData = res.data.readBoardDTO;
+        $("#title").text(boardData.title);
+        $("#writerMember").text(boardData.writerMemberName + "(" + boardData.writerMemberId + ")");
+        $("#writerDepartment").text(boardData.writer_department);
+        $("#creatDate").text(getToday(boardData.create_date));
+        $("#count").text(boardData.count);
+        $("#content").html(boardData.content);
 
-        if (res.readReferenceMemberDTO.length > 0) {
-            setReferenceMemberList(res.readReferenceMemberDTO);
+        let reference = res.data.readReferenceMemberDTO
+        if (reference.length > 0) {
+            setReferenceMemberList(reference);
         }
-        if (data.file.length > 0) {
-            setFileList(data.file);
+        if (boardData.file.length > 0) {
+            setFileList(boardData.file);
         }
 
-        if (data.writerMemberId === $.cookie("id")) {
+        if (boardData.writerMemberId === $.cookie("id")) {
             $("#controlBtn").show();
         } else {
             $("#controlBtn").hide();
         }
-    } else if (res.code === 'RB002') {
-        alert("해당 게시글이 존재하지 않습니다.");
-        history.back();
     }
 }
 
@@ -70,26 +65,19 @@ function deleteAlertBoard() {
         let sendData = {};
         sendData.board_idx = getQuery().id;
         requestWithData('DELETE', getURL('board', getQuery().id),
-            sendData, deleteBoard);
+            sendData, deleteBoard, true);
     } else {
         return false;
     }
 }
 
 function deleteBoard(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'DB001') {
+    if (res.code === 'A4530') {
         alert("삭제되었습니다.");
         if (boardType === 'fieldTeam') {
             location.href = '/manage/safe?searchType=&keyword=&page=1';
         } else {
             location.href = '/board/' + boardType + '?searchType=&keyword=&page=1';
         }
-    } else if (res.code === 'DB002') {
-        console.log("게시글 삭제 실패");
-    } else if (res.code === 'DB002') {
-        alert("게시글 삭제 실패\n권한이 없습니다.");
     }
 }

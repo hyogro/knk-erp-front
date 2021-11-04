@@ -28,3 +28,9 @@
 .writer {
     margin-bottom: 5px;
 }
+
+.memo {
+    font-size: 1.3rem;
+    max-width: 20rem;
+    word-break: break-all;
+}

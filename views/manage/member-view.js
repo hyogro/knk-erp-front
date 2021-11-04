@@ -2,20 +2,15 @@
 request('GET', 'department', setDepartmentOption, false);
 
 function setDepartmentOption(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RD001') {
-        let data = res.readDepartmentDTO;
+    if (res.code === 'A1610') {
+        let data = res.data;
         $("#departmentName").empty();
         for (let i = 0; i < data.length; i++) {
             let html = '<option value=\'' + data[i].dep_id + '\'>' +
                 data[i].departmentName + '</option>';
             $("#departmentName").append(html);
         }
-        request('GET', getURL('account', getQuery().id), setMemberInfo, false);
-    } else if (res.code === 'RD002') {
-        console.log("부서 목록 읽기 실패");
+        request('GET', getURL('account', getQuery().id), setMemberInfo, true);
     }
 }
 
@@ -148,40 +143,25 @@ function chkUpdateMemberInfo() {
 
 //변경 사항 저장
 function updateMemberInfo(res) {
-    if (res.code === 'UA001') {
+    if (res.code === 'A1200') {
         alert("저장되었습니다.");
-        // location.reload();
-    } else if (res.code === 'UA002') {
-        console.log("회원정보 수정 실패");
-    } else if (res.code === 'UA003') {
-        alert("권한이 없습니다.");
-    } else if (res.code === 'UA004') {
-        alert("파트장은 부서 수정이 불가능합니다.");
+        location.reload();
     }
 }
 
 //멤버 삭제
 function deleteAlertMember() {
     if (confirm("직원 정보를 삭제하시겠습니까?") === true) {
-        request('DELETE', getURL('account', $("#memberId").text()), deleteMember);
+        request('DELETE', getURL('account', $("#memberId").text()), deleteMember, true);
     } else {
         return false;
     }
 }
 
 function deleteMember(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'DA001') {
+    if (res.code === 'A1300') {
         alert("삭제되었습니다.");
         location.href = '/manage/member';
-    } else if (res.code === 'DA002') {
-        alert("삭제 실패");
-    } else if (res.code === 'DA003') {
-        alert("삭제 실패.\n 권한이 없습니다.");
-    } else if (res.code === 'DA004') {
-        alert("삭제 실패.\n 대상이 존재하지 않습니다.");
     }
 }
 

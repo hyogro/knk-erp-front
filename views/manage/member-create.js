@@ -2,19 +2,14 @@
 request('GET', 'department', setDepartmentOption, false);
 
 function setDepartmentOption(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RD001') {
-        let data = res.readDepartmentDTO;
+    if (res.code === 'A1610') {
+        let data = res.data;
         $("#departmentName").empty();
         for (let i = 0; i < data.length; i++) {
             let html = '<option value=\'' + data[i].dep_id + '\'>' +
                 data[i].departmentName + '</option>';
             $("#departmentName").append(html);
         }
-    } else if (res.code === 'RD002') {
-        console.log("부서 목록 읽기 실패");
     }
 }
 

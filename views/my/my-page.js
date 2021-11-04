@@ -1,14 +1,11 @@
-request('GET', 'my', setMemberInfo);
+request('GET', 'my', setMemberInfo, true);
 
 let profileFile = {};
 
 //내 정보 셋팅
 function setMemberInfo(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'GMI001') {
-        let data = res.readMemberDTO;
+    if (res.code === 'A1500') {
+        let data = res.data;
         $("#memberId").text(data.memberId);
         $("#memberName").text(data.memberName);
         $("#departmentName").text(data.departmentName);
@@ -37,9 +34,6 @@ function setMemberInfo(res) {
         } else {
             $("input:radio[name='birthDateType']:radio[value='false']").prop('checked', true);
         }
-
-    } else if (res.code === 'GMI002') {
-        console.log("본인 정보 보기 실패");
     }
 }
 
@@ -176,23 +170,20 @@ function saveProfileImage() {
             let image = profileFile.src.split("/");
             myInfo.images = image[image.length - 1];
         }
-        requestWithData('PUT', 'my', myInfo, updateMyInfo);
+        requestWithData('PUT', 'my', myInfo, updateMyInfo, true);
     }
 }
 
 function sendProfileImage(res) {
     if (res.code === 'A6001') {
         myInfo.images = res.data;
-        requestWithData('PUT', 'my', myInfo, updateMyInfo);
+        requestWithData('PUT', 'my', myInfo, updateMyInfo, true);
     }
 }
 
 //변경 사항 저장
 function updateMyInfo(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'USM001') {
+    if (res.code === 'A1520') {
         if (isLogout) {
             alert("저장되었습니다. 다시 로그인 후, 이용해주세요.");
             logout();
@@ -200,8 +191,6 @@ function updateMyInfo(res) {
             alert("변경사항이 저장되었습니다.");
             location.reload();
         }
-    } else if (res.code === 'USM002') {
-        console.log("본인 정보 수정 실패");
     }
 }
 

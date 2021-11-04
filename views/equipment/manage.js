@@ -15,16 +15,13 @@ function searchPage() {
     let sendData = {};
     sendData.searchType = $("#type").val();
     sendData.page = parseInt(getQuery().page);
-    request('GET', getURL('fixtures/listAll', sendData), setManageEquipmentList);
+    request('GET', getURL('fixtures/listAll', sendData), setManageEquipmentList, false);
 }
 
 function setManageEquipmentList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RAFF001') {
+    if (res.code === 'A4130') {
         $("#manageEquipmentList").empty();
-        let data = res.page.content;
+        let data = res.data.page.content;
 
         if (data.length === 0) {
             let html = '<tr><td colspan="4">요청이 없습니다.</td></tr>';
@@ -44,9 +41,7 @@ function setManageEquipmentList(res) {
                 '</tr>';
             $("#manageEquipmentList").append(html);
         }
-        setPageCount(res.pageSize);
-    } else if (res.code === 'RAFF002') {
-        console.log("전체 비품 요청 목록 읽기 실패");
+        setPageCount(res.data.pageSize);
     }
 }
 

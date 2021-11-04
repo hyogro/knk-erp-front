@@ -41,6 +41,7 @@ function requestWithData(method, url, data, processFunc, warning) {
             $("#loading").hide();
         },
         error: function (err) {
+            console.log(err)
             alertErrorMessage(warning, errorCode(err.responseJSON.code))
         }
     });

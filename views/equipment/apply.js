@@ -1,13 +1,10 @@
 //내 비품 요청 목록 리스트
-request('GET', 'fixtures', setMyEquipmentList);
+request('GET', 'fixtures', setMyEquipmentList, false);
 
 function setMyEquipmentList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RFF001') {
+    if (res.code === 'A4110') {
         $("#myEquipmentList").empty();
-        let data = res.readFixturesFormDTO;
+        let data = res.data;
 
         if (data.length === 0) {
             let html = '<tr><td colspan="3">신청이 없습니다.</td></tr>';
@@ -26,8 +23,6 @@ function setMyEquipmentList(res) {
             html += '</tr>';
             $("#myEquipmentList").append(html);
         }
-    } else if (res.code === 'RFF002') {
-        console.log("내 비품 요청 목록 읽기 실패");
     }
 }
 

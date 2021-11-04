@@ -25,6 +25,41 @@ function errorCode(code) {
         // File
         case 'E6001':
             return "파일 업로드에 실패했습니다.(파일 오류)"
+
+        // Account
+        case 'E1000':
+            return "찾을 수 없는 사용자입니다."
+        case 'E1100':
+            return "이미 존재하는 아이디입니다."
+        case 'E1200':
+            return "대상이 부서의 파트장이므로 권한이 없습니다."
+
+        // Department
+        case 'E1600':
+            return "삭제되었거나 존재하지 않는 부서입니다."
+        case 'E1601':
+            return "이미 존재하는 부서입니다."
+        case 'E1602':
+            return "해당 부서에 소속되지 않은 멤버입니다."
+        case 'E1603':
+            return "해당 부서에 소속된 멤버가 존재합니다."
+
+        // Fixtures
+        case 'E4100':
+            return "삭제되었거나 존재하지 않는 요청서입니다."
+        case 'E4101':
+            return "해당 요청서 작성자가 아닙니다."
+        case 'E4102':
+            return "삭제되었거나 존재하지 않는 요청서입니다."
+        case 'E4110':
+            return "이미 처리된 요청서입니다."
+
+        // Board
+        case 'E4500':
+            return "삭제되었거나 존재하지 않는 게시글입니다."
+        case 'E4501':
+            return "해당 게시글 작성자가 아닙니다."
+
     }
 }
 

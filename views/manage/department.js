@@ -1,13 +1,9 @@
-//부서 옵션 셋팅
-request('GET', 'department', setDepartmentList);
+request('GET', 'department', setDepartmentList, false);
 
 function setDepartmentList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RD001') {
+    if (res.code === 'A1610') {
         $("#departmentList").empty();
-        let data = res.readDepartmentDTO;
+        let data = res.data;
 
         if (data.length === 0) {
             let html = '<tr><td colspan="4">아직 추가된 부서가 없습니다.</td></tr>'
@@ -27,8 +23,6 @@ function setDepartmentList(res) {
                 '</tr>';
             $("#departmentList").append(html);
         }
-    } else if (res.code === 'RD002') {
-        console.log("부서 목록 읽기 실패");
     }
 }
 
@@ -36,20 +30,14 @@ function setDepartmentList(res) {
 function createDepartment() {
     let saveData = {};
     saveData.departmentName = $("#createDep").val();
-    requestWithData('POST', 'department', saveData, createAlertDepartment);
+    requestWithData('POST', 'department', saveData, createAlertDepartment, true);
 }
 
 //부서생성 알림창
 function createAlertDepartment(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'CD001') {
-        alert("부서가 생성되었습니다.");
+    if (res.code === 'A1600') {
+        let departmentName = $("#createDep").val();
+        alert("[" + departmentName + "] 부서가 생성되었습니다.");
         location.reload();
-    } else if (res.code === 'CD002') {
-        alert("부서 생성 실패");
-    } else if (res.code === 'CD003') {
-        alert("이미 존재하는 부서입니다.");
     }
 }

@@ -2,18 +2,15 @@ let equipmentArr = [];
 
 //글 수정일 때 셋팅
 if (!isEmpty(getQuery().id)) {
-    request('GET', getURL('fixtures', getQuery().id), detailEquipmentList);
+    request('GET', getURL('fixtures', getQuery().id), detailEquipmentList, true);
 } else {
     equipmentArr.push(1);
 }
 
 function detailEquipmentList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RDFF001') {
+    if (res.code === 'A4120') {
         $("#applyMyEquipmentList").empty();
-        let data = res.readDetailFixturesFormDTO.readDetailFixturesDTO;
+        let data = res.data.readDetailFixturesDTO;
         for (let i = 0; i < data.length; i++) {
             let html = '<tr>' +
                 '<td><input type="checkbox" name="equipment" ' +
@@ -32,8 +29,6 @@ function detailEquipmentList(res) {
             $("#applyMyEquipmentList").append(html);
             equipmentArr.push(1);
         }
-    } else if (res.code === 'RDFF002') {
-        console.log("비품 요청서 상세보기 실패\n해당 요청서가 존재하지 않습니다.");
     }
 }
 
@@ -92,7 +87,6 @@ function chkEquipmentEmpty() {
             let amount = $("#" + i + 'Amount').val();
             if (isEmpty(fixturesName) || isEmpty(amount)) {
                 return false;
-                break;
             }
         }
     }
@@ -131,37 +125,23 @@ function applyEquipment() {
         saveData.fixturesFormId = getQuery().id;
         saveData.updateFixturesDTOReq  = fixturesDTOReq;
         requestWithData('PUT',
-            getURL('fixtures', getQuery().id), saveData, applyModifyAlertEquipment);
+            getURL('fixtures', getQuery().id), saveData, applyModifyAlertEquipment, true);
     } else {
         saveData.fixturesDTOReq = fixturesDTOReq;
-        requestWithData('POST', 'fixtures', saveData, applyAlertEquipment);
+        requestWithData('POST', 'fixtures', saveData, applyAlertEquipment, true);
     }
 }
 
 function applyAlertEquipment(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'CFF001') {
+    if (res.code === 'A4100') {
         alert("신청되었습니다.")
         location.href = "/equipment/apply";
-    } else if (res.code === 'CFF002') {
-        console.log("비품 요청 생성 실패");
     }
 }
 
 function applyModifyAlertEquipment(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'UFF001') {
+    if (res.code === 'A4111') {
         alert("수정되었습니다.")
         location.href = "/equipment/apply";
-    } else if (res.code === 'UFF002') {
-        console.log("비품 요청 수정 실패");
-    } else if (res.code === 'UFF003') {
-        alert("비품 요청 수정 실패\n비품 요청서 작성자가 아닙니다.");
-    } else if (res.code === 'UFF004') {
-        alert("비품 요청 생성 실패\n이미 처리된 비품 요청서입니다.");
     }
 }

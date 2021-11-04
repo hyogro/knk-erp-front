@@ -1,4 +1,4 @@
-if (boardType === 'notice' ||  boardType === 'fieldTeam') {
+if (boardType === 'notice' || boardType === 'fieldTeam') {
     let authority = $.cookie('authority');
     if (authority === "LVL1") {
         $("#writeBtn").hide();
@@ -8,20 +8,16 @@ if (boardType === 'notice' ||  boardType === 'fieldTeam') {
     searchPage();
 } else if (boardType === 'work') {
     $("#writeBtn").show();
-    request('GET', 'board/noticeLatest', setNoticeList);
+    request('GET', 'board/noticeLatest', setNoticeList, false);
 }
 
+// 상위 공지 5개 노출
 function setNoticeList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'NBL001') {
+    if (res.code === 'A4543') {
         if (getQuery().searchType !== "참조") {
-            setBoardInfo(res.page.content, 'important');
+            setBoardInfo(res.data.content, 'important');
         }
         searchPage();
-    } else if (res.code === 'NBL002') {
-        console.log("공지사항 조회 실패");
     }
 }
 
@@ -55,19 +51,14 @@ function searchPage() {
         $('input[type="checkbox"][id="referenceChk"]').prop('checked', true);
     }
 
-    request('GET', getURL('board/' + boardType + 'BoardList', sendData), setBoardList);
+    request('GET', getURL('board/' + boardType + 'BoardList', sendData), setBoardList, false);
 }
 
 //게시판 상세보기
 function setBoardList(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'RNB001' || res.code === 'RWB001' || res.code === 'RFTB001') {
-        setBoardInfo(res.page.content);
-        setPageCount(res.totalPage);
-    } else if (res.code === 'RNB002' || res.code === 'RWB002' || res.code === 'RFTB002') {
-        console.log("게시글 목록 불러오기 실패");
+    if (res.code === 'A4540' || res.code === 'A4541' || res.code === 'A4542') {
+        setBoardInfo(res.data.page.content);
+        setPageCount(res.data.totalPage);
     }
 }
 

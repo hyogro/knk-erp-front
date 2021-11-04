@@ -92,18 +92,16 @@ function conversionTimeGet(date) {
 
 //분 -> 일 시간 단위로
 function makeDateForm(min) {
-    var days = Math.floor(min / 60 / 8)
-    var hours = Math.floor((min - (days * 60 * 8)) / 60);
-    var mins = min - (days * 60 * 8) - (hours * 60);
+    let isMinus = min < 0;
+    min = (isMinus)? min * -1 : min;
 
-    if(min < 0) days++;
+    var days = parseInt(min / 60 / 8)
+    min -= days * 60 * 8;
 
-    var daysStr = days;
-    var hourStr = hours;
-    var minStr = (mins > 9) ? mins : '0' + mins
+    var hours = parseInt(min / 60);
+    min -= hours * 60;
 
-
-    return ((min < 0) ? "- " : "") + daysStr + '일 ' + hourStr + '시간 ' + minStr + '분';
+    return  ((isMinus) ? "-": "") + days + '일 ' + hours + '시간 ' + min + '분';
 }
 
 //엔터 br로 바꾸기
