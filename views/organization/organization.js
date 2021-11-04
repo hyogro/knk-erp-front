@@ -1,22 +1,19 @@
 //조직도 조회
-request('GET', 'department/readOrganizationChart', readOrganization);
+request('GET', 'department/readOrganizationChart', readOrganization, true);
+
+let positionList = ['사장', '대표', '이사', '부장', '과장', '차장', '대리',
+    '주임', '실장', '팀장', '센터장', '사원', '연구원'];
 
 function readOrganization(res) {
-    if (res.code === null) {
-        return;
-    }
-    if (res.code === 'ROC001') {
-        let data = res.organizationChartDTO;
+    if (res.code === 'A1640') {
+        let data = res.data;
+
+        $("#organizationList").empty();
         setOrganization(data);
-    } else if (res.code === 'ROC002') {
-        console.log("조직도 조회 실패");
     }
 }
 
 function setOrganization(data) {
-    let positionList = ['사장', '대표', '이사', '부장', '과장', '차장', '대리',
-        '주임', '실장', '팀장', '센터장', '사원', '연구원'];
-    $("#organizationList").empty();
     for (let i = 0; i < data.length; i++) {
         let html = '';
         html += '<div class="organization-name">🔸 ' + data[i].departmentName + '</div>'
