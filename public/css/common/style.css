@@ -377,3 +377,7 @@ label[for="file"], .file-form label {
     border: none !important;
     text-align: center !important;
 }
+
+.holiday .ui-state-default {
+    color: red !important;
+}
