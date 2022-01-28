@@ -78,6 +78,6 @@ function deleteAlertVacation() {
 function deleteSchedule(res) {
     if (res.code === 'A5714') {
         alert("삭제되었습니다.");
-        location.href = '/vacation';
+        history.back();
     }
 }
