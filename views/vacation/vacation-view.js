@@ -43,7 +43,6 @@ function deleteAlertVacation() {
     }
 }
 
-//TODO: 신청한 휴가 삭제
 //신청한 휴가 삭제
 function deleteSchedule(res) {
     if (res.code === 'A5714') {

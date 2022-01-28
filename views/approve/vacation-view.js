@@ -64,3 +64,20 @@ function rejectVacation(res) {
         location.href = '/approve/vacation';
     }
 }
+
+//신청한 휴가 삭제 경고창
+function deleteAlertVacation() {
+    if (confirm("신청한 휴가를 삭제하시겠습니까?") === true) {
+        request('DELETE', getURL('vacation', getQuery().id), deleteSchedule, true);
+    } else {
+        return false;
+    }
+}
+
+//신청한 휴가 삭제
+function deleteSchedule(res) {
+    if (res.code === 'A5714') {
+        alert("삭제되었습니다.");
+        location.href = '/vacation';
+    }
+}
