@@ -189,7 +189,8 @@ function setCalendar(data) {
     calendar.render();
 }
 
-//TODO: 출퇴근 기록 api
+let isAttendance = false;
+
 //출퇴근 기록 찍기
 function checkWork(type) {
     // $.getJSON("https://api.ipify.org?format=json", function (data) {
@@ -202,6 +203,13 @@ function checkWork(type) {
     //         // }
     //     }
     // )
+
+    if (isAttendance) {
+        alert("이미 완료된 요청입니다.");
+        return;
+    }
+    isAttendance = true;
+
     let uuid = UUID_Check_localStorage();
     if (type === 'onWork') {
         let requestData = {};
