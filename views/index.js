@@ -208,7 +208,6 @@ function checkWork(type) {
         alert("이미 완료된 요청입니다.");
         return;
     }
-    isAttendance = true;
 
     let uuid = UUID_Check_localStorage();
     if (type === 'onWork') {
@@ -247,6 +246,7 @@ function createUUID() {
 function onWork(res) {
     if (res.code === 'A5501') {
         alert("출근이 기록되었습니다.");
+        isAttendance = true;
         location.reload();
     }
 }
@@ -255,6 +255,7 @@ function onWork(res) {
 function offWork(res) {
     if (res.code === 'A5502') {
         alert("퇴근이 기록되었습니다.");
+        isAttendance = true;
         location.reload();
     }
 }
