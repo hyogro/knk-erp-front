@@ -205,7 +205,7 @@ function checkWork(type) {
     // )
 
     if (isAttendance) {
-        alert("이미 완료된 요청입니다.");
+        alert("요청을 처리중입니다.");
         return;
     }
 
